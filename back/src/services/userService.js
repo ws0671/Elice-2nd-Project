@@ -76,11 +76,6 @@ class userAuthService {
     return loginUser;
   }
 
-  static async getUsers() {
-    const users = await User.findAll();
-    return users;
-  }
-
   static async setUser({ user_id, toUpdate }) {
     // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
     let user = await User.findById({ user_id });
