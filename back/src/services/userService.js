@@ -61,15 +61,15 @@ class userAuthService {
 
     // 반환할 loginuser 객체를 위한 변수 설정
     const id = user.id;
-    const name = user.name;
-    const description = user.description;
+    const nickname = user.nickname;
+    const bookmarks = user.bookmarks;
 
     const loginUser = {
       token,
       id,
       email,
-      name,
-      description,
+      nickname,
+      bookmarks,
       errorMessage: null,
     };
 
