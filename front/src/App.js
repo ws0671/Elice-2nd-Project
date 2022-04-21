@@ -4,6 +4,7 @@ import styled from "styled-components"
 function App() {
   return (
     <Main>
+      <div>디자인</div>
       <Container>
         <RegisterForm />
       </Container>
@@ -14,13 +15,13 @@ function App() {
 const Main = styled.div`
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
 `
 const Container = styled.div`
-  max-width: 300px;
-  width: 300px;
+  max-width: 50vh;
+  width: 50vh;
 
   max-height: 100vh;
   height: 80vh;
