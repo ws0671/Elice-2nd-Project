@@ -76,9 +76,9 @@ class userAuthService {
     return loginUser;
   }
 
-  static async setUser({ user_id, toUpdate }) {
+  static async setUser({ id, toUpdate }) {
     // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
-    let user = await User.findById({ user_id });
+    let user = await User.findById({ id });
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
@@ -87,28 +87,29 @@ class userAuthService {
     }
 
     // 업데이트 대상에 name이 있다면, 즉 name 값이 null 이 아니라면 업데이트 진행
-    if (toUpdate.name) {
-      const fieldToUpdate = "name";
-      const newValue = toUpdate.name;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+    if (toUpdate.nickname) {
+      const fieldToUpdate = "nickname";
+      const newValue = toUpdate.nickname;
+      user = await User.update({ id, fieldToUpdate, newValue });
     }
 
     if (toUpdate.email) {
       const fieldToUpdate = "email";
       const newValue = toUpdate.email;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+      user = await User.update({ id, fieldToUpdate, newValue });
     }
 
     if (toUpdate.password) {
       const fieldToUpdate = "password";
-      const newValue = toUpdate.password;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+      const hashedPassword = await bcrypt.hash(toUpdate.password, 10);
+      const newValue = hashedPassword;
+      user = await User.update({ id, fieldToUpdate, newValue });
     }
 
-    if (toUpdate.description) {
-      const fieldToUpdate = "description";
-      const newValue = toUpdate.description;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+    if (toUpdate.bookmarks) {
+      const fieldToUpdate = "bookmarks";
+      const newValue = toUpdate.bookmarks;
+      user = await User.update({ id, fieldToUpdate, newValue });
     }
 
     return user;
