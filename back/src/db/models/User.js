@@ -11,8 +11,8 @@ class User {
     return user;
   }
 
-  static async findById({ user_id }) {
-    const user = await UserModel.findOne({ id: user_id });
+  static async findById({ id }) {
+    const user = await UserModel.findOne({ id });
     return user;
   }
 
