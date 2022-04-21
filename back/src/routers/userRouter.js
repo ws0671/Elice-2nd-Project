@@ -77,22 +77,22 @@ userAuthRouter.get(
 );
 
 userAuthRouter.put(
-  "/users/:id",
+  "/user/:id",
   login_required,
   async function (req, res, next) {
     try {
       // URI로부터 사용자 id를 추출함.
-      const user_id = req.params.id;
+      const id = req.params.id;
       // body data 로부터 업데이트할 사용자 정보를 추출함.
-      const name = req.body.name ?? null;
+      const nickname = req.body.nickname ?? null;
       const email = req.body.email ?? null;
       const password = req.body.password ?? null;
-      const description = req.body.description ?? null;
+      const bookmarks = req.body.bookmarks ?? null;
 
-      const toUpdate = { name, email, password, description };
+      const toUpdate = { nickname, email, password, bookmarks };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-      const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
+      const updatedUser = await userAuthService.setUser({ id, toUpdate });
 
       if (updatedUser.errorMessage) {
         throw new Error(updatedUser.errorMessage);
