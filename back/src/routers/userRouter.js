@@ -77,12 +77,12 @@ userAuthRouter.get(
 );
 
 userAuthRouter.put(
-  "/user/:id",
+  "/user/current",
   login_required,
   async function (req, res, next) {
     try {
       // URI로부터 사용자 id를 추출함.
-      const id = req.params.id;
+      const id = req.currentUserId;
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const nickname = req.body.nickname ?? null;
       const email = req.body.email ?? null;
