@@ -12,7 +12,7 @@ const Game = {
   },
 
   findById: async ({ gameId }) => {
-    const game = await GameModel.findOne({ id: gameId })
+    const game = await GameModel.findOne({ appId: gameId })
     return game
   },
 }
