@@ -4,7 +4,9 @@ import styled from "styled-components"
 function Register() {
   return (
     <Main>
-      <div>디자인</div>
+      <Container>
+        <img src={require("../image/gameday.png")}></img>
+      </Container>
       <Container>
         <RegisterForm />
       </Container>
@@ -20,20 +22,26 @@ const Main = styled.div`
   justify-content: space-around;
 `
 const Container = styled.div`
-  max-width: 50vh;
-  width: 50vh;
+  max-width: 100vh;
+  width: 60vh;
 
   max-height: 100vh;
   height: 80vh;
-
-  border: 2px solid #ced4da;
-  border-radius: 10px;
 
   padding: 12px;
 
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:not(:first-of-type) {
+    border: 2px solid #ced4da;
+    border-radius: 10px;
+  }
+
+  img {
+    width: 100vh;
+  }
 `
 
 export default Register
