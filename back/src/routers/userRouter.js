@@ -109,6 +109,23 @@ userAuthRouter.delete("/:id", loginRequired, async (req, res, next) => {
     next(error)
   }
 })
+// 게임 북마크/북마크 취소
+userAuthRouter.put(
+  "/user/bookmark/:gameId",
+  loginRequired,
+  async function (req, res, next) {
+    try {
+      const userId = req.currentUserId
+      const gameId = req.params.gameId
+
+      const updatedUser = await userAuthService.setBookmark({ userId, gameId })
+
+      res.status(200).send(updatedUser)
+    } catch (error) {
+      next(error)
+    }
+  }
+)
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 userAuthRouter.get("/afterlogin", loginRequired, function (req, res, next) {
