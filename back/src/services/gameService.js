@@ -9,6 +9,11 @@ const gameAuthService = {
     }
     return game
   },
+
+  getGames: async () => {
+    const games = await Game.findAll()
+    return games
+  },
 }
 
 export { gameAuthService }
