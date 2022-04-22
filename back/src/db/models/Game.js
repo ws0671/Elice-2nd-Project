@@ -6,8 +6,10 @@ const Game = {
     return createdNewGame
   },
 
-  findAll: async ({ lastGameId }) => {
-    const games = await GameModel.find({ appId: { $gt: lastGameId } }).limit(10)
+  findAll: async ({ page }) => {
+    const games = await GameModel.find({})
+      .skip((page - 1) * 10)
+      .limit(10)
     return games
   },
 
