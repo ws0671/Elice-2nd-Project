@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import * as Api from "./api"
 import { loginReducer } from "./reducer"
 
-import Register from "./page/Register"
+import Register from "./pages/Register"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
