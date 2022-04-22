@@ -12,7 +12,6 @@ const RegisterForm = () => {
   const [nameError, setNameError] = useState(true)
   const [emailError, setEmailError] = useState(true)
   const [passwordError, setPasswordError] = useState(true)
-  const [confirmPasswordError, setConfirmPasswordError] = useState(true)
   const [nicknameError, setNicknameError] = useState(true)
 
   const validateName = (name) => {
@@ -43,11 +42,13 @@ const RegisterForm = () => {
     }
   }
 
-  const validateConfirmPassword = (v) => {
-    if (v === password) {
-      setConfirmPasswordError(false)
+  const validateConfirmPassword = password === confirmPassword && !password
+
+  const validateNickname = (nickname) => {
+    if (nickname.length < 2 || nickname.length > 10) {
+      setNicknameError(true)
     } else {
-      setConfirmPasswordError(true)
+      setNicknameError(false)
     }
   }
 
@@ -56,7 +57,7 @@ const RegisterForm = () => {
     validateName(e.target.value)
   }
 
-  const handleIdChange = (e) => {
+  const handleEmailChange = (e) => {
     setEmail(e.target.value)
     validateEmail(e.target.value)
   }
@@ -68,7 +69,11 @@ const RegisterForm = () => {
 
   const handleConfirmPwChange = (e) => {
     setConfirmPassword(e.target.value)
-    validateConfirmPassword(e.target.value)
+  }
+
+  const handleNicknameChange = (e) => {
+    setNickname(e.target.value)
+    validateNickname(e.target.value)
   }
 
   const handleReset = () => {
@@ -79,7 +84,6 @@ const RegisterForm = () => {
     setNameError(true)
     setEmailError(true)
     setPasswordError(true)
-    setConfirmPasswordError(true)
   }
 
   const handleSubmit = () => {
@@ -117,18 +121,18 @@ const RegisterForm = () => {
 
         <fieldset className={styles.formFieldset}>
           <label className={styles.formLabel} htmlFor="identification">
-            아이디
+            이메일(ID)
           </label>
           <input
             value={email}
-            id="identification"
-            onChange={handleIdChange}
+            id="email"
+            onChange={handleEmailChange}
             type="text"
-            name="identification"
-            placeholder="아이디를 입력해 주세요."
+            name="email"
+            placeholder="이메일을 입력해 주세요."
           ></input>
           <div className={styles.error}>
-            {emailError ? "아이디는 4글자 이상이어야 합니다." : null}
+            {emailError ? "이메일 형식이 올바르지 않습니다." : null}
           </div>
         </fieldset>
 
@@ -161,10 +165,29 @@ const RegisterForm = () => {
             onChange={handleConfirmPwChange}
             type="password"
             name="password"
-            placeholder="비밀번호 확인을 위해 다시 한 번 입력해 주세요."
+            placeholder="비밀번호를 재입력해주세요."
           ></input>
           <div className={styles.error}>
-            {confirmPasswordError ? "비밀번호가 일치하지 않습니다" : null}
+            {validateConfirmPassword ? "비밀번호가 일치하지 않습니다" : null}
+          </div>
+        </fieldset>
+
+        <fieldset className={styles.formFieldset}>
+          <label className={styles.formLabel} htmlFor="nickname">
+            사용할 닉네임
+          </label>
+          <input
+            value={nickname}
+            id="nickname"
+            onChange={handleNicknameChange}
+            type="text"
+            name="nickname"
+            placeholder="닉네임을 입력해주세요"
+          ></input>
+          <div className={styles.error}>
+            {nicknameError
+              ? "닉네임은 2글자 이상, 10글자 이하여야 합니다."
+              : null}
           </div>
         </fieldset>
 
