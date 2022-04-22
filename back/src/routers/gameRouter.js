@@ -5,9 +5,10 @@ import { gameAuthService } from "../services/gameService"
 
 const gameAuthRouter = Router()
 
-gameAuthRouter.get("/game/list", async function (req, res, next) {
+gameAuthRouter.get("/game/list/:page", async function (req, res, next) {
   try {
-    const gamelist = await gameAuthService.getGames()
+    const page = req.params.page
+    const gamelist = await gameAuthService.getGames({ page })
 
     if (gamelist.errorMessage) {
       throw new Error(gamelist.errorMessage)
