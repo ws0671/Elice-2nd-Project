@@ -187,14 +187,17 @@ const RegisterForm = () => {
           <label className={styles.formLabel} htmlFor="nickname">
             사용할 닉네임
           </label>
-          <input
-            value={nickname}
-            id="nickname"
-            onChange={handleNicknameChange}
-            type="text"
-            name="nickname"
-            placeholder="닉네임을 입력해주세요"
-          ></input>
+          <div>
+            <input
+              value={nickname}
+              id="nickname"
+              onChange={handleNicknameChange}
+              type="text"
+              name="nickname"
+              placeholder="닉네임을 입력해주세요"
+            ></input>
+            <input type="button" value="중복 확인"></input>
+          </div>
           <div className={styles.error}>
             {nicknameError
               ? "닉네임은 2글자 이상, 10글자 이하여야 합니다."
