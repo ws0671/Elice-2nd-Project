@@ -6,8 +6,8 @@ const Game = {
     return createdNewGame
   },
 
-  findAll: async () => {
-    const games = await GameModel.find({})
+  findAll: async ({ lastGameId }) => {
+    const games = await GameModel.find({ appId: { $gt: lastGameId } }).limit(10)
     return games
   },
 
