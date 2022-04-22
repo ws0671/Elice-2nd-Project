@@ -196,7 +196,12 @@ const RegisterForm = () => {
               name="nickname"
               placeholder="닉네임을 입력해주세요"
             ></input>
-            <input type="button" value="중복 확인"></input>
+            <input
+              className={`${styles.formButton} ${styles.submitButton}`}
+              type="button"
+              onClick={() => alert("hi")}
+              value="중복 확인"
+            ></input>
           </div>
           <div className={styles.error}>
             {nicknameError
