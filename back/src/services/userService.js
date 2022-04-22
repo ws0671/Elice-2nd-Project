@@ -25,8 +25,8 @@ const userAuthService = {
     const hashedPassword = await bcrypt.hash(password, 10)
 
     // id 는 유니크 값 부여
-    const id = uuidv4()
-    const newUser = { id, nickname, email, password: hashedPassword }
+    const userId = uuidv4()
+    const newUser = { userId, nickname, email, password: hashedPassword }
 
     // db에 저장
     const createdNewUser = await User.create({ newUser })
@@ -56,16 +56,14 @@ const userAuthService = {
 
     // 로그인 성공 -> JWT 웹 토큰 생성
     const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key"
-    const token = jwt.sign({ user_id: user.id }, secretKey)
+    const token = jwt.sign({ user_id: user.userId }, secretKey)
 
     // 반환할 loginuser 객체를 위한 변수 설정
-    const id = user.id
-    const nickname = user.nickname
-    const bookmarks = user.bookmarks
+    const { userId, nickname, bookmarks } = user
 
     const loginUser = {
       token,
-      id,
+      userId,
       email,
       nickname,
       bookmarks,
@@ -75,30 +73,33 @@ const userAuthService = {
     return loginUser
   },
 
-  setUser: async ({ id, toUpdate }) => {
+  setUser: async ({ userId, toUpdate }) => {
     // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
-    let user = await User.findById({ id })
+    console.log(userId)
+    let user = await User.findById({ userId })
     if (!user) {
-      throw new Error("가입 내역이 없습니다. 다시 한 번 확인해 주세요.")
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      )
     }
     // 닉네임 중복 검사
     const findByNicknameUser = await User.findByNickname({
       nickname: toUpdate.nickname,
     })
-    if (findByNicknameUser && findByNicknameUser.id != id) {
+    if (findByNicknameUser && findByNicknameUser.userId != userId) {
       throw new Error(
         "이 닉네임은 현재 사용중입니다. 다른 닉네임을 입력해 주세요."
       )
     }
 
     const updateObject = SetUtil.compareValues(toUpdate, user)
-    user = await User.update({ id, updateObject })
+    user = await User.update({ userId, updateObject })
 
     return user
   },
 
-  getUserInfo: async ({ id }) => {
-    const user = await User.findById({ id })
+  getUserInfo: async ({ userId }) => {
+    const user = await User.findById({ userId })
 
     // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
@@ -108,6 +109,18 @@ const userAuthService = {
     }
 
     return user
+  },
+
+  deleteUser: async ({ userId }) => {
+    const isDataDeleted = await User.deleteById({ userId })
+
+    if (!isDataDeleted) {
+      throw new Error(
+        "해당하는 회원 정보가 없습니다. 다시 한 번 확인해 주세요."
+      )
+    }
+
+    return { status: "ok" }
   },
 }
 

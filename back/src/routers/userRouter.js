@@ -1,6 +1,6 @@
 import is from "@sindresorhus/is"
 import { Router } from "express"
-import { login_required } from "../middlewares/login_required"
+import { loginRequired } from "../middlewares/loginRequired"
 import { userAuthService } from "../services/userService"
 
 const userAuthRouter = Router()
@@ -53,13 +53,13 @@ userAuthRouter.post("/user/login", async function (req, res, next) {
 
 userAuthRouter.get(
   "/user/current",
-  login_required,
+  loginRequired,
   async function (req, res, next) {
     try {
       // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
-      const id = req.currentUserId
+      const userId = req.currentUserId
       const currentUserInfo = await userAuthService.getUserInfo({
-        id,
+        userId,
       })
 
       if (currentUserInfo.errorMessage) {
@@ -75,18 +75,18 @@ userAuthRouter.get(
 
 userAuthRouter.put(
   "/user/current",
-  login_required,
+  loginRequired,
   async function (req, res, next) {
     try {
       // URI로부터 사용자 id를 추출함.
-      const id = req.currentUserId
+      const userId = req.currentUserId
       // body data 로부터 업데이트할 사용자 정보를 추출함.
       const { nickname, email, password, bookmarks } = req.body ?? null
 
       const toUpdate = { nickname, email, password, bookmarks }
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-      const updatedUser = await userAuthService.setUser({ id, toUpdate })
+      const updatedUser = await userAuthService.setUser({ userId, toUpdate })
 
       if (updatedUser.errorMessage) {
         throw new Error(updatedUser.errorMessage)
@@ -99,8 +99,19 @@ userAuthRouter.put(
   }
 )
 
+userAuthRouter.delete("/:id", loginRequired, async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const result = await userAuthService.deleteUser({ userId })
+
+    res.status(200).send(result)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
+userAuthRouter.get("/afterlogin", loginRequired, function (req, res, next) {
   res
     .status(200)
     .send(

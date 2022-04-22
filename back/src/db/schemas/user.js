@@ -1,8 +1,8 @@
-import { Schema, model } from "mongoose";
+import { Schema, model } from "mongoose"
 
 const UserSchema = new Schema(
   {
-    id: {
+    userId: {
       type: String,
       required: true,
     },
@@ -26,8 +26,8 @@ const UserSchema = new Schema(
   {
     timestamps: true,
   }
-);
+)
 
-const UserModel = model("User", UserSchema);
+const UserModel = model("User", UserSchema)
 
-export { UserModel };
+export { UserModel }

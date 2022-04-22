@@ -11,8 +11,8 @@ const User = {
     return user
   },
 
-  findById: async ({ id }) => {
-    const user = await UserModel.findOne({ id })
+  findById: async ({ userId }) => {
+    const user = await UserModel.findOne({ userId })
     return user
   },
 
@@ -21,13 +21,18 @@ const User = {
     return user
   },
 
-  update: async ({ id, updateObject }) => {
-    const filter = { id } // 바꿀 대상 찾기
+  update: async ({ userId, updateObject }) => {
+    const filter = { userId } // 바꿀 대상 찾기
     const update = { $set: updateObject } // 바꿀 내용
     const option = { returnOriginal: false } // 옵션
 
     const updatedUser = await UserModel.findOneAndUpdate(filter, update, option)
     return updatedUser
+  },
+  deleteById: async ({ userId }) => {
+    const deleteResult = await UserModel.deleteOne({ userId })
+    const isDataDeleted = deleteResult.deletedCount === 1
+    return isDataDeleted
   },
 }
 
