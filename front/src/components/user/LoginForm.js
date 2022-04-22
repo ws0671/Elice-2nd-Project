@@ -96,9 +96,11 @@ function LoginForm() {
           <img style={{ width: '700px' }} src={process.env.PUBLIC_URL + 'img/gamer.svg'} alt="Gamer" />
         </Col>
 
-        <Col style={{ width: "80%", marginLeft: "10%", marginTop: "5%" }} className="lg-6 text-center">
+        <Col style={{ width: "80%", marginLeft: "10%" }} className="lg-6 text-center">
 
-          <BsPersonCircle size={70} color="#6c63ff" alt="icon" style={{ marginBottom: "2rem" }} />
+          <BsPersonCircle size={70} color="#6c63ff" alt="icon" style={{ marginBottom: "1rem" }} />
+          <h3>Sign In</h3>
+          <p class="mb-4">Lorem ipsum dolor sit amet elit. Sapiente sit aut eos consectetur adipisicing.</p>
           <Form className="d-grid gap-2 col-10 mx-auto" onSubmit={handleSubmit}>
             <Form.Group controlId="loginEmail">
               {/* <Form.Label>이메일 주소</Form.Label> */}
@@ -132,20 +134,21 @@ function LoginForm() {
                 </Form.Text>
               )} */}
             </Form.Group>
-
+            <Form.Group className="text-right mt-2">
+              <a href="#"><small className="reset" style={{ textAlignLast: "right" }}>비밀번호 재설정</small></a>
+            </Form.Group>
             <Form.Group className="d-grid gap-2 col-12 mx-auto mt-3">
               <Button className="btn btn-block" type="submit" disabled={!isFormValid} style={{ backgroundColor: "#6c63ff", height: "50px" }}>
                 로그인
               </Button>
-              <Button variant="light" onClick={() => navigate("/register")}>
-                회원가입하기
-              </Button>
+              <span className="d-block text-left my-4 text-muted">&mdash; or &mdash;</span>
+
 
             </Form.Group>
           </Form>
-          <Form.Group className="text-right mt-2">
-            <a href="#"><small className="reset">비밀번호 재설정</small></a>
-          </Form.Group>
+          <Button variant="light" onClick={() => navigate("/register")}>
+            회원가입하기
+          </Button>
         </Col>
 
 
