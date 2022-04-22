@@ -1,4 +1,6 @@
 import { Router } from "express"
+import res from "express/lib/response"
+import { restart } from "nodemon"
 import { gameAuthService } from "../services/gameService"
 
 const gameAuthRouter = Router()
@@ -15,6 +17,20 @@ gameAuthRouter.get("/game/:gameId", async function (req, res, next) {
     }
 
     res.status(200).send(gameInfo)
+  } catch (error) {
+    next(error)
+  }
+})
+
+gameAuthRouter.get("/game/list", async function (req, res, next) {
+  try {
+    const gamelist = await gameAuthService.getGames()
+
+    if (gamelist.errorMessage) {
+      throw new Error(gamelist.errorMessage)
+    }
+
+    res.status(200).send(gamelist)
   } catch (error) {
     next(error)
   }
