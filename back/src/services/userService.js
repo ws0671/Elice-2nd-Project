@@ -128,7 +128,7 @@ const userAuthService = {
       )
     }
     // TODO : Game DB 추가하고 실행 가능
-    // const game = await Game.findById({ gameId }) // 북마크 할 게임 객체 찾기
+    // const game = await User.findByGameId({ gameId }) // 북마크 할 게임 객체 찾기
     // if (!game) {
     //   throw new Error(
     //     "해당 id를 가진 게임 데이터는 없습니다. 다시 한 번 확인해주세요."
@@ -156,6 +156,18 @@ const userAuthService = {
     user = await User.updateBookmark({ userId, toUpdate })
 
     return user
+  },
+
+  getBookmarkList: async ({ userId }) => {
+    const user = await User.findById({ userId })
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      )
+    }
+    const bookmarks = user.bookmarks
+
+    return bookmarks
   },
 }
 
