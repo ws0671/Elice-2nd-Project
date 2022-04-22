@@ -1,38 +1,34 @@
-import { UserModel } from "../schemas/user";
+import { UserModel } from "../schemas/user"
 
-class User {
-  static async create({ newUser }) {
-    const createdNewUser = await UserModel.create(newUser);
-    return createdNewUser;
-  }
+const User = {
+  create: async ({ newUser }) => {
+    const createdNewUser = await UserModel.create(newUser)
+    return createdNewUser
+  },
 
-  static async findByEmail({ email }) {
-    const user = await UserModel.findOne({ email });
-    return user;
-  }
+  findByEmail: async ({ email }) => {
+    const user = await UserModel.findOne({ email })
+    return user
+  },
 
-  static async findById({ id }) {
-    const user = await UserModel.findOne({ id });
-    return user;
-  }
+  findById: async ({ id }) => {
+    const user = await UserModel.findOne({ id })
+    return user
+  },
 
-  static async findByNickname({ nickname }) {
-    const user = await UserModel.findOne({ nickname });
-    return user;
-  }
+  findByNickname: async ({ nickname }) => {
+    const user = await UserModel.findOne({ nickname })
+    return user
+  },
 
-  static async update({ id, fieldToUpdate, newValue }) {
-    const filter = { id };
-    const update = { [fieldToUpdate]: newValue };
-    const option = { returnOriginal: false };
+  update: async ({ id, updateObject }) => {
+    const filter = { id } // 바꿀 대상 찾기
+    const update = { $set: updateObject } // 바꿀 내용
+    const option = { returnOriginal: false } // 옵션
 
-    const updatedUser = await UserModel.findOneAndUpdate(
-      filter,
-      update,
-      option
-    );
-    return updatedUser;
-  }
+    const updatedUser = await UserModel.findOneAndUpdate(filter, update, option)
+    return updatedUser
+  },
 }
 
-export { User };
+export { User }
