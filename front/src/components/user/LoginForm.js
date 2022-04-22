@@ -1,18 +1,14 @@
 import React, { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { Container, Col, Row, Form, Button } from "react-bootstrap"
+import { Container, Col, Row, Form, Button, FormGroup } from "react-bootstrap"
 import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { BsEye, BsPersonCircle } from "react-icons/bs";
 
 import * as Api from "../../api"
 import { DispatchContext } from "../../App"
 import axios from "axios"
 
-
-const img_gamer = styled.div`
-    width: 600px;
-    padding: 10px;
-`
 
 /* const 제목 = styled.h4`
     font-size: 25px;
@@ -45,6 +41,8 @@ function LoginForm() {
   //
   // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
   const isFormValid = isEmailValid && isPasswordValid
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -93,59 +91,61 @@ function LoginForm() {
   return (
 
     <Container className="container-fluid">
-      <Row>
-
-
+      <Row className="mt-5">
         <Col className="md-6">
           <img style={{ width: '700px' }} src={process.env.PUBLIC_URL + 'img/gamer.svg'} alt="Gamer" />
         </Col>
 
+        <Col style={{ width: "80%", marginLeft: "10%", marginTop: "5%" }} className="lg-6 text-center">
 
-        <Col style={{ width: "80%", marginLeft: "10%", marginTop: "10%" }} className="lg-6 justify-content-center">
-          <Form onSubmit={handleSubmit}>
+          <BsPersonCircle size={70} color="#6c63ff" alt="icon" style={{ marginBottom: "2rem" }} />
+          <Form className="d-grid gap-2 col-10 mx-auto" onSubmit={handleSubmit}>
             <Form.Group controlId="loginEmail">
-              <Form.Label>이메일 주소</Form.Label>
+              {/* <Form.Label>이메일 주소</Form.Label> */}
               <Form.Control
-                placeholder="이메일 주소를 입력해주세요"
+                placeholder="이메일 주소"
                 type="email"
                 autoComplete="on"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {!isEmailValid && (
-                <Form.Text className="text-success">
+              {/*  {!isEmailValid && (
+                <Form.Text className="text-success text-left">
                   이메일 형식이 올바르지 않습니다.
                 </Form.Text>
-              )}
+              )} */}
+            </Form.Group>
+
+
+            <Form.Group controlId="loginPassword" className="mt-2">
+              {/* <Form.Label>비밀번호</Form.Label> */}
+              <Form.Control
+                type="password"
+                placeholder="비밀번호"
+                autoComplete="on"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              {/*  {!isPasswordValid && (
+                <Form.Text className="text-success">
+                  비밀번호는 4글자 이상입니다.
+                </Form.Text>
+              )} */}
+            </Form.Group>
+
+            <Form.Group className="d-grid gap-2 col-12 mx-auto mt-3">
+              <Button className="btn btn-block" type="submit" disabled={!isFormValid} style={{ backgroundColor: "#6c63ff", height: "50px" }}>
+                로그인
+              </Button>
+              <Button variant="light" onClick={() => navigate("/register")}>
+                회원가입하기
+              </Button>
+
             </Form.Group>
           </Form>
-
-          <Form.Group controlId="loginPassword" className="mt-3">
-            <Form.Label>비밀번호</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="비밀번호를 입력해주세요"
-              autoComplete="on"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            {!isPasswordValid && (
-              <Form.Text className="text-success">
-                비밀번호는 4글자 이상입니다.
-              </Form.Text>
-            )}
+          <Form.Group className="text-right mt-2">
+            <a href="#"><small className="reset">비밀번호 재설정</small></a>
           </Form.Group>
-
-
-          <Button variant="primary" type="submit" disabled={!isFormValid}>
-            로그인
-          </Button>
-
-
-          <Button variant="light" onClick={() => navigate("/register")}>
-            회원가입하기
-          </Button>
-
         </Col>
 
 
