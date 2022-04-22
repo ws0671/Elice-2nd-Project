@@ -8,7 +8,6 @@ import Header from "./pages/Header"
 import Main from "./pages/Main"
 import Network from "./components/user/Network"
 import RegisterForm from "./components/user/RegisterForm"
-import Portfolio from "./pages/Portfolio"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -57,13 +56,11 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
+          <Main />
           <Routes>
-            <Route path="/" exact element={<Portfolio />} />
             <Route path="/register" element={<RegisterForm />} />
             <Route path="/login" element={<Main />} />
-            <Route path="/users/:userId" element={<Portfolio />} />
             <Route path="/network" element={<Network />} />
-            <Route path="*" element={<Portfolio />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

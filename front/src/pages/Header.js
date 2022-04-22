@@ -65,7 +65,7 @@ function Header() {
       </Nav>
       <div className="video">
         <video width="100%" muted autoPlay loop>
-          <source src="/video/mainVideo.mp4" type="video/mp4" />
+          <source src="/videos/mainVideo.mp4" type="video/mp4" />
         </video>
       </div>
     </>
