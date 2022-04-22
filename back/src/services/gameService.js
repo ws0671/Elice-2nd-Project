@@ -10,8 +10,8 @@ const gameAuthService = {
     return game
   },
 
-  getGames: async () => {
-    const games = await Game.findAll()
+  getGames: async ({ page }) => {
+    const games = await Game.findAll({ page })
     return games
   },
 }
