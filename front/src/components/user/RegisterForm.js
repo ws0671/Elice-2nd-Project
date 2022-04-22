@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react"
-import axios from "axios"
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import * as Api from "../../api"
 import styles from "./Register.module.css"
 
 const RegisterForm = () => {
+  const navigate = useNavigate()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -14,6 +16,7 @@ const RegisterForm = () => {
   const [passwordError, setPasswordError] = useState(true)
   const [nicknameError, setNicknameError] = useState(true)
 
+  // 이름 유효성 검사 함수
   const validateName = (name) => {
     if (name.length < 1 || name.length > 10) {
       setNameError(true)
@@ -22,6 +25,7 @@ const RegisterForm = () => {
     }
   }
 
+  // 이메일 유효성 검사 함수
   const validateEmail = (email) => {
     const validate = email
       .toLowerCase()
@@ -32,6 +36,7 @@ const RegisterForm = () => {
     setEmailError(!validate)
   }
 
+  // 비밀번호 유효성 검사 함수
   const validatePassword = (password) => {
     const specialLetter = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi)
     const isValidPassword = password.length >= 4 && specialLetter >= 1
@@ -42,8 +47,11 @@ const RegisterForm = () => {
     }
   }
 
-  const validateConfirmPassword = password === confirmPassword && !password
+  // 비밀번호 확인 검사 변수
+  const validateConfirmPassword =
+    password === confirmPassword && password.length >= 1
 
+  // 닉네임 유효성 검사 함수
   const validateNickname = (nickname) => {
     if (nickname.length < 2 || nickname.length > 10) {
       setNicknameError(true)
@@ -81,19 +89,22 @@ const RegisterForm = () => {
     setEmail("")
     setPassword("")
     setConfirmPassword("")
+    setNickname("")
     setNameError(true)
     setEmailError(true)
     setPasswordError(true)
+    setNicknameError(true)
   }
 
   const handleSubmit = () => {
     if (!nameError && !emailError && !passwordError) {
       alert("회원가입에 성공했습니다.")
-      const newUser = { name, email, password }
-      axios.post("http://localhost:8080/register", newUser).then((res) => {
+      const newUser = { name, email, password, nickname }
+      Api.post("user/register", newUser).then((res) => {
         console.log(res.data)
         handleReset()
       })
+      navigate("/login")
     } else {
       alert("회원가입에 실패했습니다. 다시 한 번 확인해주세요.")
     }
@@ -168,7 +179,7 @@ const RegisterForm = () => {
             placeholder="비밀번호를 재입력해주세요."
           ></input>
           <div className={styles.error}>
-            {validateConfirmPassword ? "비밀번호가 일치하지 않습니다" : null}
+            {!validateConfirmPassword ? "비밀번호가 일치하지 않습니다" : null}
           </div>
         </fieldset>
 
@@ -205,7 +216,7 @@ const RegisterForm = () => {
             type="button"
             className={`${styles.formButton} ${styles.submitButton}`}
           >
-            제출
+            가입하기
           </button>
         </div>
       </form>
