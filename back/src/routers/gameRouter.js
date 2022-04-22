@@ -19,3 +19,5 @@ gameAuthRouter.get("/game/:gameId", async function (req, res, next) {
     next(error)
   }
 })
+
+export { gameAuthRouter }
