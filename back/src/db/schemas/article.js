@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose"
 
-const UserSchema = new Schema(
+const ArticleSchema = new Schema(
   {
     articleId: {
       type: String,
@@ -36,6 +36,6 @@ const UserSchema = new Schema(
   }
 )
 
-const UserModel = model("User", UserSchema)
+const ArticleModel = model("Article", ArticleSchema)
 
-export { UserModel }
+export { ArticleModel }
