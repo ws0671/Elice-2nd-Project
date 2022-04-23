@@ -45,8 +45,9 @@ articleAuthRouter.put(
   async (req, res, next) => {
     try {
       const articleId = req.params.articleId
+      const author = req.currentUserId
 
-      const { author, category, title, content, tags } = req.body ?? null
+      const { category, title, content, tags } = req.body ?? null
 
       const toUpdate = { category, title, content, tags }
 
