@@ -5,10 +5,8 @@ import { SetUtil } from "../common/setUtil"
 const CommentService = {
   addComment: async ({ userId, articleId, comment }) => {
     const id = uuidv4()
-
     const user = await User.findById({ userId })
     const writerNickname = user.nickname
-
     const newComment = {
       id,
       articleId,
@@ -25,17 +23,14 @@ const CommentService = {
 
     if (!comment) {
       throw new Error(
-        "해당 id를 가진 수상 데이터는 없습니다. 다시 한 번 확인해 주세요."
+        "해당 id를 가진 댓글 데이터는 없습니다. 다시 한 번 확인해 주세요."
       )
     }
-
-    if (userId !== comment.userId) {
+    if (userId !== comment.writerId) {
       throw new Error("당신은 이 댓글의 작성자가 아닙니다.")
     }
 
-    console.log(toUpdate)
     const updateObject = SetUtil.compareValues(toUpdate, comment)
-    console.log(updateObject)
     comment = await Comment.update({ commentId, updateObject })
     return comment
   },
@@ -45,21 +40,18 @@ const CommentService = {
 
     if (!commentId) {
       throw new Error(
-        "해당 id를 가진 수상 데이터는 없습니다. 다시 한 번 확인해 주세요."
+        "해당 id를 가진 댓글 데이터는 없습니다. 다시 한 번 확인해 주세요."
       )
     }
-
-    if (userId !== comment.userId) {
-      throw new Error(
-        "당신은 댓글 작성자가 아닙니다. 댓글을 삭제할 수 없습니다!"
-      )
+    if (userId !== comment.writerId) {
+      throw new Error("당신은 이 댓글의 작성자가 아닙니다.")
     }
 
     toUpdate.comment = "삭제된 댓글입니다."
     const updateObject = SetUtil.compareValues(toUpdate, comment)
-    comment = await Comment.delete({ commentId, updateObject })
+    comment = await Comment.softDelete({ commentId, updateObject })
     return comment
   },
 }
 
-export default { CommentService }
+export { CommentService }

@@ -36,7 +36,7 @@ CommentRouter.put("/:commentId", async (req, res, next) => {
     const commentId = req.params.commentId
     const comment = req.body.comment
 
-    const toUpdate = { comment, writerName }
+    const toUpdate = { comment }
     const newComment = await CommentService.setComment({
       userId,
       commentId,
@@ -52,7 +52,7 @@ CommentRouter.put("/:commentId", async (req, res, next) => {
 // 댓글 삭제(soft delete)
 CommentRouter.put("/:commentId/delete", async (req, res, next) => {
   try {
-    const userId = req.body.userId
+    const userId = req.currentUserId
     const commentId = req.params.commentId
     const { comment } = req.body
     const isDeleted = true
@@ -70,4 +70,4 @@ CommentRouter.put("/:commentId/delete", async (req, res, next) => {
   }
 })
 
-module.exports = { CommentRouter }
+export { CommentRouter }
