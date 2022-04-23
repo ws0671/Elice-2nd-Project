@@ -34,6 +34,17 @@ const articleAuthService = {
 
     article = await User.update({ articleId, updateObject })
   },
+  deleteArticle: async ({ articleId, author }) => {
+    const article = await Article.findById({ articleId })
+
+    if (!article) {
+      throw new Error("존재하지 않는 게시물입니다.")
+    } else if (article.author !== author) {
+      throw new Error("삭제 권한이 없는 게시물입니다.")
+    }
+
+    await Article.delete({ articleId })
+  },
 }
 
 export { articleAuthService }
