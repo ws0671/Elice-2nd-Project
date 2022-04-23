@@ -166,6 +166,7 @@ const userAuthService = {
       )
     }
     const bookmarks = user.bookmarks
+    // TODO : 북마크에 해당하는 게임 정보들을 gameService 메소드로 가져와서 객체들의 배열로 넘겨줄 것인가
 
     return bookmarks
   },
