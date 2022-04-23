@@ -105,7 +105,7 @@ function Main() {
       </Container>
       <div style={{ width: "100%", height: "20vh" }}></div>
       <div className="footer" style={{ backgroundColor: "#6C63FF" }}>
-        <Row className="justify-content-center">
+        <Div className="justify-content-center">
           <img
             style={{ width: "500px" }}
             alt="모니터"
@@ -114,7 +114,7 @@ function Main() {
           <Button className="justify-content-center" variant="primary">
             게임 찾으러 GO!
           </Button>
-        </Row>
+        </Div>
 
         <Row className="justify-content-evenly">
           <img
@@ -145,6 +145,8 @@ const NewsImg = styled.img`
 `
 const Div = styled.div`
   text-align: center;
+  display: flex;
+  justify-content: center;
 `
 
 export default Main
