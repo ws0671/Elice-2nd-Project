@@ -5,7 +5,7 @@ import { ArticleService } from "../services/articleService"
 const ArticleRouter = Router()
 ArticleRouter.use(loginRequired) // 게시판 기능은 무조건 회원가입
 
-ArticleRouter.post("/article/create", async (req, res, next) => {
+ArticleRouter.post("/create", async (req, res, next) => {
   try {
     const { category, title, content, tags } = req.body
     const author = req.currentUserId
@@ -24,7 +24,7 @@ ArticleRouter.post("/article/create", async (req, res, next) => {
   }
 })
 
-ArticleRouter.get("/article/:articleId", async (req, res, next) => {
+ArticleRouter.get("/:articleId", async (req, res, next) => {
   try {
     const articleId = req.params.articleId
 
@@ -36,7 +36,7 @@ ArticleRouter.get("/article/:articleId", async (req, res, next) => {
   }
 })
 
-ArticleRouter.put("/article/:articleId", async (req, res, next) => {
+ArticleRouter.put("/:articleId", async (req, res, next) => {
   try {
     const articleId = req.params.articleId
     const author = req.currentUserId
@@ -57,7 +57,7 @@ ArticleRouter.put("/article/:articleId", async (req, res, next) => {
   }
 })
 
-ArticleRouter.delete("/article/:articleId", async (req, res, next) => {
+ArticleRouter.delete("/:articleId", async (req, res, next) => {
   try {
     const articleId = req.params.articleId
     const author = req.currentUserId
@@ -70,7 +70,7 @@ ArticleRouter.delete("/article/:articleId", async (req, res, next) => {
   }
 })
 
-ArticleRouter.put("/article/:articleId/like", async (req, res, next) => {
+ArticleRouter.put("/:articleId/like", async (req, res, next) => {
   try {
     const userId = req.currentUserId // 로그인 한 사용자
     const articleId = req.params.articleId // 게시글 Id
