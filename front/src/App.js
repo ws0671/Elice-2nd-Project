@@ -8,6 +8,8 @@ import Header from "./components/Header"
 import Main from "./pages/Main"
 import RegisterForm from "./components/user/RegisterForm"
 import GameSearch from "./pages/GameSearch"
+import LoginForm from "./pages/LoginForm";
+
 
 import "./css/header.css"
 import "./css/gamesearch.css"
@@ -60,8 +62,11 @@ function App() {
         <Router>
           <Header />
           <Routes>
+
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
+            <Route path="/login" element={<LoginForm />} />
+
           </Routes>
         </Router>
       </UserStateContext.Provider>
