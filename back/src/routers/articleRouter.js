@@ -62,17 +62,21 @@ articleAuthRouter.put(
   }
 )
 
-articleAuthRouter.delete("/article/:articleId", async (req, res, next) => {
-  try {
-    const articleId = req.params.articleId
-    const author = req.body.author
+articleAuthRouter.delete(
+  "/article/:articleId",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      const articleId = req.params.articleId
+      const author = req.body.author
 
-    await articleAuthService.deleteArticle({ articleId, author })
+      await articleAuthService.deleteArticle({ articleId, author })
 
-    res.status(200).json("삭제되었습니다.")
-  } catch (error) {
-    next(error)
+      res.status(200).json("삭제되었습니다.")
+    } catch (error) {
+      next(error)
+    }
   }
-})
+)
 
 export { articleAuthRouter }
