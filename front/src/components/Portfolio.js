@@ -4,7 +4,6 @@ import { Container, Col, Row } from "react-bootstrap";
 
 import { UserStateContext } from "../App";
 import * as Api from "../api";
-import User from "./user/User";
 
 function Portfolio() {
   const navigate = useNavigate();
@@ -55,10 +54,7 @@ function Portfolio() {
     <Container fluid>
       <Row>
         <Col md="3" lg="3">
-          <User
-            portfolioOwnerId={portfolioOwner.id}
-            isEditable={portfolioOwner.id === userState.user?.id}
-          />
+
         </Col>
         <Col>
 

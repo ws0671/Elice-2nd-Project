@@ -8,8 +8,8 @@ import { GiOysterPearl } from "react-icons/gi";
 import { createGlobalStyle } from 'styled-components'
 
 
-import * as Api from "../../api"
-import { DispatchContext } from "../../App"
+import * as Api from "../api"
+import { DispatchContext } from "../App"
 import axios from "axios"
 
 
