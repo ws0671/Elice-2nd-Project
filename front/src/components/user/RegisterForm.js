@@ -5,25 +5,14 @@ import styles from "./Register.module.css"
 
 const RegisterForm = () => {
   const navigate = useNavigate()
-  const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [nickname, setNickname] = useState("")
 
-  const [nameError, setNameError] = useState(true)
   const [emailError, setEmailError] = useState(true)
   const [passwordError, setPasswordError] = useState(true)
   const [nicknameError, setNicknameError] = useState(true)
-
-  // 이름 유효성 검사 함수
-  const validateName = (name) => {
-    if (name.length < 1 || name.length > 10) {
-      setNameError(true)
-    } else {
-      setNameError(false)
-    }
-  }
 
   // 이메일 유효성 검사 함수
   const validateEmail = (email) => {
@@ -60,11 +49,6 @@ const RegisterForm = () => {
     }
   }
 
-  const handleNameChange = (e) => {
-    setName(e.target.value)
-    validateName(e.target.value)
-  }
-
   const handleEmailChange = (e) => {
     setEmail(e.target.value)
     validateEmail(e.target.value)
@@ -85,21 +69,19 @@ const RegisterForm = () => {
   }
 
   const handleReset = () => {
-    setName("")
     setEmail("")
     setPassword("")
     setConfirmPassword("")
     setNickname("")
-    setNameError(true)
     setEmailError(true)
     setPasswordError(true)
     setNicknameError(true)
   }
 
   const handleSubmit = () => {
-    if (!nameError && !emailError && !passwordError) {
+    if (!nicknameError && !emailError && !passwordError) {
       alert("회원가입에 성공했습니다.")
-      const newUser = { name, email, password, nickname }
+      const newUser = { email, password, nickname }
       Api.post("user/register", newUser).then((res) => {
         console.log(res.data)
         handleReset()
@@ -114,19 +96,21 @@ const RegisterForm = () => {
     <>
       <form className={styles.formContainer}>
         <fieldset className={styles.formFieldset}>
-          <label className={styles.formLabel} htmlFor="name">
-            이름
+          <label className={styles.formLabel} htmlFor="nickname">
+            사용할 닉네임
           </label>
           <input
-            value={name}
-            id="name"
-            onChange={handleNameChange}
+            value={nickname}
+            id="nickname"
+            onChange={handleNicknameChange}
             type="text"
-            name="name"
-            placeholder="이름을 입력해 주세요."
+            name="nickname"
+            placeholder="닉네임을 입력해주세요"
           ></input>
           <div className={styles.error}>
-            {nameError ? "이름은 1글자 이상, 10글자 이하여야 합니다." : null}
+            {nicknameError
+              ? "닉네임은 2글자 이상, 10글자 이하여야 합니다."
+              : null}
           </div>
         </fieldset>
 
@@ -180,33 +164,6 @@ const RegisterForm = () => {
           ></input>
           <div className={styles.error}>
             {!validateConfirmPassword ? "비밀번호가 일치하지 않습니다" : null}
-          </div>
-        </fieldset>
-
-        <fieldset className={styles.formFieldset}>
-          <label className={styles.formLabel} htmlFor="nickname">
-            사용할 닉네임
-          </label>
-          <div>
-            <input
-              value={nickname}
-              id="nickname"
-              onChange={handleNicknameChange}
-              type="text"
-              name="nickname"
-              placeholder="닉네임을 입력해주세요"
-            ></input>
-            <input
-              className={`${styles.formButton} ${styles.submitButton}`}
-              type="button"
-              onClick={() => alert("hi")}
-              value="중복 확인"
-            ></input>
-          </div>
-          <div className={styles.error}>
-            {nicknameError
-              ? "닉네임은 2글자 이상, 10글자 이하여야 합니다."
-              : null}
           </div>
         </fieldset>
 
