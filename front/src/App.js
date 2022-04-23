@@ -6,8 +6,10 @@ import { loginReducer } from "./reducer"
 
 import Header from "./components/Header"
 import Main from "./pages/Main"
-import RegisterForm from "./components/user/RegisterForm"
 import GameSearch from "./pages/GameSearch"
+import Register from "./pages/Register"
+import Community from "./pages/Community"
+import CommunityDetail from "./components/community/CommunityDetail"
 
 import "./css/header.css"
 import "./css/gamesearch.css"
@@ -62,6 +64,9 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/community/:id" element={<CommunityDetail />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
