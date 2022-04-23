@@ -1,7 +1,7 @@
 import { ArticleModel } from "../schemas/article"
 
 const Article = {
-  ceate: async ({ newArticle }) => {
+  create: async ({ newArticle }) => {
     const createdNewArticle = await ArticleModel.create({ newArticle })
     return createdNewArticle
   },
