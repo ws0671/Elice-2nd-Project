@@ -3,7 +3,7 @@ const CommunityElement = ({ item }) => {
     <tr>
       <td>{item.id}</td>
       <td>{item.title}</td>
-      <td>{item.userId}</td>
+      <td>관리자</td>
       <td>2022-04-23</td>
       <td>{item.id}</td>
       <td>{item.userId}</td>
