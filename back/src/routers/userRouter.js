@@ -75,9 +75,9 @@ userAuthRouter.put("/user/current", loginRequired, async (req, res, next) => {
   }
 })
 
-userAuthRouter.delete("/:id", loginRequired, async (req, res, next) => {
+userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
-    const userId = req.params.id
+    const userId = req.params.userId
     const result = await userAuthService.deleteUser({ userId })
 
     res.status(200).send(result)
