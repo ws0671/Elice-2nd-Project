@@ -1,6 +1,7 @@
 import CommunityList from "./CommunityList"
 import axios from "axios"
 import { useEffect, useState } from "react"
+import styled from "styled-components"
 
 const CommunityBoard = () => {
   const [info, setInfo] = useState([])
@@ -17,7 +18,15 @@ const CommunityBoard = () => {
   return (
     <div className="container">
       <div className="list">
-        <table className="table">
+        <Table className="table">
+          <colgroup>
+            <col width="10%" />
+            <col width="40%" />
+            <col width="10%" />
+            <col width="20%" />
+            <col width="10%" />
+            <col width="10%" />
+          </colgroup>
           <thead>
             <tr>
               <th>말머리</th>
@@ -29,10 +38,15 @@ const CommunityBoard = () => {
             </tr>
           </thead>
           <CommunityList info={info} />
-        </table>
+        </Table>
       </div>
     </div>
   )
 }
 
+const Table = styled.table`
+  tr {
+    text-align: center;
+  }
+`
 export default CommunityBoard
