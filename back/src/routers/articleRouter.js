@@ -9,13 +9,14 @@ articleAuthRouter.post(
   loginRequired,
   async (req, res, next) => {
     try {
-      const { author, category, title, content } = req.body
+      const { author, category, title, content, tags } = req.body
 
       const newArticle = await articleAuthService.addArticle({
         author,
         category,
         title,
         content,
+        tags,
       })
 
       res.status(201).json(newArticle)
