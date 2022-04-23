@@ -79,7 +79,12 @@ const RegisterForm = () => {
   }
 
   const handleSubmit = () => {
-    if (!nicknameError && !emailError && !passwordError) {
+    if (
+      !nicknameError &&
+      !emailError &&
+      !passwordError &&
+      validateConfirmPassword
+    ) {
       alert("회원가입에 성공했습니다.")
       const newUser = { email, password, nickname }
       Api.post("user/register", newUser).then((res) => {
