@@ -33,6 +33,8 @@ const articleAuthService = {
     const updateObject = SetUtil.compareValues(toUpdate, article)
 
     article = await Article.update({ articleId, updateObject })
+
+    return article
   },
   deleteArticle: async ({ articleId, author }) => {
     const article = await Article.findById({ articleId })
