@@ -1,37 +1,33 @@
 import { Router } from "express"
 import { loginRequired } from "../middlewares/loginRequired"
-import { articleAuthService } from "../services/articleService"
+import { ArticleService } from "../services/articleService"
 
-const articleAuthRouter = Router()
+const ArticleRouter = Router()
 
-articleAuthRouter.post(
-  "/article/create",
-  loginRequired,
-  async (req, res, next) => {
-    try {
-      const { category, title, content, tags } = req.body
-      const author = req.currentUserId
+ArticleRouter.post("/article/create", loginRequired, async (req, res, next) => {
+  try {
+    const { category, title, content, tags } = req.body
+    const author = req.currentUserId
 
-      const newArticle = await articleAuthService.addArticle({
-        author,
-        category,
-        title,
-        content,
-        tags,
-      })
+    const newArticle = await ArticleService.addArticle({
+      author,
+      category,
+      title,
+      content,
+      tags,
+    })
 
-      res.status(201).json(newArticle)
-    } catch (error) {
-      next(error)
-    }
+    res.status(201).json(newArticle)
+  } catch (error) {
+    next(error)
   }
-)
+})
 
-articleAuthRouter.get("/article/:articleId", async (req, res, next) => {
+ArticleRouter.get("/article/:articleId", async (req, res, next) => {
   try {
     const articleId = req.params.articleId
 
-    const articleInfo = await articleAuthService.getArticleInfo({ articleId })
+    const articleInfo = await ArticleService.getArticleInfo({ articleId })
 
     res.status(200).json(articleInfo)
   } catch (error) {
@@ -39,7 +35,7 @@ articleAuthRouter.get("/article/:articleId", async (req, res, next) => {
   }
 })
 
-articleAuthRouter.put(
+ArticleRouter.put(
   "/article/:articleId",
   loginRequired,
   async (req, res, next) => {
@@ -51,7 +47,7 @@ articleAuthRouter.put(
 
       const toUpdate = { category, title, content, tags }
 
-      const updatedArticle = await articleAuthService.setArticle({
+      const updatedArticle = await ArticleService.setArticle({
         articleId,
         author,
         toUpdate,
@@ -64,7 +60,7 @@ articleAuthRouter.put(
   }
 )
 
-articleAuthRouter.delete(
+ArticleRouter.delete(
   "/article/:articleId",
   loginRequired,
   async (req, res, next) => {
@@ -72,7 +68,7 @@ articleAuthRouter.delete(
       const articleId = req.params.articleId
       const author = req.currentUserId
 
-      await articleAuthService.deleteArticle({ articleId, author })
+      await ArticleService.deleteArticle({ articleId, author })
 
       res.status(200).json("삭제되었습니다.")
     } catch (error) {
@@ -81,4 +77,24 @@ articleAuthRouter.delete(
   }
 )
 
-export { articleAuthRouter }
+ArticleRouter.put("/:articleId/like", async (req, res, next) => {
+  try {
+    const userId = req.currentUserId // 로그인 한 사용자
+    const articleId = req.params.articleId // 게시글 Id
+    const author = req.body.author // 게시글 작성자의 userId
+
+    if (userId == author) {
+      // 로그인 사용자 = 게시글 작성자이면
+      throw new Error("본인 글에는 좋아요 할 수 없습니다.")
+    } else {
+      // 본인 게시글이 아니면
+      const article = await ArticleService.setLike({ userId, articleId })
+
+      res.status(200).send(article)
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
+export { ArticleRouter }
