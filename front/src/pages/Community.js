@@ -20,7 +20,7 @@ const Main = styled.div`
 `
 const Container = styled.div`
   max-width: 100vh;
-  width: 60vh;
+  width: 100vh;
 
   max-height: 100vh;
   height: 80vh;
