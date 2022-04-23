@@ -25,7 +25,7 @@ articleAuthRouter.post(
   }
 )
 
-articleAuthRouter.get("article/:articleId", async (req, res, next) => {
+articleAuthRouter.get("/article/:articleId", async (req, res, next) => {
   try {
     const articleId = req.params.articleId
 
@@ -36,5 +36,22 @@ articleAuthRouter.get("article/:articleId", async (req, res, next) => {
     next(error)
   }
 })
+
+articleAuthRouter.put(
+  "/article/:articleId",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      const articleId = req.params.articleId
+      const userId = req.currentUserId
+
+      const article = await articleAuthService.setArticle({})
+
+      return article
+    } catch (error) {
+      next(error)
+    }
+  }
+)
 
 export { articleAuthRouter }
