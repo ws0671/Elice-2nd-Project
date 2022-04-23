@@ -5,7 +5,7 @@ import { userAuthService } from "../services/userService"
 
 const userAuthRouter = Router()
 
-userAuthRouter.post("/user/register", async (req, res, next) => {
+userAuthRouter.post("/register", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -29,7 +29,7 @@ userAuthRouter.post("/user/register", async (req, res, next) => {
   }
 })
 
-userAuthRouter.post("/user/login", async (req, res, next) => {
+userAuthRouter.post("/login", async (req, res, next) => {
   try {
     // req (request) 에서 데이터 가져오기
     const { email, password } = req.body
@@ -43,7 +43,7 @@ userAuthRouter.post("/user/login", async (req, res, next) => {
   }
 })
 
-userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
+userAuthRouter.get("/current", loginRequired, async (req, res, next) => {
   try {
     // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
     const userId = req.currentUserId
@@ -57,7 +57,7 @@ userAuthRouter.get("/user/current", loginRequired, async (req, res, next) => {
   }
 })
 
-userAuthRouter.put("/user/current", loginRequired, async (req, res, next) => {
+userAuthRouter.put("/current", loginRequired, async (req, res, next) => {
   try {
     // URI로부터 사용자 id를 추출함.
     const userId = req.currentUserId
@@ -87,7 +87,7 @@ userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
 })
 // 게임 북마크/북마크 취소
 userAuthRouter.put(
-  "/user/bookmark/:gameId",
+  "/bookmark/:gameId",
   loginRequired,
   async (req, res, next) => {
     try {
@@ -104,7 +104,7 @@ userAuthRouter.put(
 )
 
 // 사용자별 북마크 리스트
-userAuthRouter.get("/user/bookmarks", loginRequired, async (req, res, next) => {
+userAuthRouter.get("/bookmarks", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId
     const bookmarkList = await userAuthService.getBookmarkList({ userId })
