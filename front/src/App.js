@@ -56,6 +56,7 @@ function App() {
           <Routes>
             <Route path="/register" element={<Register />} />
             <Route path="/community" element={<Community />} />
+            <Route path="/community/:id" element={<Register />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
