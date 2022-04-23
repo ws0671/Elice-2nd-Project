@@ -1,3 +1,4 @@
+import { User } from "../db"
 import { Article } from "../db"
 import { v4 as uuidv4 } from "uuid"
 import { SetUtil } from "../common/setUtil"
@@ -29,7 +30,7 @@ const ArticleService = {
     if (!article) {
       throw new Error("존재하지 않는 게시물입니다.")
     } else if (article.author !== author) {
-      throw new Error("수정권한이 없는 게시물입니다.")
+      throw new Error("수정 권한이 없는 게시물입니다.")
     }
 
     const updateObject = SetUtil.compareValues(toUpdate, article)
@@ -52,7 +53,7 @@ const ArticleService = {
   },
   // 게시글 좋아요
   setLike: async ({ userId, articleId }) => {
-    const user = await Article.findByUserId({ userId })
+    const user = await User.findById({ userId })
     if (!user) {
       throw new Error("당신은 회원이 아닙니다.")
     }

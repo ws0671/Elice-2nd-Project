@@ -1,15 +1,9 @@
-import { UserModel } from "../schemas/user"
 import { ArticleModel } from "../schemas/article"
 
 const Article = {
   create: async ({ newArticle }) => {
     const createdNewArticle = await ArticleModel.create(newArticle)
     return createdNewArticle
-  },
-  // userId로 회원 정보 찾기
-  findByUserId: async ({ userId }) => {
-    const user = await UserModel.findOne({ userId })
-    return user
   },
 
   findById: async ({ articleId }) => {

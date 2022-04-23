@@ -3,8 +3,9 @@ import { loginRequired } from "../middlewares/loginRequired"
 import { ArticleService } from "../services/articleService"
 
 const ArticleRouter = Router()
+ArticleRouter.use(loginRequired) // 게시판 기능은 무조건 회원가입
 
-ArticleRouter.post("/article/create", loginRequired, async (req, res, next) => {
+ArticleRouter.post("/article/create", async (req, res, next) => {
   try {
     const { category, title, content, tags } = req.body
     const author = req.currentUserId
@@ -35,49 +36,41 @@ ArticleRouter.get("/article/:articleId", async (req, res, next) => {
   }
 })
 
-ArticleRouter.put(
-  "/article/:articleId",
-  loginRequired,
-  async (req, res, next) => {
-    try {
-      const articleId = req.params.articleId
-      const author = req.currentUserId
+ArticleRouter.put("/article/:articleId", async (req, res, next) => {
+  try {
+    const articleId = req.params.articleId
+    const author = req.currentUserId
 
-      const { category, title, content, tags } = req.body ?? null
+    const { category, title, content, tags } = req.body ?? null
 
-      const toUpdate = { category, title, content, tags }
+    const toUpdate = { category, title, content, tags }
 
-      const updatedArticle = await ArticleService.setArticle({
-        articleId,
-        author,
-        toUpdate,
-      })
+    const updatedArticle = await ArticleService.setArticle({
+      articleId,
+      author,
+      toUpdate,
+    })
 
-      res.status(200).json(updatedArticle)
-    } catch (error) {
-      next(error)
-    }
+    res.status(200).json(updatedArticle)
+  } catch (error) {
+    next(error)
   }
-)
+})
 
-ArticleRouter.delete(
-  "/article/:articleId",
-  loginRequired,
-  async (req, res, next) => {
-    try {
-      const articleId = req.params.articleId
-      const author = req.currentUserId
+ArticleRouter.delete("/article/:articleId", async (req, res, next) => {
+  try {
+    const articleId = req.params.articleId
+    const author = req.currentUserId
 
-      await ArticleService.deleteArticle({ articleId, author })
+    await ArticleService.deleteArticle({ articleId, author })
 
-      res.status(200).json("삭제되었습니다.")
-    } catch (error) {
-      next(error)
-    }
+    res.status(200).json("게시글이 삭제되었습니다.")
+  } catch (error) {
+    next(error)
   }
-)
+})
 
-ArticleRouter.put("/:articleId/like", async (req, res, next) => {
+ArticleRouter.put("/article/:articleId/like", async (req, res, next) => {
   try {
     const userId = req.currentUserId // 로그인 한 사용자
     const articleId = req.params.articleId // 게시글 Id
