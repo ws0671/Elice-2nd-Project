@@ -1,7 +1,7 @@
 import RegisterForm from "../components/user/RegisterForm"
 import styled from "styled-components"
 
-function Register() {
+const Register = () => {
   return (
     <Main>
       <Container>
