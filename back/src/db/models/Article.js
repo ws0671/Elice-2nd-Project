@@ -23,7 +23,7 @@ const Article = {
     return updatedArticle
   },
   delete: async ({ aritcleId }) => {
-    await ArticleModel.findOneAndDelete({ aritcleId })
+    await ArticleModel.deleteOne({ aritcleId })
   },
 }
 
