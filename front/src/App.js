@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useReducer, createContext } from "react"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
@@ -6,9 +7,12 @@ import { loginReducer } from "./reducer"
 
 import Header from "./components/Header"
 import Main from "./pages/Main"
-import RegisterForm from "./components/user/RegisterForm"
 import GameSearch from "./pages/GameSearch"
 import LoginForm from "./pages/LoginForm";
+import Register from "./pages/Register"
+import Community from "./pages/Community"
+import CommunityDetail from "./components/community/CommunityDetail"
+
 
 
 import "./css/header.css"
@@ -66,6 +70,9 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
             <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/community/:id" element={<CommunityDetail />} />
 
           </Routes>
         </Router>
