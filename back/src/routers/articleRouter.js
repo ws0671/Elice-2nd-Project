@@ -70,7 +70,7 @@ articleAuthRouter.delete(
   async (req, res, next) => {
     try {
       const articleId = req.params.articleId
-      const author = req.body.author
+      const author = req.currentUserId
 
       await articleAuthService.deleteArticle({ articleId, author })
 
