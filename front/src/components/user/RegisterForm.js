@@ -161,10 +161,10 @@ const RegisterForm = () => {
           </label>
           <input
             value={confirmPassword}
-            id="confirmpassword"
+            id="confirm-password"
             onChange={handleConfirmPwChange}
             type="password"
-            name="password"
+            name="confirm-password"
             placeholder="비밀번호를 재입력해주세요."
           ></input>
           <div className={styles.error}>
