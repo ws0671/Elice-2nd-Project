@@ -9,6 +9,19 @@ const Article = {
     const article = await ArticleModel.findOne({ articleId })
     return article
   },
+  update: async ({ articleId, updateObject }) => {
+    const filter = { articleId }
+    const update = { $set: updateObject }
+    const option = { returnOriginal: false }
+
+    const updatedArticle = await ArticleModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    )
+
+    return updatedArticle
+  },
 }
 
 export { Article }
