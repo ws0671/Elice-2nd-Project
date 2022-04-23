@@ -1,41 +1,41 @@
-import { Schema, model } from mongoose
+import { Schema, model } from "mongoose"
 
-const ArticleSchema = new Schema(
-    {
-        id: {
-            type : String,
-            required: true
-        },
-        author: {
-            type : String,
-            required: true,
-        },
-        category: {
-            type : String,
-            required: true,
-        },
-        title: {
-            type : String,
-            required: true,
-        },
-        content: {
-            type: String,
-            required: true,
-        },
-        likes: {
-            type: [String],
-            default: []
-        },
-        tags: {
-            type: [String],
-            default: []
-        },
+const UserSchema = new Schema(
+  {
+    articleId: {
+      type: String,
+      required: true,
     },
-    {
-        timestamps: true,
-    }
+    author: {
+      type: String,
+      required: true,
+    },
+    category: {
+      type: String,
+      required: true,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+    content: {
+      type: String,
+      required: true,
+    },
+    likes: {
+      type: [String],
+      default: [],
+    },
+    tags: {
+      type: [String],
+      default: [],
+    },
+  },
+  {
+    timestamps: true,
+  }
 )
 
-const ArticleModel = model("Article", ArticleSchema)
+const UserModel = model("User", UserSchema)
 
-export { ArticleModel }
+export { UserModel }
