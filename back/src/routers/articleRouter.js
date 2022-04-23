@@ -43,11 +43,18 @@ articleAuthRouter.put(
   async (req, res, next) => {
     try {
       const articleId = req.params.articleId
-      const userId = req.currentUserId
 
-      const article = await articleAuthService.setArticle({})
+      const { author, category, title, content, tags } = req.body ?? null
 
-      return article
+      const toUpdate = { category, title, content, tags }
+
+      const updatedArticle = await articleAuthService.setArticle({
+        articleId,
+        author,
+        toUpdate,
+      })
+
+      res.status(200).json(updatedArticle)
     } catch (error) {
       next(error)
     }
