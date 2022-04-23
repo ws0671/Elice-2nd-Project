@@ -25,4 +25,16 @@ articleAuthRouter.post(
   }
 )
 
+articleAuthRouter.get("article/:articleId", async (req, res, next) => {
+  try {
+    const articleId = req.params.articleId
+
+    const articleInfo = await articleAuthService.getArticleInfo({ articleId })
+
+    res.status(200).json(articleInfo)
+  } catch (error) {
+    next(error)
+  }
+})
+
 export { articleAuthRouter }
