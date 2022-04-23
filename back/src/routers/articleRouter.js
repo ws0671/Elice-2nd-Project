@@ -19,7 +19,9 @@ articleAuthRouter.post(
       })
 
       res.status(201).json(newArticle)
-    } catch (error) {}
+    } catch (error) {
+      next(error)
+    }
   }
 )
 
