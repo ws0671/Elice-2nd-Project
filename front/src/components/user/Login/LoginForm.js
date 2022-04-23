@@ -19,10 +19,28 @@ const GlobalStyle = createGlobalStyle`
   background-color: #f8fafb; }
 `
 
-const s_button = styled.button`
-  border: 0;
+const Sbutton = styled.button`
   outline: 0;
-  color: #6c63ff !important;
+  font-size: 16px;
+  border-radius:25px;
+	border:2px solid #6c63ff;
+	display:inline-block;
+	cursor:pointer;
+	color:#6c63ff;
+	font-family:Arial;
+	font-size:14px;
+	padding:10px 23px;
+	text-decoration:none;
+
+  &:hover {
+  color: white;
+	background-color:#bab1ba;
+
+  &:active {
+	position:relative;
+	top:1px;
+}
+}
 `
 
 function LoginForm() {
@@ -156,11 +174,11 @@ function LoginForm() {
               <small className="d-block text-left my-2 text-muted">&mdash; 회원이 아니신가요?&mdash; </small>
             </Form.Group>
           </Form>
-          <Button className="ml-5" variant="outline-secondary btn-sm" onClick={() => navigate("/register")}>
+          {/*        <Button className="ml-5" variant="outline-secondary btn-sm" onClick={() => navigate("/register")}>
             회원가입
-          </Button>
+          </Button> */}
+          <Sbutton onClick={() => navigate("/register")}>회원가입</Sbutton>
         </Col>
-
 
       </Row>
     </Container >
