@@ -5,6 +5,7 @@ import * as Api from "./api"
 import { loginReducer } from "./reducer"
 
 import Register from "./pages/Register"
+import Community from "./pages/Community"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -54,6 +55,7 @@ function App() {
         <Router>
           <Routes>
             <Route path="/register" element={<Register />} />
+            <Route path="/community" element={<Community />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
