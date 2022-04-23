@@ -32,7 +32,7 @@ const articleAuthService = {
 
     const updateObject = SetUtil.compareValues(toUpdate, article)
 
-    article = await User.update({ userId, updateObject })
+    article = await User.update({ articleId, updateObject })
   },
 }
 
