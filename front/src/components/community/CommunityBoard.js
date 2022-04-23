@@ -1,6 +1,19 @@
 import CommunityList from "./CommunityList"
+import axios from "axios"
+import { useEffect, useState } from "react"
 
 const CommunityBoard = () => {
+  const [info, setInfo] = useState([])
+
+  useEffect(() => {
+    axios
+      .get("https://jsonplaceholder.typicode.com/posts")
+      .then((res) => {
+        console.log(res.data)
+        setInfo(res.data.slice(0, 10))
+      })
+      .catch((err) => console.log(err))
+  }, [])
   return (
     <div className="container">
       <div className="list">
@@ -15,7 +28,7 @@ const CommunityBoard = () => {
               <th>좋아요</th>
             </tr>
           </thead>
-          <CommunityList />
+          <CommunityList info={info} />
         </table>
       </div>
     </div>

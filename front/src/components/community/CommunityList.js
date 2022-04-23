@@ -1,9 +1,11 @@
 import CommunityElement from "./CommunityElement"
 
-const CommunityList = () => {
+const CommunityList = ({ info }) => {
   return (
     <tbody>
-      <CommunityElement />
+      {info.map((item) => {
+        return <CommunityElement key={item.id} item={item} />
+      })}
     </tbody>
   )
 }
