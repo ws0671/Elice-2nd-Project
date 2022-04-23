@@ -61,7 +61,7 @@ articleAuthRouter.put(
   }
 )
 
-articleAuthRouter.delete("/article/articleId", async (req, res, next) => {
+articleAuthRouter.delete("/article/:articleId", async (req, res, next) => {
   try {
     const articleId = req.params.articleId
     const author = req.body.author
