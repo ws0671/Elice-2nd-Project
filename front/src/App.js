@@ -4,10 +4,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import * as Api from "./api"
 import { loginReducer } from "./reducer"
 
-import Header from "./pages/Header"
+import Header from "./components/Header"
 import Main from "./pages/Main"
-import Network from "./components/user/Network"
 import RegisterForm from "./components/user/RegisterForm"
+import GameSearch from "./pages/GameSearch"
+
+import "./css/header.css"
+import "./css/gamesearch.css"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -56,11 +59,9 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
-          <Main />
           <Routes>
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/login" element={<Main />} />
-            <Route path="/network" element={<Network />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/gamesearch" element={<GameSearch />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

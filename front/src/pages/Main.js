@@ -7,11 +7,16 @@ import styled from "styled-components"
 function Main() {
   return (
     <>
+      <div className="video">
+        <video width="100%" muted autoPlay loop>
+          <source src="/videos/mainVideo.mp4" type="video/mp4" />
+        </video>
+      </div>
       <Container>
         <Row className="mt-5 mb-3">
           <h3>인기차트</h3>
         </Row>
-        <Row className="mb-5 ">
+        <Row className="mb-5">
           <Col>
             <Row className="justify-content-center">
               <Image alt="평점 TOP 10" src="images/rating.jpg" />
@@ -98,6 +103,32 @@ function Main() {
           </Col>
         </Row>
       </Container>
+      <div style={{ width: "100%", height: "20vh" }}></div>
+      <div className="footer" style={{ backgroundColor: "#6C63FF" }}>
+        <Row className="justify-content-center">
+          <img
+            style={{ width: "500px" }}
+            alt="모니터"
+            src="/images/monitor.svg"
+          />
+          <Button className="justify-content-center" variant="primary">
+            게임 찾으러 GO!
+          </Button>
+        </Row>
+
+        <Row className="justify-content-evenly">
+          <img
+            style={{ width: "150px" }}
+            alt="조이스틱"
+            src="/images/joystick.svg"
+          />
+          <img
+            style={{ width: "100px" }}
+            alt="게임보이"
+            src="/images/gameboy.svg"
+          />
+        </Row>
+      </div>
     </>
   )
 }
