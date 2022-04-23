@@ -1,7 +1,7 @@
 import cors from "cors"
 import express from "express"
 import { userAuthRouter } from "./routers/userRouter"
-import { gameAuthRouter } from "./routers/gameRouter"
+import { gameRouter } from "./routers/gameRouter"
 import { ArticleRouter } from "./routers/articleRouter"
 import { CommentRouter } from "./routers/commentRouter"
 import { errorMiddleware } from "./middlewares/errorMiddleware"
@@ -24,7 +24,7 @@ app.get("/", (req, res) => {
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
 app.use(userAuthRouter)
-app.use(gameAuthRouter)
+app.use("/game", gameRouter)
 app.use("/article", ArticleRouter)
 app.use("/comment", CommentRouter)
 
