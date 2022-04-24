@@ -1,11 +1,12 @@
 import RegisterForm from "../components/user/RegisterForm"
 import styled from "styled-components"
+import Gameday from "../images/gameday.png"
 
 const Register = () => {
   return (
     <Main>
       <Container>
-        <img src={require("../image/gameday.png")}></img>
+        <img src={Gameday}></img>
       </Container>
       <Container>
         <RegisterForm />

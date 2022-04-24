@@ -104,19 +104,18 @@ function Main() {
         </Row>
       </Container>
       <div style={{ width: "100%", height: "20vh" }}></div>
-      <div className="footer" style={{ backgroundColor: "#6C63FF" }}>
-        <Row className="justify-content-center">
+      <Div className="footer" style={{ backgroundColor: "#6C63FF" }}>
+        <div>
           <img
             style={{ width: "500px" }}
             alt="모니터"
             src="/images/monitor.svg"
           />
-          <Button className="justify-content-center" variant="primary">
-            게임 찾으러 GO!
-          </Button>
-        </Row>
-
-        <Row className="justify-content-evenly">
+        </div>
+        <div>
+          <Button variant="primary">게임 찾으러 GO!</Button>
+        </div>
+        <div>
           <img
             style={{ width: "150px" }}
             alt="조이스틱"
@@ -127,8 +126,8 @@ function Main() {
             alt="게임보이"
             src="/images/gameboy.svg"
           />
-        </Row>
-      </div>
+        </div>
+      </Div>
     </>
   )
 }
@@ -145,6 +144,14 @@ const NewsImg = styled.img`
 `
 const Div = styled.div`
   text-align: center;
+  div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+  }
+  div:nth-child(3) {
+    display: flex;
+    justify-content: space-evenly;
+  }
 `
 
 export default Main
