@@ -29,10 +29,25 @@ const User = {
     const updatedUser = await UserModel.findOneAndUpdate(filter, update, option)
     return updatedUser
   },
+
   deleteById: async ({ userId }) => {
     const deleteResult = await UserModel.deleteOne({ userId })
     const isDataDeleted = deleteResult.deletedCount === 1
     return isDataDeleted
+  },
+  // 북마크 목록 업데이트
+  updateBookmark: async ({ userId, toUpdate }) => {
+    const filter = { userId } // 바꿀 게시물
+    const update = toUpdate
+    const option = { returnOriginal: false }
+
+    const updatedBookmark = await UserModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    )
+
+    return updatedBookmark
   },
 }
 

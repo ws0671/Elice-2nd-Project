@@ -74,8 +74,6 @@ const userAuthService = {
   },
 
   setUser: async ({ userId, toUpdate }) => {
-    // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
-    console.log(userId)
     let user = await User.findById({ userId })
     if (!user) {
       throw new Error(
@@ -101,7 +99,6 @@ const userAuthService = {
   getUserInfo: async ({ userId }) => {
     const user = await User.findById({ userId })
 
-    // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
       throw new Error(
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
@@ -121,6 +118,57 @@ const userAuthService = {
     }
 
     return { status: "ok" }
+  },
+
+  setBookmark: async ({ userId, gameId }) => {
+    let user = await User.findById({ userId })
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      )
+    }
+    // TODO : Game DB 추가하고 실행 가능
+    // const game = await User.findByGameId({ gameId }) // 북마크 할 게임 객체 찾기
+    // if (!game) {
+    //   throw new Error(
+    //     "해당 id를 가진 게임 데이터는 없습니다. 다시 한 번 확인해주세요."
+    //   )
+    // }
+
+    let toUpdate
+    const bookmarkList = user.bookmarks // 기존 북마크 목록
+    if (bookmarkList.includes(gameId)) {
+      // 이미 북마크 한 상태이면
+      toUpdate = {
+        $pull: {
+          bookmarks: gameId,
+        },
+      }
+    } else {
+      // 북마크 안 한 상태이면
+      toUpdate = {
+        $push: {
+          bookmarks: gameId,
+        },
+      }
+    }
+
+    user = await User.updateBookmark({ userId, toUpdate })
+
+    return user
+  },
+
+  getBookmarkList: async ({ userId }) => {
+    const user = await User.findById({ userId })
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      )
+    }
+    const bookmarks = user.bookmarks
+    // TODO : 북마크에 해당하는 게임 정보들을 gameService 메소드로 가져와서 객체들의 배열로 넘겨줄 것인가
+
+    return bookmarks
   },
 }
 
