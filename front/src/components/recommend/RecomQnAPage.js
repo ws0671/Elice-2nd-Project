@@ -4,11 +4,47 @@ import { Container, Col, Row, Form, Button, FormGroup } from "react-bootstrap"
 import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { createGlobalStyle } from 'styled-components'
-
+import qnaList from "./data_example"
 
 function RecomQnAPage() {
+
+    const [qIdx, setQIdx] = useState(0)
+    const [aIdx, setAIdx] = useState(0)
+    const [question, setQuestion] = useState(qnaList[qIdx].q)
+    const [answer, setAnswer] = useState(qnaList[qIdx].a[aIdx].answer)
+
+    const testList = qnaList[qIdx].a[aIdx]
+
+    console.log(testList)
+
+    const onIncrease = () => {
+        setQIdx(qIdx + 1)
+        setQuestion(qnaList[qIdx + 1].q)
+    }
+
+
     return (
-        <h1>Hello</h1>
+        <div>
+            <GlobalStyle />
+
+            <div className="qBox">
+                <h1>{question}</h1>
+            </div>
+            <div className="answerBox">
+                <p>
+                    <tbody>
+                        {qnaList.a.map((item) => {
+                            return <Button key={item.id} item={item}>{item.answer}</Button>
+                        })}
+                    </tbody>
+                </p>
+            </div>
+
+            <Button className="btn-primary" onClick={onIncrease}>
+                Next
+            </Button>
+
+        </div>
     )
 }
 
@@ -17,26 +53,6 @@ const GlobalStyle = createGlobalStyle`
   body {
   font-family: "Roboto", sans-serif;
   background-color: #f8fafb; 
-  }
-  
-  @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-  }
-
-  @keyframes fadeOut {
-      from {opacity: 1;}
-      to {opacity: 0;}
-  }
-
-  @-webkit-keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-  }
-
-  @-webkit-keyframes fadeOut {
-      from {opacity: 1;}
-      to {opacity: 0;}
   }
 
 `
