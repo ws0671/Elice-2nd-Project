@@ -33,7 +33,7 @@ function Header() {
               <Nav.Link onClick={() => navigate("/")}>프롤로그</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>게임 추천</Nav.Link>
+              <Nav.Link onClick={() => navigate("/recommend")}>게임 추천</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link onClick={() => navigate("/gamesearch")}>

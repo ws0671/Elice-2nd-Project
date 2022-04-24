@@ -9,36 +9,6 @@ import { createGlobalStyle } from 'styled-components'
 import * as Api from "../api"
 import { DispatchContext } from "../App"
 
-const GlobalStyle = createGlobalStyle`
-  body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f8fafb; }
-`
-
-const Sbutton = styled.button`
-  outline: 0;
-  font-size: 16px;
-  border-radius:25px;
-	border:2px solid #6c63ff;
-	display:inline-block;
-	cursor:pointer;
-	color:#6c63ff;
-	font-family:Arial;
-	font-size:14px;
-	padding:10px 23px;
-	text-decoration:none;
-
-  &:hover {
-  color: white;
-	background-color:#bab1ba;
-
-  &:active {
-	position:relative;
-	top:1px;
-}
-}
-`
-
 function LoginForm() {
 
   const navigate = useNavigate()
@@ -166,5 +136,36 @@ function LoginForm() {
     </Container >
   )
 }
+
+const GlobalStyle = createGlobalStyle`
+  body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8fafb; }
+`
+
+const Sbutton = styled.button`
+  outline: 0;
+  font-size: 16px;
+  border-radius:25px;
+	border:2px solid #6c63ff;
+	display:inline-block;
+	cursor:pointer;
+	color:#6c63ff;
+	font-family:Arial;
+	font-size:14px;
+	padding:10px 23px;
+	text-decoration:none;
+
+  &:hover {
+  color: white;
+	background-color:#bab1ba;
+
+  &:active {
+	position:relative;
+	top:1px;
+}
+}
+`
+
 
 export default LoginForm

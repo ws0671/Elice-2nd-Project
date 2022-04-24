@@ -9,35 +9,6 @@ import { createGlobalStyle } from 'styled-components'
 import * as Api from "../api"
 import { DispatchContext } from "../App"
 
-const GlobalStyle = createGlobalStyle`
-  body {
-  font-family: "Roboto", sans-serif;
-  background-color: #f8fafb; }
-`
-
-const Sbutton = styled.button`
-  outline: 0;
-  font-size: 16px;
-  border-radius:25px;
-	border:2px solid #6c63ff;
-	display:inline-block;
-	cursor:pointer;
-	color:#6c63ff;
-	font-family:Arial;
-	font-size:14px;
-	padding:10px 23px;
-	text-decoration:none;
-
-  &:hover {
-  color: white;
-	background-color:#bab1ba;
-
-  &:active {
-	position:relative;
-	top:1px;
-}
-}
-`
 
 function LoginForm() {
 
@@ -105,7 +76,7 @@ function LoginForm() {
         <Row className="mt-5">
           <div style={{ height: "100px" }} />
           <Col className="md-6">
-            <img style={{ width: '700px' }} src={process.env.PUBLIC_URL + 'img/gamer.svg'} alt="Gamer" />
+            <img style={{ width: '700px' }} src={process.env.PUBLIC_URL + 'images/gamer.svg'} alt="Gamer" />
           </Col>
 
           <Col style={{ width: "80%", marginLeft: "10%" }} className="lg-6 text-center">
@@ -166,5 +137,35 @@ function LoginForm() {
     </Container >
   )
 }
+
+const GlobalStyle = createGlobalStyle`
+  body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f8fafb; }
+`
+
+const Sbutton = styled.button`
+  outline: 0;
+  font-size: 16px;
+  border-radius:25px;
+	border:2px solid #6c63ff;
+	display:inline-block;
+	cursor:pointer;
+	color:#6c63ff;
+	font-family:Arial;
+	font-size:14px;
+	padding:10px 23px;
+	text-decoration:none;
+
+  &:hover {
+  color: white;
+	background-color:#bab1ba;
+
+  &:active {
+	position:relative;
+	top:1px;
+}
+}
+`
 
 export default LoginForm

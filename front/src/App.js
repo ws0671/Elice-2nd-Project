@@ -11,8 +11,8 @@ import LoginForm from "./pages/LoginForm";
 import Register from "./pages/Register"
 import Community from "./pages/Community"
 import CommunityDetail from "./components/community/CommunityDetail"
-import RecomMainPage from "./pages/recommend/RecomMainPage";
-
+import Recommend from "./pages/Recommend";
+import RecomQnAPage from "./components/recommend/RecomQnAPage";
 
 
 import "./css/header.css"
@@ -73,7 +73,8 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
-            <Route path="/recommend" element={<RecomMainPage />} />
+            <Route path="/recommend" element={<Recommend />} />
+            <Route path="/recommend/qna" element={<RecomQnAPage />} />
 
           </Routes>
         </Router>

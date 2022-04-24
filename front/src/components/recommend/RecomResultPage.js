@@ -7,7 +7,7 @@ import { createGlobalStyle } from 'styled-components'
 
 function RecomResultPage() {
     return (
-        <h1>Hello</h1>
+        <h1>Result</h1>
     )
 }
 
