@@ -6,19 +6,24 @@ const Game = {
     return createdNewGame
   },
 
-  findById: async ({ appId }) => {
-    const game = await GameModel.findOne({ appId })
+  findAll: async ({ page }) => {
+    const games = await GameModel.find({})
+      .skip((page - 1) * 10)
+      .limit(10)
+    return games
+  },
+
+  findById: async ({ gameId }) => {
+    const game = await GameModel.findOne({ appId: gameId })
     return game
   },
 
-  /*update: async ({ appId, updateObject }) => {
-    const filter = { appId } // 바꿀 대상 찾기
-    const update = { $set: updateObject } // 바꿀 내용
-    const option = { returnOriginal: false } // 옵션
-
-    const updatedGame = await GameModel.findOneAndUpdate(filter, update, option)
-    return updatedGame
-  },*/
+  sortByColumn: async ({ col }) => {
+    const games = await GameModel.find({})
+      .sort({ [col]: -1 })
+      .limit(10)
+    return games
+  },
 }
 
 export { Game }
