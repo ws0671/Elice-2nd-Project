@@ -17,6 +17,13 @@ const Game = {
     const game = await GameModel.findOne({ appId: gameId })
     return game
   },
+
+  sortByColumn: async ({ col }) => {
+    const games = await GameModel.find({})
+      .sort({ [col]: -1 })
+      .limit(10)
+    return games
+  },
 }
 
 export { Game }

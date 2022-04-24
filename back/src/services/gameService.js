@@ -14,6 +14,11 @@ const gameService = {
     const games = await Game.findAll({ page })
     return games
   },
+
+    getTopTen: async ({ col }) => {
+    const games = await Game.sortByColumn({ col })
+    return games
+  },
 }
 
 export { gameService }
