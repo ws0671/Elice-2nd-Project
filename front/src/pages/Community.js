@@ -33,6 +33,26 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  button {
+    position : fixed;
+    left: 90%;
+    right: 90%
+    flex: 1;
+    border: none;
+    padding: 10px;
+    color: white;
+    font-weight: 700;
+    border-radius: 3px;
+    font-size: 20px;
+    cursor: pointer;
+    background: rgba(108, 99, 255, 0.7);
+
+    &:hover {
+      background: rgba(108, 99, 255, 0.6);
+    }
+  }
+
   }
 `
 
