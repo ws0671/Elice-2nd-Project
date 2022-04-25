@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -14,7 +14,8 @@ function RecomMainPage() {
       <div>
         <GlobalStyle />
         <figure className="banner">
-          <img className="img-fluid" width="100%" src="images/recom_bg.jpg" />
+          <img className="img-fluid" width="100%" src={process.env.PUBLIC_URL + '/images/recom_bg.jpg'} />
+          {/*{require("../images/recom_bg.jpg")} */}
           <figcaption>
             <h1 className="display-2 mt-lg-5 mb-lg-3">Welcome!</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>

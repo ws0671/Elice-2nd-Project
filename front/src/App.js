@@ -13,6 +13,7 @@ import Community from "./pages/Community"
 import CommunityDetail from "./components/community/CommunityDetail"
 import Recommend from "./pages/Recommend";
 import RecomQnA from "./components/recommend/RecomQnA";
+import RecomResult from "./components/recommend/RecomResult"
 
 
 import "./css/header.css"
@@ -75,6 +76,7 @@ function App() {
             <Route path="/community/:id" element={<CommunityDetail />} />
             <Route path="/recommend" element={<Recommend />} />
             <Route path="/recommend/qna" element={<RecomQnA />} />
+            <Route path="/recommend/result" element={<RecomResult />} />
 
           </Routes>
         </Router>

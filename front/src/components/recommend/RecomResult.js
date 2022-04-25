@@ -5,10 +5,10 @@ import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { createGlobalStyle } from 'styled-components'
 
-function RecomResultPage() {
+function RecomResult() {
     return (
         <h1>Result</h1>
     )
 }
 
-export default RecomResultPage
+export default RecomResult
