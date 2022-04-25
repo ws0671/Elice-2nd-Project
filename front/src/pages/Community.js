@@ -1,11 +1,14 @@
 import CommunityBoard from "../components/community/CommunityBoard"
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom"
 
 const Community = () => {
+  const navigate = useNavigate()
   return (
     <Main>
       <Container>
         <CommunityBoard />
+        <button onClick={() => navigate("/community/create")}>글쓰기</button>
       </Container>
     </Main>
   )
