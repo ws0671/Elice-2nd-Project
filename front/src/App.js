@@ -12,7 +12,7 @@ import Register from "./pages/Register"
 import Community from "./pages/Community"
 import CommunityDetail from "./components/community/CommunityDetail"
 import Recommend from "./pages/Recommend";
-import RecomQnAPage from "./components/recommend/RecomQnAPage";
+import RecomQnA from "./components/recommend/RecomQnA";
 
 
 import "./css/header.css"
@@ -74,7 +74,7 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
             <Route path="/recommend" element={<Recommend />} />
-            <Route path="/recommend/qna" element={<RecomQnAPage />} />
+            <Route path="/recommend/qna" element={<RecomQnA />} />
 
           </Routes>
         </Router>
