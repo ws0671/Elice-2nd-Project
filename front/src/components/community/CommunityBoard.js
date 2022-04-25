@@ -1,10 +1,13 @@
 import CommunityList from "./CommunityList"
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import styled from "styled-components"
+import useDetectClose from "./useDetectClose"
 
 const CommunityBoard = () => {
   const [info, setInfo] = useState([])
+  const dropDownRef = useRef(null)
+  const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false)
 
   useEffect(() => {
     axios
@@ -28,7 +31,17 @@ const CommunityBoard = () => {
           </colgroup>
           <thead>
             <tr>
-              <th>말머리</th>
+              <th className="dropdown" onClick={() => setIsOpen(!isOpen)}>
+                말머리
+                {isOpen && (
+                  <ul ref={dropDownRef} class="dropdown-content">
+                    <li>샤인머스켓</li>
+                    <li>체리</li>
+                    <li>홍시</li>
+                  </ul>
+                )}
+              </th>
+
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
@@ -46,6 +59,24 @@ const CommunityBoard = () => {
 const Table = styled.table`
   tr {
     text-align: center;
+  }
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    padding: 8px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
   }
 `
 export default CommunityBoard
