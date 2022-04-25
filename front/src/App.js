@@ -15,6 +15,7 @@ import LoginForm from "./pages/LoginForm"
 
 import "./css/header.css"
 import "./css/gamesearch.css"
+import CommunityAddForm from "./components/community/CommunityAddForm"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -70,6 +71,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
+            <Route path="/community/create" element={<CommunityAddForm />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
