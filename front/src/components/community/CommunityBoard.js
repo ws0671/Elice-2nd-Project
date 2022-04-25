@@ -80,6 +80,9 @@ const Table = styled.table`
     display: block;
     list-style-type: none;
 
+    li {
+      font-weight: normal;
+    }
     li:hover {
       background: rgba(108, 99, 255, 0.3);
       border-radius: 2px;
