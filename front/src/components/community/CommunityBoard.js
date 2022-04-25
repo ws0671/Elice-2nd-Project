@@ -10,7 +10,7 @@ const CommunityBoard = () => {
     axios
       .get("https://jsonplaceholder.typicode.com/posts")
       .then((res) => {
-        setInfo(res.data.slice(0, 10))
+        setInfo(res.data.slice(0, 20))
       })
       .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
   }, [])
