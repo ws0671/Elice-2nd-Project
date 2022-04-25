@@ -15,7 +15,7 @@ const CommunityBoard = () => {
       .then((res) => {
         setInfo(res.data.slice(0, 10))
       })
-      .catch((err) => console.log(err))
+      .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
   }, [])
   return (
     <div className="container">
