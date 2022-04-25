@@ -1,13 +1,10 @@
 import CommunityList from "./CommunityList"
 import axios from "axios"
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
-import useDetectClose from "./useDetectClose"
 
 const CommunityBoard = () => {
   const [info, setInfo] = useState([])
-  const dropDownRef = useRef(null)
-  const [isOpen, setIsOpen] = useDetectClose(dropDownRef, false)
 
   useEffect(() => {
     axios
@@ -31,22 +28,26 @@ const CommunityBoard = () => {
           </colgroup>
           <thead>
             <tr>
-              <th className="dropdown" onClick={() => setIsOpen(!isOpen)}>
+              <th className="dropdown">
                 말머리
-                {isOpen && (
-                  <ul ref={dropDownRef} class="dropdown-content">
-                    <li>샤인머스켓</li>
-                    <li>체리</li>
-                    <li>홍시</li>
-                  </ul>
-                )}
+                <ul className="dropdown-content">
+                  <li>전체보기</li>
+                  <li>꿀팁</li>
+                  <li>게임</li>
+                </ul>
               </th>
 
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
               <th>조회</th>
-              <th>좋아요</th>
+              <th className="dropdown">
+                좋아요
+                <ul className="dropdown-content">
+                  <li>높은순</li>
+                  <li>낮은순</li>
+                </ul>
+              </th>
             </tr>
           </thead>
           <CommunityList info={info} />
@@ -70,13 +71,22 @@ const Table = styled.table`
     display: none;
     position: absolute;
     background-color: #f9f9f9;
-    min-width: 160px;
+    min-width: 100px;
     padding: 8px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   }
 
   .dropdown:hover .dropdown-content {
     display: block;
+    list-style-type: none;
+
+    li:hover {
+      background: rgba(108, 99, 255, 0.3);
+      border-radius: 2px;
+      font-weight: bold;
+      // color: white;
+      cursor: pointer;
+    }
   }
 `
 export default CommunityBoard
