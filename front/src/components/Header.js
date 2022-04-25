@@ -62,12 +62,15 @@ const HeaderTag = styled.div`
   }
   a.logoLink {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.8);
+    color: #6c757d;
     font-size: 13px;
   }
   a {
     text-decoration: none;
     color: rgba(255, 255, 255, 0.8);
     font-size: 13px;
+  }
+  a:hover {
+    color: rgba(255, 255, 255);
   }
 `
