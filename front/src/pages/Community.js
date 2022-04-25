@@ -21,9 +21,9 @@ const Main = styled.div`
 const Container = styled.div`
   max-width: 100vh;
   width: 100vh;
-
-  max-height: 100vh;
-  height: 80vh;
+  margin-top: 90px;
+  // max-height: 100vh;
+  // height: 80vh;
 
   padding: 12px;
 
