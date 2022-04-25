@@ -2,7 +2,6 @@ import React, { useContext } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import Nav from "react-bootstrap/Nav"
 import { UserStateContext, DispatchContext } from "../App"
-import { Container, Card, Row, Col, Button } from "react-bootstrap"
 import styled from "styled-components"
 
 function GameSearch() {
@@ -16,14 +15,14 @@ function GameSearch() {
       <H1 className="mt-5">게임 검색</H1>
       <div className="searchBarContainer">
         <div className="searchBar">
-          <Button variant="secondary">전체 목록</Button>
-          <Button variant="outline-dark">장르</Button>
-          <Button variant="outline-dark">플랫폼</Button>
-          <Button variant="outline-dark">이용등급</Button>
+          <button>전체 목록</button>
+          <button>장르</button>
+          <button>플랫폼</button>
+          <button>이용등급</button>
         </div>
         <div>
           <input />
-          <Button variant="dark">확인</Button>
+          <button>확인</button>
         </div>
       </div>
     </>

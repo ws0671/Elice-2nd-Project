@@ -12,40 +12,46 @@ function Main() {
       </div>
       <div className="main">
         <div className="popularChart">
-          <div className="mt-5 mb-5 ms-4">
+          <DivBold className="mt-5 mb-5 ms-5">
             <h3>인기차트</h3>
-          </div>
+          </DivBold>
           <FlexDiv1 className="mb-5">
             <div>
               <div>
-                <Image alt="평점 TOP 10" src="images/rating.jpg" />
+                <ImageWrapper>
+                  <Image alt="평점 TOP 10" src="images/score.svg" />
+                </ImageWrapper>
                 <Div className="mt-3">평점 TOP 10</Div>
               </div>
             </div>
             <div>
-              <div>
-                <Image alt="장르별 TOP 10" src="images/trophy.jpg" />
-                <Div className="mt-3">장르별 TOP 10</Div>
-              </div>
+              <ImageWrapper>
+                <Image alt="장르별 TOP 10" src="images/trophy_icon.svg" />
+              </ImageWrapper>
+              <Div className="mt-3">장르별 TOP 10</Div>
             </div>
             <div>
               <div>
-                <Image alt="이용등급별 TOP 10" src="images/age.jpg" />
+                <ImageWrapper>
+                  <Image alt="이용등급별 TOP 10" src="images/layer.svg" />
+                </ImageWrapper>
                 <Div className="mt-3">이용등급별 TOP 10</Div>
               </div>
             </div>
             <div>
               <div>
-                <Image alt="똥겜 TOP 10" src="images/shit.jpg" />
+                <ImageWrapper>
+                  <Image alt="똥겜 TOP 10" src="images/frown.svg" />
+                </ImageWrapper>
                 <Div className="mt-3">똥겜 TOP 10</Div>
               </div>
             </div>
           </FlexDiv1>
         </div>
         <div className="notification">
-          <div className="mb-5 ms-4">
+          <DivBold className="mb-5 ms-5">
             <h3>주목할만한 소식</h3>
-          </div>
+          </DivBold>
           <FlexDiv2>
             <div>
               <div>
@@ -133,16 +139,23 @@ function Main() {
     </Body>
   )
 }
-
-const Image = styled.img`
+const ImageWrapper = styled.div`
+  background-color: white;
   width: 200px;
   height: 200px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const Image = styled.img`
+  width: 120px;
+  height: 120px;
 `
 const NewsImg = styled.img`
   width: 250px;
   height: 150px;
-  border-radius: 15%;
+  border-radius: 10%;
 `
 const Div = styled.div`
   text-align: center;
@@ -158,6 +171,9 @@ const Div = styled.div`
 const FlexDiv1 = styled.div`
   display: flex;
   justify-content: space-evenly;
+  div {
+    color: white;
+  }
 `
 const FlexDiv2 = styled.div`
   display: flex;
@@ -166,10 +182,17 @@ const FlexDiv2 = styled.div`
   & > div {
     width: 250px;
   }
+  div {
+    color: white;
+  }
 `
 
 const Body = styled.div`
   background-color: #673ab7;
+`
+const DivBold = styled.div`
+  color: white;
+  font-weight: bold;
 `
 
 export default Main
