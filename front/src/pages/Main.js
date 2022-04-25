@@ -1,5 +1,4 @@
-import React, { Children } from "react"
-// import { Container, Card, Row, Col, Button } from "react-bootstrap"
+import React from "react"
 import styled from "styled-components"
 
 // 메인 bg-color:#673ab7

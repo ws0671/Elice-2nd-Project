@@ -1,75 +1,73 @@
 import styled from "styled-components"
 import React, { useState, useEffect } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Nav from "react-bootstrap/Nav"
 import { UserStateContext, DispatchContext } from "../App"
 import { Button, Row, Col } from "react-bootstrap"
 import { throttle } from "lodash"
 
 function Header() {
-  const navigate = useNavigate()
-  const [scrollPositon, setScrollPostion] = useState(0)
-  const updateScroll = () => {
-    setScrollPostion(window.scrollY || document.documentElement.scrollTop)
-  }
-  useEffect(() => {
-    window.addEventListener("scroll", throttle(updateScroll, 300))
-    return () => {
-      window.removeEventListener("scroll", throttle(updateScroll, 300))
-    }
-  })
-
   return (
-    <>
-      <Nav className={scrollPositon < 80 ? "mainHeader" : "mode"}>
+    <HeaderTag className="mainHeader">
+      <div className="logo">
+        <Link className="logoLink" to="/">
+          Game Pearl
+        </Link>
+      </div>
+      <div className="headerRight">
         <div>
-          <Nav.Item className="logo">
-            <Nav.Link disabled>Game Pearl</Nav.Link>
-          </Nav.Item>
+          <Link to="#">프롤로그</Link>
         </div>
         <div>
-          <Nav>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>프롤로그</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>게임 추천</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/gamesearch")}>
-                게임 검색
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>TOP 차트</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/community")}>콘텐츠</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>마이 페이지</Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/login")}>로그인</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/register")}>
-                회원가입
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
+          <Link to="#">게임 추천</Link>
         </div>
-        {/* {isLogin && (
+        <div>
+          <Link to="/gamesearch">게임 검색</Link>
+        </div>
+        <div>
+          <Link to="#">TOP 차트</Link>
+        </div>
+        <div>
+          <Link to="#">콘텐츠</Link>
+        </div>
+        <div>
+          <Link to="#">마이 페이지</Link>
+        </div>
+        <div>
+          <Link to="/login">로그인</Link>
+        </div>
+        <div>
+          <Link to="/register">회원가입</Link>
+        </div>
+      </div>
+      {/* {isLogin && (
         <Nav.Item>
           <Nav.Link onClick={logout}>로그아웃</Nav.Link>
         </Nav.Item>
       )} */}
-      </Nav>
-
-      {/* footer추가,반응형 작업하기, 네비게이션 수정 */}
-    </>
+    </HeaderTag>
   )
 }
 
 export default Header
+
+const HeaderTag = styled.div`
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  & > .headerRight {
+    width: 50vw;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  a.logoLink {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+  }
+  a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+  }
+`
