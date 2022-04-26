@@ -6,10 +6,10 @@ const Game = {
     return createdNewGame
   },
 
-  findAll: async ({ page }) => {
+  findAll: async ({ page, numOfPageSkip = 10, numOfPageLimit = 10 }) => {
     const games = await GameModel.find({})
-      .skip((page - 1) * 10)
-      .limit(10)
+      .skip((page - 1) * numOfPageSkip)
+      .limit(numOfPageLimit)
     return games
   },
 
