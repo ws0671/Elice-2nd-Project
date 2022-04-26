@@ -21,9 +21,7 @@ const CommunityAddForm = () => {
   const [error, setError] = useState({ title: true, body: true })
 
   const changeHandler = (e) => {
-    setContent((prev) => {
-      return { ...prev, [e.target.name]: e.target.value }
-    })
+    setContent((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     errorHandler(e.target.name)
   }
 
