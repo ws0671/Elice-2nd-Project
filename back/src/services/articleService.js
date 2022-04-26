@@ -63,24 +63,24 @@ const ArticleService = {
         "해당 id를 가진 게시글 데이터는 없습니다. 다시 한 번 확인해주세요."
       );
     }
-    let toUpdate;
+    let updateObject;
     const likeUserIdList = article.likes; // 좋아요 누른 사용자들의 목록
     if (likeUserIdList.includes(userId)) {
       // 이미 좋아요 한 상태이면
-      toUpdate = {
+      updateObject = {
         $pull: {
           likes: userId,
         },
       };
     } else {
       // 좋아요 안 누른 상태이면
-      toUpdate = {
+      updateObject = {
         $push: {
           likes: userId,
         },
       };
     }
-    article = await Article.updateLike({ articleId, toUpdate });
+    article = await Article.updateLike({ articleId, updateObject });
 
     return article;
   },
