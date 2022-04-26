@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { restart } from "nodemon";
 import { reset } from "nodemon";
 import { loginRequired } from "../middlewares/loginRequired";
 import { ArticleService } from "../services/articleService";
@@ -28,6 +29,16 @@ ArticleRouter.post("/", async (req, res, next) => {
 ArticleRouter.get("/list", async (req, res, next) => {
   try {
     const articles = await ArticleService.getArticles();
+    res.status(200).json(articles);
+  } catch (error) {
+    next(error);
+  }
+});
+
+ArticleRouter.get("/Filteredlist/:category", async (req, res, next) => {
+  try {
+    const category = req.params.category;
+    const articles = await ArticleService.getFilteredArticles({ category });
     res.status(200).json(articles);
   } catch (error) {
     next(error);
