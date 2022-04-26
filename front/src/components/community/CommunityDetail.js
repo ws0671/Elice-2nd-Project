@@ -29,6 +29,16 @@ const CommunityDetail = () => {
       </div>
       <div className="detail comment">
         <div>댓글</div>
+        <div className="area">
+          <textarea
+            className="text-area"
+            placeholder="댓글을 남겨보세요."
+            // value={}
+            name="comment"
+            // onChange={changeHandler}
+          ></textarea>
+          <button>등록</button>
+        </div>
       </div>
     </Container>
   )
@@ -43,6 +53,27 @@ const Container = styled.div`
 
   .detail {
     width: 60%;
+
+    .area {
+      textarea {
+        width: 100%;
+        height: 20vh;
+      }
+      button {
+        width: 10%;
+        float: right;
+        position: relative;
+        margin: -50px 10px 0 0;
+        border: none;
+        padding: 4px;
+        color: white;
+        font-weight: 700;
+
+        border-radius: 3px;
+        cursor: pointer;
+        background: #6c63ff;
+      }
+    }
 
     &:first-of-type {
       font-size: 25px;
