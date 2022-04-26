@@ -6,9 +6,13 @@ const gameRouter = Router()
 gameRouter.get("/list/:page", async function (req, res, next) {
   try {
     const page = req.params.page
-    const gamelist = await gameService.getGames({ page })
+    const gameList = await gameService.getGames({
+      page,
+      numOfPageSkip,
+      numOfPageLimit,
+    })
 
-    res.status(200).send(gamelist)
+    res.status(200).send(gameList)
   } catch (error) {
     next(error)
   }
@@ -32,13 +36,14 @@ gameRouter.get("/rankedList/:colName", async function (req, res, next) {
     const colName = req.params.colName
     const rankedList = await gameService.getRankedList({
       colName,
+      numOfLimit,
     })
 
     if (rankedList.errorMessage) {
       throw new Error(rankedList.errorMessage)
     }
 
-    res.status(200).send(topTen)
+    res.status(200).send(rankedList)
   } catch (error) {
     next(error)
   }

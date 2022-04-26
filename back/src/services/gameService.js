@@ -10,13 +10,13 @@ const gameService = {
     return game
   },
 
-  getGames: async ({ page }) => {
-    const games = await Game.findAll({ page })
+  getGames: async ({ page, numOfPageSkip = 10, numOfPageLimit = 10 }) => {
+    const games = await Game.findAll({ page, numOfPageSkip, numOfPageLimit })
     return games
   },
 
-  getRankedList: async ({ colName }) => {
-    const games = await Game.sortByColumn({ colName })
+  getRankedList: async ({ colName, numOfLimit = 10 }) => {
+    const games = await Game.sortByColumn({ colName, numOfLimit })
     return games
   },
 }
