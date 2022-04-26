@@ -6,11 +6,6 @@ const Article = {
     return createdNewArticle;
   },
 
-  findAll: async () => {
-    const articles = await ArticleModel.find({});
-    return articles;
-  },
-
   findAllByCategory: async (filter) => {
     const articles = await ArticleModel.find(filter);
     return articles;
