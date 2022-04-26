@@ -52,7 +52,7 @@ const ArticleService = {
     await Article.delete({ articleId });
   },
   // 게시글 좋아요
-  setLike: async ({ userId, articleId }) => {
+  like: async ({ userId, articleId }) => {
     const user = await User.findById({ userId });
     if (!user) {
       throw new Error("당신은 회원이 아닙니다.");
