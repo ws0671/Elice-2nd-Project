@@ -43,12 +43,12 @@ ArticleRouter.put("/:articleId", async (req, res, next) => {
 
     const { category, title, content, tags } = req.body ?? null;
 
-    const toUpdate = { category, title, content, tags };
+    const updateData = { category, title, content, tags };
 
     const updatedArticle = await ArticleService.updateArticle({
       articleId,
       author,
-      toUpdate,
+      updateData,
     });
 
     res.status(200).json(updatedArticle);
