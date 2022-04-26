@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+// import autoIncrement from "mongoose-auto-increment"
 import { User } from "./models/User"
 import { Game } from "./models/Game"
 import { Article } from "./models/Article"
@@ -10,6 +11,7 @@ const DB_URL =
 
 mongoose.connect(DB_URL)
 const db = mongoose.connection
+// autoIncrement.initialize(db)
 
 db.on("connected", () =>
   console.log("정상적으로 MongoDB 서버에 연결되었습니다.  " + DB_URL)
