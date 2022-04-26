@@ -22,10 +22,6 @@ const ArticleSchema = new Schema(
       type: String,
       required: true,
     },
-    likes: {
-      type: [String],
-      default: [],
-    },
     tags: {
       type: [String],
       default: [],
