@@ -1,17 +1,46 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import * as Api from "../../api"
 
 const CommunityAddForm = () => {
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
   const [content, setContent] = useState({ title: "", body: "" })
+  const [error, setError] = useState({ title: true, body: true })
 
   const changeHandler = (e) => {
     setContent((prev) => {
       return { ...prev, [e.target.name]: e.target.value }
     })
     console.log(content)
+    errorHandler(e.target.name)
+  }
+
+  const errorHandler = (v) => {
+    if (content.v === "") {
+      setError((prev) => {
+        return { ...prev, [v]: true }
+      })
+    } else {
+      setError((prev) => {
+        return { ...prev, [v]: false }
+      })
+      console.log(error)
+    }
+  }
+
+  const submitHandler = () => {
+    if (!error.title && !error.body) {
+      alert("성공했습니다.")
+      const newContent = content
+      Api.post("artcle/create", newContent).then((res) => {
+        console.log(res.data)
+      })
+      navigate("/community")
+    } else {
+      alert("실패했습니다. 다시 한 번 확인해주세요.")
+    }
   }
 
   return (
@@ -57,7 +86,7 @@ const CommunityAddForm = () => {
 
         <div className="buttonContainer">
           <button
-            onClick={() => navigate("/community")}
+            onClick={submitHandler}
             type="button"
             className="formButton submitButton"
           >
