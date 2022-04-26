@@ -24,10 +24,20 @@ ArticleRouter.post("/", async (req, res, next) => {
   }
 });
 
-ArticleRouter.get("/", async (req, res, next) => {
+ArticleRouter.get("/:page", async (req, res, next) => {
   try {
     const category = req.query.category ?? null;
-    const articles = await ArticleService.getArticles({ category });
+    const page = Number(req.params.page);
+    const numOfPageSkip = req.query.page ? Number(req.query.page) : undefined;
+    const numOfPageLimit = req.query.limit
+      ? Number(req.query.limit)
+      : undefined;
+    const articles = await ArticleService.getArticles({
+      category,
+      page,
+      numOfPageLimit,
+      numOfPageSkip,
+    });
     res.status(200).json(articles);
   } catch (error) {
     next(error);
