@@ -45,6 +45,10 @@ const ArticleService = {
   },
 
   updateArticle: async ({ articleId, author, updateData }) => {
+    if (!SetUtil.validateCategory(category)) {
+      throw new Error("잘못된 말머리를 선택하셨습니다.");
+    }
+
     let article = await Article.findById({ articleId });
 
     if (!article) {
