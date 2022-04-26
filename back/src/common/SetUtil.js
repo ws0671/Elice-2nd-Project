@@ -1,14 +1,14 @@
 class SetUtil {
-  static compareValues(toUpdate, model) {
-    let updateObject = {}
+  static compareValues(updateData, originData) {
+    let updateObject = {};
 
-    Object.entries(toUpdate).forEach((element) => {
-      if (element[1] !== model[element[0]])
-        updateObject[element[0]] = element[1]
-    })
+    Object.entries(updateData).forEach((element) => {
+      if (element[1] !== originData[element[0]])
+        updateObject[element[0]] = element[1];
+    });
 
-    return updateObject
+    return updateObject;
   }
 }
 
-export { SetUtil }
+export { SetUtil };
