@@ -15,6 +15,10 @@ const ArticleService = {
   },
 
   getArticles: async ({ category }) => {
+    if ((category !== null) & !SetUtil.validateCategory(category)) {
+      throw new Error("잘못된 말머리를 선택하셨습니다.");
+    }
+
     let articles;
     if (category == null) {
       articles = await Article.findAll();
