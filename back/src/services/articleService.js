@@ -30,7 +30,12 @@ const ArticleService = {
       filter = { category };
     }
 
-    const articles = await Article.findAllByCategory(filter);
+    const articles = await Article.findAllByCategory(
+      filter,
+      page,
+      numOfPageSkip,
+      numOfPageLimit
+    );
     return articles;
   },
 
