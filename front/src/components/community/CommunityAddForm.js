@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import * as Api from "../../api"
@@ -6,14 +6,18 @@ import * as Api from "../../api"
 const CommunityAddForm = () => {
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
-  const [content, setContent] = useState({ title: "", body: "" })
+  const [content, setContent] = useState({
+    category: "",
+    title: "",
+    body: "",
+    tags: ["인사", "게임"],
+  })
   const [error, setError] = useState({ title: true, body: true })
 
   const changeHandler = (e) => {
     setContent((prev) => {
       return { ...prev, [e.target.name]: e.target.value }
     })
-    console.log(content)
     errorHandler(e.target.name)
   }
 
@@ -26,7 +30,6 @@ const CommunityAddForm = () => {
       setError((prev) => {
         return { ...prev, [v]: false }
       })
-      console.log(error)
     }
   }
 
@@ -34,12 +37,21 @@ const CommunityAddForm = () => {
     if (!error.title && !error.body) {
       alert("성공했습니다.")
       const newContent = content
-      Api.post("artcle/create", newContent).then((res) => {
-        console.log(res.data)
-      })
+      Api.post("article/create", newContent).then((res) => {})
       navigate("/community")
     } else {
       alert("실패했습니다. 다시 한 번 확인해주세요.")
+    }
+  }
+
+  const keyPressHandler = (e) => {
+    const copied = content
+    if (e.target.value) {
+      copied.tags.push(e.target.value)
+      setContent((prev) => {
+        return { ...prev, tags: copied.tags }
+      })
+      console.log(content.tags)
     }
   }
 
@@ -50,7 +62,6 @@ const CommunityAddForm = () => {
         <fieldset className="formFieldset">
           <select
             onclick={() => {
-              console.log(isOpen)
               setIsOpen(!isOpen)
             }}
           >
@@ -82,6 +93,23 @@ const CommunityAddForm = () => {
             name="body"
             onChange={changeHandler}
           ></textarea>
+        </fieldset>
+        <fieldset className="formFieldset">
+          <div>
+            <div>태그 설정</div>
+            <input
+              type="text"
+              id="tag"
+              size="20"
+              placeholder="태그입력"
+              onKeyPress={keyPressHandler}
+            />
+          </div>
+          <ul id="tag-list">
+            {content.tags.map((item) => (
+              <span>{item}</span>
+            ))}
+          </ul>
         </fieldset>
 
         <div className="buttonContainer">
