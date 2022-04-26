@@ -90,12 +90,22 @@ const ArticleService = {
       );
     }
 
+    const filter = { userId, articleId };
+    const like = await Like.findByFilter(filter);
+
     if (likeOrNot) {
+      if (like) {
+        throw new Error("이미 좋아요를 누른 게시물입니다.");
+      }
       const likeId = uuidv4();
       const newLike = { likeId, userId, articleId };
       await Like.create({ newLike });
     } else {
-      const filter = { userId, articleId };
+      if (!like) {
+        throw new Error(
+          "이미 좋아요 취소가 되었거나 좋아요를 누르지 않은 게시물입니다."
+        );
+      }
       await Like.delete(filter);
     }
   },
