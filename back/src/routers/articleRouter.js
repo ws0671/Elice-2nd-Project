@@ -30,7 +30,7 @@ ArticleRouter.post("/", categoryMiddleware, async (req, res, next) => {
 ArticleRouter.get("/list", async (req, res, next) => {
   try {
     const category = req.body.category ?? null;
-    const articles = await ArticleService.getFilteredArticles({ category });
+    const articles = await ArticleService.getArticles({ category });
     res.status(200).json(articles);
   } catch (error) {
     next(error);
