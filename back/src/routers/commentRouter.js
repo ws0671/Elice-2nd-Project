@@ -35,7 +35,7 @@ CommentRouter.put("/:commentId", async (req, res, next) => {
     const comment = req.body.comment
 
     const updateData = { comment }
-    const newComment = await CommentService.setComment({
+    const newComment = await CommentService.updateComment({
       userId,
       commentId,
       updateData,

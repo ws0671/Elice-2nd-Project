@@ -18,7 +18,7 @@ const CommentService = {
     return createNewComment
   },
 
-  setComment: async ({ userId, commentId, updateData }) => {
+  updateComment: async ({ userId, commentId, updateData }) => {
     let comment = await Comment.findById({ commentId })
 
     if (!comment) {
