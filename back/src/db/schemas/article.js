@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from "mongoose";
 
 const ArticleSchema = new Schema(
   {
@@ -18,7 +18,7 @@ const ArticleSchema = new Schema(
       type: String,
       required: true,
     },
-    content: {
+    body: {
       type: String,
       required: true,
     },
@@ -34,8 +34,8 @@ const ArticleSchema = new Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const ArticleModel = model("Article", ArticleSchema)
+const ArticleModel = model("Article", ArticleSchema);
 
-export { ArticleModel }
+export { ArticleModel };
