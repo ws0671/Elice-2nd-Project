@@ -2,12 +2,13 @@ import { Router } from "express";
 import { restart } from "nodemon";
 import { reset } from "nodemon";
 import { loginRequired } from "../middlewares/loginRequired";
+import { categoryMiddleware } from "../middlewares/categoryMiddleware";
 import { ArticleService } from "../services/articleService";
 
 const ArticleRouter = Router();
 ArticleRouter.use(loginRequired); // 게시판 기능은 무조건 회원가입
 
-ArticleRouter.post("/", async (req, res, next) => {
+ArticleRouter.post("/", categoryMiddleware, async (req, res, next) => {
   try {
     const { category, title, content, tags } = req.body;
     const author = req.currentUserId;
