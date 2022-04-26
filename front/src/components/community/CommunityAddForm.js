@@ -12,6 +12,7 @@ const CommunityAddForm = () => {
     body: "",
     tags: ["인사"],
   })
+  const [tag, setTag] = useState("")
   const [error, setError] = useState({ title: true, body: true })
 
   const changeHandler = (e) => {
@@ -52,6 +53,7 @@ const CommunityAddForm = () => {
         return { ...prev, tags: copied.tags }
       })
     }
+    setTag("")
   }
 
   const removeHandler = (e) => {
@@ -110,18 +112,22 @@ const CommunityAddForm = () => {
               type="text"
               id="tag"
               size="20"
+              value={tag}
               placeholder={
-                content.tags.length > 3
+                content.tags.length >= 3
                   ? "최대 3개의 태그까지만 가능합니다."
                   : "태그를 입력하세요"
               }
               onKeyPress={keyPressHandler}
-              disabled={content.tags.length > 3 ? true : false}
+              onChange={(e) => setTag(e.target.value)}
+              disabled={content.tags.length >= 3 ? true : false}
             />
           </div>
 
           {content.tags.map((item) => (
-            <span onClick={removeHandler}>{item}</span>
+            <span key={content.tags.indexOf(item)} onClick={removeHandler}>
+              {item}
+            </span>
           ))}
         </fieldset>
 
@@ -217,6 +223,9 @@ const Container = styled.div`
   span {
     border: 2px solid black;
     margin: 5px;
+
+    &:hover {
+    }
   }
   input#tag {
     margin-bottom: 5px;
