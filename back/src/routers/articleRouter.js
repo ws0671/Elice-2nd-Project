@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { restart } from "nodemon";
 import { loginRequired } from "../middlewares/loginRequired";
 import { ArticleService } from "../services/articleService";
 
@@ -51,6 +52,17 @@ ArticleRouter.get("/:articleId", async (req, res, next) => {
     const articleInfo = await ArticleService.getArticleInfo({ articleId });
 
     res.status(200).json(articleInfo);
+  } catch (error) {
+    next(error);
+  }
+});
+
+ArticleRouter.get("/likes/:articleId", async (req, res, next) => {
+  try {
+    const articleId = req.params.articleId;
+    const likes = await ArticleService.getLikes({ articleId });
+
+    res.status(200).json(likes);
   } catch (error) {
     next(error);
   }
