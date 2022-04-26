@@ -15,7 +15,7 @@ const ArticleService = {
   },
 
   getArticles: async () => {
-    const articles = await Article.getArticles();
+    const articles = await Article.findAll();
     return articles;
   },
 
