@@ -6,8 +6,16 @@ const Article = {
     return createdNewArticle;
   },
 
-  findAllByCategory: async (filter) => {
-    const articles = await ArticleModel.find(filter);
+  findAllByCategory: async (
+    filter,
+    page,
+    numOfPageSkip = 20,
+    numOfPageLimit = 20
+  ) => {
+    const articles = await ArticleModel.find(filter)
+      .skip((page - 1) * numOfPageSkip)
+      .limit(numOfPageLimit);
+
     return articles;
   },
 
