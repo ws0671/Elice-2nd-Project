@@ -4,11 +4,11 @@ import { SetUtil } from "../common/setUtil"
 
 const CommentService = {
   addComment: async ({ userId, articleId, comment }) => {
-    const id = uuidv4()
+    const commentId = uuidv4()
     const user = await User.findById({ userId })
     const writerNickname = user.nickname
     const newComment = {
-      id,
+      commentId,
       articleId,
       writerId: userId, // 작성자 = 현재 로그인한 사용자
       writerNickname,
@@ -18,7 +18,7 @@ const CommentService = {
     return createNewComment
   },
 
-  setComment: async ({ userId, commentId, toUpdate }) => {
+  setComment: async ({ userId, commentId, updateData }) => {
     let comment = await Comment.findById({ commentId })
 
     if (!comment) {
@@ -30,12 +30,12 @@ const CommentService = {
       throw new Error("당신은 이 댓글의 작성자가 아닙니다.")
     }
 
-    const updateObject = SetUtil.compareValues(toUpdate, comment)
-    comment = await Comment.update({ commentId, updateObject })
+    const toUpdate = SetUtil.compareValues(updateData, comment)
+    comment = await Comment.update({ commentId, toUpdate })
     return comment
   },
 
-  deleteComment: async ({ userId, commentId, toUpdate }) => {
+  deleteComment: async ({ userId, commentId, updateData }) => {
     let comment = await Comment.findById({ commentId })
 
     if (!commentId) {
@@ -47,9 +47,9 @@ const CommentService = {
       throw new Error("당신은 이 댓글의 작성자가 아닙니다.")
     }
 
-    toUpdate.comment = "삭제된 댓글입니다."
-    const updateObject = SetUtil.compareValues(toUpdate, comment)
-    comment = await Comment.softDelete({ commentId, updateObject })
+    const toUpdate = SetUtil.compareValues(updateData, comment)
+    comment = await Comment.update({ commentId, toUpdate })
+
     return comment
   },
 }

@@ -11,9 +11,9 @@ const Comment = {
     return comment
   },
 
-  update: async ({ commentId, updateObject }) => {
+  update: async ({ commentId, toUpdate }) => {
     const filter = { commentId }
-    const update = { $set: updateObject }
+    const update = toUpdate
     const option = { returnOriginal: false }
     const updateComment = await CommentModel.findOneAndUpdate(
       filter,
@@ -21,19 +21,6 @@ const Comment = {
       option
     )
 
-    return updateComment
-  },
-
-  softDelete: async ({ commentId, updateObject }) => {
-    const filter = { id: commentId }
-    const update = { $set: updateObject }
-    const option = { returnOriginal: false }
-
-    const updateComment = await CommentModel.findOneAndUpdate(
-      filter,
-      update,
-      option
-    )
     return updateComment
   },
 }
