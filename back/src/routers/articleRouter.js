@@ -5,7 +5,7 @@ import { ArticleService } from "../services/articleService";
 const ArticleRouter = Router();
 ArticleRouter.use(loginRequired); // 게시판 기능은 무조건 회원가입
 
-ArticleRouter.post("/create", async (req, res, next) => {
+ArticleRouter.post("/", async (req, res, next) => {
   try {
     const { category, title, content, tags } = req.body;
     const author = req.currentUserId;
