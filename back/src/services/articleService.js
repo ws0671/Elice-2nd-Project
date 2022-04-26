@@ -4,10 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 import { SetUtil } from "../common/setUtil";
 
 const ArticleService = {
-  addArticle: async ({ author, category, title, content, tags }) => {
+  addArticle: async ({ author, category, title, body, tags }) => {
     const articleId = uuidv4();
 
-    const newArticle = { articleId, author, category, title, content, tags };
+    const newArticle = { articleId, author, category, title, body, tags };
 
     const createdNewArticle = await Article.create({ newArticle });
 
