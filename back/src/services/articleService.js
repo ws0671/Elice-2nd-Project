@@ -33,9 +33,9 @@ const ArticleService = {
       throw new Error("수정 권한이 없는 게시물입니다.");
     }
 
-    const updateObject = SetUtil.compareValues(updateData, article);
+    const toUpdate = SetUtil.compareValues(updateData, article);
 
-    article = await Article.update({ articleId, updateObject });
+    article = await Article.update({ articleId, toUpdate });
 
     return article;
   },
