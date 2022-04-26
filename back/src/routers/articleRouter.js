@@ -54,9 +54,9 @@ ArticleRouter.put("/:articleId", async (req, res, next) => {
     const articleId = req.params.articleId;
     const author = req.currentUserId;
 
-    const { category, title, content, tags } = req.body ?? null;
+    const { category, title, body, tags } = req.body ?? null;
 
-    const updateData = { category, title, content, tags };
+    const updateData = { category, title, body, tags };
 
     const updatedArticle = await ArticleService.updateArticle({
       articleId,
