@@ -5,6 +5,11 @@ const Like = {
     await LikeModel.create(newLike);
   },
 
+  findByFilter: async (filter) => {
+    const like = await LikeModel.findOne(filter);
+    return like;
+  },
+
   delete: async (filter) => {
     await LikeModel.deleteOne(filter);
   },
