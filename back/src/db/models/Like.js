@@ -2,9 +2,9 @@ import { LikeModel } from "../schemas/like";
 
 const Like = {
   create: async ({ newLike }) => {
-    const createdNewLike = await LikeModel.create(newLike);
-    return createdNewLike;
+    await LikeModel.create(newLike);
   },
+
   delete: async ({ userId, articleId }) => {
     await LikeModel.deleteOne({ userId, articleId });
   },
