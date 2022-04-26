@@ -1,5 +1,9 @@
 import { LikeModel } from "../schemas/like";
 
-const Like = {};
-
+const Like = {
+  create: async ({ newLike }) => {
+    const createdNewLike = await LikeModel.create(newLike);
+    return createdNewLike;
+  },
+};
 export { Like };
