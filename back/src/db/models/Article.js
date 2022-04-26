@@ -11,37 +11,37 @@ const Article = {
     return article;
   },
 
-  update: async ({ articleId, toUpdate }) => {
-    const filter = { articleId };
-    const update = { toUpdate };
-    const option = { returnOriginal: false };
-
-    const updatedArticle = await ArticleModel.findOneAndUpdate(
-      filter,
-      update,
-      option
-    );
-
-    return updatedArticle;
-  },
-
-  delete: async ({ aritcleId }) => {
-    await ArticleModel.deleteOne({ aritcleId });
-  },
-  // 좋아요 개수, 좋아요 누른 사용자 목록 업데이트
-  // updateLike: async ({ articleId, updateObject }) => {
-  //   const filter = { articleId }; // 바꿀 게시물
-  //   const update = updateObject;
+  // update: async ({ articleId, toUpdate }) => {
+  //   const filter = { articleId };
+  //   const update = { toUpdate };
   //   const option = { returnOriginal: false };
 
-  //   const updateArticle = await ArticleModel.findOneAndUpdate(
+  //   const updatedArticle = await ArticleModel.findOneAndUpdate(
   //     filter,
   //     update,
   //     option
   //   );
 
-  //   return updateArticle;
+  //   return updatedArticle;
   // },
+
+  delete: async ({ aritcleId }) => {
+    await ArticleModel.deleteOne({ aritcleId });
+  },
+  // 좋아요 개수, 좋아요 누른 사용자 목록 업데이트
+  update: async ({ articleId, toUpdate }) => {
+    const filter = { articleId }; // 바꿀 게시물
+    const update = toUpdate;
+    const option = { returnOriginal: false };
+
+    const updateArticle = await ArticleModel.findOneAndUpdate(
+      filter,
+      update,
+      option
+    );
+
+    return updateArticle;
+  },
 };
 
 export { Article };
