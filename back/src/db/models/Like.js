@@ -5,5 +5,8 @@ const Like = {
     const createdNewLike = await LikeModel.create(newLike);
     return createdNewLike;
   },
+  delete: async ({ userId, articleId }) => {
+    await LikeModel.deleteOne({ userId, articleId });
+  },
 };
 export { Like };
