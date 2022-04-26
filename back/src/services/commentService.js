@@ -29,6 +29,9 @@ const CommentService = {
     if (userId !== comment.writerId) {
       throw new Error("당신은 이 댓글의 작성자가 아닙니다.")
     }
+    if (comment.isDeleted) {
+      throw new Error("이미 삭제된 댓글입니다.")
+    }
 
     const toUpdate = SetUtil.compareValues(updateData, comment)
     comment = await Comment.update({ commentId, toUpdate })
@@ -45,6 +48,9 @@ const CommentService = {
     }
     if (userId !== comment.writerId) {
       throw new Error("당신은 이 댓글의 작성자가 아닙니다.")
+    }
+    if (comment.isDeleted) {
+      throw new Error("이미 삭제된 댓글입니다.")
     }
 
     const toUpdate = SetUtil.compareValues(updateData, comment)
