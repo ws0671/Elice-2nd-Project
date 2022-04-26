@@ -45,7 +45,7 @@ ArticleRouter.put("/:articleId", async (req, res, next) => {
 
     const toUpdate = { category, title, content, tags };
 
-    const updatedArticle = await ArticleService.setArticle({
+    const updatedArticle = await ArticleService.updateArticle({
       articleId,
       author,
       toUpdate,
