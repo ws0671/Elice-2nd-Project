@@ -73,7 +73,7 @@ const userAuthService = {
     return loginUser
   },
 
-  setUser: async ({ userId, toUpdate }) => {
+  setUser: async ({ userId, updateData }) => {
     let user = await User.findById({ userId })
     if (!user) {
       throw new Error(
@@ -82,7 +82,7 @@ const userAuthService = {
     }
     // 닉네임 중복 검사
     const findByNicknameUser = await User.findByNickname({
-      nickname: toUpdate.nickname,
+      nickname: updateData.nickname,
     })
     if (findByNicknameUser && findByNicknameUser.userId != userId) {
       throw new Error(
@@ -90,8 +90,8 @@ const userAuthService = {
       )
     }
 
-    const updateObject = SetUtil.compareValues(toUpdate, user)
-    user = await User.update({ userId, updateObject })
+    const toUpdate = SetUtil.compareValues(updateData, user)
+    user = await User.update({ userId, toUpdate })
 
     return user
   },
@@ -153,7 +153,7 @@ const userAuthService = {
       }
     }
 
-    user = await User.updateBookmark({ userId, toUpdate })
+    user = await User.update({ userId, toUpdate })
 
     return user
   },
