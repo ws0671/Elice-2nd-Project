@@ -11,9 +11,6 @@ const Article = {
     return article;
   },
 
-  delete: async ({ aritcleId }) => {
-    await ArticleModel.deleteOne({ aritcleId });
-  },
   // 좋아요 개수, 좋아요 누른 사용자 목록 업데이트
   update: async ({ articleId, toUpdate }) => {
     const filter = { articleId }; // 바꿀 게시물
@@ -27,6 +24,10 @@ const Article = {
     );
 
     return updateArticle;
+  },
+
+  delete: async ({ aritcleId }) => {
+    await ArticleModel.deleteOne({ aritcleId });
   },
 };
 
