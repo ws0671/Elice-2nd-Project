@@ -19,12 +19,14 @@ const ArticleService = {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
 
-    let articles;
+    let filter;
     if (category == null) {
-      articles = await Article.findAll();
+      filter = {};
     } else {
-      articles = await Article.findAllByCategory({ category });
+      filter = { category };
     }
+
+    const articles = await Article.findAllByCategory(filter);
     return articles;
   },
 
