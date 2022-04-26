@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { reset } from "nodemon";
 import { loginRequired } from "../middlewares/loginRequired";
 import { ArticleService } from "../services/articleService";
 
@@ -19,6 +20,15 @@ ArticleRouter.post("/", async (req, res, next) => {
     });
 
     res.status(201).json(newArticle);
+  } catch (error) {
+    next(error);
+  }
+});
+
+ArticleRouter.get("/list", async (req, res, next) => {
+  try {
+    const articles = await ArticleService.getArticles();
+    res.status(200).json(articles);
   } catch (error) {
     next(error);
   }
