@@ -6,6 +6,19 @@ const Article = {
     return createdNewArticle;
   },
 
+  findAllByCategory: async (
+    filter,
+    page,
+    numOfPageSkip = 20,
+    numOfPageLimit = 20
+  ) => {
+    const articles = await ArticleModel.find(filter)
+      .skip((page - 1) * numOfPageSkip)
+      .limit(numOfPageLimit);
+
+    return articles;
+  },
+
   findById: async ({ articleId }) => {
     const article = await ArticleModel.findOne({ articleId });
     return article;
@@ -26,8 +39,8 @@ const Article = {
     return updateArticle;
   },
 
-  delete: async ({ aritcleId }) => {
-    await ArticleModel.deleteOne({ aritcleId });
+  delete: async ({ articleId }) => {
+    await ArticleModel.deleteOne({ articleId });
   },
 };
 

@@ -11,6 +11,19 @@ class SetUtil {
 
     return toUpdate;
   }
+
+  static validateCategory(category) {
+    const categoryList = [
+      "공지사항",
+      "자유",
+      "꿀팁",
+      "건의사항",
+      "리뷰",
+      "선택 안함",
+    ];
+
+    return categoryList.includes(category);
+  }
 }
 
 export { SetUtil };
