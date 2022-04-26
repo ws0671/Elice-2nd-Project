@@ -84,7 +84,7 @@ ArticleRouter.delete("/:articleId", async (req, res, next) => {
 
     await ArticleService.deleteArticle({ articleId, author });
 
-    res.status(204);
+    res.status(204).end();
   } catch (error) {
     next(error);
   }
