@@ -7,7 +7,7 @@ const CommentRouter = Router()
 CommentRouter.use(loginRequired)
 
 // 댓글 작성
-CommentRouter.post("/create", async (req, res, next) => {
+CommentRouter.post("/", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
