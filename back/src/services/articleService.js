@@ -14,6 +14,11 @@ const ArticleService = {
     return createdNewArticle;
   },
 
+  getArticles: async () => {
+    const articles = await Article.getArticles();
+    return articles;
+  },
+
   getArticleInfo: async ({ articleId }) => {
     const article = await Article.findById({ articleId });
 
