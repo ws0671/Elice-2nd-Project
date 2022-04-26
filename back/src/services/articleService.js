@@ -83,11 +83,7 @@ const ArticleService = {
 
   // 게시글 좋아요
   like: async ({ userId, articleId, likeOrNot }) => {
-    const user = await User.findById({ userId });
-    if (!user) {
-      throw new Error("당신은 회원이 아닙니다.");
-    }
-    let article = await Article.findById({ articleId }); // 좋아요 할 게시글 객체 찾기
+    const article = await Article.findById({ articleId }); // 좋아요 할 게시글 객체 찾기
     if (!article) {
       throw new Error(
         "해당 id를 가진 게시글 데이터는 없습니다. 다시 한 번 확인해주세요."
@@ -101,26 +97,6 @@ const ArticleService = {
     } else {
       await Like.delete({ userId, articleId });
     }
-    // let toUpdate;
-    // const likeUserIdList = article.likes; // 좋아요 누른 사용자들의 목록
-    // if (likeUserIdList.includes(userId)) {
-    //   // 이미 좋아요 한 상태이면
-    //   toUpdate = {
-    //     $pull: {
-    //       likes: userId,
-    //     },
-    //   };
-    // } else {
-    //   // 좋아요 안 누른 상태이면
-    //   toUpdate = {
-    //     $push: {
-    //       likes: userId,
-    //     },
-    //   };
-    // }
-    // article = await Article.update({ articleId, toUpdate });
-
-    // return article;
   },
 };
 
