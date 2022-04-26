@@ -10,7 +10,7 @@ const CommunityAddForm = () => {
     category: "",
     title: "",
     body: "",
-    tags: ["인사", "게임"],
+    tags: ["인사"],
   })
   const [error, setError] = useState({ title: true, body: true })
 
@@ -46,13 +46,22 @@ const CommunityAddForm = () => {
 
   const keyPressHandler = (e) => {
     const copied = content
-    if (e.target.value) {
+    if ((e.code = "Enter" && e.target.value)) {
       copied.tags.push(e.target.value)
       setContent((prev) => {
         return { ...prev, tags: copied.tags }
       })
-      console.log(content.tags)
     }
+  }
+
+  const removeHandler = (e) => {
+    const copied = content
+    const copiedTags = copied.tags.filter(
+      (item) => item !== e.target.textContent
+    )
+    setContent((prev) => {
+      return { ...prev, tags: copiedTags }
+    })
   }
 
   return (
@@ -101,15 +110,19 @@ const CommunityAddForm = () => {
               type="text"
               id="tag"
               size="20"
-              placeholder="태그입력"
+              placeholder={
+                content.tags.length > 3
+                  ? "최대 3개의 태그까지만 가능합니다."
+                  : "태그를 입력하세요"
+              }
               onKeyPress={keyPressHandler}
+              disabled={content.tags.length > 3 ? true : false}
             />
           </div>
-          <ul id="tag-list">
-            {content.tags.map((item) => (
-              <span>{item}</span>
-            ))}
-          </ul>
+
+          {content.tags.map((item) => (
+            <span onClick={removeHandler}>{item}</span>
+          ))}
         </fieldset>
 
         <div className="buttonContainer">
@@ -200,6 +213,13 @@ const Container = styled.div`
     .cancelButton {
       background: #ff6b6b;
     }
+  }
+  span {
+    border: 2px solid black;
+    margin: 5px;
+  }
+  input#tag {
+    margin-bottom: 5px;
   }
 `
 
