@@ -15,8 +15,8 @@ const gameService = {
     return games
   },
 
-    getTopTen: async ({ col }) => {
-    const games = await Game.sortByColumn({ col })
+  getRankedList: async ({ colName }) => {
+    const games = await Game.sortByColumn({ colName })
     return games
   },
 }

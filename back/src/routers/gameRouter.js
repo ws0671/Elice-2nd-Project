@@ -27,15 +27,15 @@ gameRouter.get("/:gameId", async function (req, res, next) {
   }
 })
 
-gameAuthRouter.get("/topTen/:col", async function (req, res, next) {
+gameRouter.get("/rankedList/:colName", async function (req, res, next) {
   try {
-    const col = req.params.col
-    const topTen = await gameAuthService.getTopTen({
-      col,
+    const colName = req.params.colName
+    const rankedList = await gameService.getRankedList({
+      colName,
     })
 
-    if (topTen.errorMessage) {
-      throw new Error(topTen.errorMessage)
+    if (rankedList.errorMessage) {
+      throw new Error(rankedList.errorMessage)
     }
 
     res.status(200).send(topTen)
