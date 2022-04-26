@@ -80,7 +80,7 @@ const ArticleService = {
         },
       };
     }
-    article = await Article.updateLike({ articleId, toUpdate });
+    article = await Article.update({ articleId, toUpdate });
 
     return article;
   },
