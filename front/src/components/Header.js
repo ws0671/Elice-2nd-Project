@@ -1,10 +1,10 @@
-import styled from "styled-components"
-import React, { useState, useEffect } from "react"
-import { Link, useNavigate } from "react-router-dom"
-import Nav from "react-bootstrap/Nav"
-import { UserStateContext, DispatchContext } from "../App"
-import { Button, Row, Col } from "react-bootstrap"
-import { throttle } from "lodash"
+import styled from "styled-components";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import { UserStateContext, DispatchContext } from "../App";
+import { Button, Row, Col } from "react-bootstrap";
+import { throttle } from "lodash";
 
 function Header() {
   return (
@@ -46,15 +46,25 @@ function Header() {
         </Nav.Item>
       )} */}
     </HeaderTag>
-  )
+  );
 }
 
-export default Header
+export default Header;
 
 const HeaderTag = styled.div`
   text-decoration: none;
   display: flex;
+  z-index: 99999;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition-duration: 1s;
   justify-content: center;
+  align-items: center;
+}
+
+
   & > .headerRight {
     width: 50vw;
     display: flex;
@@ -73,4 +83,4 @@ const HeaderTag = styled.div`
   a:hover {
     color: rgba(255, 255, 255);
   }
-`
+`;
