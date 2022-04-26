@@ -1,46 +1,55 @@
-import { Router } from "express"
-import { gameService } from "../services/gameService"
+import { Router } from "express";
+import { gameService } from "../services/gameService";
 
-const gameRouter = Router()
+const gameRouter = Router();
 
 gameRouter.get("/list/:page", async function (req, res, next) {
   try {
-    const page = req.params.page
-    const gamelist = await gameService.getGames({ page })
-
-    res.status(200).send(gamelist)
+    const page = Number(req.params.page);
+    const numOfPageSkip = req.query.page ? Number(req.query.page) : undefined;
+    const numOfPageLimit = req.query.limit
+      ? Number(req.query.limit)
+      : undefined;
+    const gameList = await gameService.getGames({
+      page,
+      numOfPageSkip,
+      numOfPageLimit,
+    });
+    res.status(200).send(gameList);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
 gameRouter.get("/:gameId", async function (req, res, next) {
   try {
-    const gameId = req.params.gameId
+    const gameId = Number(req.params.gameId);
     const gameInfo = await gameService.getGameInfo({
       gameId,
-    })
+    });
 
-    res.status(200).send(gameInfo)
+    res.status(200).send(gameInfo);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
+});
 
-gameAuthRouter.get("/topTen/:col", async function (req, res, next) {
+gameRouter.get("/rankedList/:colName", async function (req, res, next) {
   try {
-    const col = req.params.col
-    const topTen = await gameAuthService.getTopTen({
-      col,
-    })
+    const colName = req.params.colName;
+    const numOfLimit = req.query.limit ? Number(req.query.limit) : undefined;
+    const rankedList = await gameService.getRankedList({
+      colName,
+      numOfLimit,
+    });
 
-    if (topTen.errorMessage) {
-      throw new Error(topTen.errorMessage)
+    if (rankedList.errorMessage) {
+      throw new Error(rankedList.errorMessage);
     }
 
-    res.status(200).send(topTen)
+    res.status(200).send(rankedList);
   } catch (error) {
-    next(error)
+    next(error);
   }
-})
-export { gameRouter }
+});
+export { gameRouter };

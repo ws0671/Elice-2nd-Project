@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from "mongoose";
 
 const GameSchema = new Schema(
   {
@@ -102,8 +102,8 @@ const GameSchema = new Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const GameModel = model("Game", GameSchema)
+const GameModel = model("Game", GameSchema);
 
-export { GameModel }
+export { GameModel };
