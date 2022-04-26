@@ -5,8 +5,8 @@ const Like = {
     await LikeModel.create(newLike);
   },
 
-  delete: async ({ userId, articleId }) => {
-    await LikeModel.deleteOne({ userId, articleId });
+  delete: async (filter) => {
+    await LikeModel.deleteOne(filter);
   },
 };
 export { Like };

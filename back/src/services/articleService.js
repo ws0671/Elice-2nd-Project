@@ -95,7 +95,8 @@ const ArticleService = {
       const newLike = { likeId, userId, articleId };
       await Like.create({ newLike });
     } else {
-      await Like.delete({ userId, articleId });
+      const filter = { userId, articleId };
+      await Like.delete(filter);
     }
   },
 };
