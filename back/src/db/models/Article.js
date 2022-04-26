@@ -11,6 +11,11 @@ const Article = {
     return articles;
   },
 
+  findAllByCategory: async ({ category }) => {
+    const articles = await ArticleModel.find({ category });
+    return articles;
+  },
+
   findById: async ({ articleId }) => {
     const article = await ArticleModel.findOne({ articleId });
     return article;
