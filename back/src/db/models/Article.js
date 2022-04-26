@@ -11,8 +11,8 @@ const Article = {
     return articles;
   },
 
-  findAllByCategory: async ({ category }) => {
-    const articles = await ArticleModel.find({ category });
+  findAllByCategory: async (filter) => {
+    const articles = await ArticleModel.find(filter);
     return articles;
   },
 
