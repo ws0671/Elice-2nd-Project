@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import * as Api from "../../api"
 
+// 카테고리 데이터 부분 구현 필요!!
 const CommunityAddForm = () => {
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
+
+  const tagArray = [...new Array(content.tags.length)].map((_, i) => false)
+
+  const [isTag, setIsTag] = useState(tagArray)
   const [content, setContent] = useState({
     category: "",
     title: "",
     body: "",
-    tags: ["인사"],
+    tags: [],
   })
   const [tag, setTag] = useState("")
   const [error, setError] = useState({ title: true, body: true })
@@ -124,11 +129,12 @@ const CommunityAddForm = () => {
             />
           </div>
 
-          {content.tags.map((item) => (
-            <span key={content.tags.indexOf(item)} onClick={removeHandler}>
-              {item}
-            </span>
-          ))}
+          {content.tags &&
+            content.tags.map((item) => (
+              <span key={content.tags.indexOf(item)} onClick={removeHandler}>
+                {item}
+              </span>
+            ))}
         </fieldset>
 
         <div className="buttonContainer">
@@ -221,10 +227,17 @@ const Container = styled.div`
     }
   }
   span {
-    border: 2px solid black;
     margin: 5px;
+    padding: 0 5px;
+    background: rgba(108, 99, 255, 0.5);
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 15px;
+    // color: white;
+    cursor: pointer;
 
     &:hover {
+      background: rgba(108, 99, 255, 0.3);
     }
   }
   input#tag {
