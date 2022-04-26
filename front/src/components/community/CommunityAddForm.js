@@ -1,48 +1,65 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import styled from "styled-components"
 
 const CommunityAddForm = () => {
+  const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
-  const [title, setTitle] = useState("")
-  const [body, setBody] = useState("")
+  const [content, setContent] = useState({ title: "", body: "" })
+
+  const changeHandler = (e) => {
+    setContent((prev) => {
+      return { ...prev, [e.target.name]: e.target.value }
+    })
+    console.log(content)
+  }
+
   return (
-    <>
-      <div>커뮤니티 글쓰기</div>
+    <Container>
+      <div className="header">커뮤니티 글쓰기</div>
       <form className="formContainer">
         <fieldset className="formFieldset">
+          <select
+            onclick={() => {
+              console.log(isOpen)
+              setIsOpen(!isOpen)
+            }}
+          >
+            <option disabled selected>
+              {isOpen ? `말머리 선택 안함` : `말머리 선택`}
+            </option>
+            <option>필독</option>
+            <option>자유</option>
+            <option>꿀팁</option>
+            <option>건의사항</option>
+            <option>리뷰</option>
+          </select>
+        </fieldset>
+        <fieldset className="formFieldset">
           <input
-            value={title}
+            value={content.title}
             id="title"
             type="text"
             name="title"
             placeholder="제목을 입력해주세요"
+            onChange={changeHandler}
           ></input>
         </fieldset>
-
         <fieldset className="formFieldset">
-          <input
-            value={body}
-            id="content"
-            type="text"
-            name="content"
-            placeholder="내용을 입력해 주세요."
-          ></input>
-        </fieldset>
-
-        <fieldset className="formFieldset">
-          <select>
-            <option value="americano">아메리카노</option>
-            <option value="caffe latte">카페라테</option>
-            <option value="cafe au lait">카페오레</option>
-            <option value="espresso">에스프레소</option>
-          </select>
+          <textarea
+            className="text-area"
+            placeholder="내용을 입력해주세요"
+            value={content.body}
+            name="body"
+            onChange={changeHandler}
+          ></textarea>
         </fieldset>
 
         <div className="buttonContainer">
           <button
             onClick={() => navigate("/community")}
             type="button"
-            className="formButton resetButton"
+            className="formButton submitButton"
           >
             글올리기
           </button>
@@ -50,14 +67,83 @@ const CommunityAddForm = () => {
           <button
             onClick={() => navigate("/community")}
             type="button"
-            className="formButton submitButton"
+            className="formButton cancelButton"
           >
             취소
           </button>
         </div>
       </form>
-    </>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  min-width: 60vh;
+
+  form {
+    border: solid 2px grey;
+    border-radius: 3px;
+  }
+
+  .header {
+    margin: 20px;
+    padding: 10px;
+    width: 100vh;
+    border-bottom: 2px solid grey;
+    font-weight: bold;
+    font-size: 30px;
+  }
+
+  .formFieldset {
+    margin: 10px;
+    padding: 10px;
+    width: 100vh;
+
+    select {
+      width: 50vh;
+    }
+
+    input {
+      width: 50vh;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 20vh;
+    }
+  }
+
+  .buttonContainer {
+    margin: 10px;
+    padding: 10px;
+    width: 100vh;
+    text-align: end;
+
+    .formButton {
+      border: none;
+      padding: 4px;
+      color: white;
+      font-weight: 700;
+      width: 20%;
+
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    .submitButton {
+      margin-right: 10px;
+      background: #6c63ff;
+    }
+
+    .cancelButton {
+      background: #ff6b6b;
+    }
+  }
+`
 
 export default CommunityAddForm
