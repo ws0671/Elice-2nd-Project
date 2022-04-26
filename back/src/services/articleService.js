@@ -24,7 +24,7 @@ const ArticleService = {
     return article;
   },
 
-  updateArticle: async ({ articleId, author, toUpdate }) => {
+  updateArticle: async ({ articleId, author, updateData }) => {
     let article = await Article.findById({ articleId });
 
     if (!article) {
@@ -33,7 +33,7 @@ const ArticleService = {
       throw new Error("수정 권한이 없는 게시물입니다.");
     }
 
-    const updateObject = SetUtil.compareValues(toUpdate, article);
+    const updateObject = SetUtil.compareValues(updateData, article);
 
     article = await Article.update({ articleId, updateObject });
 
