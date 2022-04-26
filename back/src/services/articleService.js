@@ -19,6 +19,11 @@ const ArticleService = {
     return articles;
   },
 
+  getFilteredArticles: async ({ category }) => {
+    const articles = await Article.findAllByCategory({ category });
+    return articles;
+  },
+
   getArticleInfo: async ({ articleId }) => {
     const article = await Article.findById({ articleId });
 
