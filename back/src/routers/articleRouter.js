@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
+import { categoryMiddleware } from "../middlewares/categoryMiddleware";
 import { ArticleService } from "../services/articleService";
 
 const ArticleRouter = Router();
 ArticleRouter.use(loginRequired); // 게시판 기능은 무조건 회원가입
 
-ArticleRouter.post("/", async (req, res, next) => {
+ArticleRouter.post("/", categoryMiddleware, async (req, res, next) => {
   try {
     const { category, title, body, tags } = req.body;
     const author = req.currentUserId;
@@ -46,7 +47,7 @@ ArticleRouter.get("/:articleId", async (req, res, next) => {
   }
 });
 
-ArticleRouter.put("/:articleId", async (req, res, next) => {
+ArticleRouter.put("/:articleId", categoryMiddleware, async (req, res, next) => {
   try {
     const articleId = req.params.articleId;
     const author = req.currentUserId;

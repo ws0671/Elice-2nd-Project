@@ -36,8 +36,8 @@ const Article = {
     return updateArticle;
   },
 
-  delete: async ({ aritcleId }) => {
-    await ArticleModel.deleteOne({ aritcleId });
+  delete: async ({ articleId }) => {
+    await ArticleModel.deleteOne({ articleId });
   },
 };
 

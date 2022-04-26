@@ -61,6 +61,7 @@ const ArticleService = {
 
     await Article.delete({ articleId });
   },
+
   // 게시글 좋아요
   like: async ({ userId, articleId }) => {
     const user = await User.findById({ userId });
