@@ -71,7 +71,10 @@ userAuthRouter.put("/:userId", loginRequired, async (req, res, next) => {
       const updateData = { nickname, email, password, bookmarks }
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-      const updatedUser = await userAuthService.setUser({ userId, updateData })
+      const updatedUser = await userAuthService.updateUser({
+        userId,
+        updateData,
+      })
 
       res.status(200).json(updatedUser)
     }
@@ -104,7 +107,7 @@ userAuthRouter.put(
       if (loginId === userId) {
         const gameId = req.body.gameId
 
-        const updatedUser = await userAuthService.setBookmark({
+        const updatedUser = await userAuthService.addBookmark({
           userId,
           gameId,
         })

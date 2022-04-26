@@ -73,7 +73,7 @@ const userAuthService = {
     return loginUser
   },
 
-  setUser: async ({ userId, updateData }) => {
+  updateUser: async ({ userId, updateData }) => {
     let user = await User.findById({ userId })
     if (!user) {
       throw new Error(
@@ -120,7 +120,7 @@ const userAuthService = {
     return { status: "ok" }
   },
 
-  setBookmark: async ({ userId, gameId }) => {
+  addBookmark: async ({ userId, gameId }) => {
     let user = await User.findById({ userId })
     if (!user) {
       throw new Error(
