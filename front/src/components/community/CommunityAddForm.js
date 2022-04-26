@@ -8,9 +8,9 @@ const CommunityAddForm = () => {
   const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
 
-  const tagArray = [...new Array(content.tags.length)].map((_, i) => false)
+  // const tagArray = [...new Array(content.tags.length)].map((_, i) => false)
 
-  const [isTag, setIsTag] = useState(tagArray)
+  // const [isTag, setIsTag] = useState(tagArray)
   const [content, setContent] = useState({
     category: "",
     title: "",
