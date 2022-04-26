@@ -7,7 +7,7 @@ class SetUtil {
         updateObject[element[0]] = element[1];
     });
 
-    toUpdate = { $set: updateObject };
+    const toUpdate = { $set: updateObject };
 
     return toUpdate;
   }
