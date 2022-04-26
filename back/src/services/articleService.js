@@ -7,6 +7,10 @@ const ArticleService = {
   addArticle: async ({ author, category, title, body, tags }) => {
     const articleId = uuidv4();
 
+    if (!SetUtil.validateCategory(category)) {
+      throw new Error("잘못된 말머리를 선택하셨습니다.");
+    }
+
     const newArticle = { articleId, author, category, title, body, tags };
 
     const createdNewArticle = await Article.create({ newArticle });
