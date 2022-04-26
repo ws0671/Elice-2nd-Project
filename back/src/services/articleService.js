@@ -14,13 +14,13 @@ const ArticleService = {
     return createdNewArticle;
   },
 
-  getArticles: async () => {
-    const articles = await Article.findAll();
-    return articles;
-  },
-
-  getFilteredArticles: async ({ category }) => {
-    const articles = await Article.findAllByCategory({ category });
+  getArticles: async ({ category }) => {
+    let articles;
+    if (category == null) {
+      articles = await Article.findAll();
+    } else {
+      articles = await Article.findAllByCategory({ category });
+    }
     return articles;
   },
 
