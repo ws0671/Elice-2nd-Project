@@ -11,20 +11,6 @@ const Article = {
     return article;
   },
 
-  // update: async ({ articleId, toUpdate }) => {
-  //   const filter = { articleId };
-  //   const update = { toUpdate };
-  //   const option = { returnOriginal: false };
-
-  //   const updatedArticle = await ArticleModel.findOneAndUpdate(
-  //     filter,
-  //     update,
-  //     option
-  //   );
-
-  //   return updatedArticle;
-  // },
-
   delete: async ({ aritcleId }) => {
     await ArticleModel.deleteOne({ aritcleId });
   },
