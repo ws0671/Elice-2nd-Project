@@ -18,10 +18,10 @@ const Game = {
     return game
   },
 
-  sortByColumn: async ({ col }) => {
+  sortByColumn: async ({ colName, numOfLimit = 10 }) => {
     const games = await GameModel.find({})
-      .sort({ [col]: -1 })
-      .limit(10)
+      .sort({ [colName]: -1 })
+      .limit(numOfLimit)
     return games
   },
 }
