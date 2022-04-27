@@ -8,6 +8,7 @@ import { Article } from "./models/Article";
 import { CommentSchema } from "./schemas/comment";
 import { Comment } from "./models/Comment";
 import { Like } from "./models/Like";
+import { ReviewSchema } from "./schemas/review";
 import { Review } from "./models/Review";
 
 const DB_URL =
@@ -37,6 +38,12 @@ CommentSchema.plugin(autoIncrement.plugin, {
   startAt: 1, //시작
   increment: 1, // 증가
 });
+ReviewSchema.plugin(autoIncrement.plugin, {
+  model: "Review",
+  field: "reviewId",
+  startAt: 1, //시작
+  increment: 1, // 증가
+});
 
 const makeModels = {
   ArticleModel: () => {
@@ -47,14 +54,20 @@ const makeModels = {
     const CommentModel = model("Comment", CommentSchema);
     return CommentModel;
   },
+  ReviewModel: () => {
+    const ReviewModel = model("Review", ReviewSchema);
+    return ReviewModel;
+  },
 };
 
 const ArticleModel = makeModels.ArticleModel();
 const CommentModel = makeModels.CommentModel();
+const ReviewModel = makeModels.ReviewModel();
 
 export {
   ArticleModel,
   CommentModel,
+  ReviewModel,
   User,
   Game,
   Article,

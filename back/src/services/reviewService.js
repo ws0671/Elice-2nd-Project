@@ -1,5 +1,4 @@
 import { Review } from "../db";
-import { v4 as uuidv4 } from "uuid";
 import { SetUtil } from "../common/setUtil";
 
 const ReviewService = {
@@ -8,8 +7,7 @@ const ReviewService = {
       throw new Error("리뷰는 20자 이상 적어야합니다.");
     }
 
-    const reviewId = uuidv4();
-    const newReview = { reviewId, userId, gameId, content };
+    const newReview = { userId, gameId, content };
 
     const createdNewReview = await Review.create({ newReview });
     return createdNewReview;
