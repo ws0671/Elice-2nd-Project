@@ -112,16 +112,6 @@ const ArticleService = {
       await Like.delete(filter);
     }
   },
-
-  getLikes: async ({ articleId }) => {
-    const article = await Article.findById({ articleId });
-    if (!article) {
-      throw new Error("존재하지 않는 게시글입니다.");
-    }
-
-    const likes = await Like.findAllByArticle({ articleId });
-    return likes;
-  },
 };
 
 export { ArticleService };
