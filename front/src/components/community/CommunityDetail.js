@@ -7,6 +7,8 @@ const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
   const [comment, setComment] = useState("")
 
+  const [view, setView] = useState(false)
+
   // 댓글 mock data(back과 통신 연결 후 삭제하기)
   const comments = [
     {
@@ -42,7 +44,7 @@ const CommunityDetail = () => {
   return (
     <>
       <Header />
-      <Container>
+      <Container view={view}>
         <div className="detail title">{detail.title}</div>
         <div className="detail">
           <div>작성자</div>
@@ -67,7 +69,17 @@ const CommunityDetail = () => {
                     <div className="nickname">{item.writeNickname}</div>
                     <div className="comment">{item.comment}</div>
                   </div>
-                  <img src="/images/viewmore.png" alt="더보기"></img>
+                  <img
+                    src="/images/viewmore.png"
+                    alt="더보기"
+                    onClick={() => {
+                      setView(!view)
+                    }}
+                  ></img>
+                  <ul className="dropdown">
+                    <li>수정</li>
+                    <li>삭제</li>
+                  </ul>
                 </div>
               )
             })}
@@ -119,6 +131,29 @@ const Container = styled.div`
             cursor: pointer;
             background: rgba(108, 99, 255, 0.3);
             border-radius: 3px;
+          }
+        }
+
+        .dropdown {
+          display: ${({ view }) => (view ? "block" : "none")};
+          position: absolute;
+          left: 80%;
+          background-color: #f9f9f9;
+          min-width: 60px;
+          padding: 8px;
+          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+          list-style-type: none;
+
+          li {
+            font-weight: normal;
+            text-align: center;
+          }
+          li:hover {
+            background: rgba(108, 99, 255, 0.3);
+            border-radius: 2px;
+            font-weight: bold;
+            // color: white;
+            cursor: pointer;
           }
         }
 
