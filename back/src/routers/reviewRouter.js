@@ -13,11 +13,12 @@ ReviewRouter.post("/", async (req, res, next) => {
     const newReview = await ReviewService.addReview({
       userId,
       gameId,
-      content,
+      review,
     });
 
     res.status(201).json(newReview);
   } catch (error) {
+    S;
     next(error);
   }
 });
@@ -26,9 +27,9 @@ ReviewRouter.put("/:reviewId", async (req, res, next) => {
   try {
     const reviewId = req.params.reviewId;
     const userId = req.currentUserId;
-    const { content } = req.body;
+    const { review } = req.body;
 
-    const updateData = { content };
+    const updateData = { review };
 
     const updatedReview = await ReviewService.updateReview({
       reviewId,
