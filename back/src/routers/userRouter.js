@@ -43,7 +43,7 @@ userAuthRouter.post("/login", async (req, res, next) => {
   }
 });
 
-userAuthRouter.get("/:userId", loginRequired, async (req, res, next) => {
+userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
   try {
     // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
     const loginId = req.currentUserId;
@@ -105,9 +105,10 @@ userAuthRouter.put(
       const loginId = req.currentUserId;
       const userId = req.params.userId;
       if (loginId === userId) {
-        const gameId = req.body.gameId;
+        const { bookmark, gameId } = req.body;
 
         const updatedUser = await userAuthService.addBookmark({
+          bookmark,
           userId,
           gameId,
         });

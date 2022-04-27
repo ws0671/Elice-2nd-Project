@@ -21,6 +21,11 @@ const User = {
     return user;
   },
 
+  findAllInfoById: async ({ userId }) => {
+    const user = UserModel.findOne({ userId });
+    // reviews 모델 추가
+  },
+
   update: async ({ userId, toUpdate }) => {
     const filter = { userId }; // 바꿀 대상 찾기
     const update = toUpdate; // 바꿀 내용

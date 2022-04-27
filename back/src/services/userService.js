@@ -98,7 +98,7 @@ const userAuthService = {
   },
 
   getUserInfo: async ({ userId }) => {
-    const user = await User.findById({ userId });
+    const user = await User.findAllInfoById({ userId });
 
     if (!user) {
       throw new Error(
@@ -121,7 +121,7 @@ const userAuthService = {
     return { status: "ok" };
   },
 
-  addBookmark: async ({ userId, gameId }) => {
+  addBookmark: async ({ bookmark, userId, gameId }) => {
     let user = await User.findById({ userId });
     if (!user) {
       throw new Error(
@@ -137,18 +137,17 @@ const userAuthService = {
     // }
 
     let toUpdate;
-    const bookmarkList = user.bookmarks; // 기존 북마크 목록
-    if (bookmarkList.includes(gameId)) {
-      // 이미 북마크 한 상태이면
+    if (bookmark) {
+      // 북마크
       toUpdate = {
-        $pull: {
+        $addToSet: {
           bookmarks: gameId,
         },
       };
     } else {
-      // 북마크 안 한 상태이면
+      // 북마크 취소
       toUpdate = {
-        $push: {
+        $pull: {
           bookmarks: gameId,
         },
       };
