@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from "mongoose";
 // import autoIncrement from "mongoose-auto-increment"
 
 const UserSchema = new Schema(
@@ -31,10 +31,10 @@ const UserSchema = new Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const UserModel = model("User", UserSchema)
-export { UserModel }
+const UserModel = model("User", UserSchema);
+export { UserModel };
 
 // UserSchema.plugin(autoIncrement.plugin, {
 //   model: "User",
