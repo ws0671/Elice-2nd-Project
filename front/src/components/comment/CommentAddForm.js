@@ -12,7 +12,14 @@ const CommentAddForm = ({ clickHandler }) => {
         name="comment"
         onChange={(e) => setComment(e.target.value)}
       />
-      <Button onClick={() => clickHandler(comment)}>등록</Button>
+      <Button
+        onClick={() => {
+          clickHandler(comment)
+          setComment("")
+        }}
+      >
+        등록
+      </Button>
     </>
   )
 }
