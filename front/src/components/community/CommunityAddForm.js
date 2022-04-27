@@ -225,7 +225,8 @@ const Container = styled.div`
     }
   }
   span {
-    margin: 5px;
+    // margin: 5px;
+    margin-right: 5px;
     padding: 0 5px;
     background: rgba(108, 99, 255, 0.5);
     border-radius: 2px;
