@@ -1,8 +1,29 @@
-import { useState } from "react"
+import { useState, useRef, useEffect } from "react"
 import styled from "styled-components"
 
 const CommentElement = ({ item, removeHandler }) => {
   const [view, setView] = useState(false)
+  const viewMore = useRef()
+  const viewMoreList = useRef()
+
+  useEffect(() => {
+    document.addEventListener("mousedown", clickModalOutside)
+
+    return () => {
+      document.removeEventListener("mousedown", clickModalOutside)
+    }
+  })
+
+  const clickModalOutside = (event) => {
+    if (
+      view &&
+      !viewMore.current.contains(event.target) &&
+      !viewMoreList.current.contains(event.target)
+    ) {
+      setView((prev) => !prev)
+    }
+  }
+
   return (
     !item.isDeleted && (
       <Div view={view} className="comment-area">
@@ -11,13 +32,14 @@ const CommentElement = ({ item, removeHandler }) => {
           <div className="comment">{item.comment}</div>
         </div>
         <img
+          ref={viewMore}
           src="/images/viewmore.png"
           alt="더보기"
-          onClick={() => {
+          onClick={(e) => {
             setView((prev) => !prev)
           }}
         ></img>
-        <ul className="dropdown">
+        <ul ref={viewMoreList} className="dropdown">
           <li>수정</li>
           <li
             onClick={() => {
