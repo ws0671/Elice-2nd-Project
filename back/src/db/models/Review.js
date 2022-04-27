@@ -23,6 +23,10 @@ const Review = {
 
     return updateReview;
   },
+
+  delete: async ({ reviewId }) => {
+    await ReviewModel.deleteOne({ reviewId });
+  },
 };
 
 export { Review };
