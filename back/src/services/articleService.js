@@ -44,12 +44,12 @@ const ArticleService = {
       throw new Error("존재하지 않는 게시물입니다.");
     }
 
-    const like = await Like.findByFilter({ articleId, userId });
-    const likeOrNot = Boolean(like);
+    const likeOrNot = await Like.findByFilter({ articleId, userId });
+    const like = Boolean(likeOrNot);
 
     const comments = await Comment.findAllByArticle({ articleId });
 
-    const articleInfo = { article, likeOrNot, comments };
+    const articleInfo = { article, like, comments };
     return articleInfo;
   },
 
