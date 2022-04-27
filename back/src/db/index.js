@@ -35,14 +35,14 @@ ArticleSchema.plugin(autoIncrement.plugin, {
 CommentSchema.plugin(autoIncrement.plugin, {
   model: "Comment",
   field: "commentId",
-  startAt: 1, //시작
-  increment: 1, // 증가
+  startAt: 1,
+  increment: 1,
 });
 ReviewSchema.plugin(autoIncrement.plugin, {
   model: "Review",
   field: "reviewId",
-  startAt: 1, //시작
-  increment: 1, // 증가
+  startAt: 1,
+  increment: 1,
 });
 
 const makeModels = {
@@ -57,6 +57,21 @@ const makeModels = {
   ReviewModel: () => {
     const ReviewModel = model("Review", ReviewSchema);
     return ReviewModel;
+  },
+  ResetCountExample: () => {
+    const ArticleModel = model("Article", ArticleSchema),
+      article = new ArticleModel();
+
+    article.save((err) => {
+      article.articleId === 0;
+      article.nextCount((err, count) => {
+        count === 1;
+        article.resetCount((err, nextCount) => {
+          nextCount === 0;
+        });
+      });
+    });
+    return ArticleModel;
   },
 };
 
