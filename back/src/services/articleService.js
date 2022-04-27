@@ -97,8 +97,7 @@ const ArticleService = {
       if (like) {
         throw new Error("이미 좋아요를 누른 게시물입니다.");
       }
-      const likeId = uuidv4();
-      const newLike = { likeId, userId, articleId };
+      const newLike = { userId, articleId };
       await Like.create({ newLike });
     } else {
       if (!like) {
