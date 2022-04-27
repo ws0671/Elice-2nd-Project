@@ -48,8 +48,12 @@ ArticleRouter.get("/:page", async (req, res, next) => {
 ArticleRouter.get("/:articleId", async (req, res, next) => {
   try {
     const articleId = req.params.articleId;
+    const userId = req.currentUserId;
 
-    const articleInfo = await ArticleService.getArticleInfo({ articleId });
+    const articleInfo = await ArticleService.getArticleInfo({
+      articleId,
+      userId,
+    });
 
     res.status(200).json(articleInfo);
   } catch (error) {
