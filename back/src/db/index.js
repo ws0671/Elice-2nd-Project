@@ -5,6 +5,7 @@ import { User } from "./models/User";
 import { Game } from "./models/Game";
 import { ArticleSchema } from "./schemas/article";
 import { Article } from "./models/Article";
+import { CommentSchema } from "./schemas/comment";
 import { Comment } from "./models/Comment";
 import { Like } from "./models/Like";
 import { Review } from "./models/Review";
@@ -30,14 +31,34 @@ ArticleSchema.plugin(autoIncrement.plugin, {
   startAt: 1, //시작
   increment: 1, // 증가
 });
+CommentSchema.plugin(autoIncrement.plugin, {
+  model: "Comment",
+  field: "commentId",
+  startAt: 1, //시작
+  increment: 1, // 증가
+});
 
 const makeModels = {
   ArticleModel: () => {
     const ArticleModel = model("Article", ArticleSchema);
     return ArticleModel;
   },
+  CommentModel: () => {
+    const CommentModel = model("Comment", CommentSchema);
+    return CommentModel;
+  },
 };
 
 const ArticleModel = makeModels.ArticleModel();
+const CommentModel = makeModels.CommentModel();
 
-export { ArticleModel, User, Game, Article, Comment, Like, Review };
+export {
+  ArticleModel,
+  CommentModel,
+  User,
+  Game,
+  Article,
+  Comment,
+  Like,
+  Review,
+};

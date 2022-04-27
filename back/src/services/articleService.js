@@ -1,6 +1,4 @@
-import { User } from "../db";
 import { Article, Like, Comment } from "../db";
-import { v4 as uuidv4 } from "uuid";
 import { SetUtil } from "../common/setUtil";
 
 const ArticleService = {
@@ -9,7 +7,6 @@ const ArticleService = {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
 
-    // const articleId = uuidv4();
     const newArticle = { author, category, title, body, tags };
 
     const createdNewArticle = await Article.create({ newArticle });
