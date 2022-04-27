@@ -16,7 +16,7 @@ const ReviewService = {
   },
 
   updateReview: async ({ reviewId, userId, updateData }) => {
-    if (updateData.content.length < 20) {
+    if (updateData.review.length < 20) {
       throw new Error("리뷰는 20자 이상 적어야합니다.");
     }
 
