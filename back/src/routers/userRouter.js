@@ -67,8 +67,8 @@ userAuthRouter.put("/:userId", loginRequired, async (req, res, next) => {
     const userId = req.params.userId
     if (loginId === userId) {
       // body data로부터 업데이트할 사용자 정보를 추출함.
-      const { nickname, email, password, bookmarks } = req.body ?? null
-      const updateData = { nickname, email, password, bookmarks }
+      const { nickname } = req.body.nickname
+      const updateData = { nickname }
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
       const updatedUser = await userAuthService.updateUser({
