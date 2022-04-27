@@ -53,7 +53,7 @@ const CommunityDetail = () => {
         <span>0</span>
         <img src="/images/comment.png" alt="댓글"></img>
         <span>댓글</span>
-        <span>0</span>
+        <span>{example.length}</span>
       </div>
       <div className="detail comment">
         <div className="head">댓글</div>
@@ -93,6 +93,11 @@ const Container = styled.div`
     .area {
       .comment-area {
         margin-bottom: 20px;
+        font-size: 13px;
+        padding-bottom: 10px;
+        &:not(:nth-last-of-type(1)) {
+          border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+        }
       }
       .write-area {
         width: 100%;
