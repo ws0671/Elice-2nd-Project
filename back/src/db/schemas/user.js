@@ -3,10 +3,6 @@ import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    // id: {
-    //   type: Number,
-    //   default: 0,
-    // },
     userId: {
       type: String,
       required: true,
@@ -34,11 +30,5 @@ const UserSchema = new Schema(
 );
 
 const UserModel = model("User", UserSchema);
-export { UserModel };
 
-// UserSchema.plugin(autoIncrement.plugin, {
-//   model: "User",
-//   field: "id",
-//   startAt: 1, //시작
-//   increment: 1, // 증가
-// })
+export { UserModel };
