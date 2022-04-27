@@ -11,6 +11,11 @@ const Comment = {
     return comment;
   },
 
+  findAllByArticle: async ({ articleId }) => {
+    const comments = await CommentModel.find({ articleId });
+    return comments;
+  },
+
   update: async ({ commentId, toUpdate }) => {
     const filter = { commentId };
     const update = toUpdate;
