@@ -7,7 +7,7 @@ ReviewRouter.use(loginRequired);
 
 ReviewRouter.post("/", async (req, res, next) => {
   try {
-    const { gameId, content } = req.body;
+    const { gameId, review } = req.body;
     const userId = req.currentUserId;
 
     const newReview = await ReviewService.addReview({
