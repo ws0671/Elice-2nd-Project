@@ -11,7 +11,28 @@ function GameSearch() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setInputData(searchTerm);
+    for (let i = 0; i < button.length; i++) {
+      button[i].classList.remove("clicked");
+    }
   };
+
+  const button = document.querySelectorAll(".button");
+
+  const handleButton = (e) => {
+    if (e.target.classList[3] === "clicked") {
+      e.target.classList.remove();
+    } else {
+      for (let i = 0; i < button.length; i++) {
+        button[i].classList.remove("clicked");
+      }
+      e.target.classList.add("clicked");
+    }
+    console.log(e.target.value);
+    if (e.target.value === "전체 목록") {
+      setInputData("");
+    }
+  };
+
   return (
     <>
       <div className="video">
@@ -22,10 +43,30 @@ function GameSearch() {
       <H1 className="mt-5">게임 검색</H1>
       <SearchBarContainer>
         <div className="searchBar">
-          <Button>전체 목록</Button>
-          <Button>장르</Button>
-          <Button>플랫폼</Button>
-          <Button>이용등급</Button>
+          <Button
+            value="전체 목록"
+            type="submit"
+            className="button"
+            onClick={handleButton}
+          />
+          <Button
+            value="장르"
+            type="submit"
+            className="button"
+            onClick={handleButton}
+          />
+          <Button
+            value="플랫폼"
+            type="submit"
+            className="button"
+            onClick={handleButton}
+          />
+          <Button
+            value="이용등급"
+            type="submit"
+            className="button"
+            onClick={handleButton}
+          />
         </div>
         <div>
           <form onSubmit={handleSubmit}>
@@ -43,6 +84,7 @@ function GameSearch() {
       <Main>
         <ImgDiv className="mt-4">
           <div>
+            {/* 검색 결과 없는 것 처리 구현해야함. */}
             {Data.filter((val) => {
               if (inputData === "") {
                 return val;
@@ -74,11 +116,14 @@ const H1 = styled.h1`
 const SearchBarContainer = styled.div`
   display: flex;
   justify-content: center;
-  div.searchBar > Button {
+  div.searchBar > input {
     margin-right: 30px;
   }
   div:nth-child(1) {
     margin-right: 60px;
+  }
+  div.searchBar > input.clicked {
+    background-color: gold;
   }
 `;
 const Main = styled.main`
@@ -103,7 +148,7 @@ const ImgDiv = styled.div`
     opacity: 0.5;
   }
 `;
-const Button = styled.button`
+const Button = styled.input`
   padding: 10px 30px;
   background-color: white;
   border: 1px solid black;
