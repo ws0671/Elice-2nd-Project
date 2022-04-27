@@ -1,5 +1,4 @@
 import { UserModel } from "../schemas/user";
-// import { ReviewModel } from "../schemas/review";
 
 const User = {
   create: async ({ newUser }) => {

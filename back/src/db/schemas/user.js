@@ -20,7 +20,7 @@ const UserSchema = new Schema(
       required: true,
     },
     bookmarks: {
-      type: [String],
+      type: [Number],
       default: [],
     },
   },

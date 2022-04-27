@@ -18,6 +18,13 @@ const Game = {
     return game;
   },
 
+  findAllBookmarks: async ({ bookmarkList }) => {
+    const bookmarkGames = await GameModel.find({
+      gameId: { $in: bookmarkList },
+    });
+    return bookmarkGames;
+  },
+
   sortByColumn: async ({ colName, numOfLimit = 10 }) => {
     const games = await GameModel.find({})
       .sort({ [colName]: -1 })
