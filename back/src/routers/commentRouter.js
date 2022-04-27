@@ -7,12 +7,10 @@ const CommentRouter = Router()
 CommentRouter.use(loginRequired)
 
 // 댓글 작성
-CommentRouter.post("/create", async (req, res, next) => {
+CommentRouter.post("/", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
-      throw new Error(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      )
+      throw new Error("req.body값이 존재하지 않습니다.")
     }
 
     const userId = req.currentUserId
@@ -36,11 +34,11 @@ CommentRouter.put("/:commentId", async (req, res, next) => {
     const commentId = req.params.commentId
     const comment = req.body.comment
 
-    const toUpdate = { comment }
-    const newComment = await CommentService.setComment({
+    const updateData = { comment }
+    const newComment = await CommentService.updateComment({
       userId,
       commentId,
-      toUpdate,
+      updateData,
     })
 
     res.status(200).send(newComment)
@@ -54,14 +52,13 @@ CommentRouter.put("/:commentId/delete", async (req, res, next) => {
   try {
     const userId = req.currentUserId
     const commentId = req.params.commentId
-    const { comment } = req.body
     const isDeleted = true
 
-    const toUpdate = { isDeleted, comment }
+    const updateData = { isDeleted }
     const newComment = await CommentService.deleteComment({
       userId,
       commentId,
-      toUpdate,
+      updateData,
     })
 
     res.status(200).send(newComment)
