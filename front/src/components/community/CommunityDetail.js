@@ -63,8 +63,11 @@ const CommunityDetail = () => {
             {example.map((item) => {
               return (
                 <div className="comment-area">
-                  <div className="nickname">{item.writeNickname}</div>
-                  <div className="comment">{item.comment}</div>
+                  <div>
+                    <div className="nickname">{item.writeNickname}</div>
+                    <div className="comment">{item.comment}</div>
+                  </div>
+                  <img src="/images/viewmore.png" alt="더보기"></img>
                 </div>
               )
             })}
@@ -103,6 +106,22 @@ const Container = styled.div`
         margin-bottom: 20px;
         font-size: 13px;
         padding-bottom: 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        // align-items: center;
+
+        img {
+          width: 20px;
+          height: 20px;
+
+          &:hover {
+            cursor: pointer;
+            background: rgba(108, 99, 255, 0.3);
+            border-radius: 3px;
+          }
+        }
+
         &:not(:nth-last-of-type(1)) {
           border-bottom: 1px solid rgba(0, 0, 0, 0.3);
         }
@@ -147,7 +166,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    \ img {
+
+    img {
       width: 30px;
       height: 30px;
     }
