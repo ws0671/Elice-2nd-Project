@@ -1,5 +1,5 @@
-class SetUtil {
-  static compareValues(updateData, originData) {
+const SetUtil = {
+  compareValues: async (updateData, originData) => {
     let updateObject = {};
 
     Object.entries(updateData).forEach((element) => {
@@ -10,9 +10,9 @@ class SetUtil {
     const toUpdate = { $set: updateObject };
 
     return toUpdate;
-  }
+  },
 
-  static validateCategory(category) {
+  validateCategory: async (category) => {
     const categoryList = [
       "공지사항",
       "유머",
@@ -24,7 +24,7 @@ class SetUtil {
     ];
 
     return categoryList.includes(category);
-  }
-}
+  },
+};
 
 export { SetUtil };

@@ -1,4 +1,4 @@
-import { ReviewModel } from "../schemas/review";
+import { ReviewModel } from "../index";
 
 const Review = {
   create: async ({ newReview }) => {
