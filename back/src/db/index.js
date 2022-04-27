@@ -4,6 +4,7 @@ import { Game } from "./models/Game";
 import { Article } from "./models/Article";
 import { Comment } from "./models/Comment";
 import { Like } from "./models/Like";
+import { Review } from "./models/Review";
 
 const DB_URL =
   process.env.MONGODB_URL ||
@@ -19,4 +20,4 @@ db.on("error", (error) =>
   console.error("MongoDB 연결에 실패하였습니다...\n" + DB_URL + "\n" + error)
 );
 
-export { User, Game, Article, Comment, Like };
+export { User, Game, Article, Comment, Like, Review };

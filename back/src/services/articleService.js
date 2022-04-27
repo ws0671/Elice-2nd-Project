@@ -1,5 +1,5 @@
 import { User } from "../db";
-import { Article, Like } from "../db";
+import { Article, Like, Comment } from "../db";
 import { v4 as uuidv4 } from "uuid";
 import { SetUtil } from "../common/setUtil";
 
@@ -10,11 +10,9 @@ const ArticleService = {
     }
 
     const articleId = uuidv4();
-
     const newArticle = { articleId, author, category, title, body, tags };
 
     const createdNewArticle = await Article.create({ newArticle });
-
     return createdNewArticle;
   },
 
@@ -39,14 +37,20 @@ const ArticleService = {
     return articles;
   },
 
-  getArticleInfo: async ({ articleId }) => {
+  getArticleInfo: async ({ articleId, userId }) => {
     const article = await Article.findById({ articleId });
 
     if (!article) {
       throw new Error("존재하지 않는 게시물입니다.");
     }
 
-    return article;
+    const like = await Like.findByFilter({ articleId, userId });
+    const likeOrNot = Boolean(like);
+
+    const comments = await Comment.findAllByArticle({ articleId });
+
+    const articleInfo = { article, likeOrNot, comments };
+    return articleInfo;
   },
 
   updateArticle: async ({ articleId, author, updateData }) => {
@@ -97,8 +101,7 @@ const ArticleService = {
       if (like) {
         throw new Error("이미 좋아요를 누른 게시물입니다.");
       }
-      const likeId = uuidv4();
-      const newLike = { likeId, userId, articleId };
+      const newLike = { userId, articleId };
       await Like.create({ newLike });
     } else {
       if (!like) {

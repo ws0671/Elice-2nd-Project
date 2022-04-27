@@ -25,7 +25,7 @@ ArticleRouter.post("/", async (req, res, next) => {
   }
 });
 
-ArticleRouter.get("/:page", async (req, res, next) => {
+ArticleRouter.get("/list/:page", async (req, res, next) => {
   try {
     const category = req.query.category ?? null;
     const page = Number(req.params.page);
@@ -48,21 +48,14 @@ ArticleRouter.get("/:page", async (req, res, next) => {
 ArticleRouter.get("/:articleId", async (req, res, next) => {
   try {
     const articleId = req.params.articleId;
+    const userId = req.currentUserId;
 
-    const articleInfo = await ArticleService.getArticleInfo({ articleId });
+    const articleInfo = await ArticleService.getArticleInfo({
+      articleId,
+      userId,
+    });
 
     res.status(200).json(articleInfo);
-  } catch (error) {
-    next(error);
-  }
-});
-
-ArticleRouter.get("/likes/:articleId", async (req, res, next) => {
-  try {
-    const articleId = req.params.articleId;
-    const likes = await ArticleService.getLikes({ articleId });
-
-    res.status(200).json(likes);
   } catch (error) {
     next(error);
   }
@@ -102,7 +95,7 @@ ArticleRouter.delete("/:articleId", async (req, res, next) => {
   }
 });
 
-ArticleRouter.put("/like/:articleId", async (req, res, next) => {
+ArticleRouter.put("/:articleId/like", async (req, res, next) => {
   try {
     const userId = req.currentUserId; // 로그인 한 사용자
     const articleId = req.params.articleId; // 게시글 Id
