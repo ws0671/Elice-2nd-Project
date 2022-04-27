@@ -40,43 +40,46 @@ const CommunityDetail = () => {
   }
 
   return (
-    <Container>
-      <div className="detail title">{detail.title}</div>
-      <div className="detail">
-        <div>작성자</div>
-        <div>작성 시간 / 조회 수</div>
-      </div>
-      <div className="detail body">{detail.body}</div>
-      <div className="detail etc">
-        <img src="/images/unlike.png" alt="좋아요"></img>
-        <span>좋아요</span>
-        <span>0</span>
-        <img src="/images/comment.png" alt="댓글"></img>
-        <span>댓글</span>
-        <span>{example.length}</span>
-      </div>
-      <div className="detail comment">
-        <div className="head">댓글</div>
-        <div className="area">
-          {example.map((item) => {
-            return (
-              <div className="comment-area">
-                <div className="nickname">{item.writeNickname}</div>
-                <div className="comment">{item.comment}</div>
-              </div>
-            )
-          })}
-          <textarea
-            className="write-area"
-            placeholder="댓글을 남겨보세요."
-            value={comment}
-            name="comment"
-            onChange={(e) => setComment(e.target.value)}
-          ></textarea>
-          <button onClick={clickHandler}>등록</button>
+    <>
+      <Header />
+      <Container>
+        <div className="detail title">{detail.title}</div>
+        <div className="detail">
+          <div>작성자</div>
+          <div>작성 시간 / 조회 수</div>
         </div>
-      </div>
-    </Container>
+        <div className="detail body">{detail.body}</div>
+        <div className="detail etc">
+          <img src="/images/unlike.png" alt="좋아요"></img>
+          <span>좋아요</span>
+          <span>0</span>
+          <img src="/images/comment.png" alt="댓글"></img>
+          <span>댓글</span>
+          <span>{example.length}</span>
+        </div>
+        <div className="detail comment">
+          <div className="head">댓글</div>
+          <div className="area">
+            {example.map((item) => {
+              return (
+                <div className="comment-area">
+                  <div className="nickname">{item.writeNickname}</div>
+                  <div className="comment">{item.comment}</div>
+                </div>
+              )
+            })}
+            <textarea
+              className="write-area"
+              placeholder="댓글을 남겨보세요."
+              value={comment}
+              name="comment"
+              onChange={(e) => setComment(e.target.value)}
+            ></textarea>
+            <button onClick={clickHandler}>등록</button>
+          </div>
+        </div>
+      </Container>
+    </>
   )
 }
 
@@ -86,6 +89,11 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+
+  .title {
+    font-size: 25px;
+    font-weight: bold;
+  }
 
   .detail {
     width: 60%;
@@ -150,5 +158,7 @@ const Container = styled.div`
     }
   }
 `
-
+const Header = styled.div`
+  height: 10vh;
+`
 export default CommunityDetail
