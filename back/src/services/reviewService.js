@@ -10,6 +10,20 @@ const ReviewService = {
     const createdNewReview = await Review.create({ newReview });
     return createdNewReview;
   },
+
+  updateReview: async ({ reviewId, currentUserId, updateData }) => {
+    let review = await Review.findById({ reviewId });
+
+    if (!review) {
+      throw new Error("존재하지 않는 리뷰입니다.");
+    } else if (review.userId !== currentUserId) {
+      throw new Error("수정 권한이 없는 리뷰입니다.");
+    }
+
+    const toUpdate = SetUtil.compareValues(updateData, review);
+    review = await Review.update({ reviewId, toUpdate });
+    return review;
+  },
 };
 
 export { ReviewService };
