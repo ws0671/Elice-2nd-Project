@@ -29,7 +29,6 @@ ReviewRouter.put("/:reviewId", async (req, res, next) => {
     const { content } = req.body;
 
     const updateData = { content };
-    console.log(updateData);
 
     const updatedReview = await ReviewService.updateReview({
       reviewId,
