@@ -15,10 +15,11 @@ class SetUtil {
   static validateCategory(category) {
     const categoryList = [
       "공지사항",
-      "자유",
-      "꿀팁",
+      "유머",
+      "파티 모집",
       "건의사항",
-      "리뷰",
+      "후기",
+      "꿀팁",
       "선택 안함",
     ];
 
