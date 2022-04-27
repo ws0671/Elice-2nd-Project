@@ -42,4 +42,17 @@ ReviewRouter.put("/:reviewId", async (req, res, next) => {
   }
 });
 
+ReviewRouter.delete("/:reviewId", async (req, res, next) => {
+  try {
+    const reviewId = req.params.reviewId;
+    const userId = req.currentUserId;
+
+    await ReviewService.deleteReview({ reviewId, userId });
+
+    res.status(204).end();
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { ReviewRouter };
