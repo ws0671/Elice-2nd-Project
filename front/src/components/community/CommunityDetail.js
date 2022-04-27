@@ -9,8 +9,6 @@ import CommentList from "../comment/CommentList"
 const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
 
-  const [view, setView] = useState(false)
-
   // 댓글 mock data(back과 통신 연결 후 삭제하기)
   const comments = [
     {
@@ -33,10 +31,10 @@ const CommunityDetail = () => {
   }, [])
 
   const clickHandler = (comment) => {
-    let copied = comments
+    let copied = [...example]
     // 유저가 댓글을 두번 이상은 못쓰는 경우 처리하기
     const newComment = { comment, articleId: "happy" }
-    copied.push({ comment, writeNickname: "happy" })
+    copied.push({ isDeleted: false, comment, writeNickname: "happy" })
     Api.post("/comment", newComment).then((res) => {
       console.log(res.data)
     })
@@ -49,7 +47,7 @@ const CommunityDetail = () => {
     Api.put("comment/:commentId/delete", deleted).then((res) =>
       console.log(res.data)
     )
-    const copied = comments.map((v) => {
+    const copied = example.map((v) => {
       if (v.writeNickname === deleted.writeNickname) {
         return { ...v, isDeleted: true }
       } else {
@@ -63,7 +61,7 @@ const CommunityDetail = () => {
   return (
     <>
       <Header />
-      <Container view={view}>
+      <Container>
         <div className="detail title">{detail.title}</div>
         <div className="detail writer">
           <div>작성자</div>

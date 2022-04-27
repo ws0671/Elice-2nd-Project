@@ -2,11 +2,11 @@ import CommentElement from "./CommentElement"
 import styled from "styled-components"
 const CommentList = ({ example, removeHandler }) => {
   return (
-    <div className="area">
+    <Div className="area">
       {example.map((item) => (
         <CommentElement item={item} removeHandler={removeHandler} />
       ))}
-    </div>
+    </Div>
   )
 }
 
