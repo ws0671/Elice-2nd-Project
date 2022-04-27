@@ -1,4 +1,4 @@
-import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { User, Review } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
@@ -98,7 +98,8 @@ const userAuthService = {
   },
 
   getUserInfo: async ({ userId }) => {
-    const user = await User.findAllInfoById({ userId });
+    const user = await User.findById({ userId });
+    const reviews = await Review.findAllByUser({ userId });
 
     if (!user) {
       throw new Error(
@@ -106,7 +107,7 @@ const userAuthService = {
       );
     }
 
-    return user;
+    return { user, reviews };
   },
 
   deleteUser: async ({ userId }) => {

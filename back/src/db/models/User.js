@@ -1,4 +1,5 @@
 import { UserModel } from "../schemas/user";
+// import { ReviewModel } from "../schemas/review";
 
 const User = {
   create: async ({ newUser }) => {
@@ -19,11 +20,6 @@ const User = {
   findByNickname: async ({ nickname }) => {
     const user = await UserModel.findOne({ nickname });
     return user;
-  },
-
-  findAllInfoById: async ({ userId }) => {
-    const user = UserModel.findOne({ userId });
-    // reviews 모델 추가
   },
 
   update: async ({ userId, toUpdate }) => {
