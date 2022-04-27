@@ -57,16 +57,16 @@ ArticleRouter.get("/:articleId", async (req, res, next) => {
   }
 });
 
-ArticleRouter.get("/likes/:articleId", async (req, res, next) => {
-  try {
-    const articleId = req.params.articleId;
-    const likes = await ArticleService.getLikes({ articleId });
+// ArticleRouter.get("/likes/:articleId", async (req, res, next) => {
+//   try {
+//     const articleId = req.params.articleId;
+//     const likes = await ArticleService.getLikes({ articleId });
 
-    res.status(200).json(likes);
-  } catch (error) {
-    next(error);
-  }
-});
+//     res.status(200).json(likes);
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 
 ArticleRouter.put("/:articleId", async (req, res, next) => {
   try {
@@ -102,7 +102,7 @@ ArticleRouter.delete("/:articleId", async (req, res, next) => {
   }
 });
 
-ArticleRouter.put("/like/:articleId", async (req, res, next) => {
+ArticleRouter.put("/:articleId/like", async (req, res, next) => {
   try {
     const userId = req.currentUserId; // 로그인 한 사용자
     const articleId = req.params.articleId; // 게시글 Id
