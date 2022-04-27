@@ -26,9 +26,10 @@ ReviewRouter.put("/:reviewId", async (req, res, next) => {
   try {
     const reviewId = req.params.reviewId;
     const userId = req.currentUserId;
-    const { content } = req.body.content;
+    const { content } = req.body;
 
     const updateData = { content };
+    console.log(updateData);
 
     const updatedReview = await ReviewService.updateReview({
       reviewId,
