@@ -11,6 +11,11 @@ const Review = {
     return review;
   },
 
+  findAllByGame: async ({ gameId }) => {
+    const reviews = await ReviewModel.find({ gameId });
+    return reviews;
+  },
+
   update: async ({ reviewId, toUpdate }) => {
     const filter = { reviewId };
     const update = toUpdate;
