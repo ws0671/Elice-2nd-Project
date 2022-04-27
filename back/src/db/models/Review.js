@@ -5,6 +5,10 @@ const Review = {
     const createdNewReview = await ReviewModel.create({ newReview });
     return createdNewReview;
   },
+  findById: async ({ reviewId }) => {
+    const review = await ReviewModel.findOne({ reviewId });
+    return review;
+  },
 };
 
 export { Review };
