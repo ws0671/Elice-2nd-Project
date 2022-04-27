@@ -1,9 +1,9 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
 
 const ArticleSchema = new Schema(
   {
     articleId: {
-      type: String,
+      type: Number,
       required: true,
     },
     author: {
@@ -32,6 +32,4 @@ const ArticleSchema = new Schema(
   }
 );
 
-const ArticleModel = model("Article", ArticleSchema);
-
-export { ArticleModel };
+export { ArticleSchema };

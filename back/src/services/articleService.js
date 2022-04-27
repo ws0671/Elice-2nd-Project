@@ -9,8 +9,8 @@ const ArticleService = {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
 
-    const articleId = uuidv4();
-    const newArticle = { articleId, author, category, title, body, tags };
+    // const articleId = uuidv4();
+    const newArticle = { author, category, title, body, tags };
 
     const createdNewArticle = await Article.create({ newArticle });
     return createdNewArticle;
