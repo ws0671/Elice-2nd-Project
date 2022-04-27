@@ -14,12 +14,18 @@ const CommentElement = ({ item, removeHandler }) => {
           src="/images/viewmore.png"
           alt="더보기"
           onClick={() => {
-            setView(!view)
+            setView((prev) => !prev)
           }}
         ></img>
         <ul className="dropdown">
           <li>수정</li>
-          <li onClick={() => removeHandler(item)}>삭제</li>
+          <li
+            onClick={() => {
+              removeHandler(item)
+            }}
+          >
+            삭제
+          </li>
         </ul>
       </Div>
     )
