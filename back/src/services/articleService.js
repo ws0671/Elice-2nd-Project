@@ -1,5 +1,5 @@
 import { User } from "../db";
-import { Article, Like } from "../db";
+import { Article, Like, Comment } from "../db";
 import { v4 as uuidv4 } from "uuid";
 import { SetUtil } from "../common/setUtil";
 
