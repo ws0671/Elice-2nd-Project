@@ -6,7 +6,10 @@ const gameService = {
     if (!game) {
       throw new Error("해당 게임이 없습니다. 다시 한 번 확인해 주세요.");
     }
-    return game;
+
+    const reviews = await Review.findAllByGame({ gameId });
+    const gameInfo = { game, reviews };
+    return gameInfo;
   },
 
   getGames: async ({ page, numOfPageSkip, numOfPageLimit }) => {
