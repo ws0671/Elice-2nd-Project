@@ -10,7 +10,7 @@ ReviewRouter.post("/", async (req, res, next) => {
     const { gameId, content } = req.body;
     const userId = req.currentUserId;
 
-    const newReview = await ArticleService.addReview({
+    const newReview = await ReviewService.addReview({
       userId,
       gameId,
       content,
