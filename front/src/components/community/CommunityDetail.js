@@ -1,15 +1,43 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
+import * as Api from "../../api"
 import styled from "styled-components"
 import axios from "axios"
 const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
+  const [comment, setComment] = useState("")
+
+  // 댓글 mock data(back과 통신 연결 후 삭제하기)
+  const comments = [
+    {
+      writeNickname: "프로게이머",
+      comment: "새로운 댓글1",
+    },
+    {
+      writeNickname: "포켓몬",
+      comment: "새로운 댓글2",
+    },
+  ]
+  const [example, setExample] = useState(comments)
   const params = useParams()
   useEffect(() => {
     axios
       .get(`https://jsonplaceholder.typicode.com/posts/${params.id}`)
       .then((res) => setDetail(res.data))
   }, [])
+
+  const clickHandler = () => {
+    let copied = comments
+    // 유저가 댓글을 두번 이상은 못쓰는 경우 처리하기
+    const newComment = { comment, articleId: "happy" }
+    copied.push({ comment, writeNickname: "happy" })
+    Api.post("/comment", newComment).then((res) => {
+      console.log(res.data)
+    })
+    alert("댓글 등록이 완료되었습니다!")
+    setExample(copied)
+    setComment("")
+  }
 
   return (
     <Container>
@@ -28,16 +56,24 @@ const CommunityDetail = () => {
         <span>0</span>
       </div>
       <div className="detail comment">
-        <div>댓글</div>
+        <div className="head">댓글</div>
         <div className="area">
+          {example.map((item) => {
+            return (
+              <div className="comment-area">
+                <div className="nickname">{item.writeNickname}</div>
+                <div className="comment">{item.comment}</div>
+              </div>
+            )
+          })}
           <textarea
-            className="text-area"
+            className="write-area"
             placeholder="댓글을 남겨보세요."
-            // value={}
+            value={comment}
             name="comment"
-            // onChange={changeHandler}
+            onChange={(e) => setComment(e.target.value)}
           ></textarea>
-          <button>등록</button>
+          <button onClick={clickHandler}>등록</button>
         </div>
       </div>
     </Container>
@@ -55,7 +91,10 @@ const Container = styled.div`
     width: 60%;
 
     .area {
-      textarea {
+      .comment-area {
+        margin-bottom: 20px;
+      }
+      .write-area {
         width: 100%;
         height: 20vh;
       }
@@ -75,11 +114,6 @@ const Container = styled.div`
       }
     }
 
-    &:first-of-type {
-      font-size: 25px;
-      font-weight: bold;
-    }
-
     &:not(:nth-of-type(2)) {
       margin: 10px;
       padding: 10px;
@@ -91,9 +125,10 @@ const Container = styled.div`
       font-size: 12px;
     }
   }
-  .comment div {
+  .comment .head {
     font-size: 20px;
     font-weight: bold;
+    margin-bottom: 20px;
   }
   .etc {
     display: flex;
