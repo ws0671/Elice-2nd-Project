@@ -14,10 +14,12 @@ const CommunityDetail = () => {
     {
       writeNickname: "프로게이머",
       comment: "새로운 댓글1",
+      isDeleted: false,
     },
     {
       writeNickname: "포켓몬",
       comment: "새로운 댓글2",
+      isDeleted: false,
     },
   ]
   const [example, setExample] = useState(comments)
@@ -64,23 +66,44 @@ const CommunityDetail = () => {
           <div className="area">
             {example.map((item) => {
               return (
-                <div className="comment-area">
-                  <div>
-                    <div className="nickname">{item.writeNickname}</div>
-                    <div className="comment">{item.comment}</div>
+                !item.isDeleted && (
+                  <div className="comment-area">
+                    <div>
+                      <div className="nickname">{item.writeNickname}</div>
+                      <div className="comment">{item.comment}</div>
+                    </div>
+                    <img
+                      src="/images/viewmore.png"
+                      alt="더보기"
+                      onClick={() => {
+                        setView(!view)
+                      }}
+                    ></img>
+                    <ul className="dropdown">
+                      <li>수정</li>
+                      <li
+                        onClick={() => {
+                          const deleted = { ...item, isDeleted: true }
+                          Api.put("comment/:commentId/delete", deleted).then(
+                            (res) => console.log(res.data)
+                          )
+                          const copied = comments.map((v) => {
+                            if (v.writeNickname === deleted.writeNickname) {
+                              return { ...v, isDeleted: true }
+                            } else {
+                              return { ...v }
+                            }
+                          })
+
+                          console.log(copied)
+                          setExample(copied)
+                        }}
+                      >
+                        삭제
+                      </li>
+                    </ul>
                   </div>
-                  <img
-                    src="/images/viewmore.png"
-                    alt="더보기"
-                    onClick={() => {
-                      setView(!view)
-                    }}
-                  ></img>
-                  <ul className="dropdown">
-                    <li>수정</li>
-                    <li>삭제</li>
-                  </ul>
-                </div>
+                )
               )
             })}
             <textarea
