@@ -10,11 +10,9 @@ const ArticleService = {
     }
 
     const articleId = uuidv4();
-
     const newArticle = { articleId, author, category, title, body, tags };
 
     const createdNewArticle = await Article.create({ newArticle });
-
     return createdNewArticle;
   },
 
@@ -49,7 +47,10 @@ const ArticleService = {
     const like = await Like.findByFilter({ aritlceId, userId });
     const likeOrNot = Boolean(like);
 
-    return article;
+    const comments = await Comment.findAllByArticle({ articleId });
+
+    const articleInfo = { article, likeOrNot, comments };
+    return articleInfo;
   },
 
   updateArticle: async ({ articleId, author, updateData }) => {
