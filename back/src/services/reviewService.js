@@ -24,6 +24,18 @@ const ReviewService = {
     review = await Review.update({ reviewId, toUpdate });
     return review;
   },
+
+  deleteReview: async ({ reviewId, userId }) => {
+    const review = await Review.findById({ reviewId });
+
+    if (!review) {
+      throw new Error("존재하지 않는 리뷰입니다.");
+    } else if (review.userId !== userId) {
+      throw new Error("삭제 권한이 없는 리뷰입니다.");
+    }
+
+    await Review.delete({ reviewId });
+  },
 };
 
 export { ReviewService };
