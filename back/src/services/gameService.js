@@ -11,7 +11,6 @@ const gameService = {
 
   getGames: async ({ page, numOfPageSkip, numOfPageLimit }) => {
     const games = await Game.findAll({ page, numOfPageSkip, numOfPageLimit });
-    console.log(page, numOfPageSkip, numOfPageLimit);
     return games;
   },
 
