@@ -25,14 +25,14 @@ ReviewRouter.post("/", async (req, res, next) => {
 ReviewRouter.put("/:reviewId", async (req, res, next) => {
   try {
     const reviewId = req.params.reviewId;
-    const currentUserId = req.currentUserId;
+    const userId = req.currentUserId;
     const { content } = req.body.content;
 
     const updateData = { content };
 
     const updatedReview = await ReviewService.updateReview({
       reviewId,
-      currentUserId,
+      userId,
       updateData,
     });
 
