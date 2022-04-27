@@ -2,6 +2,10 @@ import { Schema, model } from "mongoose";
 
 const ReviewSchema = new Schema(
   {
+    reviewId: {
+      type: String,
+      required: true,
+    },
     userId: {
       type: String,
       required: true,
