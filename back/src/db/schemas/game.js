@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from "mongoose";
 
 const GameSchema = new Schema(
   {
@@ -15,11 +15,11 @@ const GameSchema = new Schema(
       required: true,
     },
     english: {
-      type: String,
+      type: Number,
       required: true,
     },
     developer: {
-      type: String,
+      type: [String],
       required: true,
     },
     publisher: {
@@ -51,19 +51,19 @@ const GameSchema = new Schema(
       required: true,
     },
     positiveRatings: {
-      type: String,
+      type: Number,
       required: true,
     },
     negativeRatings: {
-      type: String,
+      type: Number,
       required: true,
     },
     averagePlaytime: {
-      type: String,
+      type: Number,
       required: true,
     },
     medianPlaytime: {
-      type: String,
+      type: Number,
       required: true,
     },
     owners: {
@@ -71,7 +71,7 @@ const GameSchema = new Schema(
       required: true,
     },
     price: {
-      type: String,
+      type: Number,
       required: true,
     },
     headerImage: {
@@ -79,7 +79,7 @@ const GameSchema = new Schema(
       required: true,
     },
     screenshots: {
-      type: [],
+      type: [String],
       required: true,
     },
     background: {
@@ -87,23 +87,23 @@ const GameSchema = new Schema(
       required: true,
     },
     overallReview: {
-      type: String,
+      type: Number,
       required: true,
     },
     positiveRate: {
-      type: String,
+      type: Number,
       required: true,
     },
     negativeRate: {
-      type: String,
+      type: Number,
       required: true,
     },
   },
   {
     timestamps: true,
   }
-)
+);
 
-const GameModel = model("Game", GameSchema)
+const GameModel = model("Game", GameSchema);
 
-export { GameModel }
+export { GameModel };
