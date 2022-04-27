@@ -42,6 +42,19 @@ const CommunityDetail = () => {
     setExample(copied)
   }
 
+  const editHandler = (item, comment) => {
+    const edit = { ...item, comment }
+    Api.put("comment/:commentId", edit).then((res) => console.log(res.data))
+    const copied = example.map((v) => {
+      if (v.writeNickname === edit.writeNickname) {
+        return { ...v, comment }
+      } else {
+        return { ...v }
+      }
+    })
+    console.log(copied)
+    setExample(copied)
+  }
   const removeHandler = (item) => {
     const deleted = { ...item, isDeleted: true }
     Api.put("comment/:commentId/delete", deleted).then((res) =>
@@ -79,7 +92,11 @@ const CommunityDetail = () => {
         <div className="detail comment">
           <div className="head">댓글</div>
           <div className="area">
-            <CommentList example={example} removeHandler={removeHandler} />
+            <CommentList
+              example={example}
+              removeHandler={removeHandler}
+              editHandler={editHandler}
+            />
             <CommentAddForm clickHandler={clickHandler} />
           </div>
         </div>
