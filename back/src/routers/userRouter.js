@@ -90,7 +90,7 @@ userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
     if (loginId === userId) {
       const result = await userAuthService.deleteUser({ userId });
 
-      res.status(200).send(result);
+      res.status(204).send(result);
     }
   } catch (error) {
     next(error);
