@@ -21,9 +21,9 @@ const User = {
     return user
   },
 
-  update: async ({ userId, updateObject }) => {
+  update: async ({ userId, toUpdate }) => {
     const filter = { userId } // 바꿀 대상 찾기
-    const update = { $set: updateObject } // 바꿀 내용
+    const update = toUpdate // 바꿀 내용
     const option = { returnOriginal: false } // 옵션
 
     const updatedUser = await UserModel.findOneAndUpdate(filter, update, option)
@@ -34,20 +34,6 @@ const User = {
     const deleteResult = await UserModel.deleteOne({ userId })
     const isDataDeleted = deleteResult.deletedCount === 1
     return isDataDeleted
-  },
-  // 북마크 목록 업데이트
-  updateBookmark: async ({ userId, toUpdate }) => {
-    const filter = { userId } // 바꿀 게시물
-    const update = toUpdate
-    const option = { returnOriginal: false }
-
-    const updatedBookmark = await UserModel.findOneAndUpdate(
-      filter,
-      update,
-      option
-    )
-
-    return updatedBookmark
   },
 }
 

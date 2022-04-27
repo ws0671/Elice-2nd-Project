@@ -30,7 +30,6 @@ const userAuthService = {
 
     // db에 저장
     const createdNewUser = await User.create({ newUser })
-    createdNewUser.errorMessage = null // 문제 없이 db 저장 완료되었으므로 에러가 없음.
 
     return createdNewUser
   },
@@ -73,7 +72,7 @@ const userAuthService = {
     return loginUser
   },
 
-  setUser: async ({ userId, toUpdate }) => {
+  updateUser: async ({ userId, updateData }) => {
     let user = await User.findById({ userId })
     if (!user) {
       throw new Error(
@@ -82,7 +81,7 @@ const userAuthService = {
     }
     // 닉네임 중복 검사
     const findByNicknameUser = await User.findByNickname({
-      nickname: toUpdate.nickname,
+      nickname: updateData.nickname,
     })
     if (findByNicknameUser && findByNicknameUser.userId != userId) {
       throw new Error(
@@ -90,8 +89,8 @@ const userAuthService = {
       )
     }
 
-    const updateObject = SetUtil.compareValues(toUpdate, user)
-    user = await User.update({ userId, updateObject })
+    const toUpdate = SetUtil.compareValues(updateData, user)
+    user = await User.update({ userId, toUpdate })
 
     return user
   },
@@ -120,7 +119,7 @@ const userAuthService = {
     return { status: "ok" }
   },
 
-  setBookmark: async ({ userId, gameId }) => {
+  addBookmark: async ({ userId, gameId }) => {
     let user = await User.findById({ userId })
     if (!user) {
       throw new Error(
@@ -153,7 +152,7 @@ const userAuthService = {
       }
     }
 
-    user = await User.updateBookmark({ userId, toUpdate })
+    user = await User.update({ userId, toUpdate })
 
     return user
   },
