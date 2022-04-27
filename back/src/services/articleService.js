@@ -46,6 +46,9 @@ const ArticleService = {
       throw new Error("존재하지 않는 게시물입니다.");
     }
 
+    const like = await Like.findByFilter({ aritlceId, userId });
+    const likeOrNot = Boolean(like);
+
     return article;
   },
 
