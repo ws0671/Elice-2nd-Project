@@ -39,7 +39,7 @@ const ArticleService = {
     return articles;
   },
 
-  getArticleInfo: async ({ articleId }) => {
+  getArticleInfo: async ({ articleId, userId }) => {
     const article = await Article.findById({ articleId });
 
     if (!article) {
