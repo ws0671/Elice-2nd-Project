@@ -3,6 +3,8 @@ import { useEffect, useState } from "react"
 import * as Api from "../../api"
 import styled from "styled-components"
 import axios from "axios"
+import CommentAddForm from "../comment/CommentAddForm"
+
 const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
   const [comment, setComment] = useState("")
@@ -30,7 +32,7 @@ const CommunityDetail = () => {
       .then((res) => setDetail(res.data))
   }, [])
 
-  const clickHandler = () => {
+  const clickHandler = (comment) => {
     let copied = comments
     // 유저가 댓글을 두번 이상은 못쓰는 경우 처리하기
     const newComment = { comment, articleId: "happy" }
@@ -106,14 +108,7 @@ const CommunityDetail = () => {
                 )
               )
             })}
-            <textarea
-              className="write-area"
-              placeholder="댓글을 남겨보세요."
-              value={comment}
-              name="comment"
-              onChange={(e) => setComment(e.target.value)}
-            ></textarea>
-            <button onClick={clickHandler}>등록</button>
+            <CommentAddForm clickHandler={clickHandler} />
           </div>
         </div>
       </Container>
@@ -183,24 +178,6 @@ const Container = styled.div`
         &:not(:nth-last-of-type(1)) {
           border-bottom: 1px solid rgba(0, 0, 0, 0.3);
         }
-      }
-      .write-area {
-        width: 100%;
-        height: 20vh;
-      }
-      button {
-        width: 10%;
-        float: right;
-        position: relative;
-        margin: -50px 10px 0 0;
-        border: none;
-        padding: 4px;
-        color: white;
-        font-weight: 700;
-
-        border-radius: 3px;
-        cursor: pointer;
-        background: #6c63ff;
       }
     }
 
