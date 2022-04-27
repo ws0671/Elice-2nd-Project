@@ -1,24 +1,28 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from "mongoose";
 
-const UserSchema = new Schema(
+const ArticleSchema = new Schema(
   {
-    userId: {
+    articleId: {
       type: String,
       required: true,
     },
-    email: {
+    author: {
       type: String,
       required: true,
     },
-    nickname: {
+    category: {
       type: String,
       required: true,
     },
-    password: {
+    title: {
       type: String,
       required: true,
     },
-    bookmarks: {
+    body: {
+      type: String,
+      required: true,
+    },
+    tags: {
       type: [String],
       default: [],
     },
@@ -26,8 +30,8 @@ const UserSchema = new Schema(
   {
     timestamps: true,
   }
-)
+);
 
-const UserModel = model("User", UserSchema)
+const ArticleModel = model("Article", ArticleSchema);
 
-export { UserModel }
+export { ArticleModel };
