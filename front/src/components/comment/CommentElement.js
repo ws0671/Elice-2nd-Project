@@ -3,23 +3,18 @@ import styled from "styled-components"
 
 const CommentElement = ({ item, removeHandler }) => {
   const [view, setView] = useState(false)
-  const viewMore = useRef()
-  const viewMoreList = useRef()
+  const viewMore = useRef([])
 
   useEffect(() => {
-    document.addEventListener("mousedown", clickModalOutside)
+    document.addEventListener("mousedown", clickOutside)
 
     return () => {
-      document.removeEventListener("mousedown", clickModalOutside)
+      document.removeEventListener("mousedown", clickOutside)
     }
   })
 
-  const clickModalOutside = (event) => {
-    if (
-      view &&
-      !viewMore.current.contains(event.target) &&
-      !viewMoreList.current.contains(event.target)
-    ) {
+  const clickOutside = (e) => {
+    if (view && !viewMore.current.includes(e.target)) {
       setView((prev) => !prev)
     }
   }
@@ -32,16 +27,18 @@ const CommentElement = ({ item, removeHandler }) => {
           <div className="comment">{item.comment}</div>
         </div>
         <img
-          ref={viewMore}
+          ref={(el) => (viewMore.current[0] = el)}
           src="/images/viewmore.png"
           alt="더보기"
           onClick={(e) => {
             setView((prev) => !prev)
+            console.log(viewMore)
           }}
         ></img>
-        <ul ref={viewMoreList} className="dropdown">
-          <li>수정</li>
+        <ul className="dropdown">
+          <li ref={(el) => (viewMore.current[1] = el)}>수정</li>
           <li
+            ref={(el) => (viewMore.current[2] = el)}
             onClick={() => {
               removeHandler(item)
             }}
