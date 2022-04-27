@@ -4,10 +4,10 @@ import * as Api from "../../api"
 import styled from "styled-components"
 import axios from "axios"
 import CommentAddForm from "../comment/CommentAddForm"
+import CommentList from "../comment/CommentList"
 
 const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
-  const [comment, setComment] = useState("")
 
   const [view, setView] = useState(false)
 
@@ -42,7 +42,22 @@ const CommunityDetail = () => {
     })
     alert("댓글 등록이 완료되었습니다!")
     setExample(copied)
-    setComment("")
+  }
+
+  const removeHandler = (item) => {
+    const deleted = { ...item, isDeleted: true }
+    Api.put("comment/:commentId/delete", deleted).then((res) =>
+      console.log(res.data)
+    )
+    const copied = comments.map((v) => {
+      if (v.writeNickname === deleted.writeNickname) {
+        return { ...v, isDeleted: true }
+      } else {
+        return { ...v }
+      }
+    })
+    console.log(copied)
+    setExample(copied)
   }
 
   return (
@@ -50,7 +65,7 @@ const CommunityDetail = () => {
       <Header />
       <Container view={view}>
         <div className="detail title">{detail.title}</div>
-        <div className="detail">
+        <div className="detail writer">
           <div>작성자</div>
           <div>작성 시간 / 조회 수</div>
         </div>
@@ -66,48 +81,7 @@ const CommunityDetail = () => {
         <div className="detail comment">
           <div className="head">댓글</div>
           <div className="area">
-            {example.map((item) => {
-              return (
-                !item.isDeleted && (
-                  <div className="comment-area">
-                    <div>
-                      <div className="nickname">{item.writeNickname}</div>
-                      <div className="comment">{item.comment}</div>
-                    </div>
-                    <img
-                      src="/images/viewmore.png"
-                      alt="더보기"
-                      onClick={() => {
-                        setView(!view)
-                      }}
-                    ></img>
-                    <ul className="dropdown">
-                      <li>수정</li>
-                      <li
-                        onClick={() => {
-                          const deleted = { ...item, isDeleted: true }
-                          Api.put("comment/:commentId/delete", deleted).then(
-                            (res) => console.log(res.data)
-                          )
-                          const copied = comments.map((v) => {
-                            if (v.writeNickname === deleted.writeNickname) {
-                              return { ...v, isDeleted: true }
-                            } else {
-                              return { ...v }
-                            }
-                          })
-
-                          console.log(copied)
-                          setExample(copied)
-                        }}
-                      >
-                        삭제
-                      </li>
-                    </ul>
-                  </div>
-                )
-              )
-            })}
+            <CommentList example={example} removeHandler={removeHandler} />
             <CommentAddForm clickHandler={clickHandler} />
           </div>
         </div>
@@ -126,70 +100,17 @@ const Container = styled.div`
   .title {
     font-size: 25px;
     font-weight: bold;
+    
   }
 
   .detail {
     width: 60%;
-
-    .area {
-      .comment-area {
-        margin-bottom: 20px;
-        font-size: 13px;
-        padding-bottom: 10px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        // align-items: center;
-
-        img {
-          width: 20px;
-          height: 20px;
-
-          &:hover {
-            cursor: pointer;
-            background: rgba(108, 99, 255, 0.3);
-            border-radius: 3px;
-          }
-        }
-
-        .dropdown {
-          display: ${({ view }) => (view ? "block" : "none")};
-          position: absolute;
-          left: 80%;
-          background-color: #f9f9f9;
-          min-width: 60px;
-          padding: 8px;
-          box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-          list-style-type: none;
-
-          li {
-            font-weight: normal;
-            text-align: center;
-          }
-          li:hover {
-            background: rgba(108, 99, 255, 0.3);
-            border-radius: 2px;
-            font-weight: bold;
-            // color: white;
-            cursor: pointer;
-          }
-        }
-
-        &:not(:nth-last-of-type(1)) {
-          border-bottom: 1px solid rgba(0, 0, 0, 0.3);
-        }
-      }
+    margin: 10px 0; 
+    
     }
 
-    &:not(:nth-of-type(2)) {
-      margin: 10px;
-      padding: 10px;
-    }
-
-    &:nth-of-type(2) {
-      margin: 0 10px;
-      padding: 0 10px;
-      font-size: 12px;
+    .writer {
+      font-size: 13px;
     }
   }
   .comment .head {
@@ -208,6 +129,7 @@ const Container = styled.div`
     }
 
     * {
+      margin: 20px 0;
       margin-right: 10px;
       text-align: center;
     }
