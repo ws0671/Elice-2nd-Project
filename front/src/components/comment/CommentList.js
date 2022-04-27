@@ -1,10 +1,14 @@
 import CommentElement from "./CommentElement"
 import styled from "styled-components"
-const CommentList = ({ example, removeHandler }) => {
+const CommentList = ({ example, removeHandler, editHandler }) => {
   return (
     <Div className="area">
       {example.map((item) => (
-        <CommentElement item={item} removeHandler={removeHandler} />
+        <CommentElement
+          item={item}
+          removeHandler={removeHandler}
+          editHandler={editHandler}
+        />
       ))}
     </Div>
   )
