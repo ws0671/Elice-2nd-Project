@@ -16,6 +16,7 @@ const Roulette = () => {
         outerBorderWidth={3}
         onStopSpinning={handleStop}
       />
+      <button onClick={handleStart}>SPIN</button>
     </>
   );
 };
