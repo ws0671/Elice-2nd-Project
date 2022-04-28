@@ -25,6 +25,56 @@ const SetUtil = {
 
     return categoryList.includes(category);
   },
+
+  setPointAndGrade: (user, point) => {
+    let toUpdate;
+
+    if (user.point + point >= 1500 && user.grade < 4) {
+      toUpdate = {
+        $inc: {
+          point: point,
+        },
+        $set: {
+          grade: 4,
+        },
+      };
+    } else if (user.point + point >= 1000 && user.grade < 3) {
+      toUpdate = {
+        $inc: {
+          point: point,
+        },
+        $set: {
+          grade: 3,
+        },
+      };
+    } else if (user.point + point >= 600 && user.grade < 2) {
+      toUpdate = {
+        $inc: {
+          point: point,
+        },
+        $set: {
+          grade: 2,
+        },
+      };
+    } else if (user.point + point >= 300 && user.grade < 1) {
+      toUpdate = {
+        $inc: {
+          point: point,
+        },
+        $set: {
+          grade: 1,
+        },
+      };
+    } else {
+      toUpdate = {
+        $inc: {
+          point: point,
+        },
+      };
+    }
+
+    return toUpdate;
+  },
 };
 
 export { SetUtil };
