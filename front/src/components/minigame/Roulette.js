@@ -6,7 +6,7 @@ import axios from "axios";
 const Roulette = () => {
   const [spin, setSpin] = useState(false);
   const [pointIndex, setPointIndex] = useState();
-  const [result, setResult] = useState();
+  const [point, setPoint] = useState();
 
   const handleStart = () => {
     // 룰렛을 실행시킴
@@ -16,19 +16,19 @@ const Roulette = () => {
   };
 
   const handleStop = () => {
-    setResult(data[pointIndex].option);
+    setPoint(data[pointIndex].option);
   };
 
   useEffect(() => {
-    if (result) {
-      axios.put(`http://localhost:5001/user/${userId}/addPoint`, result);
+    if (point) {
+      axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
     }
-  }, [result]);
+  }, [point]);
 
   return (
     <>
-      {result ? (
-        <h1>축하합니다!! {result}점을 획득하셨습니다!!</h1>
+      {point ? (
+        <h1>축하합니다!! {point}점을 획득하셨습니다!!</h1>
       ) : (
         <h1>룰렛을 돌려주세요!</h1>
       )}
