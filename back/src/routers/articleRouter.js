@@ -9,10 +9,10 @@ const ArticleRouter = Router()
 ArticleRouter.post("/", async (req, res, next) => {
   try {
     const { category, title, body, tags } = req.body
-    const author = req.currentUserId
+    const userId = req.currentUserId
 
     const newArticle = await ArticleService.addArticle({
-      author,
+      userId,
       category,
       title,
       body,
