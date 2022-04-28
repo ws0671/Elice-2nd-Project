@@ -8,7 +8,9 @@ const Community = () => {
     <Main>
       <Container>
         <CommunityBoard />
-        <button onClick={() => navigate("/community/create")}>글쓰기</button>
+        <button className="write" onClick={() => navigate("/community/create")}>
+          글쓰기
+        </button>
       </Container>
     </Main>
   )
@@ -34,7 +36,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  button {
+  .write {
     position : fixed;
     left: 90%;
     right: 90%
