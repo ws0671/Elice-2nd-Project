@@ -2,25 +2,32 @@ import CommunityList from "./CommunityList"
 import * as Api from "../../api"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
-import { useParams } from "react-router-dom"
 
 const CommunityBoard = () => {
   const [info, setInfo] = useState([])
-  const params = useParams()
-
-  console.log(params)
+  const total = 20
+  const limit = 10
+  const [page, setPage] = useState(1)
+  const numPages = Math.ceil(total / limit)
 
   useEffect(() => {
-    Api.get("article/list", 1)
+    Api.get("article/list", 2)
       .then((res) => {
-        setInfo(res.data)
-        console.log(res.data)
+        let orderDate = [...res.data]
+        const orderedDate = orderDate.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+        )
+
+        setInfo(orderedDate)
       })
       .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
   }, [])
   return (
     <div className="container">
-      <div className="list">
+      <div
+        className="list"
+        style={{ display: "flex", flexDirection: "column" }}
+      >
         <Table className="table">
           <colgroup>
             <col width="10%" />
@@ -56,6 +63,28 @@ const CommunityBoard = () => {
           </thead>
           <CommunityList info={info} />
         </Table>
+        <Nav>
+          <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
+            &lt;
+          </Button>
+          {Array(numPages)
+            .fill()
+            .map((_, i) => (
+              <Button
+                key={i + 1}
+                onClick={() => setPage(i + 1)}
+                aria-current={page === i + 1 ? "page" : null}
+              >
+                {i + 1}
+              </Button>
+            ))}
+          <Button
+            onClick={() => setPage(page + 1)}
+            disabled={page === numPages}
+          >
+            &gt;
+          </Button>
+        </Nav>
       </div>
     </div>
   )
@@ -96,4 +125,42 @@ const Table = styled.table`
     }
   }
 `
+
+const Nav = styled.nav`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  margin: 16px;
+`
+
+const Button = styled.button`
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  margin: 0;
+  background: black;
+  color: white;
+  font-size: 1rem;
+
+  &:hover {
+    background: tomato;
+    cursor: pointer;
+    transform: translateY(-2px);
+  }
+
+  &[disabled] {
+    background: grey;
+    cursor: revert;
+    transform: revert;
+  }
+
+  &[aria-current] {
+    background: deeppink;
+    font-weight: bold;
+    cursor: revert;
+    transform: revert;
+  }
+`
+
 export default CommunityBoard

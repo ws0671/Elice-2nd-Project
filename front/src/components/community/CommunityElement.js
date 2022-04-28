@@ -3,7 +3,7 @@ import styled from "styled-components"
 const CommunityElement = ({ item, index }) => {
   const navigate = useNavigate()
   const clickHandler = () => {
-    navigate(`/community/${item.id}`)
+    navigate(`/community/${item.articleId}`)
   }
 
   const updatedAt = item.updatedAt.split("T")
