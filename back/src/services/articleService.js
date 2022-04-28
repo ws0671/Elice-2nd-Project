@@ -54,8 +54,8 @@ const ArticleService = {
     return articleInfo;
   },
 
-  updateArticle: async ({ category, articleId, author, updateData }) => {
-    if (!SetUtil.validateCategory(category)) {
+  updateArticle: async ({ articleId, author, updateData }) => {
+    if (!SetUtil.validateCategory(updateData.category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
 
