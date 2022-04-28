@@ -55,8 +55,20 @@ function RecomResult() {
 
 
     return (
-        <h1>Result</h1>
+        <ResultBox>
+            <h1><Button>결과보기(지금 결과페이지임)</Button></h1>
+        </ResultBox>
     )
 }
 
 export default RecomResult
+
+
+const ResultBox = styled.section`
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+`
