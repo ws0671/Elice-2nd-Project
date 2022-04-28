@@ -8,7 +8,14 @@ const Roulette = () => {
 
   return (
     <>
-      <Wheel />
+      <Wheel
+        mustStartSpinning={spin}
+        prizeNumber={pointIndex}
+        data={data}
+        radiusLineWidth={0}
+        outerBorderWidth={3}
+        onStopSpinning={handleStop}
+      />
     </>
   );
 };
