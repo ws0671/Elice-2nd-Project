@@ -96,6 +96,32 @@ userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
     next(error);
   }
 });
+
+// 포인트 적립
+userAuthRouter.put(
+  "/:userId/addPoint",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      const loginId = req.currentUserId;
+      const userId = req.params.userId;
+
+      if (loginId === userId) {
+        const point = req.body.point;
+
+        const updatedUser = await userAuthService.addPoint({
+          userId,
+          point,
+        });
+
+        res.status(200).send(updatedUser);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 // 게임 북마크/북마크 취소
 userAuthRouter.put(
   "/:userId/addBookmark",
