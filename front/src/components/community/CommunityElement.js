@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-const CommunityElement = ({ item }) => {
+const CommunityElement = ({ item, index }) => {
   const navigate = useNavigate()
   const clickHandler = () => {
     navigate(`/community/${item.id}`)
@@ -10,7 +10,7 @@ const CommunityElement = ({ item }) => {
 
   return (
     <Tr>
-      <td>{item}</td>
+      <td>{index}</td>
       <td onClick={clickHandler}>
         <span>[{item.category}]</span> {item.title}
       </td>

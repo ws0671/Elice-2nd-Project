@@ -4,7 +4,7 @@ const CommunityList = ({ info }) => {
   return (
     <tbody>
       {info.map((item) => {
-        return <CommunityElement key={item.id} item={item} />
+        return <CommunityElement item={item} index={info.indexOf(item) + 1} />
       })}
     </tbody>
   )
