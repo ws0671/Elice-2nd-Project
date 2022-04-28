@@ -103,6 +103,8 @@ const ArticleService = {
       }
       const newLike = { userId, articleId };
       await Like.create({ newLike });
+      const toUpdate = { $inc: { like: 1 } };
+      await Article.update({ articleId, toUpdate });
     } else {
       if (!likeOrNot) {
         throw new Error(
@@ -110,6 +112,8 @@ const ArticleService = {
         );
       }
       await Like.delete(filter);
+      const toUpdate = { $inc: {like: -1}}
+      await Article.update({ articleId, toUpdate})
     }
   },
 };

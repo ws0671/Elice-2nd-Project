@@ -14,7 +14,7 @@ const ReviewSchema = new Schema(
       type: Number,
       required: true,
     },
-    content: {
+    review: {
       type: String,
       required: true,
     },

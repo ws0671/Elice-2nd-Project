@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-// import autoIncrement from "mongoose-auto-increment"
 
 const UserSchema = new Schema(
   {
@@ -18,6 +17,14 @@ const UserSchema = new Schema(
     password: {
       type: String,
       required: true,
+    },
+    point: {
+      type: Number,
+      default: 0,
+    },
+    grade: {
+      type: Number,
+      default: 0,
     },
     bookmarks: {
       type: [Number],

@@ -7,7 +7,7 @@ const ReviewService = {
       throw new Error("리뷰는 20자 이상 적어야합니다.");
     }
 
-    const newReview = { userId, gameId, content };
+    const newReview = { userId, gameId, review };
 
     const createdNewReview = await Review.create({ newReview });
     return createdNewReview;
