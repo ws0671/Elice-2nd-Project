@@ -12,7 +12,7 @@ const Article = {
     numOfPageSkip = 10,
     numOfPageLimit = 10
   ) => {
-    const articleCount = await ArticleModel.countDocuments({});
+    const articleCount = await ArticleModel.countDocuments(filter);
     const articles = await ArticleModel.find(filter)
       .sort({ createdAt: -1 })
       .skip((page - 1) * numOfPageSkip)
