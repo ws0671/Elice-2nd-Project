@@ -1,5 +1,5 @@
 const SetUtil = {
-  compareValues: async (updateData, originData) => {
+  compareValues: (updateData, originData) => {
     let updateObject = {};
 
     Object.entries(updateData).forEach((element) => {
