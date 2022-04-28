@@ -112,6 +112,8 @@ const ArticleService = {
         );
       }
       await Like.delete(filter);
+      const toUpdate = { $inc: {like: -1}}
+      await Article.update({ articleId, toUpdate})
     }
   },
 };
