@@ -9,10 +9,10 @@ ArticleRouter.use(loginRequired); // 게시판 기능은 무조건 회원가입
 ArticleRouter.post("/", async (req, res, next) => {
   try {
     const { category, title, body, tags } = req.body;
-    const author = req.currentUserId;
+    const userId = req.currentUserId;
 
     const newArticle = await ArticleService.addArticle({
-      author,
+      userId,
       category,
       title,
       body,
