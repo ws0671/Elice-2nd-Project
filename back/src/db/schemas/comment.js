@@ -1,13 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
 
 const CommentSchema = new Schema(
   {
     commentId: {
-      type: String,
+      type: Number,
       required: true,
     },
     articleId: {
-      type: String,
+      type: Number,
       required: true,
     },
     writerId: {
@@ -34,6 +34,4 @@ const CommentSchema = new Schema(
   }
 );
 
-const CommentModel = model("Comment", CommentSchema);
-
-export { CommentModel };
+export { CommentSchema };

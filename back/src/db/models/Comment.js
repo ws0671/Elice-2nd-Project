@@ -1,4 +1,4 @@
-import { CommentModel } from "../schemas/comment";
+import { CommentModel } from "../index";
 
 const Comment = {
   create: async ({ newComment }) => {

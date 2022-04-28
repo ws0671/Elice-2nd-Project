@@ -1,14 +1,11 @@
 import { Comment, User } from "../db";
-import { v4 as uuidv4 } from "uuid";
 import { SetUtil } from "../common/setUtil";
 
 const CommentService = {
   addComment: async ({ userId, articleId, comment }) => {
-    const commentId = uuidv4();
     const user = await User.findById({ userId });
     const writerNickname = user.nickname;
     const newComment = {
-      commentId,
       articleId,
       writerId: userId, // 작성자 = 현재 로그인한 사용자
       writerNickname,

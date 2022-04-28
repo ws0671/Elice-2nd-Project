@@ -1,4 +1,4 @@
-import { ArticleModel } from "../schemas/article";
+import { ArticleModel } from "../index";
 
 const Article = {
   create: async ({ newArticle }) => {
