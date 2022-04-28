@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Wheel } from "react-custom-roulette";
 
-const Roulette = () => {};
+const Roulette = () => {
+  const [spin, setSpin] = useState(false);
+};
 
 export default Roulette;
