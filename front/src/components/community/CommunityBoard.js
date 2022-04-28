@@ -5,7 +5,7 @@ import styled from "styled-components"
 
 const CommunityBoard = () => {
   const [info, setInfo] = useState([])
-  const total = 20
+  const [total, setTotal] = useState(10)
   const limit = 10
   const [page, setPage] = useState(1)
   const numPages = Math.ceil(total / limit)
@@ -13,7 +13,8 @@ const CommunityBoard = () => {
   useEffect(() => {
     Api.get("article/list", page)
       .then((res) => {
-        setInfo(res.data)
+        setInfo(res.data.articles)
+        setTotal(res.data.articleCount)
       })
       .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
   }, [page])
