@@ -53,7 +53,7 @@ const ArticleService = {
     return articleInfo;
   },
 
-  updateArticle: async ({ articleId, author, updateData }) => {
+  updateArticle: async ({ category, articleId, author, updateData }) => {
     if (!SetUtil.validateCategory(category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
@@ -112,8 +112,8 @@ const ArticleService = {
         );
       }
       await Like.delete(filter);
-      const toUpdate = { $inc: {like: -1}}
-      await Article.update({ articleId, toUpdate})
+      const toUpdate = { $inc: { like: -1 } };
+      await Article.update({ articleId, toUpdate });
     }
   },
 };
