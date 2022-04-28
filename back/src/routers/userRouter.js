@@ -1,11 +1,11 @@
 import is from "@sindresorhus/is";
 import { Router } from "express";
-import { login_required } from "../middlewares/login_required";
+import { loginRequired } from "../middlewares/loginRequired";
 import { userAuthService } from "../services/userService";
 
 const userAuthRouter = Router();
 
-userAuthRouter.post("/user/register", async function (req, res, next) {
+userAuthRouter.post("/register", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -14,20 +14,14 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
     }
 
     // req (request) 에서 데이터 가져오기
-    const name = req.body.name;
-    const email = req.body.email;
-    const password = req.body.password;
+    const { nickname, email, password } = req.body;
 
     // 위 데이터를 유저 db에 추가하기
     const newUser = await userAuthService.addUser({
-      name,
+      nickname,
       email,
       password,
     });
-
-    if (newUser.errorMessage) {
-      throw new Error(newUser.errorMessage);
-    }
 
     res.status(201).json(newUser);
   } catch (error) {
@@ -35,18 +29,13 @@ userAuthRouter.post("/user/register", async function (req, res, next) {
   }
 });
 
-userAuthRouter.post("/user/login", async function (req, res, next) {
+userAuthRouter.post("/login", async (req, res, next) => {
   try {
     // req (request) 에서 데이터 가져오기
-    const email = req.body.email;
-    const password = req.body.password;
+    const { email, password } = req.body;
 
     // 위 데이터를 이용하여 유저 db에서 유저 찾기
     const user = await userAuthService.getUser({ email, password });
-
-    if (user.errorMessage) {
-      throw new Error(user.errorMessage);
-    }
 
     res.status(200).send(user);
   } catch (error) {
@@ -54,84 +43,97 @@ userAuthRouter.post("/user/login", async function (req, res, next) {
   }
 });
 
-userAuthRouter.get(
-  "/userlist",
-  login_required,
-  async function (req, res, next) {
-    try {
-      // 전체 사용자 목록을 얻음
-      const users = await userAuthService.getUsers();
-      res.status(200).send(users);
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-userAuthRouter.get(
-  "/user/current",
-  login_required,
-  async function (req, res, next) {
-    try {
-      // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
-      const user_id = req.currentUserId;
+userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
+  try {
+    // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
+    const loginId = req.currentUserId;
+    const userId = req.params.userId;
+    if (loginId === userId) {
       const currentUserInfo = await userAuthService.getUserInfo({
-        user_id,
+        userId,
       });
 
-      if (currentUserInfo.errorMessage) {
-        throw new Error(currentUserInfo.errorMessage);
-      }
-
       res.status(200).send(currentUserInfo);
-    } catch (error) {
-      next(error);
     }
+  } catch (error) {
+    next(error);
   }
-);
+});
 
-userAuthRouter.put(
-  "/users/:id",
-  login_required,
-  async function (req, res, next) {
-    try {
-      // URI로부터 사용자 id를 추출함.
-      const user_id = req.params.id;
-      // body data 로부터 업데이트할 사용자 정보를 추출함.
-      const name = req.body.name ?? null;
-      const email = req.body.email ?? null;
-      const password = req.body.password ?? null;
-      const description = req.body.description ?? null;
-
-      const toUpdate = { name, email, password, description };
+userAuthRouter.put("/:userId", loginRequired, async (req, res, next) => {
+  try {
+    // URI로부터 사용자 id를 추출함.
+    const loginId = req.currentUserId;
+    const userId = req.params.userId;
+    if (loginId === userId) {
+      // body data로부터 업데이트할 사용자 정보를 추출함.
+      const nickname = req.body.nickname;
+      const updateData = { nickname };
 
       // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-      const updatedUser = await userAuthService.setUser({ user_id, toUpdate });
-
-      if (updatedUser.errorMessage) {
-        throw new Error(updatedUser.errorMessage);
-      }
+      const updatedUser = await userAuthService.updateUser({
+        userId,
+        updateData,
+      });
 
       res.status(200).json(updatedUser);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
+  try {
+    const loginId = req.currentUserId;
+    const userId = req.params.userId;
+    if (loginId === userId) {
+      const result = await userAuthService.deleteUser({ userId });
+
+      res.status(204).send(result);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+// 게임 북마크/북마크 취소
+userAuthRouter.put(
+  "/:userId/addBookmark",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      const loginId = req.currentUserId;
+      const userId = req.params.userId;
+      if (loginId === userId) {
+        const { bookmark, gameId } = req.body;
+
+        const updatedUser = await userAuthService.addBookmark({
+          bookmark,
+          userId,
+          gameId,
+        });
+
+        res.status(200).send(updatedUser);
+      }
     } catch (error) {
       next(error);
     }
   }
 );
 
+// 사용자별 북마크 리스트
 userAuthRouter.get(
-  "/users/:id",
-  login_required,
-  async function (req, res, next) {
+  "/:userId/bookmarks",
+  loginRequired,
+  async (req, res, next) => {
     try {
-      const user_id = req.params.id;
-      const currentUserInfo = await userAuthService.getUserInfo({ user_id });
+      const loginId = req.currentUserId;
+      const userId = req.params.userId;
+      if (loginId === userId) {
+        const bookmarkList = await userAuthService.getBookmarkList({ userId });
 
-      if (currentUserInfo.errorMessage) {
-        throw new Error(currentUserInfo.errorMessage);
+        res.status(200).send(bookmarkList);
       }
-
-      res.status(200).send(currentUserInfo);
     } catch (error) {
       next(error);
     }
@@ -139,7 +141,7 @@ userAuthRouter.get(
 );
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-userAuthRouter.get("/afterlogin", login_required, function (req, res, next) {
+userAuthRouter.get("/afterlogin", loginRequired, (req, res, next) => {
   res
     .status(200)
     .send(

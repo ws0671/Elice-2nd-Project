@@ -1,8 +1,9 @@
 import { Schema, model } from "mongoose";
+// import autoIncrement from "mongoose-auto-increment"
 
 const UserSchema = new Schema(
   {
-    id: {
+    userId: {
       type: String,
       required: true,
     },
@@ -19,7 +20,7 @@ const UserSchema = new Schema(
       required: true,
     },
     bookmarks: {
-      type: [String],
+      type: [Number],
       default: [],
     },
   },

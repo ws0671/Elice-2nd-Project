@@ -1,30 +1,30 @@
 import { UserModel } from "../schemas/user";
 
-class User {
-  static async create({ newUser }) {
+const User = {
+  create: async ({ newUser }) => {
     const createdNewUser = await UserModel.create(newUser);
     return createdNewUser;
-  }
+  },
 
-  static async findByEmail({ email }) {
+  findByEmail: async ({ email }) => {
     const user = await UserModel.findOne({ email });
     return user;
-  }
+  },
 
-  static async findById({ user_id }) {
-    const user = await UserModel.findOne({ id: user_id });
+  findById: async ({ userId }) => {
+    const user = await UserModel.findOne({ userId });
     return user;
-  }
+  },
 
-  static async findAll() {
-    const users = await UserModel.find({});
-    return users;
-  }
+  findByNickname: async ({ nickname }) => {
+    const user = await UserModel.findOne({ nickname });
+    return user;
+  },
 
-  static async update({ user_id, fieldToUpdate, newValue }) {
-    const filter = { id: user_id };
-    const update = { [fieldToUpdate]: newValue };
-    const option = { returnOriginal: false };
+  update: async ({ userId, toUpdate }) => {
+    const filter = { userId }; // 바꿀 대상 찾기
+    const update = toUpdate; // 바꿀 내용
+    const option = { returnOriginal: false }; // 옵션
 
     const updatedUser = await UserModel.findOneAndUpdate(
       filter,
@@ -32,7 +32,13 @@ class User {
       option
     );
     return updatedUser;
-  }
-}
+  },
+
+  deleteById: async ({ userId }) => {
+    const deleteResult = await UserModel.deleteOne({ userId });
+    const isDataDeleted = deleteResult.deletedCount === 1;
+    return isDataDeleted;
+  },
+};
 
 export { User };
