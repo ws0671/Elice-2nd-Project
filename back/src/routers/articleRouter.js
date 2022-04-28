@@ -99,7 +99,7 @@ ArticleRouter.put("/:articleId/like", async (req, res, next) => {
   try {
     const userId = req.currentUserId; // 로그인 한 사용자
     const articleId = req.params.articleId; // 게시글 Id
-    const { author, likeOrNot } = req.body; // 게시글 작성자의 userId
+    const { author, like } = req.body; // 게시글 작성자의 userId
 
     if (userId == author) {
       // 로그인 사용자 = 게시글 작성자이면
@@ -109,7 +109,7 @@ ArticleRouter.put("/:articleId/like", async (req, res, next) => {
       await ArticleService.like({
         userId,
         articleId,
-        likeOrNot,
+        like,
       });
 
       res.status(204).end();

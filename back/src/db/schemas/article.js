@@ -10,6 +10,10 @@ const ArticleSchema = new Schema(
       type: String,
       required: true,
     },
+    nickname: {
+      type: String,
+      required: true,
+    },
     category: {
       type: String,
       required: true,
@@ -25,6 +29,10 @@ const ArticleSchema = new Schema(
     tags: {
       type: [String],
       default: [],
+    },
+    like: {
+      type: Number,
+      default: 0,
     },
   },
   {
