@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { loginRequired } from "../middlewares/loginRequired";
 import { gameService } from "../services/gameService";
 
 const gameRouter = Router();
@@ -20,11 +21,28 @@ gameRouter.get("/list/:page", async (req, res, next) => {
     next(error);
   }
 });
-
-gameRouter.get("/:gameId", async (req, res, next) => {
+// 로그인 안 한 사용자, 북마크 정보 없음
+gameRouter.get("/:gameId/guest", async (req, res, next) => {
   try {
+    const userId = undefined;
     const gameId = Number(req.params.gameId);
     const gameInfo = await gameService.getGameInfo({
+      userId,
+      gameId,
+    });
+
+    res.status(200).send(gameInfo);
+  } catch (error) {
+    next(error);
+  }
+});
+// 로그인 한 사용자, 북마크 정보 있음
+gameRouter.get("/:gameId", loginRequired, async (req, res, next) => {
+  try {
+    const userId = req.currentUserId;
+    const gameId = Number(req.params.gameId);
+    const gameInfo = await gameService.getGameInfo({
+      userId,
       gameId,
     });
 
