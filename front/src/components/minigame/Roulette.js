@@ -6,6 +6,13 @@ const Roulette = () => {
   const [pointIndex, setPointIndex] = useState();
   const [result, setResult] = useState();
 
+  const handleStart = () => {
+    // 룰렛을 실행시킴
+    setSpin(true);
+    // 결과값의 인덱스를 랜덤으로 지정해줌
+    setPointIndex(Math.floor(Math.random() * data.length));
+  };
+
   return (
     <>
       <Wheel
