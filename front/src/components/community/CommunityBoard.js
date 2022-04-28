@@ -11,17 +11,12 @@ const CommunityBoard = () => {
   const numPages = Math.ceil(total / limit)
 
   useEffect(() => {
-    Api.get("article/list", 2)
+    Api.get("article/list", page)
       .then((res) => {
-        let orderDate = [...res.data]
-        const orderedDate = orderDate.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        )
-
-        setInfo(orderedDate)
+        setInfo(res.data)
       })
       .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
-  }, [])
+  }, [page])
   return (
     <div className="container">
       <div
@@ -31,11 +26,11 @@ const CommunityBoard = () => {
         <Table className="table">
           <colgroup>
             <col width="10%" />
-            <col width="45%" />
+            <col width="35%" />
             <col width="15%" />
             <col width="20%" />
             <col width="10%" />
-            {/* <col width="10%" /> */}
+            <col width="10%" />
           </colgroup>
           <thead>
             <tr>
@@ -52,16 +47,16 @@ const CommunityBoard = () => {
               <th>작성자</th>
               <th>작성일</th>
               <th>조회</th>
-              {/* <th className="dropdown">
+              <th className="dropdown">
                 좋아요
                 <ul className="dropdown-content">
                   <li>높은순</li>
                   <li>낮은순</li>
                 </ul>
-              </th> */}
+              </th>
             </tr>
           </thead>
-          <CommunityList info={info} />
+          <CommunityList info={info} page={page} />
         </Table>
         <Nav>
           <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
