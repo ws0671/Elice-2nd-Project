@@ -12,11 +12,13 @@ const Article = {
     numOfPageSkip = 20,
     numOfPageLimit = 20
   ) => {
+    const articleCount = await ArticleModel.countDocuments({});
     const articles = await ArticleModel.find(filter)
+      .sort({ createdAt: -1 })
       .skip((page - 1) * numOfPageSkip)
       .limit(numOfPageLimit);
 
-    return articles;
+    return { articleCount, articles };
   },
 
   findById: async ({ articleId }) => {
