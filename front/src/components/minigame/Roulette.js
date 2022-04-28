@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Wheel } from "react-custom-roulette";
 import data from "./rouletteData";
 import axios from "axios";
@@ -18,6 +18,12 @@ const Roulette = () => {
   const handleStop = () => {
     setResult(data[pointIndex].option);
   };
+
+  useEffect(() => {
+    if (result) {
+      axios.put(`http://localhost:5001/user/${userId}/addPoint`, result);
+    }
+  }, [result]);
 
   return (
     <>
