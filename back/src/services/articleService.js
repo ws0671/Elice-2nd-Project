@@ -1,4 +1,4 @@
-import { Article, Like, Comment } from "../db";
+import { Article, Like, Comment, User } from "../db";
 import { SetUtil } from "../common/setUtil";
 
 const ArticleService = {
@@ -7,7 +7,10 @@ const ArticleService = {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
 
-    const newArticle = { author, category, title, body, tags };
+    const user = await User.findById({ userId: author });
+    const nickname = user.nickname;
+
+    const newArticle = { author, nickname, category, title, body, tags };
 
     const createdNewArticle = await Article.create({ newArticle });
     return createdNewArticle;
@@ -41,12 +44,12 @@ const ArticleService = {
       throw new Error("존재하지 않는 게시물입니다.");
     }
 
-    const like = await Like.findByFilter({ articleId, userId });
-    const likeOrNot = Boolean(like);
+    const likeOrNot = await Like.findByFilter({ articleId, userId });
+    const like = Boolean(likeOrNot);
 
     const comments = await Comment.findAllByArticle({ articleId });
 
-    const articleInfo = { article, likeOrNot, comments };
+    const articleInfo = { article, like, comments };
     return articleInfo;
   },
 
@@ -83,7 +86,7 @@ const ArticleService = {
   },
 
   // 게시글 좋아요
-  like: async ({ userId, articleId, likeOrNot }) => {
+  like: async ({ userId, articleId, like }) => {
     const article = await Article.findById({ articleId }); // 좋아요 할 게시글 객체 찾기
     if (!article) {
       throw new Error(
@@ -92,32 +95,22 @@ const ArticleService = {
     }
 
     const filter = { userId, articleId };
-    const like = await Like.findByFilter(filter);
+    const likeOrNot = await Like.findByFilter(filter);
 
-    if (likeOrNot) {
-      if (like) {
+    if (like) {
+      if (likeOrNot) {
         throw new Error("이미 좋아요를 누른 게시물입니다.");
       }
       const newLike = { userId, articleId };
       await Like.create({ newLike });
     } else {
-      if (!like) {
+      if (!likeOrNot) {
         throw new Error(
           "이미 좋아요 취소가 되었거나 좋아요를 누르지 않은 게시물입니다."
         );
       }
       await Like.delete(filter);
     }
-  },
-
-  getLikes: async ({ articleId }) => {
-    const article = await Article.findById({ articleId });
-    if (!article) {
-      throw new Error("존재하지 않는 게시글입니다.");
-    }
-
-    const likes = await Like.findAllByArticle({ articleId });
-    return likes;
   },
 };
 

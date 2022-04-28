@@ -107,7 +107,7 @@ ArticleRouter.put("/:articleId/like", async (req, res, next) => {
       await ArticleService.like({
         userId,
         articleId,
-        likeOrNot,
+        like,
       })
 
       res.status(204).end()
