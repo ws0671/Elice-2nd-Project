@@ -40,10 +40,7 @@ const CommunityAddForm = () => {
     if (!error.title && !error.body) {
       alert("성공했습니다.")
       const newContent = content
-      Api.post("article/create", newContent).then((res) =>
-        console.log(res.data)
-      )
-      navigate("/community")
+      Api.post("article", newContent).then((res) => navigate("/community"))
     } else {
       alert("실패했습니다. 다시 한 번 확인해주세요.")
     }
