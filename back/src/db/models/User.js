@@ -39,6 +39,12 @@ const User = {
     const isDataDeleted = deleteResult.deletedCount === 1;
     return isDataDeleted;
   },
+
+  findBookmark: async ({ userId, gameId }) => {
+    const user = await UserModel.findOne({ userId });
+    const bookmarkOrNot = user.bookmarks.includes(gameId);
+    return bookmarkOrNot;
+  },
 };
 
 export { User };
