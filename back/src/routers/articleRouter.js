@@ -4,13 +4,12 @@ import { loginRequired } from "../middlewares/loginRequired"
 import { ArticleService } from "../services/articleService"
 
 const ArticleRouter = Router()
-// ArticleRouter.use(loginRequired); // 게시판 기능은 무조건 회원가입
+ArticleRouter.use(loginRequired) // 게시판 기능은 무조건 회원가입
 
 ArticleRouter.post("/", async (req, res, next) => {
   try {
     const { category, title, body, tags } = req.body
     const userId = req.currentUserId
-
     const newArticle = await ArticleService.addArticle({
       userId,
       category,
