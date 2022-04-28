@@ -1,4 +1,4 @@
-import { Article, Like, Comment } from "../db";
+import { Article, Like, Comment, User } from "../db";
 import { SetUtil } from "../common/setUtil";
 
 const ArticleService = {
