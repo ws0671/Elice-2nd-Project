@@ -24,11 +24,11 @@ const CommunityBoard = () => {
         <Table className="table">
           <colgroup>
             <col width="10%" />
-            <col width="40%" />
-            <col width="10%" />
+            <col width="45%" />
+            <col width="15%" />
             <col width="20%" />
             <col width="10%" />
-            <col width="10%" />
+            {/* <col width="10%" /> */}
           </colgroup>
           <thead>
             <tr>
@@ -45,13 +45,13 @@ const CommunityBoard = () => {
               <th>작성자</th>
               <th>작성일</th>
               <th>조회</th>
-              <th className="dropdown">
+              {/* <th className="dropdown">
                 좋아요
                 <ul className="dropdown-content">
                   <li>높은순</li>
                   <li>낮은순</li>
                 </ul>
-              </th>
+              </th> */}
             </tr>
           </thead>
           <CommunityList info={info} />
