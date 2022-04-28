@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-const CommunityElement = ({ item, index }) => {
+const CommunityElement = ({ item, index, page }) => {
   const navigate = useNavigate()
   const clickHandler = () => {
     navigate(`/community/${item.articleId}`)
@@ -10,14 +10,14 @@ const CommunityElement = ({ item, index }) => {
 
   return (
     <Tr>
-      <td>{index}</td>
+      <td>{index + (page - 1) * 10}</td>
       <td onClick={clickHandler}>
         <span>[{item.category}]</span> {item.title}
       </td>
       <td>{item.nickname}</td>
       <td>{updatedAt[0]}</td>
-      <td>{item.id}</td>
-      <td>{item.userId}</td>
+      <td></td>
+      <td>{item.like}</td>
     </Tr>
   )
 }

@@ -1,10 +1,16 @@
 import CommunityElement from "./CommunityElement"
 
-const CommunityList = ({ info }) => {
+const CommunityList = ({ info, page }) => {
   return (
     <tbody>
       {info.map((item) => {
-        return <CommunityElement item={item} index={info.indexOf(item) + 1} />
+        return (
+          <CommunityElement
+            page={page}
+            item={item}
+            index={info.indexOf(item) + 1}
+          />
+        )
       })}
     </tbody>
   )
