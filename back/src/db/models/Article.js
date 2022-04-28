@@ -9,8 +9,8 @@ const Article = {
   findAllByCategory: async (
     filter,
     page,
-    numOfPageSkip = 10,
-    numOfPageLimit = 10
+    numOfPageSkip = 5,
+    numOfPageLimit = 5
   ) => {
     const articleCount = await ArticleModel.countDocuments({})
     const articles = await ArticleModel.find(filter)
