@@ -30,6 +30,10 @@ const ArticleSchema = new Schema(
       type: [String],
       default: [],
     },
+    like: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
