@@ -103,6 +103,8 @@ const ArticleService = {
       }
       const newLike = { userId, articleId };
       await Like.create({ newLike });
+      const toUpdate = { $inc: { like: 1 } };
+      await Article.update({ articleId, toUpdate });
     } else {
       if (!likeOrNot) {
         throw new Error(
