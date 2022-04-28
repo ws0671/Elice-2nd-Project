@@ -13,6 +13,10 @@ const Roulette = () => {
     setPointIndex(Math.floor(Math.random() * data.length));
   };
 
+  const handleStop = () => {
+    setResult(data[pointIndex].option);
+  };
+
   return (
     <>
       <Wheel
