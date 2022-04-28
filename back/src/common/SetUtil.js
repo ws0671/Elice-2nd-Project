@@ -12,7 +12,7 @@ const SetUtil = {
     return toUpdate;
   },
 
-  validateCategory: async (category) => {
+  validateCategory: (category) => {
     const categoryList = [
       "공지사항",
       "유머",
