@@ -5,6 +5,12 @@ const Roulette = () => {
   const [spin, setSpin] = useState(false);
   const [pointIndex, setPointIndex] = useState();
   const [result, setResult] = useState();
+
+  return (
+    <>
+      <Wheel />
+    </>
+  );
 };
 
 export default Roulette;
