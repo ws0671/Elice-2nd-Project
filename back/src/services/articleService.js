@@ -8,7 +8,6 @@ const ArticleService = {
     }
 
     const user = await User.findById({ userId });
-    console.log(user);
     const author = userId;
     const nickname = user.nickname;
 
