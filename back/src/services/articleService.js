@@ -7,7 +7,10 @@ const ArticleService = {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
 
-    const newArticle = { author, category, title, body, tags };
+    const user = await User.findById({ userId: author });
+    const nickname = user.nickname;
+
+    const newArticle = { author, nickname, category, title, body, tags };
 
     const createdNewArticle = await Article.create({ newArticle });
     return createdNewArticle;
