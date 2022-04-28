@@ -4,7 +4,7 @@ import { Wheel } from "react-custom-roulette";
 const Roulette = () => {
   const [spin, setSpin] = useState(false);
   const [pointIndex, setPointIndex] = useState();
-  const [result, setResult] = userState();
+  const [result, setResult] = useState();
 };
 
 export default Roulette;
