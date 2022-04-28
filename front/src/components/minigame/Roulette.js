@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Wheel } from "react-custom-roulette";
 
+// 1000 => 4.55%, 500 => 13.64%, 300 => 13.64%, 200 => 27.27%, 100 => 40.91%
 const data = [
   {
     id: 1,
