@@ -6,18 +6,19 @@ import styled from "styled-components"
 const CommunityBoard = () => {
   const [info, setInfo] = useState([])
   const [total, setTotal] = useState(10)
+  const [query, setQuery] = useState("")
   const limit = 10
   const [page, setPage] = useState(1)
   const numPages = Math.ceil(total / limit)
 
   useEffect(() => {
-    Api.get("article/list", page)
+    Api.get("article/list", page + query)
       .then((res) => {
         setInfo(res.data.articles)
         setTotal(res.data.articleCount)
       })
       .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
-  }, [page])
+  }, [page, query])
   return (
     <div className="container">
       <div
@@ -38,9 +39,16 @@ const CommunityBoard = () => {
               <th className="dropdown">
                 말머리
                 <ul className="dropdown-content">
-                  <li>전체보기</li>
-                  <li>꿀팁</li>
-                  <li>게임</li>
+                  <li
+                    onClick={() => {
+                      setQuery(`?category=선택 안함`)
+                      console.log(query)
+                    }}
+                  >
+                    전체보기
+                  </li>
+                  <li onClick={() => setQuery(`?category=건의사항`)}>꿀팁</li>
+                  <li onClick={() => setQuery(`?category=파티 모집`)}>게임</li>
                 </ul>
               </th>
 
