@@ -132,6 +132,11 @@ const Roulette = () => {
 
   return (
     <>
+      {result ? (
+        <h1>축하합니다!! {result}점을 획득하셨습니다!!</h1>
+      ) : (
+        <h1>룰렛을 돌려주세요!</h1>
+      )}
       <Wheel
         mustStartSpinning={spin}
         prizeNumber={pointIndex}
