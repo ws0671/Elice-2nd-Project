@@ -1,16 +1,20 @@
 import CommunityList from "./CommunityList"
-import axios from "axios"
+import * as Api from "../../api"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
+import { useParams } from "react-router-dom"
 
 const CommunityBoard = () => {
   const [info, setInfo] = useState([])
+  const params = useParams()
+
+  console.log(params)
 
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+    Api.get("article/list", 1)
       .then((res) => {
-        setInfo(res.data.slice(0, 20))
+        setInfo(res.data)
+        console.log(res.data)
       })
       .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
   }, [])

@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import * as Api from "../../api"
 
-// 카테고리 데이터 부분 구현 필요!!
 const CommunityAddForm = () => {
-  const [isOpen, setIsOpen] = useState(false)
   const navigate = useNavigate()
 
   // const tagArray = [...new Array(content.tags.length)].map((_, i) => false)
@@ -22,6 +20,7 @@ const CommunityAddForm = () => {
 
   const changeHandler = (e) => {
     setContent((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    console.log(content)
     errorHandler(e.target.name)
   }
 
@@ -41,7 +40,9 @@ const CommunityAddForm = () => {
     if (!error.title && !error.body) {
       alert("성공했습니다.")
       const newContent = content
-      Api.post("article/create", newContent).then((res) => {})
+      Api.post("article/create", newContent).then((res) =>
+        console.log(res.data)
+      )
       navigate("/community")
     } else {
       alert("실패했습니다. 다시 한 번 확인해주세요.")
@@ -74,19 +75,18 @@ const CommunityAddForm = () => {
       <div className="header">커뮤니티 글쓰기</div>
       <form className="formContainer">
         <fieldset className="formFieldset">
-          <select
-            onclick={() => {
-              setIsOpen(!isOpen)
-            }}
-          >
-            <option disabled selected>
-              {isOpen ? `말머리 선택 안함` : `말머리 선택`}
+          <select name="category" onChange={changeHandler}>
+            <option style={{ display: "none" }} value="말머리 선택">
+              말머리 선택
             </option>
-            <option>필독</option>
-            <option>자유</option>
-            <option>꿀팁</option>
-            <option>건의사항</option>
-            <option>리뷰</option>
+            <option value="선택 안함">말머리 선택 안함</option>
+
+            <option value="공지사항">공지사항</option>
+            <option value="유머">유머</option>
+            <option value="파티 모집">파티 모집</option>
+            <option value="건의사항">건의사항</option>
+            <option value="후기">후기</option>
+            <option value="꿀팁">꿀팁</option>
           </select>
         </fieldset>
         <fieldset className="formFieldset">

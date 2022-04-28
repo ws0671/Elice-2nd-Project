@@ -5,12 +5,17 @@ const CommunityElement = ({ item }) => {
   const clickHandler = () => {
     navigate(`/community/${item.id}`)
   }
+
+  const updatedAt = item.updatedAt.split("T")
+
   return (
     <Tr>
-      <td>{item.id}</td>
-      <td onClick={clickHandler}>{item.title}</td>
-      <td>관리자</td>
-      <td>2022-04-23</td>
+      <td>{item}</td>
+      <td onClick={clickHandler}>
+        <span>[{item.category}]</span> {item.title}
+      </td>
+      <td>{item.nickname}</td>
+      <td>{updatedAt[0]}</td>
       <td>{item.id}</td>
       <td>{item.userId}</td>
     </Tr>
@@ -18,9 +23,13 @@ const CommunityElement = ({ item }) => {
 }
 
 const Tr = styled.tr`
-  td:nth-child(2):hover {
-    text-decoration: underline;
-    cursor: pointer;
+  td:nth-child(2) {
+    text-align: initial;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 `
 
