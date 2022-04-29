@@ -10,6 +10,10 @@ const cardImages = [
 ];
 
 const MemorizeCards = () => {
+  const shuffleCards = () => {
+    const shuffledCards = [...cardImages, ...cardImages];
+  };
+
   return (
     <div className="MemorizeCards">
       <h1>CAT MATCH</h1>
