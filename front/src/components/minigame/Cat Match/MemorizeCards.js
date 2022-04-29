@@ -29,7 +29,17 @@ const MemorizeCards = () => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
-  userEffect(() => {}, [choiceOne, choiceTwo]);
+  userEffect(() => {
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log("성공");
+        resetTurn();
+      } else {
+        console.log("실패");
+        resetTurn();
+      }
+    }
+  }, [choiceOne, choiceTwo]);
 
   const resetTurn = () => {
     setChoiceOne(null);
