@@ -115,8 +115,13 @@ const CommunityDetail = () => {
         </div>
         <div className="detail body">{detail.body}</div>
         <div className="detail etc">
-          <img src="/images/unlike.png" alt="좋아요"></img>
-          <span onClick={pushLike}>좋아요</span>
+          <img
+            src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
+            alt="좋아요"
+          ></img>
+          <span className="liking" onClick={pushLike}>
+            좋아요
+          </span>
           <span>{detail.like}</span>
           <img src="/images/comment.png" alt="댓글"></img>
           <span>댓글</span>
@@ -181,6 +186,13 @@ const Container = styled.div`
       margin-right: 10px;
       text-align: center;
     }
+  }
+
+  .liking:hover {
+    font-weight: bold;
+    cursor: pointer;
+    background: rgba(108, 99, 255, 0.3);
+    border-radius: 100px;
   }
 `
 const Header = styled.div`
