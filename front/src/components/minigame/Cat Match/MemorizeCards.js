@@ -1,5 +1,14 @@
 import "./MemorizeCards.css";
 
+const cardImages = [
+  { src: "/img/고양이 1.jpg", matched: false },
+  { src: "/img/고양이 2.jpg", matched: false },
+  { src: "/img/고양이 3.jpg", matched: false },
+  { src: "/img/고양이 4.jpg", matched: false },
+  { src: "/img/고양이 5.jpg", matched: false },
+  { src: "/img/고양이 6.jpg", matched: false },
+];
+
 const MemorizeCards = () => {
   return (
     <div className="MemorizeCards">
