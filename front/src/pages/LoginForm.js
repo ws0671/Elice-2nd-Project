@@ -2,9 +2,9 @@ import React, { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
 import { Container, Col, Row, Form, Button, FormGroup } from "react-bootstrap"
 import styled from "styled-components"
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { GiOysterPearl } from "react-icons/gi";
-import { createGlobalStyle } from 'styled-components'
+import "bootstrap/dist/css/bootstrap.min.css"
+import { GiOysterPearl } from "react-icons/gi"
+import { createGlobalStyle } from "styled-components"
 
 import * as Api from "../api"
 import { DispatchContext } from "../App"
@@ -18,29 +18,28 @@ const GlobalStyle = createGlobalStyle`
 const Sbutton = styled.button`
   outline: 0;
   font-size: 16px;
-  border-radius:25px;
-	border:2px solid #6c63ff;
-	display:inline-block;
-	cursor:pointer;
-	color:#6c63ff;
-	font-family:Arial;
-	font-size:14px;
-	padding:10px 23px;
-	text-decoration:none;
+  border-radius: 25px;
+  border: 2px solid #6c63ff;
+  display: inline-block;
+  cursor: pointer;
+  color: #6c63ff;
+  font-family: Arial;
+  font-size: 14px;
+  padding: 10px 23px;
+  text-decoration: none;
 
   &:hover {
-  color: white;
-	background-color:#bab1ba;
+    color: white;
+    background-color: #bab1ba;
 
-  &:active {
-	position:relative;
-	top:1px;
-}
-}
+    &:active {
+      position: relative;
+      top: 1px;
+    }
+  }
 `
 
 function LoginForm() {
-
   const navigate = useNavigate()
   const dispatch = useContext(DispatchContext)
 
@@ -66,8 +65,6 @@ function LoginForm() {
   // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
   const isFormValid = isEmailValid && isPasswordValid
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -79,10 +76,12 @@ function LoginForm() {
 
       // 유저 정보는 response의 data임.
       const user = res.data
+
       // JWT 토큰은 유저 정보의 token임.
       const jwtToken = user.token
-      // sessionStorage에 "userToken"이라는 키로 JWT 토큰을 저장함.
+      // sessionStorage에 "userToken"이라는 키로 JWT 토큰과 닉네임을 저장함.
       sessionStorage.setItem("userToken", jwtToken)
+      sessionStorage.setItem("nickName", user.nickname)
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
       dispatch({
         type: "LOGIN_SUCCESS",
@@ -97,23 +96,35 @@ function LoginForm() {
   }
 
   return (
-
-
     <Container className="container">
       <GlobalStyle />
       <Row>
         <Row className="mt-5">
           <div style={{ height: "100px" }} />
           <Col className="md-6">
-            <img style={{ width: '700px' }} src={process.env.PUBLIC_URL + 'img/gamer.svg'} alt="Gamer" />
+            <img
+              style={{ width: "700px" }}
+              src={process.env.PUBLIC_URL + "img/gamer.svg"}
+              alt="Gamer"
+            />
           </Col>
 
-          <Col style={{ width: "80%", marginLeft: "10%" }} className="lg-6 text-center">
-
-            <GiOysterPearl size={70} color="#6c63ff" alt="icon" style={{ marginBottom: "1rem" }} />
+          <Col
+            style={{ width: "80%", marginLeft: "10%" }}
+            className="lg-6 text-center"
+          >
+            <GiOysterPearl
+              size={70}
+              color="#6c63ff"
+              alt="icon"
+              style={{ marginBottom: "1rem" }}
+            />
             <h3>Sign In</h3>
             <p class="mb-4">' Game Pearl ' 에 오신 것을 환영합니다!</p>
-            <Form className="d-grid gap-2 col-10 mx-auto" onSubmit={handleSubmit}>
+            <Form
+              className="d-grid gap-2 col-10 mx-auto"
+              onSubmit={handleSubmit}
+            >
               <Form.Group controlId="loginEmail">
                 {/* <Form.Label>이메일 주소</Form.Label> */}
                 <Form.Control
@@ -129,7 +140,6 @@ function LoginForm() {
                 </Form.Text>
               )} */}
               </Form.Group>
-
 
               <Form.Group controlId="loginPassword" className="mt-2">
                 {/* <Form.Label>비밀번호</Form.Label> */}
@@ -147,13 +157,26 @@ function LoginForm() {
               )} */}
               </Form.Group>
               <Form.Group className="text-right mt-2">
-                <div><a href="#"><small className="reset align-self-end" >비밀번호 재설정</small></a></div>
+                <div>
+                  <a href="#">
+                    <small className="reset align-self-end">
+                      비밀번호 재설정
+                    </small>
+                  </a>
+                </div>
               </Form.Group>
               <Form.Group className="d-grid gap-2 col-12 mx-auto mt-3">
-                <Button className="btn btn-block" type="submit" disabled={!isFormValid} style={{ backgroundColor: "#6c63ff", height: "50px" }}>
+                <Button
+                  className="btn btn-block"
+                  type="submit"
+                  disabled={!isFormValid}
+                  style={{ backgroundColor: "#6c63ff", height: "50px" }}
+                >
                   로그인
                 </Button>
-                <small className="d-block text-left my-2 text-muted">&mdash; 회원이 아니신가요?&mdash; </small>
+                <small className="d-block text-left my-2 text-muted">
+                  &mdash; 회원이 아니신가요?&mdash;{" "}
+                </small>
               </Form.Group>
             </Form>
             {/*        <Button className="ml-5" variant="outline-secondary btn-sm" onClick={() => navigate("/register")}>
@@ -163,7 +186,7 @@ function LoginForm() {
           </Col>
         </Row>
       </Row>
-    </Container >
+    </Container>
   )
 }
 
