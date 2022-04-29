@@ -1,7 +1,6 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import styled from "styled-components";
-import Carousel from "../components/Carousel";
-
+import Slider from "../components/Slider";
 // 메인 bg-color:#673ab7
 function TopChart() {
   return (
@@ -16,19 +15,19 @@ function TopChart() {
       <Main>
         <div className="toptenContainer">
           <h3>평점 TOP 10</h3>
-          <Carousel className="carousel"></Carousel>
+          <Slider></Slider>
         </div>
         <div className="toptenContainer">
           <h3>장르별 TOP 10</h3>
-          <Carousel className="carousel"></Carousel>
+          <Slider></Slider>
         </div>
         <div className="toptenContainer">
           <h3>이용등급별 TOP 10</h3>
-          <Carousel className="carousel"></Carousel>
+          <Slider></Slider>
         </div>
         <div className="toptenContainer">
           <h3>똥겜 TOP 10</h3>
-          <Carousel className="carousel"></Carousel>
+          <Slider></Slider>
         </div>
       </Main>
     </body>
@@ -40,12 +39,11 @@ const MainImage = styled.div`
 `;
 const Main = styled.main`
   margin: 100px auto 0 auto;
-  width: 90vw;
-  div.toptenContainer {
-    margin-top: 30px;
+  width: 100%;
+  .toptenContainer {
+    margin-top: 80px;
   }
   h3 {
-    margin-bottom: 50px;
     font-weight: bold;
   }
 `;
