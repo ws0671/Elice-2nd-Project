@@ -10,6 +10,8 @@ const cardImages = [
 ];
 
 const MemorizeCards = () => {
+  const [cards, setCards] = useState([]);
+
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
