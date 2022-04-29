@@ -16,6 +16,7 @@ const CommunityBoard = () => {
       .then((res) => {
         setInfo(res.data.articles)
         setTotal(res.data.articleCount)
+        console.log(res.data.articles)
       })
       .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
   }, [page, query])

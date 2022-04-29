@@ -8,6 +8,37 @@ import CommentList from "../comment/CommentList"
 
 const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
+  const [isLiked, setIsLiked] = useState(false)
+
+  const pushLike = () => {
+    let copied = detail
+    if (isLiked) {
+      setIsLiked((prev) => !prev)
+      setDetail({ ...copied, like: copied.like - 1 })
+      const putData = { author: detail.author, like: !isLiked }
+      Api.put(`article/${params.id}/like`, putData).then((res) =>
+        console.log(res.data)
+      )
+    } else {
+      setIsLiked((prev) => !prev)
+      setDetail({ ...copied, like: copied.like + 1 })
+      const putData = { author: detail.author, like: !isLiked }
+      Api.put(`article/${params.id}/like`, putData).then((res) =>
+        console.log(res.data)
+      )
+    }
+
+    // console.log(isLiked)
+  }
+
+  // const pushLike = () => {
+  //   let copied = detail
+  //   if (isLiked) {
+
+  //   }
+  //   else if (!isLiked && )
+  //   setDetail()
+  // }
 
   // 댓글 mock data(back과 통신 연결 후 삭제하기)
   const comments = [
@@ -25,9 +56,11 @@ const CommunityDetail = () => {
   const [example, setExample] = useState(comments)
   const params = useParams()
   useEffect(() => {
-    axios
-      .get(`https://jsonplaceholder.typicode.com/posts/${params.id}`)
-      .then((res) => setDetail(res.data))
+    Api.get("article", params.id).then((res) => {
+      setDetail(res.data.article)
+      console.log(res.data)
+      setIsLiked(res.data.like)
+    })
   }, [])
 
   const clickHandler = (comment) => {
@@ -77,14 +110,14 @@ const CommunityDetail = () => {
       <Container>
         <div className="detail title">{detail.title}</div>
         <div className="detail writer">
-          <div>작성자</div>
-          <div>작성 시간 / 조회 수</div>
+          <div>{detail.nickname}</div>
+          <div>{detail.createdAt} / 조회 수</div>
         </div>
         <div className="detail body">{detail.body}</div>
         <div className="detail etc">
           <img src="/images/unlike.png" alt="좋아요"></img>
-          <span>좋아요</span>
-          <span>0</span>
+          <span onClick={pushLike}>좋아요</span>
+          <span>{detail.like}</span>
           <img src="/images/comment.png" alt="댓글"></img>
           <span>댓글</span>
           <span>{example.length}</span>
