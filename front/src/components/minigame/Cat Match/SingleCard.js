@@ -1,6 +1,10 @@
 import "./SingleCard.css";
 
-const SingleCard = ({ card }) => {
+const SingleCard = ({ card, handleChoice }) => {
+  const handleClick = () => {
+    handleChoice(card);
+  };
+
   return (
     <div className="card">
       <div>
