@@ -43,7 +43,6 @@ const MemorizeCards = () => {
         });
         resetTurn();
       } else {
-        console.log("실패");
         resetTurn();
       }
     }
