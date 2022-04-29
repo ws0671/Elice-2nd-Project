@@ -73,6 +73,7 @@ const MemorizeCards = () => {
           />
         ))}
       </div>
+      <p>Turns: {turns}</p>
     </div>
   );
 };
