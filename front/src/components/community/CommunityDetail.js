@@ -1,15 +1,18 @@
 import { useParams } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import * as Api from "../../api"
 import styled from "styled-components"
 import CommentAddForm from "../comment/CommentAddForm"
 import CommentList from "../comment/CommentList"
+import { UserStateContext } from "../../App"
 
 const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
   const [isLiked, setIsLiked] = useState(false)
   const [example, setExample] = useState([])
+  const userContext = useContext(UserStateContext)
 
+  const isUser = detail.nickname === userContext.user
   const params = useParams()
   useEffect(() => {
     Api.get("article", params.id).then((res) => {
@@ -71,21 +74,23 @@ const CommunityDetail = () => {
   }
 
   const pushLike = () => {
-    let copied = detail
-    if (isLiked) {
-      setIsLiked((prev) => !prev)
-      setDetail({ ...copied, like: copied.like - 1 })
-      const putData = { author: detail.author, like: !isLiked }
-      Api.put(`article/${params.id}/like`, putData).then((res) =>
-        console.log(res.data)
-      )
-    } else {
-      setIsLiked((prev) => !prev)
-      setDetail({ ...copied, like: copied.like + 1 })
-      const putData = { author: detail.author, like: !isLiked }
-      Api.put(`article/${params.id}/like`, putData).then((res) =>
-        console.log(res.data)
-      )
+    if (!isUser) {
+      let copied = detail
+      if (isLiked) {
+        setIsLiked((prev) => !prev)
+        setDetail({ ...copied, like: copied.like - 1 })
+        const putData = { author: detail.author, like: !isLiked }
+        Api.put(`article/${params.id}/like`, putData).then((res) =>
+          console.log(res.data)
+        )
+      } else {
+        setIsLiked((prev) => !prev)
+        setDetail({ ...copied, like: copied.like + 1 })
+        const putData = { author: detail.author, like: !isLiked }
+        Api.put(`article/${params.id}/like`, putData).then((res) =>
+          console.log(res.data)
+        )
+      }
     }
 
     // console.log(isLiked)
@@ -97,7 +102,7 @@ const CommunityDetail = () => {
   return (
     <>
       <Header />
-      <Container>
+      <Container isUser={isUser}>
         <div className="detail title">{detail.title}</div>
         <div className="detail writer">
           <div>{detail.nickname}</div>
@@ -177,13 +182,19 @@ const Container = styled.div`
       text-align: center;
     }
   }
+  
+  ${({ isUser }) =>
+    !isUser &&
+    `
+    .liking:hover {
+      font-weight: bold;
+      cursor: pointer;
+      background: rgba(108, 99, 255, 0.3);
+      border-radius: 100px;
+    }
+    `}
 
-  .liking:hover {
-    font-weight: bold;
-    cursor: pointer;
-    background: rgba(108, 99, 255, 0.3);
-    border-radius: 100px;
-  }
+  
 `
 const Header = styled.div`
   height: 10vh;
