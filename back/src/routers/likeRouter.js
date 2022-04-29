@@ -15,7 +15,7 @@ LikeRouter.post("/", async (req, res, next) => {
       throw new Error("본인 글에는 좋아요 할 수 없습니다.");
     } else {
       // 본인 게시글이 아니면
-      await likeService.addLike({
+      await LikeService.addLike({
         userId,
         articleId,
       });
