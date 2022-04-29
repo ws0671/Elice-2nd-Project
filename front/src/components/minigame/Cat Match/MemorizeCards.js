@@ -57,6 +57,10 @@ const MemorizeCards = () => {
     setTurns((prevTurns) => prevTurns + 1);
   };
 
+  useEffect(() => {
+    shuffleCards();
+  }, []);
+
   return (
     <div className="MemorizeCards">
       <h1>CAT MATCH</h1>
