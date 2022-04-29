@@ -1,5 +1,6 @@
 import "./MemorizeCards.css";
 import SingleCard from "./SingleCard";
+import axios from "axios";
 
 const cardImages = [
   { src: "/img/고양이 1.jpg", matched: false },
