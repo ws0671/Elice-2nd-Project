@@ -70,6 +70,8 @@ const MemorizeCards = () => {
   useEffect(() => {
     if (success === 6) {
       alert("축하합니다!! 100포인트를 얻으셨습니다.");
+      const point = 100;
+      axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
       shuffleCards();
     } else if (turns === 0) {
       alert("GAME OVER");
