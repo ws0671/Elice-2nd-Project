@@ -5,6 +5,7 @@ const CommentList = ({ example, removeHandler, editHandler }) => {
     <Div className="area">
       {example.map((item) => (
         <CommentElement
+          key={item._id}
           item={item}
           removeHandler={removeHandler}
           editHandler={editHandler}
