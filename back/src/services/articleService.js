@@ -39,7 +39,7 @@ const ArticleService = {
   },
 
   getArticleInfo: async ({ articleId, userId }) => {
-    const article = await Article.findById({ articleId });
+    let article = await Article.findById({ articleId });
     const user = await User.findById({ userId });
 
     if (!article) {
@@ -52,6 +52,9 @@ const ArticleService = {
       const likeOrNot = await Like.findByFilter({ articleId, userId });
       const like = Boolean(likeOrNot);
       const comments = await Comment.findAllByArticle({ articleId });
+
+      const toUpdate = { $inc: { hits: 1 } };
+      article = await Article.update({ articleId, toUpdate });
 
       const articleInfo = { article, like, comments };
 
