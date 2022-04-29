@@ -130,11 +130,11 @@ const userAuthService = {
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
       );
     }
-    const toUpdate = SetUtil.setPointAndGrade(user, point);
+    const { toUpdate, isUpgraded } = SetUtil.setPointAndGrade(user, point);
 
     user = await User.update({ userId, toUpdate });
 
-    return user;
+    return { user, isUpgraded };
   },
 
   addBookmark: async ({ bookmark, userId, gameId }) => {
