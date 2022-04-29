@@ -26,6 +26,17 @@ const MemorizeCards = () => {
     <div className="MemorizeCards">
       <h1>CAT MATCH</h1>
       <button onClick={shuffleCards}>NEW GAME</button>
+
+      <div className="card-grid">
+        {cards.map((card) => (
+          <div className="card" key={card.id}>
+            <div>
+              <img className="front" src={card.src} alt="card front" />
+              <img className="back" src="/img/뒷면.png" alt="card back" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
