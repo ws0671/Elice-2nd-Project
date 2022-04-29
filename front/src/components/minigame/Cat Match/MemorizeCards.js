@@ -25,7 +25,7 @@ const MemorizeCards = () => {
   return (
     <div className="MemorizeCards">
       <h1>CAT MATCH</h1>
-      <button>NEW GAME</button>
+      <button onClick={shuffleCards}>NEW GAME</button>
     </div>
   );
 };
