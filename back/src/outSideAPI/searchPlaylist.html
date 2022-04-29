@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Search</title>
+  </head>
+  <body>
+    <div id="buttons">
+      <label>
+        <input id="query" value="게임 리뷰" type="text" /><button
+          id="search-button"
+          onclick="search()"
+        >
+          Search
+        </button></label
+      >
+    </div>
+    <!-- <div id="search-container"></div> -->
+    <div id="seachResultIframe" style="height: 450px"></div>
+    <script src="https://www.gstatic.com/external_hosted/jquery2.min.js"></script>
+    <script src="youtubeAuth.js"></script>
+    <script src="youtubeSearch.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+  </body>
+</html>
