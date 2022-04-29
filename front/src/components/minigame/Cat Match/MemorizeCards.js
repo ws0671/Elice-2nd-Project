@@ -29,6 +29,8 @@ const MemorizeCards = () => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
+  userEffect(() => {}, [choiceOne, choiceTwo]);
+
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
