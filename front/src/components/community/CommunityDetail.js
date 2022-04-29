@@ -2,13 +2,73 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import * as Api from "../../api"
 import styled from "styled-components"
-import axios from "axios"
 import CommentAddForm from "../comment/CommentAddForm"
 import CommentList from "../comment/CommentList"
 
 const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
   const [isLiked, setIsLiked] = useState(false)
+  const [example, setExample] = useState([])
+
+  const params = useParams()
+  useEffect(() => {
+    Api.get("article", params.id).then((res) => {
+      setDetail(res.data.article)
+      console.log(res.data)
+      setIsLiked(res.data.like)
+      setExample(res.data.comments)
+    })
+  }, [])
+
+  const clickHandler = (comment) => {
+    let copied = [...example]
+
+    const newComment = { comment, articleId: detail.articleId }
+    // copied.push({ isDeleted: false, comment, writerNickname: "happy" })
+    Api.post("comment", newComment).then((res) => {
+      copied.push(res.data)
+      alert("댓글 등록이 완료되었습니다!")
+      setExample(copied)
+      console.log(example)
+    })
+  }
+
+  const editHandler = (item, comment) => {
+    const edit = { ...item, comment }
+    Api.put(`comment/${item.commentId}`, edit).then((res) =>
+      console.log(res.data)
+    )
+    const copied = example.map((v) => {
+      if (
+        v.writeNickname === edit.writeNickname &&
+        v.commentId === item.commentId
+      ) {
+        return { ...v, comment }
+      } else {
+        return { ...v }
+      }
+    })
+    console.log(copied)
+    setExample(copied)
+  }
+  const removeHandler = (item) => {
+    const deleted = { ...item, isDeleted: true }
+    Api.put(`comment/${item.commentId}/delete`, deleted).then((res) =>
+      console.log(res.data)
+    )
+    const copied = example.map((v) => {
+      if (
+        v.writeNickname === deleted.writeNickname &&
+        v.commentId === item.commentId
+      ) {
+        return { ...v, isDeleted: true }
+      } else {
+        return { ...v }
+      }
+    })
+    console.log(copied)
+    setExample(copied)
+  }
 
   const pushLike = () => {
     let copied = detail
@@ -31,78 +91,8 @@ const CommunityDetail = () => {
     // console.log(isLiked)
   }
 
-  // const pushLike = () => {
-  //   let copied = detail
-  //   if (isLiked) {
-
-  //   }
-  //   else if (!isLiked && )
-  //   setDetail()
-  // }
-
-  // 댓글 mock data(back과 통신 연결 후 삭제하기)
-  const comments = [
-    {
-      writeNickname: "프로게이머",
-      comment: "새로운 댓글1",
-      isDeleted: false,
-    },
-    {
-      writeNickname: "포켓몬",
-      comment: "새로운 댓글2",
-      isDeleted: false,
-    },
-  ]
-  const [example, setExample] = useState(comments)
-  const params = useParams()
-  useEffect(() => {
-    Api.get("article", params.id).then((res) => {
-      setDetail(res.data.article)
-      console.log(res.data)
-      setIsLiked(res.data.like)
-    })
-  }, [])
-
-  const clickHandler = (comment) => {
-    let copied = [...example]
-    // 유저가 댓글을 두번 이상은 못쓰는 경우 처리하기
-    const newComment = { comment, articleId: "happy" }
-    copied.push({ isDeleted: false, comment, writeNickname: "happy" })
-    Api.post("/comment", newComment).then((res) => {
-      console.log(res.data)
-    })
-    alert("댓글 등록이 완료되었습니다!")
-    setExample(copied)
-  }
-
-  const editHandler = (item, comment) => {
-    const edit = { ...item, comment }
-    Api.put("comment/:commentId", edit).then((res) => console.log(res.data))
-    const copied = example.map((v) => {
-      if (v.writeNickname === edit.writeNickname) {
-        return { ...v, comment }
-      } else {
-        return { ...v }
-      }
-    })
-    console.log(copied)
-    setExample(copied)
-  }
-  const removeHandler = (item) => {
-    const deleted = { ...item, isDeleted: true }
-    Api.put("comment/:commentId/delete", deleted).then((res) =>
-      console.log(res.data)
-    )
-    const copied = example.map((v) => {
-      if (v.writeNickname === deleted.writeNickname) {
-        return { ...v, isDeleted: true }
-      } else {
-        return { ...v }
-      }
-    })
-    console.log(copied)
-    setExample(copied)
-  }
+  const realComments = example.filter((v) => v.isDeleted === false)
+  const createDate = detail.createdAt
 
   return (
     <>
@@ -111,7 +101,7 @@ const CommunityDetail = () => {
         <div className="detail title">{detail.title}</div>
         <div className="detail writer">
           <div>{detail.nickname}</div>
-          <div>{detail.createdAt} / 조회 수</div>
+          <div>{createDate && createDate.split("T")[0]} / 조회 수</div>
         </div>
         <div className="detail body">{detail.body}</div>
         <div className="detail etc">
@@ -125,7 +115,7 @@ const CommunityDetail = () => {
           <span>{detail.like}</span>
           <img src="/images/comment.png" alt="댓글"></img>
           <span>댓글</span>
-          <span>{example.length}</span>
+          <span>{realComments.length}</span>
         </div>
         <div className="detail comment">
           <div className="head">댓글</div>

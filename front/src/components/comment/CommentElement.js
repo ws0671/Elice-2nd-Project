@@ -22,76 +22,81 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
   }
 
   return (
-    !item.isDeleted && (
-      <Div edit={edit} view={view} className="comment-area">
-        {edit ? (
-          <>
-            <textarea
-              className="edit"
-              onChange={(e) => {
-                setComment(e.target.value)
-                console.log(comment)
+    <Div
+      edit={edit}
+      view={view}
+      isDeleted={item.isDeleted}
+      className="comment-area"
+    >
+      {edit ? (
+        <>
+          <textarea
+            className="edit"
+            onChange={(e) => {
+              setComment(e.target.value)
+              console.log(comment)
+            }}
+            value={comment}
+            placeholder="20자 이상 적어주세요."
+          ></textarea>
+          <ButtonGroup>
+            <button
+              onClick={() => {
+                editHandler(item, comment)
+                setEdit(false)
               }}
-              value={comment}
-              placeholder="20자 이상 적어주세요."
-            ></textarea>
-            <ButtonGroup>
-              <button
-                onClick={() => {
-                  editHandler(item, comment)
-                  setEdit(false)
-                }}
-              >
-                확인
-              </button>
-              <button
-                onClick={() => {
-                  setComment(item.comment)
-                  setEdit(false)
-                }}
-              >
-                취소
-              </button>
-            </ButtonGroup>
-          </>
-        ) : (
-          <>
-            <div>
-              <div className="nickname">{item.writeNickname}</div>
-              <div className="comment">{item.comment}</div>
+            >
+              확인
+            </button>
+            <button
+              onClick={() => {
+                setComment(item.comment)
+                setEdit(false)
+              }}
+            >
+              취소
+            </button>
+          </ButtonGroup>
+        </>
+      ) : (
+        <>
+          <div>
+            <div className="nickname">{item.writerNickname}</div>
+            <div className="comment">
+              {item.isDeleted ? "삭제된 댓글입니다" : item.comment}
             </div>
+          </div>
 
-            <img
-              ref={(el) => (viewMore.current[0] = el)}
-              src="/images/viewmore.png"
-              alt="더보기"
-              onClick={(e) => {
-                setView((prev) => !prev)
-                console.log(viewMore)
+          <img
+            ref={(el) => (viewMore.current[0] = el)}
+            src="/images/viewmore.png"
+            alt="더보기"
+            onClick={(e) => {
+              setView((prev) => !prev)
+              console.log(viewMore)
+            }}
+          ></img>
+          <ul className="dropdown">
+            <li
+              ref={(el) => (viewMore.current[1] = el)}
+              onClick={() => {
+                setEdit(true)
               }}
-            ></img>
-            <ul className="dropdown">
-              <li
-                ref={(el) => (viewMore.current[1] = el)}
-                onClick={() => {
-                  setEdit(true)
-                }}
-              >
-                수정
-              </li>
-              <li
-                ref={(el) => (viewMore.current[2] = el)}
-                onClick={() => {
-                  removeHandler(item)
-                }}
-              >
-                삭제
-              </li>
-            </ul>
-          </>
-        )}
-      </Div>
-    )
+            >
+              수정
+            </li>
+            <li
+              ref={(el) => (viewMore.current[2] = el)}
+              onClick={() => {
+                removeHandler(item)
+              }}
+            >
+              삭제
+            </li>
+          </ul>
+        </>
+      )}
+    </Div>
   )
 }
 
@@ -100,18 +105,24 @@ const Div = styled.div`
     width:100%;
     height: 15vh;
   }
-
+  background: ${({ isDeleted }) => isDeleted && "rgba(255, 215, 215, 0.9);"};
   margin-bottom: 20px;
   font-size: 13px;
+  
   padding-bottom: 10px;
   display: flex;
   flex-direction: ${({ edit }) => (edit ? "column" : "row")};
   justify-content: space-between;
   // align-items: center;
+  .comment {
+    font-size: ${({ isDeleted }) => (isDeleted ? "11px" : "13px")};
+    color: ${({ isDeleted }) => isDeleted && "grey"};
+  }
 
   img {
     width: 20px;
     height: 20px;
+    display: ${({ isDeleted }) => isDeleted && "none"};
 
     &:hover {
       cursor: pointer;
