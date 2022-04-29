@@ -31,6 +31,22 @@ const Game = {
       .limit(numOfLimit);
     return games;
   },
+
+  searchSortByColumn: async ({
+    key,
+    colName,
+    sortOrder,
+    page,
+    numOfPageLimit = 10,
+  }) => {
+    const games = await GameModel.find({
+      name: { $regex: `^${key}`, $options: "i" },
+    })
+      .sort({ [colName]: [sortOrder] })
+      .skip((page - 1) * numOfPageLimit)
+      .limit(numOfPageLimit);
+    return games;
+  },
 };
 
 export { Game };
