@@ -33,7 +33,7 @@ const MemorizeCards = () => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
-  userEffect(() => {
+  useEffect(() => {
     if (choiceOne && choiceTwo) {
       setDisabled(true);
       if (choiceOne.src === choiceTwo.src) {
