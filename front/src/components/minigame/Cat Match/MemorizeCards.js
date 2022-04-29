@@ -13,6 +13,7 @@ const cardImages = [
 const MemorizeCards = () => {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
+  const [success, setSuccess] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
