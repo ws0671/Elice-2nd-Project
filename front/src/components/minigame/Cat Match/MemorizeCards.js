@@ -27,6 +27,7 @@ const MemorizeCards = () => {
     setChoiceTwo(null);
     setCards(shuffledCards);
     setTurns(12);
+    setSuccess(0);
   };
 
   const handleChoice = (card) => {
