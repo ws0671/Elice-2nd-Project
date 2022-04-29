@@ -66,7 +66,15 @@ const MemorizeCards = () => {
     shuffleCards();
   }, []);
 
-  useEffect(() => {}, [turns, success]);
+  useEffect(() => {
+    if (success === 6) {
+      alert("축하합니다!! 100포인트를 얻으셨습니다.");
+      shuffleCards();
+    } else if (turns === 0) {
+      alert("GAME OVER");
+      shuffleCards();
+    }
+  }, [turns, success]);
 
   return (
     <div className="MemorizeCards">
