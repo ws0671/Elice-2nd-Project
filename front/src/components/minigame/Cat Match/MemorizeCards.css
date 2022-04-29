@@ -1,1 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+
+.MemorizeCards {
+    max-width: 860px;
+    margin: 40px auto;
+    height: 100vh;
+}
