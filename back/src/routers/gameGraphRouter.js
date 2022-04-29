@@ -3,7 +3,7 @@ import { gameGraphService } from "../services/gameGraphService";
 
 const gameGraphRouter = Router();
 
-gameGraphRouter.get("/worstGame", async function (req, res, next) {
+gameGraphRouter.get("/worstGame", async (req, res, next) => {
   try {
     const gameGraphList = await gameGraphService.getWorstRank();
     res.status(200).send(gameGraphList);
@@ -12,7 +12,7 @@ gameGraphRouter.get("/worstGame", async function (req, res, next) {
   }
 });
 
-gameGraphRouter.get("/bestGame", async function (req, res, next) {
+gameGraphRouter.get("/bestGame", async (req, res, next) => {
   try {
     const gameGraphList = await gameGraphService.getBestRank();
     res.status(200).send(gameGraphList);
@@ -21,7 +21,7 @@ gameGraphRouter.get("/bestGame", async function (req, res, next) {
   }
 });
 
-gameGraphRouter.get("/recentRelease", async function (req, res, next) {
+gameGraphRouter.get("/recentRelease", async (req, res, next) => {
   try {
     const gameGraphList = await gameGraphService.getRecentRelease();
     res.status(200).send(gameGraphList);

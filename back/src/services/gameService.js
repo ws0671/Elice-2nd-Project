@@ -21,6 +21,23 @@ const gameService = {
     const games = await Game.sortByColumn({ colName, numOfLimit });
     return games;
   },
+
+  getSearchResult: async ({
+    key,
+    colName,
+    page,
+    sortOrder,
+    numOfPageLimit,
+  }) => {
+    const games = await Game.searchSortByColumn({
+      key,
+      colName,
+      page,
+      sortOrder,
+      numOfPageLimit,
+    });
+    return games;
+  },
 };
 
 export { gameService };
