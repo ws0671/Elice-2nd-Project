@@ -29,6 +29,12 @@ const MemorizeCards = () => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
+  const resetTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns((prevTurns) => prevTurns + 1);
+  };
+
   return (
     <div className="MemorizeCards">
       <h1>CAT MATCH</h1>
