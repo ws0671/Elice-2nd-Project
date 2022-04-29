@@ -36,7 +36,7 @@ const CommunityDetail = () => {
   const editHandler = (item, comment) => {
     const edit = { ...item, comment }
     Api.put(`comment/${item.commentId}`, edit).then((res) =>
-      console.log(res.data)
+      console.log("수정데이터", res.data)
     )
     const copied = example.map((v) => {
       if (
@@ -48,7 +48,7 @@ const CommunityDetail = () => {
         return { ...v }
       }
     })
-    console.log(copied)
+    console.log("최종 수정된 데이터", copied)
     setExample(copied)
   }
   const removeHandler = (item) => {

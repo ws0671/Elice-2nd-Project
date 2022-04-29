@@ -1,11 +1,15 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, useContext } from "react"
 import styled from "styled-components"
+import { UserStateContext } from "../../App"
 
 const CommentElement = ({ item, removeHandler, editHandler }) => {
   const [edit, setEdit] = useState(false)
   const [comment, setComment] = useState(item.comment)
   const [view, setView] = useState(false)
   const viewMore = useRef([])
+  // const userState = useContext(UserStateContext)
+  // console.log(userState)
+  const userContext = useContext(UserStateContext)
 
   useEffect(() => {
     document.addEventListener("mousedown", clickOutside)
@@ -67,15 +71,17 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
             </div>
           </div>
 
-          <img
-            ref={(el) => (viewMore.current[0] = el)}
-            src="/images/viewmore.png"
-            alt="더보기"
-            onClick={(e) => {
-              setView((prev) => !prev)
-              console.log(viewMore)
-            }}
-          ></img>
+          {item.writerNickname === userContext.user && (
+            <img
+              ref={(el) => (viewMore.current[0] = el)}
+              src="/images/viewmore.png"
+              alt="더보기"
+              onClick={(e) => {
+                setView((prev) => !prev)
+                console.log(viewMore)
+              }}
+            ></img>
+          )}
           <ul className="dropdown">
             <li
               ref={(el) => (viewMore.current[1] = el)}
@@ -89,6 +95,7 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
               ref={(el) => (viewMore.current[2] = el)}
               onClick={() => {
                 removeHandler(item)
+                setView(false)
               }}
             >
               삭제
