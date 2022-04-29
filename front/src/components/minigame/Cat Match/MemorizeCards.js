@@ -1,0 +1,1 @@
+import "./MemorizeCards.css";
