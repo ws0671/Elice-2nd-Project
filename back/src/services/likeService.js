@@ -1,4 +1,4 @@
-import { Like } from "../db";
+import { Like, Article } from "../db";
 
 const likeService = {};
 
