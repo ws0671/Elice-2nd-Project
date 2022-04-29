@@ -44,7 +44,9 @@ const Roulette = () => {
         outerBorderWidth={3}
         onStopSpinning={handleStop}
       />
-      <button onClick={handleStart}>SPIN</button>
+      <button onClick={handleStart} style={{ margin: "50px" }}>
+        SPIN
+      </button>
     </>
   );
 };
