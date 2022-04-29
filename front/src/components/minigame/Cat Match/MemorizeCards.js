@@ -32,6 +32,7 @@ const MemorizeCards = () => {
 
   userEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true);
       if (choiceOne.src === choiceTwo.src) {
         setCards((prevCards) => {
           return prevCards.map((card) => {
@@ -52,6 +53,7 @@ const MemorizeCards = () => {
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
+    setDisabled(false);
     setTurns((prevTurns) => prevTurns + 1);
   };
 
