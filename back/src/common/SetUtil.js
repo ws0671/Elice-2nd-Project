@@ -47,10 +47,11 @@ const SetUtil = {
   },
 
   setPointAndGrade: (user, point) => {
-    let toUpdate;
+    let result = {};
+    result.isUpgraded = true;
 
     if (user.point + point >= 1500 && user.grade < 4) {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
@@ -59,7 +60,7 @@ const SetUtil = {
         },
       };
     } else if (user.point + point >= 1000 && user.grade < 3) {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
@@ -68,7 +69,7 @@ const SetUtil = {
         },
       };
     } else if (user.point + point >= 600 && user.grade < 2) {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
@@ -77,7 +78,7 @@ const SetUtil = {
         },
       };
     } else if (user.point + point >= 300 && user.grade < 1) {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
@@ -86,14 +87,15 @@ const SetUtil = {
         },
       };
     } else {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
       };
+      result.isUpgraded = false;
     }
 
-    return toUpdate;
+    return result;
   },
 };
 
