@@ -19,6 +19,7 @@ const MemorizeCards = () => {
       .map((card) => ({ ...card, id: Math.random() }));
 
     setCards(shuffledCards);
+    setTurns(0);
   };
 
   return (
