@@ -1,4 +1,4 @@
-import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { User, Game, Review } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
@@ -99,14 +99,16 @@ const userAuthService = {
 
   getUserInfo: async ({ userId }) => {
     const user = await User.findById({ userId });
-
     if (!user) {
       throw new Error(
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
       );
     }
+    const bookmarkList = user.bookmarks;
+    const bookmarks = await Game.findAllBookmarks({ bookmarkList });
+    const reviews = await Review.findAllByUser({ userId });
 
-    return user;
+    return { user, bookmarks, reviews };
   },
 
   deleteUser: async ({ userId }) => {
@@ -121,34 +123,40 @@ const userAuthService = {
     return { status: "ok" };
   },
 
-  addBookmark: async ({ userId, gameId }) => {
+  addPoint: async ({ userId, point }) => {
     let user = await User.findById({ userId });
     if (!user) {
       throw new Error(
         "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
       );
     }
-    // TODO : Game DB 추가하고 실행 가능
-    // const game = await User.findByGameId({ gameId }) // 북마크 할 게임 객체 찾기
-    // if (!game) {
-    //   throw new Error(
-    //     "해당 id를 가진 게임 데이터는 없습니다. 다시 한 번 확인해주세요."
-    //   )
-    // }
+    const { toUpdate, isUpgraded } = SetUtil.setPointAndGrade(user, point);
+
+    user = await User.update({ userId, toUpdate });
+
+    return { user, isUpgraded };
+  },
+
+  addBookmark: async ({ bookmark, userId, gameId }) => {
+    let user = await User.findById({ userId });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
 
     let toUpdate;
-    const bookmarkList = user.bookmarks; // 기존 북마크 목록
-    if (bookmarkList.includes(gameId)) {
-      // 이미 북마크 한 상태이면
+    if (bookmark) {
+      // 북마크
       toUpdate = {
-        $pull: {
+        $addToSet: {
           bookmarks: gameId,
         },
       };
     } else {
-      // 북마크 안 한 상태이면
+      // 북마크 취소
       toUpdate = {
-        $push: {
+        $pull: {
           bookmarks: gameId,
         },
       };

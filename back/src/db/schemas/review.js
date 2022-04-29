@@ -1,9 +1,9 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
 
 const ReviewSchema = new Schema(
   {
     reviewId: {
-      type: String,
+      type: Number,
       required: true,
     },
     userId: {
@@ -11,10 +11,10 @@ const ReviewSchema = new Schema(
       required: true,
     },
     gameId: {
-      type: String,
+      type: Number,
       required: true,
     },
-    content: {
+    review: {
       type: String,
       required: true,
     },
@@ -24,6 +24,4 @@ const ReviewSchema = new Schema(
   }
 );
 
-const ReviewModel = model("Review", ReviewSchema);
-
-export { ReviewModel };
+export { ReviewSchema };

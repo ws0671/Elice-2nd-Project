@@ -1,22 +1,20 @@
 import { Review } from "../db";
-import { v4 as uuidv4 } from "uuid";
 import { SetUtil } from "../common/setUtil";
 
 const ReviewService = {
-  addReview: async ({ userId, gameId, content }) => {
-    if (content.length < 20) {
+  addReview: async ({ userId, gameId, review }) => {
+    if (review.length < 20) {
       throw new Error("리뷰는 20자 이상 적어야합니다.");
     }
 
-    const reviewId = uuidv4();
-    const newReview = { reviewId, userId, gameId, content };
+    const newReview = { userId, gameId, review };
 
     const createdNewReview = await Review.create({ newReview });
     return createdNewReview;
   },
 
   updateReview: async ({ reviewId, userId, updateData }) => {
-    if (updateData.content.length < 20) {
+    if (updateData.review.length < 20) {
       throw new Error("리뷰는 20자 이상 적어야합니다.");
     }
 

@@ -1,4 +1,4 @@
-import { ArticleModel } from "../schemas/article";
+import { ArticleModel } from "../index";
 
 const Article = {
   create: async ({ newArticle }) => {
@@ -9,14 +9,16 @@ const Article = {
   findAllByCategory: async (
     filter,
     page,
-    numOfPageSkip = 20,
-    numOfPageLimit = 20
+    numOfPageSkip = 10,
+    numOfPageLimit = 10
   ) => {
+    const articleCount = await ArticleModel.countDocuments(filter);
     const articles = await ArticleModel.find(filter)
+      .sort({ createdAt: -1 })
       .skip((page - 1) * numOfPageSkip)
       .limit(numOfPageLimit);
 
-    return articles;
+    return { articleCount, articles };
   },
 
   findById: async ({ articleId }) => {
