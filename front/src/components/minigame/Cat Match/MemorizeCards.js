@@ -1,4 +1,5 @@
 import "./MemorizeCards.css";
+import SingleCard from "./SingleCard";
 
 const cardImages = [
   { src: "/img/고양이 1.jpg", matched: false },
@@ -29,12 +30,7 @@ const MemorizeCards = () => {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <div className="card" key={card.id}>
-            <div>
-              <img className="front" src={card.src} alt="card front" />
-              <img className="back" src="/img/뒷면.png" alt="card back" />
-            </div>
-          </div>
+          <SingleCard key={card.id} />
         ))}
       </div>
     </div>
