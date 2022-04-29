@@ -12,7 +12,7 @@ const cardImages = [
 
 const MemorizeCards = () => {
   const [cards, setCards] = useState([]);
-  const [turns, setTurns] = useState(0);
+  const [turns, setTurns] = useState(12);
   const [success, setSuccess] = useState(0);
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
@@ -26,7 +26,7 @@ const MemorizeCards = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
     setCards(shuffledCards);
-    setTurns(0);
+    setTurns(12);
   };
 
   const handleChoice = (card) => {
@@ -57,7 +57,7 @@ const MemorizeCards = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
     setDisabled(false);
-    setTurns((prevTurns) => prevTurns + 1);
+    setTurns((prevTurns) => prevTurns - 1);
   };
 
   useEffect(() => {
