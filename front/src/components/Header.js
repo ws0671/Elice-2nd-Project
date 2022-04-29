@@ -1,10 +1,6 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
-import { UserStateContext, DispatchContext } from "../App";
-import { Button, Row, Col } from "react-bootstrap";
-import { throttle } from "lodash";
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -25,7 +21,7 @@ function Header() {
           <Link to="/gamesearch">게임 검색</Link>
         </div>
         <div>
-          <Link to="#">TOP 차트</Link>
+          <Link to="/topchart">TOP 차트</Link>
         </div>
         <div>
           <Link to="#">콘텐츠</Link>

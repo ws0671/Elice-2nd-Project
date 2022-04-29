@@ -11,7 +11,7 @@ import LoginForm from "./pages/LoginForm";
 import Register from "./pages/Register";
 import Community from "./pages/Community";
 import CommunityDetail from "./components/community/CommunityDetail";
-
+import Topchart from "./pages/TopChart";
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
 
@@ -64,6 +64,7 @@ function App() {
             <Route path="/gamesearch" element={<GameSearch />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/topchart" element={<Topchart />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
           </Routes>
