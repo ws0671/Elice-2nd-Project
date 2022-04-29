@@ -2,7 +2,7 @@ import "./MemorizeCards.css";
 
 const MemorizeCards = () => {
   return (
-    <div>
+    <div className="MemorizeCards">
       <h1>CAT MATCH</h1>
       <button>NEW GAME</button>
     </div>
