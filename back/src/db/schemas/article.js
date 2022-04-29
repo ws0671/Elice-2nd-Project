@@ -34,6 +34,10 @@ const ArticleSchema = new Schema(
       type: Number,
       default: 0,
     },
+    hits: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,

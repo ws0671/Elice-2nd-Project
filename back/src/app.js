@@ -5,6 +5,7 @@ import { gameRouter } from "./routers/gameRouter";
 import { ArticleRouter } from "./routers/articleRouter";
 import { CommentRouter } from "./routers/commentRouter";
 import { ReviewRouter } from "./routers/reviewRouter";
+import { gameGraphRouter } from "./routers/gameGraphRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 const app = express();
@@ -29,7 +30,7 @@ app.use("/game", gameRouter);
 app.use("/article", ArticleRouter);
 app.use("/comment", CommentRouter);
 app.use("/review", ReviewRouter);
-
+app.use("/gameGraph", gameGraphRouter);
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
 app.use(errorMiddleware);
 
