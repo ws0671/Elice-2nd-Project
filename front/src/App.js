@@ -1,73 +1,115 @@
-import React, { useState, useEffect, useReducer, createContext } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import * as Api from "./api";
-import { loginReducer } from "./reducer";
-
-import Header from "./components/Header";
-import LoginForm from "./components/user/LoginForm";
-import Network from "./components/user/Network";
-import RegisterForm from "./components/user/RegisterForm";
-import Portfolio from "./components/Portfolio";
-
-export const UserStateContext = createContext(null);
-export const DispatchContext = createContext(null);
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
 
 function App() {
-  // useReducer 훅을 통해 userState 상태와 dispatch함수를 생성함.
-  const [userState, dispatch] = useReducer(loginReducer, {
-    user: null,
-  });
-
-  // 아래의 fetchCurrentUser 함수가 실행된 다음에 컴포넌트가 구현되도록 함.
-  // 아래 코드를 보면 isFetchCompleted 가 true여야 컴포넌트가 구현됨.
-  const [isFetchCompleted, setIsFetchCompleted] = useState(false);
-
-  const fetchCurrentUser = async () => {
-    try {
-      // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
-      const res = await Api.get("user/current");
-      const currentUser = res.data;
-
-      // dispatch 함수를 통해 로그인 성공 상태로 만듦.
-      dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: currentUser,
-      });
-
-      console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
-    } catch {
-      console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
-    }
-    // fetchCurrentUser 과정이 끝났으므로, isFetchCompleted 상태를 true로 바꿔줌
-    setIsFetchCompleted(true);
-  };
-
-  // useEffect함수를 통해 fetchCurrentUser 함수를 실행함.
   useEffect(() => {
-    fetchCurrentUser();
+    const script1 = document.createElement("script");
+    script1.innerHTML = `         
+      var OAUTH2_CLIENT_ID =
+      "402173322407-la29919gqppl6pj7g3kgbmhu299it9pq.apps.googleusercontent.com";
+      var OAUTH2_SCOPES = ["https://www.googleapis.com/auth/youtube"];
+  
+      googleApiClientReady = function () {
+        gapi.auth.init(function () {
+          window.setTimeout(checkAuth, 1);
+        });
+      };
+  
+      function checkAuth() {
+        gapi.auth.authorize(
+          {
+            client_id: OAUTH2_CLIENT_ID,
+            scope: OAUTH2_SCOPES,
+            immediate: true,
+          },
+          handleAuthResult
+        );
+      }
+  
+      function handleAuthResult(authResult) {
+        if (authResult && !authResult.error) {
+          $(".pre-auth").hide();
+          $(".post-auth").show();
+          loadAPIClientInterfaces();
+        } else {
+          $("#login-link").click(function () {
+            gapi.auth.authorize(
+              {
+                client_id: OAUTH2_CLIENT_ID,
+                scope: OAUTH2_SCOPES,
+                immediate: false,
+              },
+              handleAuthResult
+            );
+          });
+        }
+      }
+  
+      function loadAPIClientInterfaces() {
+        gapi.client.load("youtube", "v3", function () {
+          handleAPILoaded();
+        });
+      }
+   `;
+    script1.type = "text/javascript";
+    script1.async = "async";
+    document.head.appendChild(script1);
+
+    const script2 = document.createElement("script");
+    script2.innerHTML = `         
+      handleAPILoaded = () => {
+        $("#search-button").attr("disabled", false);
+      };
+  
+      search = () => {
+        console.log("Search Started");
+        var apiKey = "AIzaSyAjRdhq7W78Q7IQY62PxNfq8FXopVAlCn4";
+        var q = "게임 리뷰";
+      
+        gapi.client.setApiKey(apiKey);
+        gapi.client.load("youtube", "v3", () => {
+          isLoad = true;
+        });
+        console.log("Search Request");
+      
+        var request = gapi.client.youtube.search.list({
+          q: q,
+          part: "snippet",
+          type: "video",
+          maxResults: 5,
+          fields: "items(id, snippet(title, publishedAt))",
+          videoEmbeddable: true,
+        });
+      
+        request.execute((res) => {
+          const videoIdList = res.result.items;
+          videoIdList.forEach((element) => console.log(element.id.videoId));
+      
+          videoIdList.forEach((element) => {
+            $("#seachResultIframe").append(
+              "<iframe id='seachVideo' width='560' height='315' src='https://www.youtube.com/embed/" +
+                element.id.videoId +
+                "?rel=0&enablejsapi=1'frameborder='0' allow='fullscreen'></iframe>"
+            );
+          });
+        });
+      };
+   `;
+    script2.type = "text/javascript";
+    script2.async = "async";
+    document.head.appendChild(script2);
   }, []);
 
-  if (!isFetchCompleted) {
-    return "loading...";
-  }
-
   return (
-    <DispatchContext.Provider value={dispatch}>
-      <UserStateContext.Provider value={userState}>
-        <Router>
-          <Header />
-          <Routes>
-            <Route path="/" exact element={<Portfolio />} />
-            <Route path="/login" element={<LoginForm />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/users/:userId" element={<Portfolio />} />
-            <Route path="/network" element={<Network />} />
-            <Route path="*" element={<Portfolio />} />
-          </Routes>
-        </Router>
-      </UserStateContext.Provider>
-    </DispatchContext.Provider>
+    <>
+      {/* <div id="buttons">
+        <label>
+          <input id="query" value="게임 리뷰" type="text" />
+          <Button id="search-button">Search</Button>
+        </label>
+      </div> */}
+      <div id="seachResultIframe"></div>
+    </>
   );
 }
 
