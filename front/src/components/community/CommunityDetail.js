@@ -1,19 +1,24 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState, useContext } from "react"
 import * as Api from "../../api"
 import styled from "styled-components"
 import CommentAddForm from "../comment/CommentAddForm"
 import CommentList from "../comment/CommentList"
 import { UserStateContext } from "../../App"
+import CommunityEditForm from "./CommunityEditForm"
 
 const CommunityDetail = () => {
   const [detail, setDetail] = useState({})
   const [isLiked, setIsLiked] = useState(false)
   const [example, setExample] = useState([])
+  const [isEdit, setIsEdit] = useState(false)
   const userContext = useContext(UserStateContext)
+  const navigate = useNavigate()
 
   const isUser = detail.nickname === userContext.user
   const params = useParams()
+
+  const isEditing = () => setIsEdit((prev) => !prev)
   useEffect(() => {
     Api.get("article", params.id).then((res) => {
       setDetail(res.data.article)
@@ -21,7 +26,7 @@ const CommunityDetail = () => {
       setIsLiked(res.data.like)
       setExample(res.data.comments)
     })
-  }, [])
+  }, [isEdit])
 
   const clickHandler = (comment) => {
     let copied = [...example]
@@ -103,36 +108,58 @@ const CommunityDetail = () => {
     <>
       <Header />
       <Container isUser={isUser}>
-        <div className="detail title">{detail.title}</div>
-        <div className="detail writer">
-          <div>{detail.nickname}</div>
-          <div>{createDate && createDate.split("T")[0]} / 조회 수</div>
-        </div>
-        <div className="detail body">{detail.body}</div>
-        <div className="detail etc">
-          <img
-            src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
-            alt="좋아요"
-          ></img>
-          <span className="liking" onClick={pushLike}>
-            좋아요
-          </span>
-          <span>{detail.like}</span>
-          <img src="/images/comment.png" alt="댓글"></img>
-          <span>댓글</span>
-          <span>{realComments.length}</span>
-        </div>
-        <div className="detail comment">
-          <div className="head">댓글</div>
-          <div className="area">
-            <CommentList
-              example={example}
-              removeHandler={removeHandler}
-              editHandler={editHandler}
-            />
-            <CommentAddForm clickHandler={clickHandler} />
-          </div>
-        </div>
+        {isEdit ? (
+          <CommunityEditForm isEditing={isEditing} />
+        ) : (
+          <>
+            {isUser && (
+              <ButtonGroup>
+                <button onClick={() => setIsEdit((prev) => !prev)}>수정</button>
+                <button
+                  onClick={() => {
+                    alert("해당 내용을 삭제합니다.")
+                    Api.delete("article", params.id).then((res) => {
+                      console.log(res.data)
+                      navigate("/community")
+                    })
+                  }}
+                >
+                  삭제
+                </button>
+              </ButtonGroup>
+            )}
+            <div className="detail title">{detail.title}</div>
+            <div className="detail writer">
+              <div>{detail.nickname}</div>
+              <div>{createDate && createDate.split("T")[0]} / 조회 수</div>
+            </div>
+            <div className="detail body">{detail.body}</div>
+            <div className="detail etc">
+              <img
+                src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
+                alt="좋아요"
+              ></img>
+              <span className="liking" onClick={pushLike}>
+                좋아요
+              </span>
+              <span>{detail.like}</span>
+              <img src="/images/comment.png" alt="댓글"></img>
+              <span>댓글</span>
+              <span>{realComments.length}</span>
+            </div>
+            <div className="detail comment">
+              <div className="head">댓글</div>
+              <div className="area">
+                <CommentList
+                  example={example}
+                  removeHandler={removeHandler}
+                  editHandler={editHandler}
+                />
+                <CommentAddForm clickHandler={clickHandler} />
+              </div>
+            </div>
+          </>
+        )}
       </Container>
     </>
   )
@@ -198,5 +225,27 @@ const Container = styled.div`
 `
 const Header = styled.div`
   height: 10vh;
+`
+
+const ButtonGroup = styled.div`
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+
+  button {
+    border: none;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 700;
+
+    border-radius: 3px;
+    cursor: pointer;
+    background: #6c63ff;
+
+    &:first-of-type {
+      margin-right: 10px;
+    }
+  }
 `
 export default CommunityDetail
