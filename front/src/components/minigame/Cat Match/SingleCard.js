@@ -1,6 +1,6 @@
 import "./SingleCard.css";
 
-const SingleCard = () => {
+const SingleCard = ({ card }) => {
   return (
     <div className="card">
       <div>

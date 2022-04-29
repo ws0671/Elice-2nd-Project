@@ -30,7 +30,7 @@ const MemorizeCards = () => {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <SingleCard key={card.id} />
+          <SingleCard key={card.id} card={card} />
         ))}
       </div>
     </div>
