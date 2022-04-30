@@ -1,26 +1,39 @@
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import styled from "styled-components"
-const CommunityElement = ({ item }) => {
+const CommunityElement = ({ item, index, page }) => {
+  const [hit, setHit] = useState(item.hits)
   const navigate = useNavigate()
   const clickHandler = () => {
-    navigate(`/community/${item.id}`)
+    navigate(`/community/${item.articleId}`)
+    setHit(hit + 1)
+    console.log("조회수", hit + 1)
   }
+
+  const updatedAt = item.updatedAt.split("T")
+
   return (
     <Tr>
-      <td>{item.id}</td>
-      <td onClick={clickHandler}>{item.title}</td>
-      <td>관리자</td>
-      <td>2022-04-23</td>
-      <td>{item.id}</td>
-      <td>{item.userId}</td>
+      <td>{index + (page - 1) * 10}</td>
+      <td onClick={clickHandler}>
+        <span>[{item.category}]</span> {item.title}
+      </td>
+      <td>{item.nickname}</td>
+      <td>{updatedAt[0]}</td>
+      <td>{hit}</td>
+      <td>{item.like}</td>
     </Tr>
   )
 }
 
 const Tr = styled.tr`
-  td:nth-child(2):hover {
-    text-decoration: underline;
-    cursor: pointer;
+  td:nth-child(2) {
+    text-align: initial;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 `
 

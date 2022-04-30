@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema(
   {
-    id: {
+    userId: {
       type: String,
       required: true,
     },
@@ -18,8 +18,16 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    point: {
+      type: Number,
+      default: 0,
+    },
+    grade: {
+      type: Number,
+      default: 0,
+    },
     bookmarks: {
-      type: [String],
+      type: [Number],
       default: [],
     },
   },
