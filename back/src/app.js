@@ -1,6 +1,6 @@
 import cors from "cors";
 import express from "express";
-import { outsideApiRouter } from "./routers/outsideApiRouter";
+import { OutsideApiRouter } from "./routers/outsideApiRouter";
 import { userAuthRouter } from "./routers/userRouter";
 import { gameRouter } from "./routers/gameRouter";
 import { ArticleRouter } from "./routers/articleRouter";
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
-app.use("/", outsideApiRouter);
+app.use("/", OutsideApiRouter);
 app.use("/user", userAuthRouter);
 app.use("/game", gameRouter);
 app.use("/article", ArticleRouter);
