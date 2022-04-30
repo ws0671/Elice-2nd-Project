@@ -97,6 +97,31 @@ const SetUtil = {
 
     return result;
   },
+
+  calDate: ({ year, month, day }) => {
+    const month31 = [1, 3, 5, 7, 8, 10, 12];
+    const month30 = [4, 6, 9, 11];
+    day -= 1;
+    if (day === 0) {
+      month -= 1;
+      if (month === 0) {
+        year -= 1;
+        month = 12;
+        day = 31;
+      } else if (month31.indexOf(month) !== -1) {
+        day = 31;
+      } else if (month30.indexOf(month) !== -1) {
+        day = 30;
+      } else {
+        if (year % 4 == 0) {
+          day = 29;
+        } else {
+          day = 28;
+        }
+      }
+    }
+    return `${year}-${month}-${day}T15:00:00.000Z`;
+  },
 };
 
 export { SetUtil };
