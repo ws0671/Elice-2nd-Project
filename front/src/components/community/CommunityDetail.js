@@ -37,15 +37,12 @@ const CommunityDetail = () => {
       copied.push(res.data)
       alert("댓글 등록이 완료되었습니다!")
       setExample(copied)
-      console.log(example)
     })
   }
 
   const editHandler = (item, comment) => {
     const edit = { ...item, comment }
-    Api.put(`comment/${item.commentId}`, edit).then((res) =>
-      console.log("수정데이터", res.data)
-    )
+    Api.put(`comment/${item.commentId}`, edit)
     const copied = example.map((v) => {
       if (
         v.writeNickname === edit.writeNickname &&
@@ -56,14 +53,12 @@ const CommunityDetail = () => {
         return { ...v }
       }
     })
-    console.log("최종 수정된 데이터", copied)
+
     setExample(copied)
   }
   const removeHandler = (item) => {
     const deleted = { ...item, isDeleted: true }
-    Api.put(`comment/${item.commentId}/delete`, deleted).then((res) =>
-      console.log(res.data)
-    )
+    Api.put(`comment/${item.commentId}/delete`, deleted)
     const copied = example.map((v) => {
       if (
         v.writeNickname === deleted.writeNickname &&
@@ -74,7 +69,7 @@ const CommunityDetail = () => {
         return { ...v }
       }
     })
-    console.log(copied)
+
     setExample(copied)
   }
 
@@ -85,9 +80,7 @@ const CommunityDetail = () => {
         setIsLiked((prev) => !prev)
         setDetail({ ...copied, like: copied.like - 1 })
         const putData = { author: detail.author, like: !isLiked }
-        Api.put(`article/${params.id}/like`, putData).then((res) =>
-          console.log(res.data)
-        )
+        Api.put(`article/${params.id}/like`, putData)
       } else {
         setIsLiked((prev) => !prev)
         setDetail({ ...copied, like: copied.like + 1 })
@@ -97,8 +90,6 @@ const CommunityDetail = () => {
         )
       }
     }
-
-    // console.log(isLiked)
   }
 
   const realComments = example.filter((v) => v.isDeleted === false)
@@ -119,7 +110,6 @@ const CommunityDetail = () => {
                   onClick={() => {
                     alert("해당 내용을 삭제합니다.")
                     Api.delete("article", params.id).then((res) => {
-                      console.log(res.data)
                       navigate("/community")
                     })
                   }}

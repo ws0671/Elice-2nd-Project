@@ -16,7 +16,6 @@ const CommunityBoard = () => {
       .then((res) => {
         setInfo(res.data.articles)
         setTotal(res.data.articleCount)
-        console.log(res.data.articles)
       })
       .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
   }, [page, query])
@@ -43,7 +42,6 @@ const CommunityBoard = () => {
                   <li
                     onClick={() => {
                       setQuery(`?category=선택 안함`)
-                      console.log(query)
                     }}
                   >
                     전체보기
