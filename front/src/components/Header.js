@@ -47,7 +47,9 @@ function Header() {
               <Nav.Link onClick={() => navigate("/community")}>콘텐츠</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>마이 페이지</Nav.Link>
+              <Nav.Link onClick={() => navigate("/mypage")}>
+                마이 페이지
+              </Nav.Link>
             </Nav.Item>
 
             <Nav.Item>

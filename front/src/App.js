@@ -12,6 +12,7 @@ import Register from "./pages/Register"
 import Community from "./pages/Community"
 import CommunityDetail from "./components/community/CommunityDetail"
 import LoginForm from "./pages/LoginForm"
+import Mypage from "./pages/Mypage"
 
 import "./css/header.css"
 import "./css/gamesearch.css"
@@ -70,6 +71,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
+            <Route path="/mypage" element={<Mypage />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
