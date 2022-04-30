@@ -1,4 +1,4 @@
-import { Point, User } from "../db";
+import { Point } from "../db";
 
 const pointService = {
   checkPoint: async ({ userId, miniGame, year, month, day }) => {
