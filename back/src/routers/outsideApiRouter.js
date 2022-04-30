@@ -13,4 +13,15 @@ OutsideApiRouter.get("/gameNews", async (req, res, next) => {
   }
 });
 
+OutsideApiRouter.get("/youtubeVideos", async (req, res, next) => {
+  try {
+    console.log("router ok");
+    const youtubeVideos = await OutsideApi.getSeachedVideos();
+    console.log("completed");
+    res.status(200).json(youtubeVideos);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { OutsideApiRouter };
