@@ -2,6 +2,9 @@ import { Point } from "../db";
 import { SetUtil } from "../common/setUtil";
 
 const pointService = {
+  addPoint: async ({ newPoint }) => {
+    await Point.create({ newPoint });
+  },
   checkPoint: async ({ userId, miniGame, year, month, day }) => {
     // const date = `2022-04-29T15:00:00.000Z`
     const date = SetUtil.calDate({ year, month, day });
