@@ -1,30 +1,50 @@
-import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FaSearch } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 import Data from "./gamesearch_data";
-
+import * as Api from "../api";
+import SearchPagination from "../components/Search/SearchPagination";
 const types = ["전체 목록", "장르", "플랫폼", "이용등급"];
 const vers = ["이름순", "내림차순"];
 function GameSearch() {
   //없는 검색어 검색시 없는 검색이라고 나오도록 구현하기
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchWord, setSearchWord] = useState("");
   const [inputData, setInputData] = useState("");
   const [select, setSelect] = useState(types[0]);
   const [show, setShow] = useState(false);
+  const [data, setData] = useState(null);
+
+  // 페이지네이션과 관련된 state
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(8);
+  const [lastPage, setLastPage] = useState(1);
+
+  // 전체 데이터를 api 응답으로 받아오는 함수
+  const getData = async () => {
+    const res = await Api.get(
+      `game/list/${page}`,
+      `?page=${limit}&limit=${limit}`
+    );
+    console.log(res.data);
+    setData(res.data);
+    setLastPage(10);
+  };
+
+  useEffect(() => {
+    getData();
+  }, [page, limit, inputData]);
   // input태그를 제출하는 함수입니다.
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setInputData(searchTerm);
+    setInputData(searchWord);
   };
   //input태그의 onChange이벤트의 처리를 하는 함수입니다.
   const handleInput = (e) => {
     if (e.target.value === "") {
       return false;
     }
-    setSearchTerm(e.target.value);
+    setSearchWord(e.target.value);
   };
 
   // //버튼을 클릭하면 실행되는 함수입니다.
@@ -61,7 +81,7 @@ function GameSearch() {
           </Form>
         </div>
       </SearchBarContainer>
-      <Test className="mt-3">
+      <Dropdown className="mt-3">
         <div>
           <DropDownBtn
             className="me-3"
@@ -74,7 +94,7 @@ function GameSearch() {
           <div className="drop-down-panel">
             <ul>
               <li>
-                <button className="list-button">
+                <button className="list-button" onClick={() => alert("hi")}>
                   <label>
                     <input type="radio" name="list" />
                     이름순
@@ -151,40 +171,53 @@ function GameSearch() {
             </ul>
           </div>
         </div>
-      </Test>
+      </Dropdown>
       <Main>
         <ImgDiv className="mt-4">
           <div>
             {/* 검색 결과 없는 것 처리 구현해야함. */}
-            {Data.filter((val) => {
-              if (inputData === "") {
-                return val;
-              } else if (val.title.includes(inputData)) {
-                return val;
-              }
-            }).map((val, key) => {
-              return (
-                <div>
-                  <img
-                    key={key}
-                    src={val.src}
-                    alt="게임 이미지"
-                    style={{ width: "400px" }}
-                  />
-                  <div className="noneDiv">
-                    <h5>{val.title}</h5>
-                    <div>{val.developerName}</div>
-                    <div>{val.release}</div>
-                    <div>{val.price}</div>
-                    <div>별점</div>
-                  </div>
-                </div>
-              );
-            })}
+            {data &&
+              data
+                .filter((val) => {
+                  if (inputData === "") {
+                    return val;
+                  } else if (
+                    val.name.toLowerCase().includes(inputData.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((val, key) => {
+                  return (
+                    <div>
+                      <img
+                        key={key}
+                        src={val.headerImage}
+                        alt="게임 이미지"
+                        style={{ width: "400px" }}
+                      />
+                      <div className="noneDiv">
+                        <h5>{val.name}</h5>
+                        <div>{val.developer[0]}</div>
+                        <div>{val.releaseDate.split("T")[0]}</div>
+                        <div>{val.price}</div>
+                        <div>별점</div>
+                      </div>
+                    </div>
+                  );
+                })}
           </div>
         </ImgDiv>
       </Main>
-      <Footer></Footer>
+      <Footer>
+        <SearchPagination
+          page={page}
+          lastPage={lastPage}
+          limit={limit}
+          setPage={setPage}
+          setLimit={setLimit}
+        ></SearchPagination>
+      </Footer>
     </>
   );
 }
@@ -235,8 +268,8 @@ const ImgDiv = styled.div`
     & + div {
       display: block;
       position: absolute;
-      top: 50%;
-      left: 50%;
+      top: 40%;
+      left: 40%;
       margin: -50px 0 0 -50px;
       text-align: center;
       z-index: 10;
@@ -276,12 +309,22 @@ const Form = styled.form`
   }
 `;
 
-const Test = styled.div`
+const Dropdown = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-right: 210px;
   > div {
     position: relative;
+  }
+  .drop-down-panel {
+    border-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px grey;
+  }
+  .drop-down-panel2 {
+    border-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px grey;
   }
 `;
 const DropDownBtn = styled.button`
