@@ -111,6 +111,24 @@ const userAuthService = {
     return { user, bookmarks, reviews };
   },
 
+  getSortedBookmarks: async ({ userId, criteria }) => {
+    const user = await User.findById({ userId });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+    const bookmarkList = user.bookmarks;
+    const bookmarks = await Game.findSortedBookmarks({
+      bookmarkList,
+      criteria,
+      numOfPageSkip,
+      numOfPageLimit,
+    });
+
+    return bookmarks;
+  },
+
   deleteUser: async ({ userId }) => {
     const isDataDeleted = await User.deleteById({ userId });
 
