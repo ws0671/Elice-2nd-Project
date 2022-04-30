@@ -11,7 +11,7 @@ PointRouter.get("/:miniGame", async (req, res, next) => {
     const miniGame = req.params.miniGame;
     const { year, month, day } = req.body;
 
-    const point = await pointService.getPoint({
+    const point = await pointService.checkPoint({
       userId,
       miniGame,
       year,
