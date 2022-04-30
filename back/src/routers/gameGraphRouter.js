@@ -29,4 +29,16 @@ gameGraphRouter.get("/recentRelease", async (req, res, next) => {
     next(error);
   }
 });
+
+gameGraphRouter.get("/bestGenre/:genre", async (req, res, next) => {
+  try {
+    const gameGenre = req.params.genre;
+    const gameGraphList = await gameGraphService.getBestRankByGenre({
+      gameGenre,
+    });
+    res.status(200).send(gameGraphList);
+  } catch (error) {
+    next(error);
+  }
+});
 export { gameGraphRouter };
