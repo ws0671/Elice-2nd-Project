@@ -1,11 +1,22 @@
+import { Router } from "express";
 import request from "request";
 import cheerio from "cheerio";
 
-const getNews = () => {
+const outsideApiRouter = Router();
+
+// const categoryDict = {
+//   온라인: "O",
+//   PC: "P",
+//   비디오: "V",
+//   웹게임: "W",
+//   모바일: "M",
+// };
+
+const getNews = (category) => {
   console.log("getNews function");
   request(
     {
-      url: "https://www.gamemeca.com/news.php?ca=O",
+      url: `https://www.gamemeca.com/news.php?ca=${category}`,
       method: "GET",
     },
     (error, response, body) => {
@@ -17,7 +28,9 @@ const getNews = () => {
         console.log("response ok");
         // cheerio를 활용하여 body에서 데이터 추출
         const $ = cheerio.load(body);
-        const list_news = $("#content > div.news-list > div > ul").toArray();
+        const list_news = $(
+          "#content > div.news-list > div > ul > li"
+        ).toArray(); // 한 페이지는 뉴스 15개
 
         const result = [];
         list_news.forEach((li) => {
@@ -39,4 +52,14 @@ const getNews = () => {
   );
 };
 
-getNews();
+outsideApiRouter.get("/gameNews", async (req, res, next) => {
+  try {
+    const category = req.body.category;
+    const gameNews = getNews(category);
+    res.status(200).json(gameNews);
+  } catch (error) {
+    next(error);
+  }
+});
+
+export { outsideApiRouter };
