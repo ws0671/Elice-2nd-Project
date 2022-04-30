@@ -1,4 +1,4 @@
-import { PointModel } from "../schemas/like";
+import { PointModel } from "../index";
 
 const Point = {
   findByFilter: async (filter) => {
