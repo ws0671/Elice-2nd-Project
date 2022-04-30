@@ -6,6 +6,7 @@ const CommunityList = ({ info, page }) => {
       {info.map((item) => {
         return (
           <CommunityElement
+            key={item.articleId}
             page={page}
             item={item}
             index={info.indexOf(item) + 1}
