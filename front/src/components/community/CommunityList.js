@@ -1,6 +1,7 @@
 import CommunityElement from "./CommunityElement"
 
 const CommunityList = ({ info, page }) => {
+  console.log(info)
   return (
     <tbody>
       {info.map((item) => {

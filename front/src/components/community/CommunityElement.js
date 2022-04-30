@@ -1,9 +1,13 @@
 import { useNavigate } from "react-router-dom"
+import { useState } from "react"
 import styled from "styled-components"
 const CommunityElement = ({ item, index, page }) => {
+  const [hit, setHit] = useState(item.hits)
   const navigate = useNavigate()
   const clickHandler = () => {
     navigate(`/community/${item.articleId}`)
+    setHit(hit + 1)
+    console.log("조회수", hit + 1)
   }
 
   const updatedAt = item.updatedAt.split("T")
@@ -16,7 +20,7 @@ const CommunityElement = ({ item, index, page }) => {
       </td>
       <td>{item.nickname}</td>
       <td>{updatedAt[0]}</td>
-      <td></td>
+      <td>{hit}</td>
       <td>{item.like}</td>
     </Tr>
   )
