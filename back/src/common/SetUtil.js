@@ -120,6 +120,14 @@ const SetUtil = {
         }
       }
     }
+
+    if (month.toString().length === 1) {
+      month = "0" + month;
+    }
+
+    if (day.toString().length === 1) {
+      day = "0" + day;
+    }
     return `${year}-${month}-${day}T15:00:00.000Z`;
   },
 };
