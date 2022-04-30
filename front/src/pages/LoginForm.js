@@ -80,8 +80,8 @@ function LoginForm() {
       // JWT 토큰은 유저 정보의 token임.
       const jwtToken = user.token
       // sessionStorage에 "userToken"이라는 키로 JWT 토큰과 닉네임을 저장함.
-      sessionStorage.setItem("userToken", jwtToken)
-      sessionStorage.setItem("nickName", user.nickname)
+      // sessionStorage.setItem("userToken", jwtToken)
+      sessionStorage.setItem("user", user)
       // dispatch 함수를 이용해 로그인 성공 상태로 만듦.
       dispatch({
         type: "LOGIN_SUCCESS",
