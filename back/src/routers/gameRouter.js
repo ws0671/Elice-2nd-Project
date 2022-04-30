@@ -16,7 +16,7 @@ gameRouter.get("/list/:page", async (req, res, next) => {
       numOfPageSkip,
       numOfPageLimit,
     });
-    res.status(200).send(gameList);
+    res.status(200).json(gameList);
   } catch (error) {
     next(error);
   }
@@ -46,7 +46,7 @@ gameRouter.get("/:gameId", loginRequired, async (req, res, next) => {
       gameId,
     });
 
-    res.status(200).send(gameInfo);
+    res.status(200).json(gameInfo);
   } catch (error) {
     next(error);
   }
@@ -62,6 +62,29 @@ gameRouter.get("/rankedList/:colName", async (req, res, next) => {
     });
 
     res.status(200).send(rankedList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+gameRouter.get("/search/:key/:page", async (req, res, next) => {
+  try {
+    const key = req.params.key;
+    const page = req.params.page;
+    const colName = req.query.colName ? req.query.colName : undefined;
+    const numOfPageLimit = req.query.limit
+      ? Number(req.query.limit)
+      : undefined;
+    const sortOrder = req.query.sortOrder ? Number(req.query.sortOrder) : 1;
+    const gameSearchResult = await gameService.getSearchResult({
+      key,
+      colName,
+      sortOrder,
+      page,
+      numOfPageLimit,
+    });
+
+    res.status(200).json(gameSearchResult);
   } catch (error) {
     next(error);
   }

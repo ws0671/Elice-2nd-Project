@@ -17,8 +17,8 @@ const SetUtil = {
       "공지사항",
       "유머",
       "파티 모집",
-      "건의사항",
       "후기",
+      "건의사항",
       "꿀팁",
       "선택 안함",
     ];
@@ -26,11 +26,32 @@ const SetUtil = {
     return categoryList.includes(category);
   },
 
+  validatePermission: (grade, category) => {
+    const categoryPermission = {
+      // "공지사항"이랑 "선택 안함"은 권한이 필요 없음
+      유머: 0,
+      "파티 모집": 1,
+      후기: 2,
+      건의사항: 3,
+      꿀팁: 4,
+    };
+
+    // 확인 가능한지를 true, false로 반환
+    if (category == "공지사항" || category == "선택 안함") {
+      return true;
+    } else if (grade >= categoryPermission[category]) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
   setPointAndGrade: (user, point) => {
-    let toUpdate;
+    let result = {};
+    result.isUpgraded = true;
 
     if (user.point + point >= 1500 && user.grade < 4) {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
@@ -39,7 +60,7 @@ const SetUtil = {
         },
       };
     } else if (user.point + point >= 1000 && user.grade < 3) {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
@@ -48,7 +69,7 @@ const SetUtil = {
         },
       };
     } else if (user.point + point >= 600 && user.grade < 2) {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
@@ -57,7 +78,7 @@ const SetUtil = {
         },
       };
     } else if (user.point + point >= 300 && user.grade < 1) {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
@@ -66,14 +87,15 @@ const SetUtil = {
         },
       };
     } else {
-      toUpdate = {
+      result.toUpdate = {
         $inc: {
           point: point,
         },
       };
+      result.isUpgraded = false;
     }
 
-    return toUpdate;
+    return result;
   },
 };
 

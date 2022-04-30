@@ -1,0 +1,164 @@
+{
+  "appId": {
+    "23726": 905370,
+    "24430": 931690,
+    "19599": 778870,
+    "26695": 1031920,
+    "25966": 995050
+  },
+  "name": {
+    "23726": "Conqueror's Blade",
+    "24430": "Himno",
+    "19599": "KOMMERSANT",
+    "26695": "\u0421\u0438\u043c\u0443\u043b\u044f\u0442\u043e\u0440 \u0421\u0438\u0434\u0435\u043d\u0438\u044f \u0443 \u041f\u043e\u0434\u044a\u0435\u0437\u0434\u0430",
+    "25966": "Havocado"
+  },
+  "releaseDate": {
+    "23726": 1556668800000,
+    "24430": 1556236800000,
+    "19599": 1556150400000,
+    "26695": 1556150400000,
+    "25966": 1556150400000
+  },
+  "english": { "23726": 1, "24430": 1, "19599": 1, "26695": 0, "25966": 1 },
+  "developer": {
+    "23726": "Booming Games",
+    "24430": "David Moralejo S\u00e1nchez",
+    "19599": "EvilCharm Games",
+    "26695": "Kavkaz Sila Games",
+    "25966": "Webble Games"
+  },
+  "publisher": {
+    "23726": "My.com",
+    "24430": " GrabTheGames",
+    "19599": "EvilCharm Games",
+    "26695": "Kavkaz Sila Games",
+    "25966": "Webble Games"
+  },
+  "platforms": {
+    "23726": "windows",
+    "24430": "windows",
+    "19599": "windows",
+    "26695": "windows",
+    "25966": "windows,mac"
+  },
+  "requiredAge": {
+    "23726": "\uc804\uccb4\uc774\uc6a9\uac00",
+    "24430": "\uc804\uccb4\uc774\uc6a9\uac00",
+    "19599": "\uc804\uccb4\uc774\uc6a9\uac00",
+    "26695": "18\uc138 \uc774\uc0c1",
+    "25966": "\uc804\uccb4\uc774\uc6a9\uac00"
+  },
+  "categories": {
+    "23726": "Online Multi-Player,MMO,Online Co-op,In-App Purchases",
+    "24430": "Single-player,Steam Achievements,Partial Controller Support,Stats",
+    "19599": "Single-player",
+    "26695": "Single-player,Steam Achievements",
+    "25966": "Multi-player,Online Multi-Player,Local Multi-Player,Shared/Split Screen,Partial Controller Support"
+  },
+  "genres": {
+    "23726": "Action,Free to Play,Massively Multiplayer,RPG,Strategy",
+    "24430": "Adventure,Casual,Free to Play,Indie",
+    "19599": "Action,Indie,Racing",
+    "26695": "Simulation",
+    "25966": "Action,Indie,Early Access"
+  },
+  "steamspyTags": {
+    "23726": "Action,Strategy,RPG",
+    "24430": "Indie,Casual,Free to Play",
+    "19599": "Action,Indie,Gore",
+    "26695": "Simulation",
+    "25966": "Early Access,Action,Indie"
+  },
+  "achievements": {
+    "23726": 0,
+    "24430": 11,
+    "19599": 10,
+    "26695": 1,
+    "25966": 0
+  },
+  "positiveRatings": {
+    "23726": 259,
+    "24430": 163,
+    "19599": 3,
+    "26695": 9,
+    "25966": 9
+  },
+  "negativeRatings": {
+    "23726": 235,
+    "24430": 30,
+    "19599": 0,
+    "26695": 2,
+    "25966": 3
+  },
+  "averagePlaytime": {
+    "23726": 0,
+    "24430": 0,
+    "19599": 0,
+    "26695": 0,
+    "25966": 0
+  },
+  "medianPlaytime": {
+    "23726": 0,
+    "24430": 0,
+    "19599": 0,
+    "26695": 0,
+    "25966": 0
+  },
+  "owners": {
+    "23726": "0-20000",
+    "24430": "20000-50000",
+    "19599": "0-20000",
+    "26695": "0-20000",
+    "25966": "0-20000"
+  },
+  "price": {
+    "23726": 18224,
+    "24430": 0,
+    "19599": 6384,
+    "26695": 1264,
+    "25966": 11504
+  },
+  "headerImage": {
+    "23726": "https://steamcdn-a.akamaihd.net/steam/apps/905370/header.jpg?t=1555520261",
+    "24430": "https://steamcdn-a.akamaihd.net/steam/apps/931690/header.jpg?t=1556305733",
+    "19599": "https://steamcdn-a.akamaihd.net/steam/apps/778870/header.jpg?t=1556218626",
+    "26695": "https://steamcdn-a.akamaihd.net/steam/apps/1031920/header.jpg?t=1556225494",
+    "25966": "https://steamcdn-a.akamaihd.net/steam/apps/995050/header.jpg?t=1556182689"
+  },
+  "screenshots": {
+    "23726": "https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_f8b67a39344551ad70cd3623aa868256aa08e192.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_4e43c843aa281ef7693ff6fcbb604213a1891a61.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_47971cd899b312968a9728b1add510d3e3c5fd76.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_1b1b98ddc4163f55e0acbfce8f37a25dec769c57.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_038a4156955e46fbc2f7d4379420939f65fddec5.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_b227168df679b24263d249ff11ecfb48b92a8d4c.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_fcf67b5cf45ee05ee840d581f8ee37a01f201d9f.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_cc598505eb2a339b5bd3a9f5e02ede41ca3c2d1b.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_aae3f5d392696627a2c6568cf983469e454e72a9.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_5aff26884191cc633f8afcf4eca50b61c53dfd06.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_71cd81849de3fac711225f36083eca9f2763d546.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_85b2866f3695f241582011529c0ffd727459b5bd.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_bc8e1b6e9bf2a1362cf9eabf4a3e250b970cd6d2.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_38d9a6e3a1c874ae8c929d522eb26d55b5d44501.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_335ffb0ae6b8ea3c95419ddd48207d6bcb56e911.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_fea7c0a30cea3b4956f0ded0b42562cdc9397bab.1920x1080.jpg?t=1555520261,https://steamcdn-a.akamaihd.net/steam/apps/905370/ss_b3e5ed0cd7b33372072a6ebf4b522f5b8fe81e37.1920x1080.jpg?t=1555520261",
+    "24430": "https://steamcdn-a.akamaihd.net/steam/apps/931690/ss_100f753bd4f244de8ee9956a9ce69424f0803035.1920x1080.jpg?t=1556305733,https://steamcdn-a.akamaihd.net/steam/apps/931690/ss_5e18be46b239aec820945e07c4dd980185437c0e.1920x1080.jpg?t=1556305733,https://steamcdn-a.akamaihd.net/steam/apps/931690/ss_48caa86aa1d70f15a86305fc072bb8fc89b444bd.1920x1080.jpg?t=1556305733,https://steamcdn-a.akamaihd.net/steam/apps/931690/ss_71e714b22e0bbee1badd5123503e3fd15bfd8545.1920x1080.jpg?t=1556305733,https://steamcdn-a.akamaihd.net/steam/apps/931690/ss_edd4960523c9cc9896ef3d567f4ba3a305160a87.1920x1080.jpg?t=1556305733,https://steamcdn-a.akamaihd.net/steam/apps/931690/ss_d2ff97746323a86be9a51e07828a5aa1ac88e088.1920x1080.jpg?t=1556305733,https://steamcdn-a.akamaihd.net/steam/apps/931690/ss_ed0115bc1c3c544738b4f535821dff0f2997ee0b.1920x1080.jpg?t=1556305733,https://steamcdn-a.akamaihd.net/steam/apps/931690/ss_a2c37fdf2062d5e732ece0883daec465ddc82cbb.1920x1080.jpg?t=1556305733",
+    "19599": "https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_0e04f1ed1bf925a0cac9da7e150091ea7cf3a833.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_08ec2eb38583ff639bffb91e35a281bc4908b80d.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_b5e985c368649c4bb670186ef174c50d0af2c7d3.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_e26c05f4c49b75f6515a1093928330e4ae10c859.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_ed7da0999b7ab03646cd8aa8b5d15c9e0accfef1.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_1a8e7be229981e2be8fbbc911506328d09cf2762.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_e4d4e6c93abad751c6f73bbe76f209fed0e40a73.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_e7b8f5890b0063022993d1e5384e6dc3a6459277.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_4680d773d4d6f0c7308e7f637c085f2d6eac927b.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_60dbfbbed230b8f7587eac59f3d519725d9c9eeb.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_c77f4df4d2653e678f3b232a580fbcd79db97f7c.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_e54c612da68e0746f89d73a0b494eafaeb7406a2.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_0e76db6ca0fc6ab2fbb272ebaf2697ffea67db07.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_761687574bb907e45625ecf2ffb8ce6a60967d23.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_be6f9f33c4a991d2b01810215319ffd565e7e0a6.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_6249b0b2ccc23bbd5ff76f775df75313fa2ecc95.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_79adcf426962ee4ca704e057ca4a9de3c624689d.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_616c7f41d178afcb142f6d3ac8ec522509eb99cf.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_83c89754c59c17ba5ee2901e9da25f26aa507ae0.1920x1080.jpg?t=1556218626,https://steamcdn-a.akamaihd.net/steam/apps/778870/ss_47e00b1ab5f6167176f90abdf2d0703562324078.1920x1080.jpg?t=1556218626",
+    "26695": "https://steamcdn-a.akamaihd.net/steam/apps/1031920/ss_37107dcae1b4e0de4a6732a5d11e99fcdfb55bcb.1920x1080.jpg?t=1556225494,https://steamcdn-a.akamaihd.net/steam/apps/1031920/ss_53c9d167641847063b0a7121b0da0ddd98261e16.1920x1080.jpg?t=1556225494,https://steamcdn-a.akamaihd.net/steam/apps/1031920/ss_2c4ac2213685e685ac8554f59a5813171b2ffa72.1920x1080.jpg?t=1556225494,https://steamcdn-a.akamaihd.net/steam/apps/1031920/ss_bb237f068a24a28a0a83d0f82c040c5df70c2595.1920x1080.jpg?t=1556225494,https://steamcdn-a.akamaihd.net/steam/apps/1031920/ss_f37a408ef49e7aa01fd5b439dfe2c83dba08b6ae.1920x1080.jpg?t=1556225494",
+    "25966": "https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_5fcfc0177bccf44227bd4196803c606d086829d0.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_a77a003162c6fedde4b5951ac4ef31c598143f73.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_0275c7659942eef9aa7ed2393655be6be34d0c4c.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_b9defaa873c7766e3027d187e7535abb15b84619.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_040edd209667c9e9f442a87f5d2a4768de2f3a40.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_05ff5f9d7d15a58884aca6f2b8e3fc99b3a1a38f.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_0c2e407dcece3a2e8dbc8c6925f8319ddd2853fe.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_01627682999af2e9d6abffe496fd7cffc653a739.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_f849dc9b76bcdfa6c74d4238c4420cfb9c1f622e.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_24577496c82e589c25741565b37560958d97581c.1920x1080.jpg?t=1556182689,https://steamcdn-a.akamaihd.net/steam/apps/995050/ss_6533e2830e06b255c4b0b168c25086ce947a2f73.1920x1080.jpg?t=1556182689"
+  },
+  "background": {
+    "23726": "https://steamcdn-a.akamaihd.net/steam/apps/905370/page_bg_generated_v6b.jpg?t=1555520261",
+    "24430": "https://steamcdn-a.akamaihd.net/steam/apps/931690/page_bg_generated_v6b.jpg?t=1556305733",
+    "19599": "https://steamcdn-a.akamaihd.net/steam/apps/778870/page_bg_generated_v6b.jpg?t=1556218626",
+    "26695": "https://steamcdn-a.akamaihd.net/steam/apps/1031920/page_bg_generated_v6b.jpg?t=1556225494",
+    "25966": "https://steamcdn-a.akamaihd.net/steam/apps/995050/page_bg_generated_v6b.jpg?t=1556182689"
+  },
+  "overallReview": {
+    "23726": 494,
+    "24430": 193,
+    "19599": 3,
+    "26695": 11,
+    "25966": 12
+  },
+  "positiveRate": {
+    "23726": 52,
+    "24430": 84,
+    "19599": 100,
+    "26695": 82,
+    "25966": 75
+  },
+  "negativeRate": {
+    "23726": 48,
+    "24430": 16,
+    "19599": 0,
+    "26695": 18,
+    "25966": 25
+  }
+}

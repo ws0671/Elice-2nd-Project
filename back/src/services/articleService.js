@@ -39,22 +39,34 @@ const ArticleService = {
   },
 
   getArticleInfo: async ({ articleId, userId }) => {
-    const article = await Article.findById({ articleId })
+    let article = await Article.findById({ articleId })
+    const user = await User.findById({ userId })
 
     if (!article) {
       throw new Error("존재하지 않는 게시물입니다.")
     }
 
-    const likeOrNot = await Like.findByFilter({ articleId, userId })
-    const like = Boolean(likeOrNot)
+    const permission = SetUtil.validatePermission(user.grade, article.category)
 
-    const comments = await Comment.findAllByArticle({ articleId })
+    if (permission) {
+      const likeOrNot = await Like.findByFilter({ articleId, userId })
+      const like = Boolean(likeOrNot)
+      const comments = await Comment.findAllByArticle({ articleId })
 
-    const articleInfo = { article, like, comments }
-    return articleInfo
+      const toUpdate = { $inc: { hits: 1 } }
+      article = await Article.update({ articleId, toUpdate })
+
+      const articleInfo = { article, like, comments }
+
+      return articleInfo
+    } else {
+      throw new Error(
+        "게시글에 접근 권한이 없습니다. 포인트를 쌓아 등업해주세요."
+      )
+    }
   },
 
-  updateArticle: async ({ category, articleId, author, updateData }) => {
+  updateArticle: async ({ articleId, author, updateData }) => {
     if (!SetUtil.validateCategory(updateData.category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.")
     }
