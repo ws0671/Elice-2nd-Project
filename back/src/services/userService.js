@@ -2,7 +2,8 @@ import { User, Game, Review } from "../db"; // from을 폴더(db) 로 설정 시
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
-const { SetUtil } = require("../common/setUtil");
+import { sendMail } from "./mailService";
+import { SetUtil } from "../common/setUtil";
 
 const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
@@ -74,7 +75,7 @@ const userAuthService = {
     return loginUser;
   },
 
-  updateUser: async ({ userId, updateData }) => {
+  updateNickname: async ({ userId, updateData }) => {
     let user = await User.findById({ userId });
     if (!user) {
       throw new Error(
@@ -97,6 +98,23 @@ const userAuthService = {
     return user;
   },
 
+  updatePassword: async ({ userId, updateData }) => {
+    let user = await User.findById({ userId });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(updateData.password, 10);
+    updateData.password = hashedPassword;
+
+    const toUpdate = SetUtil.compareValues(updateData, user);
+    user = await User.update({ userId, toUpdate });
+
+    return user;
+  },
+
   getUserInfo: async ({ userId }) => {
     const user = await User.findById({ userId });
     if (!user) {
@@ -109,6 +127,26 @@ const userAuthService = {
     const reviews = await Review.findAllByUser({ userId });
 
     return { user, bookmarks, reviews };
+  },
+
+  getUserAndCode: async ({ email }) => {
+    const user = await User.findByEmail({ email });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+
+    let code = Math.floor(Math.random() * 1000000) + 100000;
+    if (code > 1000000) {
+      code = code - 100000;
+    }
+
+    const subject = "[GAME PEARL] 인증코드";
+    const text = `귀하의 인증코드는 ${code} 입니다. 인증 후 비밀번호를 변경해주세요.`;
+    await sendMail(email, subject, text);
+
+    return { user, code };
   },
 
   deleteUser: async ({ userId }) => {
