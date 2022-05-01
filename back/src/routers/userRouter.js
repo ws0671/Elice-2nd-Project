@@ -87,6 +87,30 @@ userAuthRouter.put(
   }
 );
 
+userAuthRouter.put(
+  "/:userId/password",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      const loginId = req.currentUserId;
+      const userId = req.params.userId;
+      if (loginId === userId) {
+        const password = req.body.password;
+        const updateData = { password };
+
+        const updatedUser = await userAuthService.updatePassword({
+          userId,
+          updateData,
+        });
+
+        res.status(200).json(updatedUser);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
     const loginId = req.currentUserId;
