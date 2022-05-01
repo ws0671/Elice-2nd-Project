@@ -29,6 +29,7 @@ function GameSearch() {
     console.log(res.data);
     setData(res.data);
     setLastPage(10);
+    //res.lastPage
   };
 
   useEffect(() => {
