@@ -2,6 +2,7 @@ import { User, Game, Review } from "../db"; // from을 폴더(db) 로 설정 시
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
+import { sendMail } from "./mailService";
 const { SetUtil } = require("../common/setUtil");
 
 const userAuthService = {
