@@ -128,6 +128,17 @@ const userAuthService = {
     return { user, bookmarks, reviews };
   },
 
+  getUserAndCode: async ({ email }) => {
+    const user = await User.findByEmail({ email });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+
+    return user;
+  },
+
   deleteUser: async ({ userId }) => {
     const isDataDeleted = await User.deleteById({ userId });
 
