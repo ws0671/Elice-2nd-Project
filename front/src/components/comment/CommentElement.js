@@ -1,29 +1,33 @@
-import { useState, useRef, useEffect, useContext } from "react"
-import styled from "styled-components"
-import { UserStateContext } from "../../App"
+import { useState, useRef, useEffect, useContext } from "react";
+import { Div, ButtonGroup } from "../styles/CommentElementStyle";
+import { UserStateContext } from "../../App";
 
 const CommentElement = ({ item, removeHandler, editHandler }) => {
-  const [edit, setEdit] = useState(false)
-  const [comment, setComment] = useState(item.comment)
-  const [view, setView] = useState(false)
-  const viewMore = useRef([])
-  // const userState = useContext(UserStateContext)
-  // console.log(userState)
-  const userContext = useContext(UserStateContext)
+  // 댓글 수정폼 show/notshow 상태값
+  const [edit, setEdit] = useState(false);
+  // 댓글 데이터 상태값
+  const [comment, setComment] = useState(item.comment);
+  // 현재 더보기 버튼을 누른 상태인지 확인 변수
+  const [view, setView] = useState(false);
+  // 더보기 ref 값
+  const viewMore = useRef([]);
+  // 현재 로그인 유저 데이터 값
+  const userContext = useContext(UserStateContext);
 
   useEffect(() => {
-    document.addEventListener("mousedown", clickOutside)
+    document.addEventListener("mousedown", clickOutside);
 
     return () => {
-      document.removeEventListener("mousedown", clickOutside)
-    }
-  })
+      document.removeEventListener("mousedown", clickOutside);
+    };
+  });
 
+  // 드롭다운 외부 클릭 시에도 닫히도록 하는 함수
   const clickOutside = (e) => {
     if (view && !viewMore.current.includes(e.target)) {
-      setView((prev) => !prev)
+      setView((prev) => !prev);
     }
-  }
+  };
 
   return (
     <Div
@@ -36,26 +40,23 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
         <>
           <textarea
             className="edit"
-            onChange={(e) => {
-              setComment(e.target.value)
-              console.log(comment)
-            }}
+            onChange={(e) => setComment(e.target.value)}
             value={comment}
             placeholder="20자 이상 적어주세요."
           ></textarea>
           <ButtonGroup>
             <button
               onClick={() => {
-                editHandler(item, comment)
-                setEdit(false)
+                editHandler(item, comment);
+                setEdit(false);
               }}
             >
               확인
             </button>
             <button
               onClick={() => {
-                setComment(item.comment)
-                setEdit(false)
+                setComment(item.comment);
+                setEdit(false);
               }}
             >
               취소
@@ -71,31 +72,26 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
             </div>
           </div>
 
-          {item.writerNickname === userContext.user && (
+          {item.writerNickname === userContext.user.nickname && (
             <img
               ref={(el) => (viewMore.current[0] = el)}
               src="/images/viewmore.png"
               alt="더보기"
-              onClick={(e) => {
-                setView((prev) => !prev)
-                console.log(viewMore)
-              }}
+              onClick={(e) => setView((prev) => !prev)}
             ></img>
           )}
           <ul className="dropdown">
             <li
               ref={(el) => (viewMore.current[1] = el)}
-              onClick={() => {
-                setEdit(true)
-              }}
+              onClick={() => setEdit(true)}
             >
               수정
             </li>
             <li
               ref={(el) => (viewMore.current[2] = el)}
               onClick={() => {
-                removeHandler(item)
-                setView(false)
+                removeHandler(item);
+                setView(false);
               }}
             >
               삭제
@@ -104,81 +100,7 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
         </>
       )}
     </Div>
-  )
-}
+  );
+};
 
-const Div = styled.div`
-  .edit {
-    width:100%;
-    height: 15vh;
-  }
-  background: ${({ isDeleted }) => isDeleted && "rgba(255, 215, 215, 0.9);"};
-  margin-bottom: 20px;
-  font-size: 13px;
-  
-  padding-bottom: 10px;
-  display: flex;
-  flex-direction: ${({ edit }) => (edit ? "column" : "row")};
-  justify-content: space-between;
-  // align-items: center;
-  .comment {
-    font-size: ${({ isDeleted }) => (isDeleted ? "11px" : "13px")};
-    color: ${({ isDeleted }) => isDeleted && "grey"};
-  }
-
-  img {
-    width: 20px;
-    height: 20px;
-    display: ${({ isDeleted }) => isDeleted && "none"};
-
-    &:hover {
-      cursor: pointer;
-      background: rgba(108, 99, 255, 0.3);
-      border-radius: 3px;
-    }
-  }
-
-  .dropdown {
-    display: ${({ view }) => (view ? "block" : "none")};
-    position: absolute;
-    left: 80%;
-    background-color: #f9f9f9;
-    min-width: 60px;
-    padding: 8px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    list-style-type: none;
-
-    li {
-      font-weight: normal;
-      text-align: center;
-    }
-    li:hover {
-      background: rgba(108, 99, 255, 0.3);
-      border-radius: 2px;
-      font-weight: bold;
-      // color: white;
-      cursor: pointer;
-    }
-  `
-
-const ButtonGroup = styled.div`
-  left: 84%;
-  position: relative;
-  margin: -40px 10px 0 0;
-  width: 15%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-
-  button {
-    border: none;
-    padding: 4px 8px;
-    color: white;
-    font-weight: 700;
-
-    border-radius: 3px;
-    cursor: pointer;
-    background: #6c63ff;
-  }
-`
-export default CommentElement
+export default CommentElement;
