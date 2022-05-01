@@ -7,11 +7,15 @@ import { loginReducer } from "./reducer"
 import Header from "./components/Header"
 import Main from "./pages/Main"
 import GameSearch from "./pages/GameSearch"
-
+import LoginForm from "./pages/LoginForm"
 import Register from "./pages/Register"
 import Community from "./pages/Community"
 import CommunityDetail from "./components/community/CommunityDetail"
-import LoginForm from "./pages/LoginForm"
+import Recommend from "./pages/Recommend";
+import RecomQnA from "./components/recommend/RecomQnA";
+import RecomResult from "./components/recommend/RecomResult"
+import Prologue from "./pages/Prologue"
+
 
 import "./css/header.css"
 import "./css/gamesearch.css"
@@ -70,6 +74,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
+            <Route path="/recommend" element={<Recommend />} />
+            <Route path="/recommend/qna" element={<RecomQnA />} />
+            <Route path="/recommend/result" element={<RecomResult />} />
+            <Route path="/prologue" element={<Prologue />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
