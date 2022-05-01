@@ -33,8 +33,7 @@ function App() {
 
   const fetchCurrentUser = async () => {
     try {
-      // 유저의 닉네임 값을 가져옴.
-      const currentUser = sessionStorage.user
+      const currentUser = JSON.parse(sessionStorage.getItem("user"))
 
       // 로그인 한 유저가 아니라면
       if (!currentUser)
