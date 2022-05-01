@@ -1,99 +1,112 @@
-import { useNavigate, useParams } from "react-router-dom"
-import { useEffect, useState, useContext } from "react"
-import * as Api from "../../api"
-import styled from "styled-components"
-import CommentAddForm from "../comment/CommentAddForm"
-import CommentList from "../comment/CommentList"
-import { UserStateContext } from "../../App"
-import CommunityEditForm from "./CommunityEditForm"
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState, useContext } from "react";
+import * as Api from "../../api";
+import CommentAddForm from "../comment/CommentAddForm";
+import CommentList from "../comment/CommentList";
+import { UserStateContext } from "../../App";
+import CommunityEditForm from "./CommunityEditForm";
+import { Header, Container, ButtonGroup } from "../styles/CommunityDetailStyle";
 
+// 커뮤니 상세페이지 컴포넌트
 const CommunityDetail = () => {
-  const [detail, setDetail] = useState({})
-  const [isLiked, setIsLiked] = useState(false)
-  const [example, setExample] = useState([])
-  const [isEdit, setIsEdit] = useState(false)
-  const userContext = useContext(UserStateContext)
-  const navigate = useNavigate()
+  // 커뮤니티 글 데이터 상태값
+  const [detail, setDetail] = useState({});
+  // 좋아요 상태값
+  const [isLiked, setIsLiked] = useState(false);
+  // 커뮤니티 댓글 리스트 상태값
+  const [example, setExample] = useState([]);
+  // 수정했는지 확인용 변수(수정폼 컴포넌트에서 사용)
+  const [isEdit, setIsEdit] = useState(false);
+  // 로그인 유저 전역 데이터값
+  const userContext = useContext(UserStateContext);
+  const navigate = useNavigate();
 
-  const isUser = detail.nickname === userContext.user
-  const params = useParams()
+  // 수정 삭제 권한 유저인지 확인용 변수
+  const isUser = detail.nickname === userContext.user.nickname;
+  const params = useParams();
+  // 수정폼 컴포넌트 전달용 함수
+  const isEditing = () => setIsEdit((prev) => !prev);
+  // 삭제된 댓글 제외
+  const realComments = example.filter((v) => v.isDeleted === false);
+  // 글 생성 날짜 변수
+  const createDate = detail.createdAt;
 
-  const isEditing = () => setIsEdit((prev) => !prev)
   useEffect(() => {
     Api.get("article", params.id).then((res) => {
-      setDetail(res.data.article)
-      console.log(res.data)
-      setIsLiked(res.data.like)
-      setExample(res.data.comments)
-    })
-  }, [isEdit])
+      setDetail(res.data.article);
+      console.log(res.data);
+      setIsLiked(res.data.like);
+      setExample(res.data.comments);
+    });
+  }, [isEdit]);
 
+  // 댓글 추가 함수
   const clickHandler = (comment) => {
-    let copied = [...example]
+    let copied = [...example];
 
-    const newComment = { comment, articleId: detail.articleId }
-    // copied.push({ isDeleted: false, comment, writerNickname: "happy" })
+    const newComment = { comment, articleId: detail.articleId };
     Api.post("comment", newComment).then((res) => {
-      copied.push(res.data)
-      alert("댓글 등록이 완료되었습니다!")
-      setExample(copied)
-    })
-  }
+      copied.push(res.data);
+      alert("댓글 등록이 완료되었습니다!");
+      setExample(copied);
+    });
+  };
 
+  // 댓글 수정용 함수
   const editHandler = (item, comment) => {
-    const edit = { ...item, comment }
-    Api.put(`comment/${item.commentId}`, edit)
+    const edit = { ...item, comment };
+    Api.put(`comment/${item.commentId}`, edit);
     const copied = example.map((v) => {
       if (
         v.writeNickname === edit.writeNickname &&
         v.commentId === item.commentId
       ) {
-        return { ...v, comment }
+        return { ...v, comment };
       } else {
-        return { ...v }
+        return { ...v };
       }
-    })
+    });
 
-    setExample(copied)
-  }
+    setExample(copied);
+  };
+
+  // 댓글 삭제용 함수
   const removeHandler = (item) => {
-    const deleted = { ...item, isDeleted: true }
-    Api.put(`comment/${item.commentId}/delete`, deleted)
+    const deleted = { ...item, isDeleted: true };
+    Api.put(`comment/${item.commentId}/delete`, deleted);
     const copied = example.map((v) => {
       if (
         v.writeNickname === deleted.writeNickname &&
         v.commentId === item.commentId
       ) {
-        return { ...v, isDeleted: true }
+        return { ...v, isDeleted: true };
       } else {
-        return { ...v }
+        return { ...v };
       }
-    })
+    });
 
-    setExample(copied)
-  }
+    setExample(copied);
+  };
 
+  // 좋아요 함수
   const pushLike = () => {
     if (!isUser) {
-      let copied = detail
+      let copied = detail;
       if (isLiked) {
-        setIsLiked((prev) => !prev)
-        setDetail({ ...copied, like: copied.like - 1 })
-        const putData = { author: detail.author, like: !isLiked }
-        Api.put(`article/${params.id}/like`, putData)
+        setIsLiked((prev) => !prev);
+        setDetail({ ...copied, like: copied.like - 1 });
+        const putData = { author: detail.author, like: !isLiked };
+        Api.put(`article/${params.id}/like`, putData);
       } else {
-        setIsLiked((prev) => !prev)
-        setDetail({ ...copied, like: copied.like + 1 })
-        const putData = { author: detail.author, like: !isLiked }
+        setIsLiked((prev) => !prev);
+        setDetail({ ...copied, like: copied.like + 1 });
+        const putData = { author: detail.author, like: !isLiked };
         Api.put(`article/${params.id}/like`, putData).then((res) =>
           console.log(res.data)
-        )
+        );
       }
     }
-  }
-
-  const realComments = example.filter((v) => v.isDeleted === false)
-  const createDate = detail.createdAt
+  };
 
   return (
     <>
@@ -108,10 +121,10 @@ const CommunityDetail = () => {
                 <button onClick={() => setIsEdit((prev) => !prev)}>수정</button>
                 <button
                   onClick={() => {
-                    alert("해당 내용을 삭제합니다.")
+                    alert("해당 내용을 삭제합니다.");
                     Api.delete("article", params.id).then((res) => {
-                      navigate("/community")
-                    })
+                      navigate("/community");
+                    });
                   }}
                 >
                   삭제
@@ -121,7 +134,10 @@ const CommunityDetail = () => {
             <div className="detail title">{detail.title}</div>
             <div className="detail writer">
               <div>{detail.nickname}</div>
-              <div>{createDate && createDate.split("T")[0]} / 조회 수</div>
+              <div>
+                {createDate && createDate.split("T")[0]} / 조회수 :{" "}
+                {detail.hits}
+              </div>
             </div>
             <div className="detail body">{detail.body}</div>
             <div className="detail etc">
@@ -152,90 +168,7 @@ const CommunityDetail = () => {
         )}
       </Container>
     </>
-  )
-}
+  );
+};
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-
-  .title {
-    font-size: 25px;
-    font-weight: bold;
-    
-  }
-
-  .detail {
-    width: 60%;
-    margin: 10px 0; 
-    
-    }
-
-    .writer {
-      font-size: 13px;
-    }
-  }
-  .comment .head {
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  .etc {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    img {
-      width: 30px;
-      height: 30px;
-    }
-
-    * {
-      margin: 20px 0;
-      margin-right: 10px;
-      text-align: center;
-    }
-  }
-  
-  ${({ isUser }) =>
-    !isUser &&
-    `
-    .liking:hover {
-      font-weight: bold;
-      cursor: pointer;
-      background: rgba(108, 99, 255, 0.3);
-      border-radius: 100px;
-    }
-    `}
-
-  
-`
-const Header = styled.div`
-  height: 10vh;
-`
-
-const ButtonGroup = styled.div`
-  width: 60%;
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-
-  button {
-    border: none;
-    padding: 4px 8px;
-    color: white;
-    font-weight: 700;
-
-    border-radius: 3px;
-    cursor: pointer;
-    background: #6c63ff;
-
-    &:first-of-type {
-      margin-right: 10px;
-    }
-  }
-`
-export default CommunityDetail
+export default CommunityDetail;
