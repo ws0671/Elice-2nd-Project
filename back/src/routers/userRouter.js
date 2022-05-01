@@ -75,23 +75,6 @@ userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
   }
 });
 
-// userAuthRouter.get(
-//   "/:userId/myPage/bookmarks",
-//   loginRequired,
-//   async (req, res, next) => {
-//     try {
-//       // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
-//       const loginId = req.currentUserId;
-//       const userId = req.params.userId;
-//       const criteria = req.query.criteria; // popular or playtime
-//       if (loginId === userId) {
-//       }
-//     } catch (error) {
-//       next(error);
-//     }
-//   }
-// );
-
 userAuthRouter.put("/:userId", loginRequired, async (req, res, next) => {
   try {
     // URI로부터 사용자 id를 추출함.
