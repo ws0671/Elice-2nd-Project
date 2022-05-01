@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose"
+import { Schema, model } from "mongoose";
 
 const UserSchema = new Schema(
   {
@@ -18,16 +18,24 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    point: {
+      type: Number,
+      default: 0,
+    },
+    grade: {
+      type: Number,
+      default: 0,
+    },
     bookmarks: {
-      type: [String],
+      type: [Number],
       default: [],
     },
   },
   {
     timestamps: true,
   }
-)
+);
 
-const UserModel = model("User", UserSchema)
+const UserModel = model("User", UserSchema);
 
-export { UserModel }
+export { UserModel };

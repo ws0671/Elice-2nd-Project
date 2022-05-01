@@ -1,36 +1,20 @@
-import CommunityBoard from "../components/community/CommunityBoard"
-import styled from "styled-components"
+import CommunityBoard from "../components/community/CommunityBoard";
+import { Main, Container } from "../components/styles/CommunityStyle";
+import { useNavigate } from "react-router-dom";
 
+// 커뮤니티 최상위 컴포넌트
 const Community = () => {
+  const navigate = useNavigate();
   return (
     <Main>
       <Container>
         <CommunityBoard />
+        <button className="write" onClick={() => navigate("/community/create")}>
+          글쓰기
+        </button>
       </Container>
     </Main>
-  )
-}
+  );
+};
 
-const Main = styled.div`
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`
-const Container = styled.div`
-  max-width: 100vh;
-  width: 100vh;
-
-  max-height: 100vh;
-  height: 80vh;
-
-  padding: 12px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  }
-`
-
-export default Community
+export default Community;

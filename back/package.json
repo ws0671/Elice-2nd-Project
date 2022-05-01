@@ -26,7 +26,11 @@
     "jest": "^27.3.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.1",
+<<<<<<< HEAD
     "react-custom-roulette": "^1.2.0",
+=======
+    "mongoose-auto-increment": "^5.0.1",
+>>>>>>> ff2b9466bc51491395cd4cce5ae180b275a6cd2a
     "supertest": "^6.1.6",
     "uuid": "^8.3.2"
   },

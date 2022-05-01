@@ -1,12 +1,16 @@
-import { Schema, model } from "mongoose";
+import { Schema } from "mongoose";
 
 const ArticleSchema = new Schema(
   {
     articleId: {
-      type: String,
+      type: Number,
       required: true,
     },
     author: {
+      type: String,
+      required: true,
+    },
+    nickname: {
       type: String,
       required: true,
     },
@@ -26,12 +30,18 @@ const ArticleSchema = new Schema(
       type: [String],
       default: [],
     },
+    like: {
+      type: Number,
+      default: 0,
+    },
+    hits: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const ArticleModel = model("Article", ArticleSchema);
-
-export { ArticleModel };
+export { ArticleSchema };

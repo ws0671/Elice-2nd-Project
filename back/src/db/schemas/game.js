@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const GameSchema = new Schema(
   {
-    appId: {
+    gameId: {
       type: Number,
       required: true,
     },
