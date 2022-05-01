@@ -52,13 +52,19 @@ const ArticleService = {
       const likeOrNot = await Like.findByFilter({ articleId, userId });
       const like = Boolean(likeOrNot);
       const comments = await Comment.findAllByArticle({ articleId });
+      if (article.author === userId) {
+        const articleInfo = { article, like, comments };
 
-      const toUpdate = { $inc: { hits: 1 } };
-      article = await Article.update({ articleId, toUpdate });
+        return articleInfo;
+      } else {
+        // 본인이 작성한 글이 아닐 때만 조회수 증가
+        const toUpdate = { $inc: { hits: 1 } };
+        article = await Article.update({ articleId, toUpdate });
 
-      const articleInfo = { article, like, comments };
+        const articleInfo = { article, like, comments };
 
-      return articleInfo;
+        return articleInfo;
+      }
     } else {
       throw new Error(
         "게시글에 접근 권한이 없습니다. 포인트를 쌓아 등업해주세요."
