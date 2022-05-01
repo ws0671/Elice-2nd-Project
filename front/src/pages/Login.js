@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react"
 import { useNavigate } from "react-router-dom"
-import { BodyContainer, BodyWrapper, InputContainer, MainContainer, ButtonContainer, WelcomeText, GoToRegister, HorizeontalRule } from "./LoginStyle.js"
-import styled from "styled-components"
+import { BodyContainer, BodyWrapper, InputContainer, MainContainer, ButtonContainer, WelcomeText, GoToRegister, HorizeontalRule } from "../components/user/login/LoginStyle"
 import * as Api from "../api"
 import { DispatchContext } from "../App"
-import { LoginButton } from "../components/login/LoginButton.js"
-import { LoginInput } from "../components/login/LoginInput.js"
+import { LoginButton } from "../components/user/login/LoginButton"
+import { LoginInput } from "../components/user/login/LoginInput"
 
 function LoginForm() {
   const navigate = useNavigate();

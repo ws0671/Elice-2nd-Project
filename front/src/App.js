@@ -7,7 +7,7 @@ import { loginReducer } from "./reducer";
 import Header from "./components/Header"
 import Main from "./pages/Main"
 import GameSearch from "./pages/GameSearch"
-import LoginForm from "./pages/LoginForm"
+import Login from "./pages/Login"
 import Register from "./pages/Register"
 import Community from "./pages/Community"
 import CommunityDetail from "./components/community/CommunityDetail"
@@ -73,7 +73,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/topchart" element={<TopChart />} />
             <Route path="/community" element={<Community />} />
