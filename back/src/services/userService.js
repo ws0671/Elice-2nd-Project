@@ -136,7 +136,16 @@ const userAuthService = {
       );
     }
 
-    return user;
+    let code = Math.floor(Math.random() * 1000000) + 100000;
+    if (code > 1000000) {
+      code = code - 100000;
+    }
+
+    const subject = "[GAME PEARL] 인증코드";
+    const text = `귀하의 인증코드는 ${code} 입니다. 인증 후 비밀번호를 변경해주세요.`;
+    await sendMail(email, subject, text);
+
+    return { user, code };
   },
 
   deleteUser: async ({ userId }) => {
