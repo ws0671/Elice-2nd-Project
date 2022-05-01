@@ -9,7 +9,6 @@ ArticleRouter.post("/", async (req, res, next) => {
   try {
     const { category, title, body, tags } = req.body;
     const userId = req.currentUserId;
-
     const newArticle = await ArticleService.addArticle({
       userId,
       category,
