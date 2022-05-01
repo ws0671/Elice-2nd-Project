@@ -1,73 +1,73 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import * as Api from "../../api"
-import { useParams } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import * as Api from "../../api";
+import { useParams } from "react-router-dom";
 
 const CommunityEditForm = ({ isEditing }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [content, setContent] = useState([])
-  const [tag, setTag] = useState("")
-  const [error, setError] = useState({ title: true, body: true })
-  const params = useParams()
+  const [content, setContent] = useState([]);
+  const [tag, setTag] = useState("");
+  const [error, setError] = useState({ title: true, body: true });
+  const params = useParams();
   useEffect(() => {
     Api.get("article", params.id).then((res) => {
-      setContent(res.data.article)
-    })
-  }, [])
+      setContent(res.data.article);
+    });
+  }, []);
 
   const changeHandler = (e) => {
-    setContent((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    console.log(content)
+    setContent((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(content);
     // errorHandler(e.target.name)
-  }
+  };
 
   const errorHandler = (v) => {
     if (content.v === "") {
       setError((prev) => {
-        return { ...prev, [v]: true }
-      })
+        return { ...prev, [v]: true };
+      });
     } else {
       setError((prev) => {
-        return { ...prev, [v]: false }
-      })
+        return { ...prev, [v]: false };
+      });
     }
-  }
+  };
 
   const submitHandler = () => {
     if (true) {
-      alert("성공했습니다.")
-      const newContent = content
+      alert("성공했습니다.");
+      const newContent = content;
       Api.put(`article/${params.id}`, newContent).then((res) => {
-        console.log(res.data)
-        isEditing()
-      })
+        console.log(res.data);
+        isEditing();
+      });
     } else {
-      alert("실패했습니다. 다시 한 번 확인해주세요.")
+      alert("실패했습니다. 다시 한 번 확인해주세요.");
     }
-  }
+  };
 
   const keyPressHandler = (e) => {
-    const copied = content
-    if (e.code === "Enter" && e.target.value) {
-      copied.tags.push(e.target.value)
+    const copied = content;
+    if (e.key === "Enter" && e.target.value) {
+      copied.tags.push(e.target.value);
       setContent((prev) => {
-        return { ...prev, tags: copied.tags }
-      })
+        return { ...prev, tags: copied.tags };
+      });
+      setTag("");
     }
-    setTag("")
-  }
+  };
 
   const removeHandler = (e) => {
-    const copied = content
+    const copied = content;
     const copiedTags = copied.tags.filter(
       (item) => item !== e.target.textContent
-    )
+    );
     setContent((prev) => {
-      return { ...prev, tags: copiedTags }
-    })
-  }
+      return { ...prev, tags: copiedTags };
+    });
+  };
 
   return (
     <Container>
@@ -158,8 +158,8 @@ const CommunityEditForm = ({ isEditing }) => {
         </div>
       </form>
     </Container>
-  )
-}
+  );
+};
 
 const Container = styled.div`
   display: flex;
@@ -246,6 +246,6 @@ const Container = styled.div`
   input#tag {
     margin-bottom: 5px;
   }
-`
+`;
 
-export default CommunityEditForm
+export default CommunityEditForm;
