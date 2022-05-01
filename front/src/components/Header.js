@@ -44,14 +44,16 @@ function Header() {
               <Nav.Link onClick={() => navigate("/")}>TOP 차트</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link onClick={() => navigate("/network")}>콘텐츠</Nav.Link>
+              <Nav.Link onClick={() => navigate("/community")}>콘텐츠</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>마이 페이지</Nav.Link>
+              <Nav.Link onClick={() => navigate("/mypage")}>
+                마이 페이지
+              </Nav.Link>
             </Nav.Item>
 
             <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>로그인</Nav.Link>
+              <Nav.Link onClick={() => navigate("/login")}>로그인</Nav.Link>
             </Nav.Item>
             <Nav.Item>
               <Nav.Link onClick={() => navigate("/register")}>

@@ -1,146 +1,198 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Container, Col, Row, Form, Button } from "react-bootstrap";
 
-import * as Api from "../../api";
+// 사용하는 함수만 import 하도록
+import { post as Post } from "../../api";
+import { Form } from "../styles/RegisterFormStyle";
 
-function RegisterForm() {
+// 회원가입 폼 컴포넌트
+const RegisterForm = () => {
   const navigate = useNavigate();
 
-  //useState로 email 상태를 생성함.
-  const [email, setEmail] = useState("");
-  //useState로 password 상태를 생성함.
-  const [password, setPassword] = useState("");
-  //useState로 confirmPassword 상태를 생성함.
-  const [confirmPassword, setConfirmPassword] = useState("");
-  //useState로 name 상태를 생성함.
-  const [name, setName] = useState("");
+  // 회원가입 정보 상태값
+  const [info, setInfo] = useState({
+    email: "",
+    password: "",
+    repassowrd: "",
+    nickname: "",
+  });
 
-  //이메일이 abc@example.com 형태인지 regex를 이용해 확인함.
+  // 회원가입 정보 조건에 맞는지 에러 확인용 상태값
+  const [hasError, setHasError] = useState({
+    email: true,
+    password: true,
+    nickname: true,
+  });
+
+  // 이메일 유효성 검사 함수
   const validateEmail = (email) => {
-    return email
+    const validate = email
       .toLowerCase()
       .match(
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       );
+
+    setHasError((prev) => ({ ...prev, email: !validate }));
   };
 
-  //위 validateEmail 함수를 통해 이메일 형태 적합 여부를 확인함.
-  const isEmailValid = validateEmail(email);
-  // 비밀번호가 4글자 이상인지 여부를 확인함.
-  const isPasswordValid = password.length >= 4;
-  // 비밀번호와 확인용 비밀번호가 일치하는지 여부를 확인함.
-  const isPasswordSame = password === confirmPassword;
-  // 이름이 2글자 이상인지 여부를 확인함.
-  const isNameValid = name.length >= 2;
+  // 비밀번호 유효성 검사 함수
+  const validatePassword = (password) => {
+    const specialLetter = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+    const isValidPassword = password.length >= 4 && specialLetter >= 1;
+    setHasError((prev) => ({ ...prev, password: !isValidPassword }));
+  };
 
-  // 위 4개 조건이 모두 동시에 만족되는지 여부를 확인함.
-  const isFormValid =
-    isEmailValid && isPasswordValid && isPasswordSame && isNameValid;
+  // 비밀번호 확인 검사 변수
+  const validateConfirmPassword =
+    info.password === info.repassword && info.password.length >= 1;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  // 닉네임 유효성 검사 함수
+  const validateNickname = (nickname) => {
+    if (nickname.length < 2 || nickname.length > 10)
+      setHasError((prev) => ({ ...prev, nickname: true }));
+    else setHasError((prev) => ({ ...prev, nickname: false }));
+  };
 
-    try {
-      // "user/register" 엔드포인트로 post요청함.
-      await Api.post("user/register", {
-        email,
-        password,
-        name,
-      });
+  // Input박스 Change될 때 적용되는 함수
+  const handleChange = (e) => {
+    setInfo((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    if (e.target.name === "email") validateEmail(e.target.value);
+    else if (e.target.name === "password") validatePassword(e.target.value);
+    else if (e.target.name === "nickname") validateNickname(e.target.value);
+  };
 
-      // 로그인 페이지로 이동함.
-      navigate("/login");
-    } catch (err) {
-      console.log("회원가입에 실패하였습니다.", err);
-    }
+  // 초기화 시 리셋 함수
+  const handleReset = () => {
+    setInfo({
+      email: "",
+      password: "",
+      repassowrd: "",
+      nickname: "",
+    });
+    setHasError({
+      email: true,
+      password: true,
+      nickname: true,
+    });
+  };
+
+  // 회원 가입 폼 제출 시 함수
+  const handleSubmit = () => {
+    if (
+      !hasError.nickname &&
+      !hasError.email &&
+      !hasError.password &&
+      validateConfirmPassword
+    ) {
+      const newUser = {
+        email: info.email,
+        password: info.password,
+        nickname: info.nickname,
+      };
+
+      Post("user/register", newUser)
+        .then((res) => {
+          alert("회원가입에 성공했습니다.");
+          handleReset();
+          navigate("/login");
+        })
+        .catch((err) => alert(err.response.data));
+    } else
+      alert(
+        "회원가입에 실패했습니다. 입력한 정보가 조건에 맞는지 확인해주세요."
+      );
   };
 
   return (
-    <Container>
-      <Row className="justify-content-md-center mt-5">
-        <Col lg={8}>
-          <Form onSubmit={handleSubmit}>
-            <Form.Group controlId="registerEmail">
-              <Form.Label>이메일 주소</Form.Label>
-              <Form.Control
-                type="email"
-                autoComplete="off"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              {!isEmailValid && (
-                <Form.Text className="text-success">
-                  이메일 형식이 올바르지 않습니다.
-                </Form.Text>
-              )}
-            </Form.Group>
+    <Form className="formContainer">
+      <fieldset className="formFieldset">
+        <label className="formLabel" htmlFor="nickname">
+          사용할 닉네임
+        </label>
+        <input
+          value={info.nickname}
+          id="nickname"
+          onChange={handleChange}
+          type="text"
+          name="nickname"
+          placeholder="닉네임을 입력해주세요"
+        ></input>
+        <div className="error">
+          {hasError.nickname && "닉네임은 2글자 이상, 10글자 이하여야 합니다."}
+        </div>
+      </fieldset>
 
-            <Form.Group controlId="registerPassword" className="mt-3">
-              <Form.Label>비밀번호</Form.Label>
-              <Form.Control
-                type="password"
-                autoComplete="off"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {!isPasswordValid && (
-                <Form.Text className="text-success">
-                  비밀번호는 4글자 이상으로 설정해 주세요.
-                </Form.Text>
-              )}
-            </Form.Group>
+      <fieldset className="formFieldset">
+        <label className="formLabel" htmlFor="email">
+          이메일(ID)
+        </label>
+        <input
+          value={info.email}
+          id="email"
+          onChange={handleChange}
+          type="email"
+          // pattern=".+@globex\.com"
+          name="email"
+          placeholder="이메일을 입력해 주세요."
+        ></input>
+        <div className="error">
+          {hasError.email && "이메일 형식이 올바르지 않습니다."}
+        </div>
+      </fieldset>
 
-            <Form.Group controlId="registerConfirmPassword" className="mt-3">
-              <Form.Label>비밀번호 재확인</Form.Label>
-              <Form.Control
-                type="password"
-                autoComplete="off"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-              />
-              {!isPasswordSame && (
-                <Form.Text className="text-success">
-                  비밀번호가 일치하지 않습니다.
-                </Form.Text>
-              )}
-            </Form.Group>
+      <fieldset className="formFieldset">
+        <label className="formLabel" htmlFor="password">
+          비밀번호
+        </label>
+        <input
+          value={info.password}
+          id="password"
+          onChange={handleChange}
+          type="password"
+          name="password"
+          placeholder="비밀번호를 입력해 주세요."
+        ></input>
+        <div className="error">
+          {hasError.password &&
+            "비밀번호는 특수문자 1개를 포함하여 4글자 이상이어야 합니다."}
+        </div>
+      </fieldset>
 
-            <Form.Group controlId="registerName" className="mt-3">
-              <Form.Label>이름</Form.Label>
-              <Form.Control
-                type="text"
-                autoComplete="off"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              {!isNameValid && (
-                <Form.Text className="text-success">
-                  이름은 2글자 이상으로 설정해 주세요.
-                </Form.Text>
-              )}
-            </Form.Group>
+      <fieldset className="formFieldset">
+        <label className="formLabel" htmlFor="repassword">
+          비밀번호 확인
+        </label>
+        <input
+          value={info.repassword}
+          id="rePassword"
+          onChange={handleChange}
+          type="password"
+          name="repassword"
+          placeholder="비밀번호를 재입력해주세요."
+        ></input>
+        <div className="error">
+          {!validateConfirmPassword && "비밀번호가 일치하지 않습니다"}
+        </div>
+      </fieldset>
 
-            <Form.Group as={Row} className="mt-3 text-center">
-              <Col sm={{ span: 20 }}>
-                <Button variant="primary" type="submit" disabled={!isFormValid}>
-                  회원가입
-                </Button>
-              </Col>
-            </Form.Group>
-
-            <Form.Group as={Row} className="mt-3 text-center">
-              <Col sm={{ span: 20 }}>
-                <Button variant="light" onClick={() => navigate("/login")}>
-                  로그인하기
-                </Button>
-              </Col>
-            </Form.Group>
-          </Form>
-        </Col>
-      </Row>
-    </Container>
+      <div className="buttonContainer">
+        <button
+          onClick={handleReset}
+          type="button"
+          className="formButton resetButton"
+        >
+          초기화
+        </button>
+        <button
+          onClick={handleSubmit}
+          type="button"
+          className="formButton submitButton"
+        >
+          가입하기
+        </button>
+      </div>
+    </Form>
   );
-}
+};
 
 export default RegisterForm;

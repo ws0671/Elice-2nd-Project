@@ -1,9 +1,9 @@
-import React, { useContext } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
-import Nav from "react-bootstrap/Nav"
-import { UserStateContext, DispatchContext } from "../App"
-import { Container, Card, Row, Col, Button } from "react-bootstrap"
-import styled from "styled-components"
+import React, { useContext } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import { UserStateContext, DispatchContext } from "../App";
+import { Container, Card, Row, Col, Button } from "react-bootstrap";
+import styled from "styled-components";
 function Main() {
   return (
     <>
@@ -104,19 +104,18 @@ function Main() {
         </Row>
       </Container>
       <div style={{ width: "100%", height: "20vh" }}></div>
-      <div className="footer" style={{ backgroundColor: "#6C63FF" }}>
-        <Div className="justify-content-center">
+      <Div className="footer" style={{ backgroundColor: "#6C63FF" }}>
+        <div>
           <img
             style={{ width: "500px" }}
             alt="모니터"
             src="/images/monitor.svg"
           />
-          <Button className="justify-content-center" variant="primary">
-            게임 찾으러 GO!
-          </Button>
-        </Div>
-
-        <Row className="justify-content-evenly">
+        </div>
+        <div>
+          <Button variant="primary">게임 찾으러 GO!</Button>
+        </div>
+        <div>
           <img
             style={{ width: "150px" }}
             alt="조이스틱"
@@ -127,26 +126,32 @@ function Main() {
             alt="게임보이"
             src="/images/gameboy.svg"
           />
-        </Row>
-      </div>
+        </div>
+      </Div>
     </>
-  )
+  );
 }
 
 const Image = styled.img`
   width: 200px;
   height: 200px;
   border-radius: 50%;
-`
+`;
 const NewsImg = styled.img`
   width: 250px;
   height: 150px;
   border-radius: 15%;
-`
+`;
 const Div = styled.div`
   text-align: center;
-  display: flex;
-  justify-content: center;
-`
+  div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+  }
+  div:nth-child(3) {
+    display: flex;
+    justify-content: space-evenly;
+  }
+`;
 
-export default Main
+export default Main;
