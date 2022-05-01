@@ -48,7 +48,7 @@ const OutsideApi = {
 
   getYoutubeDatas: async (keyword) => {
     const params = {
-      key: "AIzaSyAjRdhq7W78Q7IQY62PxNfq8FXopVAlCn4",
+      key: process.env.YOUTUBE_API_KEY,
       q: keyword,
       part: "snippet",
       type: "video",

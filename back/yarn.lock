@@ -4231,14 +4231,14 @@
   "version" "2.0.1"
 
 "nodemailer@^6.7.4":
-  version "6.7.4"
-  resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.7.4.tgz#28771bda3dda8f2dad1912aca0f8727ce7f09d89"
-  integrity sha512-TBSS3qS8WG45ycUwEvEA/3UM1o3sLz9jUl4TPUKPz4ImWWM6UgRCb5pLO+HOouDKEj57yNLOrzQlO8+9IjWZoA==
+  "integrity" "sha512-TBSS3qS8WG45ycUwEvEA/3UM1o3sLz9jUl4TPUKPz4ImWWM6UgRCb5pLO+HOouDKEj57yNLOrzQlO8+9IjWZoA=="
+  "resolved" "https://registry.npmjs.org/nodemailer/-/nodemailer-6.7.4.tgz"
+  "version" "6.7.4"
 
 "nodemon@^2.0.15":
-  version "2.0.15"
-  resolved "https://registry.npmjs.org/nodemon/-/nodemon-2.0.15.tgz"
-  integrity sha512-gdHMNx47Gw7b3kWxJV64NI+Q5nfl0y5DgDbiVtShiwa7Z0IZ07Ll4RLFo6AjrhzMtoEZn5PDE3/c2AbVsiCkpA==
+  "integrity" "sha512-gdHMNx47Gw7b3kWxJV64NI+Q5nfl0y5DgDbiVtShiwa7Z0IZ07Ll4RLFo6AjrhzMtoEZn5PDE3/c2AbVsiCkpA=="
+  "resolved" "https://registry.npmjs.org/nodemon/-/nodemon-2.0.15.tgz"
+  "version" "2.0.15"
   dependencies:
     "chokidar" "^3.5.2"
     "debug" "^3.2.7"
