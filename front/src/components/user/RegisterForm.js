@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // 사용하는 함수만 import 하도록
-import { post } from "../../api";
+import { post as Post } from "../../api";
 import { Form } from "../styles/RegisterFormStyle";
 
 // 회원가입 폼 컴포넌트
@@ -90,7 +90,7 @@ const RegisterForm = () => {
         nickname: info.nickname,
       };
 
-      post("user/register", newUser)
+      Post("user/register", newUser)
         .then((res) => {
           alert("회원가입에 성공했습니다.");
           handleReset();
