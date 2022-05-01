@@ -37,7 +37,19 @@ userAuthRouter.post("/login", async (req, res, next) => {
     // 위 데이터를 이용하여 유저 db에서 유저 찾기
     const user = await userAuthService.getUser({ email, password });
 
-    res.status(200).send(user);
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
+userAuthRouter.post("/verify", async (req, res, next) => {
+  try {
+    const email = req.body.email;
+
+    const user = await userAuthService.getUserAndCode({ email });
+
+    res.status(200).json(user);
   } catch (error) {
     next(error);
   }
@@ -75,28 +87,56 @@ userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
   }
 });
 
-userAuthRouter.put("/:userId", loginRequired, async (req, res, next) => {
-  try {
-    // URI로부터 사용자 id를 추출함.
-    const loginId = req.currentUserId;
-    const userId = req.params.userId;
-    if (loginId === userId) {
-      // body data로부터 업데이트할 사용자 정보를 추출함.
-      const nickname = req.body.nickname;
-      const updateData = { nickname };
+userAuthRouter.put(
+  "/:userId/nickname",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      // URI로부터 사용자 id를 추출함.
+      const loginId = req.currentUserId;
+      const userId = req.params.userId;
+      if (loginId === userId) {
+        // body data로부터 업데이트할 사용자 정보를 추출함.
+        const nickname = req.body.nickname;
+        const updateData = { nickname };
 
-      // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-      const updatedUser = await userAuthService.updateUser({
-        userId,
-        updateData,
-      });
+        // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
+        const updatedUser = await userAuthService.updateNickname({
+          userId,
+          updateData,
+        });
 
-      res.status(200).json(updatedUser);
+        res.status(200).json(updatedUser);
+      }
+    } catch (error) {
+      next(error);
     }
-  } catch (error) {
-    next(error);
   }
-});
+);
+
+userAuthRouter.put(
+  "/:userId/password",
+  loginRequired,
+  async (req, res, next) => {
+    try {
+      const loginId = req.currentUserId;
+      const userId = req.params.userId;
+      if (loginId === userId) {
+        const password = req.body.password;
+        const updateData = { password };
+
+        const updatedUser = await userAuthService.updatePassword({
+          userId,
+          updateData,
+        });
+
+        res.status(200).json(updatedUser);
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
+);
 
 userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
