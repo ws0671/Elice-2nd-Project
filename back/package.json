@@ -33,6 +33,7 @@
     "mongoose-auto-increment": "^5.0.1",
     "request": "^2.88.2",
     "nodemailer": "^6.7.4",
+    "react-custom-roulette": "^1.2.0",
     "supertest": "^6.1.6",
     "uuid": "^8.3.2"
   },
