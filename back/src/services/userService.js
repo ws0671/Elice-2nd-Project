@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 import { sendMail } from "./mailService";
-const { SetUtil } = require("../common/setUtil");
+import { SetUtil } from "../common/setUtil";
 
 const userAuthService = {
   addUser: async ({ nickname, email, password }) => {
