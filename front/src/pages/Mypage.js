@@ -1,17 +1,17 @@
-import styled from "styled-components"
-import { useEffect, useContext, useState } from "react"
-import * as Api from "../api"
-import { UserStateContext } from "../App"
-import BarChart from "../components/mypage/MypageChart"
+import styled from "styled-components";
+import { useEffect, useContext, useState } from "react";
+import * as Api from "../api";
+import { UserStateContext } from "../App";
+import MypageBarChart from "../components/mypage/MypageChart";
 const Mypage = () => {
-  const userContext = useContext(UserStateContext)
-  const [data, setData] = useState({})
+  const userContext = useContext(UserStateContext);
+  const [data, setData] = useState({});
   useEffect(() => {
-    console.log(userContext.user.userId)
+    console.log(userContext.user.userId);
     Api.get("user", `${userContext.user.userId}/myPage`)
       .then((res) => {
-        setData(res.data.user)
-        console.log(res.data)
+        setData(res.data.user);
+        console.log(res.data);
         setUserData({
           labels: res.data.bookmarks.map((data) => data.name),
           datasets: [
@@ -29,13 +29,13 @@ const Mypage = () => {
               // borderWidth: 2,
             },
           ],
-        })
+        });
       })
       .catch((err) => {
-        console.log(err)
-        alert("해당 페이지를 불러오지 못했습니다.")
-      })
-  }, [])
+        console.log(err);
+        alert("해당 페이지를 불러오지 못했습니다.");
+      });
+  }, []);
 
   const [userData, setUserData] = useState({
     labels: ["없음"],
@@ -54,27 +54,63 @@ const Mypage = () => {
         // borderWidth: 2,
       },
     ],
-  })
+  });
 
   return (
     <Main>
-      <div>
-        <div>{data.nickname} 님의 게임 성향은...</div>
-        <div>나의 게임 성향과 관심 게임 정보를 한 눈에 담아보세요</div>
-        <button>프로필 수정</button>
+      <div className="top">
+        <div>
+          <div className="title">
+            {data.nickname} 님의 <br />
+            게임 성향은...
+          </div>
+          <div className="subtitle">
+            나의 게임 성향과 관심 게임 정보를
+            <br /> 한 눈에 담아보세요
+          </div>
+          <button>프로필 수정</button>
+        </div>
+        <div>
+          <MypageBarChart chartData={userData} />
+        </div>
       </div>
-      <div>
-        <BarChart chartData={userData} />
+      <div className="middle1">
+        <div>내가 찜한 게임</div>
+        <div>
+          <button>ALL</button>
+          <button>인기순</button>
+          <button>플레이타임순</button>
+        </div>
       </div>
     </Main>
-  )
-}
+  );
+};
 
 const Main = styled.div`
   min-height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-`
-export default Mypage
+
+  .top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+
+    .title {
+      font-size: 2.5em;
+      font-weight: bold;
+    }
+    .subtitle {
+      font-size: 1.2em;
+    }
+  }
+  .middle1 {
+    text-align: basis;
+    width: 80%;
+  }
+`;
+export default Mypage;
