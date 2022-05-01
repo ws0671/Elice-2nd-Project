@@ -8,6 +8,7 @@ const PointSchema = new Schema(
     },
     miniGame: {
       type: String,
+      enum: ["Roulette", "CatMatch"],
       required: true,
     },
     point: {
