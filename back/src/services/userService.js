@@ -129,23 +129,6 @@ const userAuthService = {
     return { user, bookmarks, reviews };
   },
 
-  getSortedBookmarks: async ({ userId, criteria, page }) => {
-    const user = await User.findById({ userId });
-    if (!user) {
-      throw new Error(
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
-      );
-    }
-    const bookmarkList = user.bookmarks;
-    const bookmarks = await Game.findSortedBookmarks({
-      page,
-      bookmarkList,
-      criteria,
-    });
-
-    return bookmarks;
-  },
-
   getUserAndCode: async ({ email }) => {
     const user = await User.findByEmail({ email });
     if (!user) {
@@ -164,6 +147,23 @@ const userAuthService = {
     await sendMail(email, subject, text);
 
     return { user, code };
+  },
+
+  getSortedBookmarks: async ({ userId, criteria, page }) => {
+    const user = await User.findById({ userId });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+    const bookmarkList = user.bookmarks;
+    const bookmarks = await Game.findSortedBookmarks({
+      page,
+      bookmarkList,
+      criteria,
+    });
+
+    return bookmarks;
   },
 
   deleteUser: async ({ userId }) => {
