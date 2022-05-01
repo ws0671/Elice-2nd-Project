@@ -15,7 +15,7 @@ const CommunityDetail = () => {
   const [isLiked, setIsLiked] = useState(false);
   // 커뮤니티 댓글 리스트 상태값
   const [example, setExample] = useState([]);
-  // 수정했는지 확인용 변수(수정폼 컴포넌트에서 사용)
+  // 수정폼 show/notshow 확인용 변수(수정폼 컴포넌트에서 사용)
   const [isEdit, setIsEdit] = useState(false);
   // 로그인 유저 전역 데이터값
   const userContext = useContext(UserStateContext);
