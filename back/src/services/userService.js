@@ -111,7 +111,7 @@ const userAuthService = {
     return { user, bookmarks, reviews };
   },
 
-  getSortedBookmarks: async ({ userId, criteria }) => {
+  getSortedBookmarks: async ({ userId, criteria, page }) => {
     const user = await User.findById({ userId });
     if (!user) {
       throw new Error(
@@ -120,10 +120,9 @@ const userAuthService = {
     }
     const bookmarkList = user.bookmarks;
     const bookmarks = await Game.findSortedBookmarks({
+      page,
       bookmarkList,
       criteria,
-      numOfPageSkip,
-      numOfPageLimit,
     });
 
     return bookmarks;

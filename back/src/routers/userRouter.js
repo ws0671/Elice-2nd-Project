@@ -48,40 +48,49 @@ userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
     // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
     const loginId = req.currentUserId;
     const userId = req.params.userId;
+    const criteria = req.query.criteria ? req.query.criteria : undefined; // positiveRate or averagePlaytime
+    const page = Number(req.query.page);
+    console.log(page);
     if (loginId === userId) {
-      const currentUserInfo = await userAuthService.getUserInfo({
-        userId,
-      });
+      if (!criteria) {
+        // 기준 없으면 전체 myPage 정보 return
+        const currentUserInfo = await userAuthService.getUserInfo({
+          userId,
+        });
 
-      res.status(200).send(currentUserInfo);
+        res.status(200).send(currentUserInfo);
+      } else {
+        // 기준 있으면 정렬된 북마크 정보만 return
+        const sortedBookmarksInfo = await userAuthService.getSortedBookmarks({
+          userId,
+          criteria,
+          page,
+        });
+
+        res.status(200).send(sortedBookmarksInfo);
+      }
     }
   } catch (error) {
     next(error);
   }
 });
 
-userAuthRouter.get(
-  "/:userId/bookmarks",
-  loginRequired,
-  async (req, res, next) => {
-    try {
-      // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
-      const loginId = req.currentUserId;
-      const userId = req.params.userId;
-      const criteria = req.query.criteria; // popular or playtime
-      if (loginId === userId) {
-        const currentUserInfo = await userAuthService.getSortedBookmarks({
-          userId,
-          criteria,
-        });
-
-        res.status(200).send(currentUserInfo);
-      }
-    } catch (error) {
-      next(error);
-    }
-  }
-);
+// userAuthRouter.get(
+//   "/:userId/myPage/bookmarks",
+//   loginRequired,
+//   async (req, res, next) => {
+//     try {
+//       // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
+//       const loginId = req.currentUserId;
+//       const userId = req.params.userId;
+//       const criteria = req.query.criteria; // popular or playtime
+//       if (loginId === userId) {
+//       }
+//     } catch (error) {
+//       next(error);
+//     }
+//   }
+// );
 
 userAuthRouter.put("/:userId", loginRequired, async (req, res, next) => {
   try {

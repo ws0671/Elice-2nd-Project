@@ -28,10 +28,12 @@ const Game = {
   findSortedBookmarks: async ({
     bookmarkList,
     criteria,
+    page,
     numOfPageSkip = 4,
     numOfPageLimit = 4,
   }) => {
-    const bookmarkCount = bookmarkList.length();
+    console.log(page);
+    const bookmarkCount = bookmarkList.length;
     const bookmarkGames = await GameModel.find({
       gameId: { $in: bookmarkList },
     })
