@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "hotkeys-js": "^3.9.2",
+    "styled-components": "^5.3.5"
+  }
+}
