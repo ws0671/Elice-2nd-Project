@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Container } from "../styles/CommunityAddFormStyle";
+import { Container } from "../styles/Community/CommunityAddFormStyle";
 import * as Api from "../../api";
 import { useParams } from "react-router-dom";
 

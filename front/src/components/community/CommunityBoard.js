@@ -2,7 +2,12 @@ import CommunityList from "./CommunityList";
 import { get as Get } from "../../api";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Nav, Div, Table, Button } from "../styles/CommunityBoardStyle";
+import {
+  Nav,
+  Div,
+  Table,
+  Button,
+} from "../styles/Community/CommunityBoardStyle";
 
 // 커뮤니티 게시판 컴포넌트
 const CommunityBoard = () => {

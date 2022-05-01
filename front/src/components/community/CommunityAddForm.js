@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { post as Post } from "../../api";
-import { Container } from "../styles/CommunityAddFormStyle";
+import { Container } from "../styles/Community/CommunityAddFormStyle";
 
 // 커뮤니티 글쓰기 추가폼 컴포넌트
 const CommunityAddForm = () => {

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Tr } from "../styles/CommunityElementStyle";
+import { Tr } from "../styles/Community/CommunityElementStyle";
 
 // 커뮤니티 게시판 해당 데이터 요소 컴포넌트
 const CommunityElement = ({ item, index, page }) => {

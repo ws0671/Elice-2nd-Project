@@ -5,7 +5,11 @@ import CommentAddForm from "../comment/CommentAddForm";
 import CommentList from "../comment/CommentList";
 import { UserStateContext } from "../../App";
 import CommunityEditForm from "./CommunityEditForm";
-import { Header, Container, ButtonGroup } from "../styles/CommunityDetailStyle";
+import {
+  Header,
+  Container,
+  ButtonGroup,
+} from "../styles/Community/CommunityDetailStyle";
 
 // 커뮤니 상세페이지 컴포넌트
 const CommunityDetail = () => {

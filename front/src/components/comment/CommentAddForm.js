@@ -1,4 +1,4 @@
-import { TextArea, Button } from "../styles/CommentAddFormStyle";
+import { TextArea, Button } from "../styles/Comment/CommentAddFormStyle";
 import { useState } from "react";
 const CommentAddForm = ({ clickHandler }) => {
   // 커멘트 textarea 상태값

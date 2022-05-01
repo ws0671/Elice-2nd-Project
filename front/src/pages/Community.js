@@ -1,5 +1,5 @@
 import CommunityBoard from "../components/community/CommunityBoard";
-import { Main, Container } from "../components/styles/CommunityStyle";
+import { Main, Container } from "../components/styles/Community/CommunityStyle";
 import { useNavigate } from "react-router-dom";
 
 // 커뮤니티 최상위 컴포넌트
