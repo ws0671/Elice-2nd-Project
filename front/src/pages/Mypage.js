@@ -75,12 +75,16 @@ const Mypage = () => {
         </div>
       </div>
       <div className="middle1">
-        <div>내가 찜한 게임</div>
+        <div className="topic">내가 찜한 게임</div>
         <div>
           <button>ALL</button>
           <button>인기순</button>
           <button>플레이타임순</button>
         </div>
+      </div>
+      <div className="middle2">
+        <div className="topic">내가 쓴 리뷰</div>
+        <div></div>
       </div>
     </Main>
   );
@@ -111,6 +115,16 @@ const Main = styled.div`
   .middle1 {
     text-align: basis;
     width: 80%;
+  }
+
+  .middle2 {
+    text-align: basis;
+    width: 80%;
+  }
+
+  .topic {
+    font-size: 2em;
+    font-weight: bold;
   }
 `;
 export default Mypage;
