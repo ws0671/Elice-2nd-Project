@@ -74,7 +74,7 @@ const userAuthService = {
     return loginUser;
   },
 
-  updateUser: async ({ userId, updateData }) => {
+  updateNickname: async ({ userId, updateData }) => {
     let user = await User.findById({ userId });
     if (!user) {
       throw new Error(
