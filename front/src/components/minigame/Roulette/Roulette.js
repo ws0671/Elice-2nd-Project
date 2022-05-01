@@ -21,8 +21,8 @@ const Roulette = () => {
 
   useEffect(async () => {
     const today = await axios.get("http://localhost:5001/post/Roulette");
-    if (today.point) {
-      setPoint(today.point);
+    if (today.data.point) {
+      setPoint(today.data.point);
     }
   }, []);
 
