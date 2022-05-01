@@ -67,11 +67,16 @@ const MemorizeCards = () => {
     shuffleCards();
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (success === 6) {
-      alert("축하합니다!! 100포인트를 얻으셨습니다.");
-      const point = 100;
-      axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
+      const today = await axios.get("http://localhost:5001/post/CatMatch");
+      if (!today.point) {
+        alert("축하합니다!! 100포인트를 얻으셨습니다.");
+        const point = 100;
+        await axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
+      } else {
+        alert("성공하셨습니다!!");
+      }
       shuffleCards();
     } else if (turns === 0) {
       alert("GAME OVER");
