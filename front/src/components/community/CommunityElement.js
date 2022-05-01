@@ -1,27 +1,31 @@
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
-const CommunityElement = ({ item }) => {
-  const navigate = useNavigate()
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Tr } from "../styles/CommunityElementStyle";
+
+// 커뮤니티 게시판 해당 데이터 요소 컴포넌트
+const CommunityElement = ({ item, index, page }) => {
+  // 조회수 상태값
+  const [hit, setHit] = useState(item.hits);
+  // 작성일 변수
+  const createdAt = item.createdAt.split("T");
+  const navigate = useNavigate();
   const clickHandler = () => {
-    navigate(`/community/${item.id}`)
-  }
+    navigate(`/community/${item.articleId}`);
+    setHit(hit + 1);
+  };
+
   return (
     <Tr>
-      <td>{item.id}</td>
-      <td onClick={clickHandler}>{item.title}</td>
-      <td>관리자</td>
-      <td>2022-04-23</td>
-      <td>{item.id}</td>
-      <td>{item.userId}</td>
+      <td>{index + (page - 1) * 10}</td>
+      <td onClick={clickHandler}>
+        <span>[{item.category}]</span> {item.title}
+      </td>
+      <td>{item.nickname}</td>
+      <td>{createdAt[0]}</td>
+      <td>{hit}</td>
+      <td>{item.like}</td>
     </Tr>
-  )
-}
+  );
+};
 
-const Tr = styled.tr`
-  td:nth-child(2):hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-`
-
-export default CommunityElement
+export default CommunityElement;
