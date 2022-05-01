@@ -43,7 +43,7 @@ userAuthRouter.post("/login", async (req, res, next) => {
   }
 });
 
-userAuthRouter.post("/verify", async (req, res, next) => {
+userAuthRouter.post("/emailVerify", async (req, res, next) => {
   try {
     const email = req.body.email;
 
