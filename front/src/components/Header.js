@@ -15,43 +15,7 @@ function Header() {
           <Link to="#">프롤로그</Link>
         </div>
         <div>
-<<<<<<< HEAD
-          <Nav>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>프롤로그</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>게임 추천</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/gamesearch")}>
-                게임 검색
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>TOP 차트</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/community")}>콘텐츠</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/mypage")}>
-                마이 페이지
-              </Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/login")}>로그인</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/register")}>
-                회원가입
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
-=======
           <Link to="#">게임 추천</Link>
->>>>>>> gamesearch
         </div>
         <div>
           <Link to="/gamesearch">게임 검색</Link>
@@ -60,10 +24,10 @@ function Header() {
           <Link to="/topchart">TOP 차트</Link>
         </div>
         <div>
-          <Link to="#">콘텐츠</Link>
+          <Link to="/community">콘텐츠</Link>
         </div>
         <div>
-          <Link to="#">마이 페이지</Link>
+          <Link to="/mypage">마이 페이지</Link>
         </div>
         <div>
           <Link to="/login">로그인</Link>

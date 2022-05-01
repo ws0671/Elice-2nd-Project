@@ -1,27 +1,3 @@
-<<<<<<< HEAD
-import React, { useState, useEffect, useReducer, createContext } from "react"
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
-
-import * as Api from "./api"
-import { loginReducer } from "./reducer"
-
-import Header from "./components/Header"
-import Main from "./pages/Main"
-import GameSearch from "./pages/GameSearch"
-
-import Register from "./pages/Register"
-import Community from "./pages/Community"
-import CommunityDetail from "./components/community/CommunityDetail"
-import LoginForm from "./pages/LoginForm"
-import Mypage from "./pages/Mypage"
-
-import "./css/header.css"
-import "./css/gamesearch.css"
-import CommunityAddForm from "./components/community/CommunityAddForm"
-
-export const UserStateContext = createContext(null)
-export const DispatchContext = createContext(null)
-=======
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -31,14 +7,17 @@ import { loginReducer } from "./reducer";
 import Header from "./components/Header";
 import Main from "./pages/Main";
 import GameSearch from "./pages/GameSearch";
-import LoginForm from "./pages/LoginForm";
+
 import Register from "./pages/Register";
 import Community from "./pages/Community";
 import CommunityDetail from "./components/community/CommunityDetail";
-import Topchart from "./pages/TopChart";
+import LoginForm from "./pages/LoginForm";
+import Mypage from "./pages/Mypage";
+import TopChart from "./pages/TopChart";
+import CommunityAddForm from "./components/community/CommunityAddForm";
+
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
->>>>>>> gamesearch
 
 function App() {
   // useReducer 훅을 통해 userState 상태와 dispatch함수를 생성함.
@@ -52,23 +31,23 @@ function App() {
 
   const fetchCurrentUser = async () => {
     try {
-      const currentUser = JSON.parse(sessionStorage.getItem("user"))
+      const currentUser = JSON.parse(sessionStorage.getItem("user"));
 
       // 로그인 한 유저가 아니라면
       if (!currentUser)
-        console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;")
+        console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;");
       // 로그인 유저이면
       else {
         // dispatch 함수를 통해 로그인 성공 상태로 만듦.
         dispatch({
           type: "LOGIN_SUCCESS",
           payload: currentUser,
-        })
+        });
 
-        console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;")
+        console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;");
       }
     } catch {
-      console.log("에러입니다.")
+      console.log("에러입니다.");
     }
     // fetchCurrentUser 과정이 끝났으므로, isFetchCompleted 상태를 true로 바꿔줌
     setIsFetchCompleted(true);
@@ -93,7 +72,7 @@ function App() {
             <Route path="/gamesearch" element={<GameSearch />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/topchart" element={<Topchart />} />
+            <Route path="/topchart" element={<TopChart />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
             <Route path="/mypage" element={<Mypage />} />
@@ -105,4 +84,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
