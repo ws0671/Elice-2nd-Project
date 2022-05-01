@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { restart } from "nodemon";
 import { loginRequired } from "../middlewares/loginRequired";
 import { ArticleService } from "../services/articleService";
 
@@ -10,7 +9,6 @@ ArticleRouter.post("/", async (req, res, next) => {
   try {
     const { category, title, body, tags } = req.body;
     const userId = req.currentUserId;
-
     const newArticle = await ArticleService.addArticle({
       userId,
       category,
