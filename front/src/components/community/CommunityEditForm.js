@@ -50,7 +50,7 @@ const CommunityEditForm = ({ isEditing }) => {
 
   const keyPressHandler = (e) => {
     const copied = content
-    if ((e.code = "Enter" && e.target.value)) {
+    if (e.code === "Enter" && e.target.value) {
       copied.tags.push(e.target.value)
       setContent((prev) => {
         return { ...prev, tags: copied.tags }
