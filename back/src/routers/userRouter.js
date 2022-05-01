@@ -43,6 +43,18 @@ userAuthRouter.post("/login", async (req, res, next) => {
   }
 });
 
+userAuthRouter.post("/verify", async (req, res, next) => {
+  try {
+    const email = req.body.email;
+
+    const user = await userAuthService.getUserAndCode({ email });
+
+    res.status(200).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
   try {
     // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
