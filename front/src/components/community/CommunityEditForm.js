@@ -1,46 +1,32 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import * as Api from "../../api";
 import { useParams } from "react-router-dom";
 
 const CommunityEditForm = ({ isEditing }) => {
-  const navigate = useNavigate();
-
+  // 해당 글 내용 데이터 상태값
   const [content, setContent] = useState([]);
+  // 태그 인풋 상태값
   const [tag, setTag] = useState("");
-  const [error, setError] = useState({ title: true, body: true });
   const params = useParams();
+
   useEffect(() => {
     Api.get("article", params.id).then((res) => {
       setContent(res.data.article);
     });
   }, []);
 
+  // 인풋박스 변경시 적용되는 함수
   const changeHandler = (e) => {
     setContent((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(content);
-    // errorHandler(e.target.name)
   };
 
-  const errorHandler = (v) => {
-    if (content.v === "") {
-      setError((prev) => {
-        return { ...prev, [v]: true };
-      });
-    } else {
-      setError((prev) => {
-        return { ...prev, [v]: false };
-      });
-    }
-  };
-
+  // 폼 제출용 함수
   const submitHandler = () => {
-    if (true) {
-      alert("성공했습니다.");
+    if (content.title && content.body && content.category) {
       const newContent = content;
       Api.put(`article/${params.id}`, newContent).then((res) => {
-        console.log(res.data);
+        alert("성공했습니다.");
         isEditing();
       });
     } else {
@@ -48,6 +34,7 @@ const CommunityEditForm = ({ isEditing }) => {
     }
   };
 
+  // 태그 추가용 함수
   const keyPressHandler = (e) => {
     const copied = content;
     if (e.key === "Enter" && e.target.value) {
@@ -59,6 +46,7 @@ const CommunityEditForm = ({ isEditing }) => {
     }
   };
 
+  // 태그 삭제용 함수
   const removeHandler = (e) => {
     const copied = content;
     const copiedTags = copied.tags.filter(
@@ -71,7 +59,7 @@ const CommunityEditForm = ({ isEditing }) => {
 
   return (
     <Container>
-      <div className="header">커뮤니티 글쓰기</div>
+      <div className="header">커뮤니티 글쓰기(수정)</div>
       <form className="formContainer">
         <fieldset className="formFieldset">
           <select
@@ -120,14 +108,14 @@ const CommunityEditForm = ({ isEditing }) => {
               id="tag"
               size="20"
               value={tag}
-              // placeholder={
-              //   content.tags.length >= 3
-              //     ? "최대 3개의 태그까지만 가능합니다."
-              //     : "태그를 입력하세요"
-              // }
+              placeholder={
+                content.tags && content.tags.length >= 3
+                  ? "최대 3개의 태그까지만 가능합니다."
+                  : "태그를 입력하세요"
+              }
               onKeyPress={keyPressHandler}
               onChange={(e) => setTag(e.target.value)}
-              // disabled={content.tags.length >= 3 ? true : false}
+              disabled={content.tags && content.tags.length >= 3 ? true : false}
             />
           </div>
 
@@ -145,7 +133,7 @@ const CommunityEditForm = ({ isEditing }) => {
             type="button"
             className="formButton submitButton"
           >
-            글올리기
+            확인
           </button>
 
           <button
