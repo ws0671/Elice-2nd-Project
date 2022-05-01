@@ -22,7 +22,7 @@ export const contentTwo = {
     topLine: {
         text: 'Recent Game Development Trend',
     },
-    headline: '컴퓨터 보급률 증가',
+    headline: 'PC 게임 발매량 증가',
     description: '현재 우리는 컴퓨터가 당연한 사회에서 살고 있습니다.',
     description2: '약 10년쯤만 해도 한 가구당 컴퓨터의 수는 1대 정도였습니다.',
     description3: '하지만 이제 휴대폰, 태블릿, 노트북, PC 까지 한 사람이 가진 컴퓨터가 1대가 넘습니다.',
