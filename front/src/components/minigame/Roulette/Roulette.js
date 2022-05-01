@@ -19,6 +19,13 @@ const Roulette = () => {
     setPoint(data[pointIndex].option);
   };
 
+  useEffect(async () => {
+    const today = await axios.get("http://localhost:5001/post/Roulette");
+    if (today.point) {
+      setPoint(today.point);
+    }
+  }, []);
+
   useEffect(() => {
     if (point) {
       axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
