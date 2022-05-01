@@ -55,7 +55,9 @@ const CommunityDetail = () => {
   // 댓글 수정용 함수
   const editHandler = (item, comment) => {
     const edit = { ...item, comment };
-    Api.put(`comment/${item.commentId}`, edit);
+    Api.put(`comment/${item.commentId}`, edit).then((res) =>
+      alert("댓글이 수정되었습니다.")
+    );
     const copied = example.map((v) => {
       if (
         v.writeNickname === edit.writeNickname &&
@@ -73,7 +75,9 @@ const CommunityDetail = () => {
   // 댓글 삭제용 함수
   const removeHandler = (item) => {
     const deleted = { ...item, isDeleted: true };
-    Api.put(`comment/${item.commentId}/delete`, deleted);
+    Api.put(`comment/${item.commentId}/delete`, deleted).then((res) =>
+      alert("댓글이 삭제되었습니다.")
+    );
     const copied = example.map((v) => {
       if (
         v.writeNickname === deleted.writeNickname &&
