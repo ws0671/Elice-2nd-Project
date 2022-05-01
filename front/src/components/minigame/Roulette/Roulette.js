@@ -27,7 +27,7 @@ const Roulette = () => {
   }, []);
 
   useEffect(() => {
-    if (point) {
+    if (point && pointIndex) {
       axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
     }
   }, [point]);
