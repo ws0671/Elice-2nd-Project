@@ -76,7 +76,7 @@ function LoginForm() {
             <LoginInput type='password' placeholder='Password' autoComplete="on" value={password} onChange={(e) => setPassword(e.target.value)} />
           </InputContainer>
           <ButtonContainer>
-            <LoginButton type="submit">LOG IN</LoginButton>
+            <LoginButton type="submit" onClick={handleSubmit}>LOG IN</LoginButton>
           </ButtonContainer>
           <GoToRegister>or become a new member!</GoToRegister>
           <HorizeontalRule />

@@ -47,6 +47,7 @@ function Header() {
 
 export default Header;
 
+
 const HeaderTag = styled.div`
   text-decoration: none;
   display: flex;
@@ -58,7 +59,6 @@ const HeaderTag = styled.div`
   transition-duration: 1s;
   justify-content: center;
   align-items: center;
-}
 
 
   & > .headerRight {
@@ -79,4 +79,5 @@ const HeaderTag = styled.div`
   a:hover {
     color: rgba(255, 255, 255);
   }
-`;
+  
+`

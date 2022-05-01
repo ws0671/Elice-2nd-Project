@@ -15,7 +15,6 @@ import Recommend from "./pages/Recommend";
 import RecomQnA from "./components/recommend/RecomQnA";
 import RecomResult from "./components/recommend/RecomResult"
 import Prologue from "./pages/Prologue"
-import LoginForm from "./pages/LoginForm";
 import Mypage from "./pages/Mypage";
 import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
