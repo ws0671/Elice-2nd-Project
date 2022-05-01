@@ -23,7 +23,7 @@ export const Container = styled.div`
   .write {
     position : fixed;
     left: 90%;
-    right: 90%
+    top: 87%;
     flex: 1;
     border: none;
     padding: 10px;
