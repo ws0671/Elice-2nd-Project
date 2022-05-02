@@ -13,18 +13,25 @@ const MiniGame = () => {
 
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useLocalStorageNumber("bestScore", 0);
-  const [point, setPoint] = useState(0);
+  const [getPoint, setGetPoint] = useState(false);
 
   useEffect(async () => {
-    if (score >= 50 && point === 0) {
+    if (score >= 50 && getPoint === false) {
+      // 오늘 2048 게임으로 포인트 얻었는지 여부 확인
       const today = await Api.get("point/2048");
-      console.log(today);
+      console.log(today.data);
       if (!today.data.point) {
-        setPoint(100);
+        setGetPoint(true);
         alert("축하합니다!! 100포인트를 얻으셨습니다.");
-        const point = 100;
-        console.log(userContext);
+        const record = { miniGame: 2048, point: 100 };
+        const point = { point: 100 };
+        // 2048 게임 기록 추가하기
+        await Api.post("point", record);
+        // user 계정에 포인트 올려주기
         await Api.put(`user/${userContext.user.userId}/addPoint`, point);
+      } else {
+        setGetPoint(true);
+        alert("오늘은 이미 100포인트를 얻으셨습니다.");
       }
     }
     if (score > bestScore) {
