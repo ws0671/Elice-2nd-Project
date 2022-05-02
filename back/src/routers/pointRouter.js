@@ -27,9 +27,6 @@ PointRouter.get("/:miniGame", async (req, res, next) => {
     const point = await pointService.checkPoint({
       userId,
       miniGame,
-      year,
-      month,
-      day,
     });
     res.status(200).json(point);
   } catch (error) {

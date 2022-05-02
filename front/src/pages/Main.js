@@ -10,7 +10,7 @@ function Main() {
     width: "250",
     height: "150",
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
     },
   };
   return (
