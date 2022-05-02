@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState, } from 'react';
 import { PieChart, Pie, Tooltip, Legend, Label } from 'recharts';
 import { ImgWrapper } from '../Contents/ContentStyle';
+import * as Api from '../../../api'
+
+
 const FirstChart = () => {
+
+    const [data, setData] = useState(null);
+
+    const [key, setKey] = useState(1);
+    const [limit, setLimit] = useState('releaseDate');
+    const [lastPage, setLastPage] = useState(1);
+    const [order, setOrder] = useState(1);
+
+
+    const getData = async () => {
+        const res = await Api.get(
+            `gameGraph/releaseByYear`
+        );
+        console.log(res.data);
+        setData(res.data);
+        setLastPage(10);
+        //res.lastPage
+    };
+
+
+
+    useEffect(() => {
+        getData()
+
+    }, [])
+
     const data01 = [
         { name: 'Group A', value: 400 },
         { name: 'Group B', value: 300 },
