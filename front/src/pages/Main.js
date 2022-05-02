@@ -1,8 +1,22 @@
-import React from "react";
-import styled from "styled-components";
+
 
 // 메인 bg-color:#673ab7
+
+import React, { useContext } from "react";
+import YouTube from "react-youtube";
+import { useNavigate, useLocation } from "react-router-dom";
+import Nav from "react-bootstrap/Nav";
+import { UserStateContext, DispatchContext } from "../App";
+import { Container, Card, Row, Col, Button } from "react-bootstrap";
+import styled from "styled-components";
 function Main() {
+  const opts = {
+    width: "250",
+    height: "150",
+    playerVars: {
+      autoplay: 1,
+    },
+  };
   return (
     <Body>
       <div className="video">
@@ -155,7 +169,7 @@ const Image = styled.img`
 const NewsImg = styled.img`
   width: 250px;
   height: 150px;
-  border-radius: 10%;
+  border-radius: 15%;
 `;
 const Div = styled.div`
   text-align: center;
