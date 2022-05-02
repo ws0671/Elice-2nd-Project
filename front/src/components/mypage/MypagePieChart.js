@@ -29,8 +29,8 @@ const MypagePieChart = ({ chartData }) => {
     "#00C49F",
     "#FFBB28",
     "#FF8042",
-    "#FF8042",
-    "#FF8042",
+    "#8884d8",
+    "#82ca9d",
   ];
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
