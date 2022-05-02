@@ -2,8 +2,12 @@ import styled from "styled-components";
 import { useEffect, useContext, useState } from "react";
 import * as Api from "../api";
 import { UserStateContext } from "../App";
-import MypageBarChart from "../components/mypage/MypageChart";
+import MypageBarChart from "../components/mypage/MypageBarChart";
+import MypagePieChart from "../components/mypage/MypagePieChart";
+
 const Mypage = () => {
+  const [TagData, setTagData] = useState([]);
+  const [total, setTotal] = useState(0);
   const userContext = useContext(UserStateContext);
   const [data, setData] = useState({});
   useEffect(() => {
@@ -12,24 +16,14 @@ const Mypage = () => {
       .then((res) => {
         setData(res.data.user);
         console.log(res.data);
-        setUserData({
-          labels: res.data.bookmarks.map((data) => data.name),
-          datasets: [
-            {
-              label: "Game Type",
-              data: res.data.bookmarks.map((data) => data.positiveRate),
-              backgroundColor: [
-                "rgb(255, 99, 132)",
-                "rgb(255, 159, 64)",
-                "#50AF95",
-                "#f3ba2f",
-                "#2a71d0",
-              ],
-              // borderColor: "black",
-              // borderWidth: 2,
-            },
-          ],
-        });
+        setUserData(
+          res.data.bookmarks.map((data) => ({
+            name: data.name,
+            긍정적: data.positiveRate,
+            부정적: data.negativeRate,
+          }))
+        );
+        setTagData(making(res.data.bookmarks.map((v) => v.steamspyTags)));
       })
       .catch((err) => {
         console.log(err);
@@ -37,24 +31,37 @@ const Mypage = () => {
       });
   }, []);
 
-  const [userData, setUserData] = useState({
-    labels: ["없음"],
-    datasets: [
-      {
-        label: "Game Type",
-        data: [0],
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#ecf0f1",
-          // "#50AF95",
-          // "#f3ba2f",
-          // "#2a71d0",
-        ],
-        // borderColor: "black",
-        // borderWidth: 2,
-      },
-    ],
-  });
+  const [userData, setUserData] = useState([]);
+  // const [tagData, setTagData] = useState([]);
+  console.log(TagData);
+
+  const making = (v) => {
+    let realTagData = [];
+    const result = {};
+    if (v) {
+      for (var i in v) {
+        for (var j in v[i]) {
+          realTagData.push(v[i][j]);
+        }
+      }
+    }
+    console.log(realTagData);
+    realTagData.forEach((x) => {
+      result[x] = (result[x] || 0) + 1;
+    });
+    console.log(result);
+
+    setTotal(
+      Object.values(result).reduce(function add(sum, currValue) {
+        return sum + currValue;
+      }, 0)
+    );
+
+    return Object.keys(result).map((name) => ({
+      name,
+      value: result[name],
+    }));
+  };
 
   return (
     <Main>
@@ -70,8 +77,20 @@ const Mypage = () => {
           </div>
           <button>프로필 수정</button>
         </div>
-        <div>
-          <MypageBarChart chartData={userData} />
+        <div className="chart">
+          {TagData && (
+            <MypagePieChart
+              total={total}
+              chartData={TagData.sort(function (a, b) {
+                return b.value - a.value;
+              })}
+            />
+          )}
+          <MypageBarChart
+            chartData={userData.sort(function (a, b) {
+              return b.긍정적 - a.긍정적;
+            })}
+          />
         </div>
       </div>
       <div className="middle1">
@@ -125,6 +144,11 @@ const Main = styled.div`
   .topic {
     font-size: 2em;
     font-weight: bold;
+  }
+
+  .chart {
+    display: flex;
+    flex-direction: row;
   }
 `;
 export default Mypage;

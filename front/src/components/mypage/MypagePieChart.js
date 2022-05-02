@@ -62,14 +62,14 @@ const MypagePieChart = ({ chartData, total }) => {
   };
 
   return (
-    <>
+    <div>
       <div style={{ textAlign: "center" }}>장르 분포</div>
       <PieChart width={500} height={300}>
         <Pie
           data={chartData}
           // labelLine={false}
           innerRadius={40}
-          outerRadius={80}
+          outerRadius={100}
           fill="#8884d8"
           paddingAngle={5}
           dataKey="value"
@@ -86,7 +86,7 @@ const MypagePieChart = ({ chartData, total }) => {
         <Tooltip content={<CustomTooltip />} />
         {/* <Legend /> */}
       </PieChart>
-    </>
+    </div>
   );
 };
 
