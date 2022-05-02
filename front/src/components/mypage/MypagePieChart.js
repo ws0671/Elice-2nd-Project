@@ -1,29 +1,7 @@
 import { PieChart, Pie, Cell, Tooltip, Legend, Sector } from "recharts";
 import { Custom } from "../styles/Mypage/MypageChart";
 
-const MypagePieChart = ({ chartData }) => {
-  // const CustomTooltip = ({ active, payload, label }) => {
-  //   if (active && payload && payload.length) {
-  //     return (
-  //       <Custom className="custom-tooltip">
-  //         <p className="label">{`${label}`}</p>
-  //         <p> {`긍정적 : ${payload[0].value} %`}</p>
-  //         <p> {`부정적 : ${payload[1].value} %`}</p>
-  //       </Custom>
-  //     );
-  //   }
-
-  //   return null;
-  // };
-
-  // const TagData = [
-  //   { name: "FPS", value: 3 },
-  //   { name: "World War II", value: 1 },
-  //   { name: "Multiplayer", value: 1 },
-  //   { name: "Classic", value: 1 },
-  //   { name: "Action", value: 2 },
-  //   { name: "Sci-fi", value: 1 },
-  // ];
+const MypagePieChart = ({ chartData, total }) => {
   const COLORS = [
     "#0088FE",
     "#00C49F",
@@ -42,7 +20,7 @@ const MypagePieChart = ({ chartData }) => {
     percent,
     index,
   }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const radius = 25 + innerRadius + (outerRadius - innerRadius);
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -55,12 +33,33 @@ const MypagePieChart = ({ chartData }) => {
           textAnchor={x > cx ? "start" : "end"}
           dominantBaseline="central"
         >
-          {`${chartData[index].name}`} {`${(percent * 100).toFixed(0)} %`}
+          {`${chartData[index].name}`}
+          {/* {`${(percent * 100).toFixed(0)} %`} */}
         </text>
       </>
     );
   };
-  console.log("태그데이터", chartData);
+
+  const CustomTooltip = ({ payload }) => {
+    console.log(payload);
+
+    return (
+      <div>
+        <div className="ant-popover-arrow" />
+        <Custom>
+          <span>게임 장르(개수) : </span>
+          <b>
+            {payload?.[0]?.payload?.name} ({payload?.[0]?.payload?.value})
+          </b>
+
+          <p className="desc">
+            <span>비율 : </span>
+            <b>{((payload?.[0]?.payload?.value / total) * 100).toFixed(0)}%</b>
+          </p>
+        </Custom>
+      </div>
+    );
+  };
 
   return (
     <>
@@ -68,7 +67,7 @@ const MypagePieChart = ({ chartData }) => {
       <PieChart width={500} height={300}>
         <Pie
           data={chartData}
-          labelLine={false}
+          // labelLine={false}
           innerRadius={40}
           outerRadius={80}
           fill="#8884d8"
@@ -84,7 +83,7 @@ const MypagePieChart = ({ chartData }) => {
               />
             ))}
         </Pie>
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         {/* <Legend /> */}
       </PieChart>
     </>
