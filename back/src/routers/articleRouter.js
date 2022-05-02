@@ -27,12 +27,14 @@ ArticleRouter.get("/", async (req, res, next) => {
   try {
     const category = req.query.category ?? null;
     const page = Number(req.query.page);
-    const skipAndLimit = req.query.limit ? Number(req.query.limit) : undefined;
+    const limit = req.query.limit ? Number(req.query.limit) : undefined;
+    const skip = req.query.skip ? Number(req.query.skip) : undefined;
 
     const articles = await ArticleService.getArticles({
       category,
       page,
-      skipAndLimit,
+      limit,
+      skip,
     });
     res.status(200).json(articles);
   } catch (error) {
