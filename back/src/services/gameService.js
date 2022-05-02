@@ -36,8 +36,11 @@ const gameService = {
     sortOrder,
     numOfPageLimit,
   }) => {
+    const filter = {
+      name: { $regex: `^${key}`, $options: "i" },
+    };
     const games = await Game.searchSortByColumn({
-      key,
+      filter,
       colName,
       page,
       sortOrder,

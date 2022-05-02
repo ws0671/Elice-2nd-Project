@@ -29,4 +29,34 @@ gameGraphRouter.get("/recentRelease", async (req, res, next) => {
     next(error);
   }
 });
+
+gameGraphRouter.get("/bestGenre/:genre", async (req, res, next) => {
+  try {
+    const gameGenre = req.params.genre;
+    const gameGraphList = await gameGraphService.getBestRankByGenre({
+      gameGenre,
+    });
+    res.status(200).send(gameGraphList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+gameGraphRouter.get("/ReleaseByYear", async (req, res, next) => {
+  try {
+    const gamesByYear = await gameGraphService.getGamesByReleaseYear();
+    res.status(200).send(gamesByYear);
+  } catch (error) {
+    next(error);
+  }
+});
+
+gameGraphRouter.get("/GamesByGenre", async (req, res, next) => {
+  try {
+    const gamesByGenre = await gameGraphService.getGamesByGenre();
+    res.status(200).send(gamesByGenre);
+  } catch (error) {
+    next(error);
+  }
+});
 export { gameGraphRouter };

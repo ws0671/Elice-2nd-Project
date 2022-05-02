@@ -1,6 +1,8 @@
-import { name as worstName, negativeRate } from "../json/똥겜TOP10";
-import { name as bestName, positiveRate } from "../json/평점TOP10";
-import { name as recentName, releaseDate } from "../json/최신TOP5";
+import { name as worstName, negativeRate } from "../json/worstGameTOP10";
+import { name as bestName, positiveRate } from "../json/bestGameTOP10";
+import { name as recentName, releaseDate } from "../json/recentGameTOP5";
+import { gameByReleaseYear, gameByGenre } from "../json/chartData";
+import { GameGraph } from "../db";
 
 const gameGraphService = {
   getWorstRank: async () => {
@@ -52,6 +54,29 @@ const gameGraphService = {
     });
 
     return [x, y];
+  },
+
+  getBestRankByGenre: async ({ gameGenre }) => {
+    const games = await GameGraph.findByGenre({ gameGenre });
+    const x = games.map((el) => el.name);
+    const y = games.map((el) => el.positiveRate);
+
+    if (!games) {
+      throw new Error("해당 장르가 없습니다. 다시 한 번 확인해 주세요");
+    }
+    return [x, y];
+  },
+
+  getGamesByReleaseYear: async () => {
+    const games = Object.values(gameByReleaseYear);
+    games.sort((a, b) => a.name - b.name);
+    return games;
+  },
+
+  getGamesByGenre: async () => {
+    const games = Object.values(gameByGenre);
+    games.sort((a, b) => b.value - a.value);
+    return games;
   },
 };
 
