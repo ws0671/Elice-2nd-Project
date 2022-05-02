@@ -8,11 +8,13 @@ const pointService = {
   },
   checkPoint: async ({ userId, miniGame }) => {
     // const date = `2022-04-29T15:00:00.000Z`
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const day = today.getDate();
-    const date = SetUtil.calDate({ year, month, day });
+    // const today = new Date();
+    // const year = today.getFullYear();
+    // const month = today.getMonth() + 1;
+    // const day = today.getDate();
+    // const date = SetUtil.calDate({ year, month, day });
+
+    const date = moment().startOf("day").subtract(9, "hours");
 
     const filter = { userId, miniGame, createdAt: { $gte: date } };
 
