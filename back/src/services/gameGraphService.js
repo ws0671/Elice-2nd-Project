@@ -1,7 +1,7 @@
 import { name as worstName, negativeRate } from "../json/worstGameTOP10";
 import { name as bestName, positiveRate } from "../json/bestGameTOP10";
 import { name as recentName, releaseDate } from "../json/recentGameTOP5";
-import { gameByReleaseYear, gameByGenre } from "../json/chartData";
+import { gameByReleaseYear, gameByGenre, indieByYear } from "../json/chartData";
 import { GameGraph } from "../db";
 
 const gameGraphService = {
@@ -76,6 +76,12 @@ const gameGraphService = {
   getGamesByGenre: async () => {
     const games = Object.values(gameByGenre);
     games.sort((a, b) => b.value - a.value);
+    return games;
+  },
+
+  getIndieByYear: async () => {
+    const games = Object.values(indieByYear);
+    games.sort((a, b) => a.name - b.name);
     return games;
   },
 };
