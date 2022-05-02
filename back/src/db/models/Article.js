@@ -6,17 +6,12 @@ const Article = {
     return createdNewArticle;
   },
 
-  findAllByCategory: async (
-    filter,
-    page,
-    numOfPageSkip = 10,
-    numOfPageLimit = 10
-  ) => {
+  findAllByCategory: async (filter, page, skipAndLimit = 10) => {
     const articleCount = await ArticleModel.countDocuments(filter);
     const articles = await ArticleModel.find(filter)
       .sort({ createdAt: -1 })
-      .skip((page - 1) * numOfPageSkip)
-      .limit(numOfPageLimit);
+      .skip((page - 1) * skipAndLimit)
+      .limit(skipAndLimit);
 
     return { articleCount, articles };
   },
