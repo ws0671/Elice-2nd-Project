@@ -1,0 +1,88 @@
+const Data = [
+  {
+    title: "디아블로",
+    developerName: "애플",
+    release: 1991,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "메이플스토리",
+    developerName: "넥슨",
+    release: 2000,
+    price: 5000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "메이플스토리2",
+    developerName: "넥슨",
+    release: 2010,
+    price: 7000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "바람의나라",
+    developerName: "넥슨",
+    release: 1991,
+    price: 3000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "리그오브레전드",
+    developerName: "라이엇",
+    release: 2010,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "이터널 리턴",
+    developerName: "애플",
+    release: 1991,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "디아블로2",
+    developerName: "블리자드",
+    release: 1991,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "디아블로3",
+    developerName: "블리자드",
+    release: 1991,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "오버워치",
+    developerName: "블리자드",
+    release: 1991,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "테일즈위버",
+    developerName: "애플",
+    release: 1991,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "드래곤네스트",
+    developerName: "애플",
+    release: 1991,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+  {
+    title: "로스트아크",
+    developerName: "애플",
+    release: 1991,
+    price: 10000,
+    src: "images/star.jpg",
+  },
+];
+
+export default Data;

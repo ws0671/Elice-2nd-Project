@@ -20,15 +20,19 @@ const Roulette = () => {
   };
 
   useEffect(async () => {
-    const today = await axios.get("http://localhost:5001/post/Roulette");
-    if (today.point) {
-      setPoint(today.point);
+    const today = await axios.get("http://localhost:5001/point/Roulette");
+    if (today.data.point) {
+      setPoint(today.data.point);
     }
   }, []);
 
   useEffect(() => {
     if (point && pointIndex) {
       axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
+      axios.post("http://localhost:5001/point", {
+        miniGame: "Roulette",
+        point,
+      });
     }
   }, [point]);
 

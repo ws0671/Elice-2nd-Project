@@ -69,11 +69,15 @@ const MemorizeCards = () => {
 
   useEffect(async () => {
     if (success === 6) {
-      const today = await axios.get("http://localhost:5001/post/CatMatch");
-      if (!today.point) {
+      const today = await axios.get("http://localhost:5001/point/CatMatch");
+      if (!today.data.point) {
         alert("축하합니다!! 100포인트를 얻으셨습니다.");
         const point = 100;
         await axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
+        await axios.post("http://localhost:5001/point", {
+          miniGame: "CatMatch",
+          point,
+        });
       } else {
         alert("성공하셨습니다!!");
       }

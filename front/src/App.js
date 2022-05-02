@@ -4,18 +4,20 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
 
-import Header from "./components/Header";
-import Main from "./pages/Main";
+import Header from "./components/Header"
+import Main from "./pages/Main"
 import MiniGame from "./pages/MiniGame";
-import GameSearch from "./pages/GameSearch";
-
-import Register from "./pages/Register";
-import Community from "./pages/Community";
-import CommunityDetail from "./components/community/CommunityDetail";
-import LoginForm from "./pages/LoginForm";
-
-import "./css/header.css";
-import "./css/gamesearch.css";
+import GameSearch from "./pages/GameSearch"
+import Login from "./pages/Login"
+import Register from "./pages/Register"
+import Community from "./pages/Community"
+import CommunityDetail from "./components/community/CommunityDetail"
+import Recommend from "./pages/Recommend";
+import RecomQnA from "./components/recommend/RecomQnA";
+import RecomResult from "./components/recommend/RecomResult"
+import Prologue from "./pages/Prologue"
+import Mypage from "./pages/Mypage";
+import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
 
 export const UserStateContext = createContext(null);
@@ -33,8 +35,7 @@ function App() {
 
   const fetchCurrentUser = async () => {
     try {
-      // 유저의 닉네임 값을 가져옴.
-      const currentUser = sessionStorage.nickName;
+      const currentUser = JSON.parse(sessionStorage.getItem("user"));
 
       // 로그인 한 유저가 아니라면
       if (!currentUser)
@@ -76,9 +77,16 @@ function App() {
             <Route path="/minigame" element={<MiniGame />} />
             <Route path="/login" element={<LoginForm />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/topchart" element={<TopChart />} />
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
+            <Route path="/recommend" element={<Recommend />} />
+            <Route path="/recommend/qna" element={<RecomQnA />} />
+            <Route path="/recommend/result" element={<RecomResult />} />
+            <Route path="/prologue" element={<Prologue />} />
+            <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
+
           </Routes>
         </Router>
       </UserStateContext.Provider>
