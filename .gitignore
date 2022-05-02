@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 # dependencies
 node_modules
-=======
 csv
->>>>>>> ed01c1c13b66e8e0cc777b0fb43f1f8344727d28
+.env

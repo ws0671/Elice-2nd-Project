@@ -10,8 +10,17 @@ const ArticleService = {
     const user = await User.findById({ userId });
     const author = userId;
     const nickname = user.nickname;
+    const categoryName = SetUtil.convertCategory(category);
 
-    const newArticle = { author, nickname, category, title, body, tags };
+    const newArticle = {
+      author,
+      nickname,
+      category,
+      categoryName,
+      title,
+      body,
+      tags,
+    };
 
     const createdNewArticle = await Article.create({ newArticle });
     return createdNewArticle;
@@ -72,7 +81,7 @@ const ArticleService = {
     }
   },
 
-  updateArticle: async ({ articleId, author, updateData }) => {
+  updateArticle: async ({ articleId, author, category, updateData }) => {
     if (!SetUtil.validateCategory(updateData.category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
@@ -84,7 +93,8 @@ const ArticleService = {
     } else if (article.author !== author) {
       throw new Error("수정 권한이 없는 게시물입니다.");
     }
-
+    const categoryName = SetUtil.convertCategory(category);
+    updateData["categoryName"] = categoryName;
     const toUpdate = SetUtil.compareValues(updateData, article);
 
     article = await Article.update({ articleId, toUpdate });
