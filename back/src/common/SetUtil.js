@@ -65,7 +65,12 @@ const SetUtil = {
     let result = {};
     result.isUpgraded = true;
 
-    if (user.point + point >= 1500 && user.grade < 4) {
+    const GRADE_4_THRESHOLD = 1500;
+    const GRADE_3_THRESHOLD = 1000;
+    const GRADE_2_THRESHOLD = 600;
+    const GRADE_1_THRESHOLD = 300;
+
+    if (user.point + point >= GRADE_4_THRESHOLD && user.grade < 4) {
       result.toUpdate = {
         $inc: {
           point: point,
@@ -74,7 +79,7 @@ const SetUtil = {
           grade: 4,
         },
       };
-    } else if (user.point + point >= 1000 && user.grade < 3) {
+    } else if (user.point + point >= GRADE_3_THRESHOLD && user.grade < 3) {
       result.toUpdate = {
         $inc: {
           point: point,
@@ -83,7 +88,7 @@ const SetUtil = {
           grade: 3,
         },
       };
-    } else if (user.point + point >= 600 && user.grade < 2) {
+    } else if (user.point + point >= GRADE_2_THRESHOLD && user.grade < 2) {
       result.toUpdate = {
         $inc: {
           point: point,
@@ -92,7 +97,7 @@ const SetUtil = {
           grade: 2,
         },
       };
-    } else if (user.point + point >= 300 && user.grade < 1) {
+    } else if (user.point + point >= GRADE_1_THRESHOLD && user.grade < 1) {
       result.toUpdate = {
         $inc: {
           point: point,
