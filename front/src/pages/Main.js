@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import FindPCplace from "../components/kakaomap/findPCplace";
 
 // 메인 bg-color:#673ab7
 function Main() {
@@ -113,6 +114,20 @@ function Main() {
                 <div className="mt-3">
                   [콘솔] 더 포가튼 시티 한국어판, 5월 PC/PS로 출시
                 </div>
+              </div>
+            </div>
+          </FlexDiv2>
+        </div>
+        <br />
+        <br />
+        <div className="kakaoMap">
+          <DivBold className="mb-5 ms-5">
+            <h3>내 주변 PC방 찾기</h3>
+          </DivBold>
+          <FlexDiv2>
+            <div>
+              <div>
+                <FindPCplace />
               </div>
             </div>
           </FlexDiv2>
