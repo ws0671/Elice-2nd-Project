@@ -4,18 +4,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
 
-import Header from "./components/Header"
-import Main from "./pages/Main"
+import Header from "./components/Header";
+import Main from "./pages/Main";
 import MiniGame from "./pages/MiniGame";
-import GameSearch from "./pages/GameSearch"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Community from "./pages/Community"
-import CommunityDetail from "./components/community/CommunityDetail"
+import GameSearch from "./pages/GameSearch";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Community from "./pages/Community";
+import CommunityDetail from "./components/community/CommunityDetail";
 import Recommend from "./pages/Recommend";
 import RecomQnA from "./components/recommend/RecomQnA";
-import RecomResult from "./components/recommend/RecomResult"
-import Prologue from "./pages/Prologue"
+import RecomResult from "./components/recommend/RecomResult";
+import Prologue from "./pages/Prologue";
 import Mypage from "./pages/Mypage";
 import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
@@ -75,7 +75,7 @@ function App() {
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
             <Route path="/minigame" element={<MiniGame />} />
-            <Route path="/login" element={<LoginForm />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/topchart" element={<TopChart />} />
             <Route path="/community" element={<Community />} />
@@ -86,7 +86,6 @@ function App() {
             <Route path="/prologue" element={<Prologue />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
-
           </Routes>
         </Router>
       </UserStateContext.Provider>
