@@ -137,10 +137,7 @@ const userAuthService = {
       );
     }
 
-    let code = Math.floor(Math.random() * 1000000) + 100000;
-    if (code > 1000000) {
-      code = code - 100000;
-    }
+    const code = Math.floor(100000 + Math.random() * 900000);
 
     const subject = "[GAME PEARL] 인증코드";
     const text = `귀하의 인증코드는 ${code} 입니다. 인증 후 비밀번호를 변경해주세요.`;
