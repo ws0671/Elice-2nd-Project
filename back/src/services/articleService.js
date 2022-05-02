@@ -26,7 +26,7 @@ const ArticleService = {
     return createdNewArticle;
   },
 
-  getArticles: async ({ category, page, numOfPageSkip, numOfPageLimit }) => {
+  getArticles: async ({ category, page, skipAndLimit }) => {
     if ((category !== null) & !SetUtil.validateCategory(category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
@@ -41,8 +41,7 @@ const ArticleService = {
     const articles = await Article.findAllByCategory(
       filter,
       page,
-      numOfPageSkip,
-      numOfPageLimit
+      skipAndLimit
     );
     return articles;
   },
