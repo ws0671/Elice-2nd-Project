@@ -10,7 +10,6 @@ const pointService = {
     const date =
       moment().startOf("day").subtract(9, "hours").format(`YYYY-MM-DD`) +
       `T15:00:00.000Z`;
-    console.log(date);
 
     const filter = { userId, miniGame, createdAt: { $gte: date } };
 
