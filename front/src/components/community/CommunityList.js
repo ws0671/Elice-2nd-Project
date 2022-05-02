@@ -1,7 +1,6 @@
-import CommunityElement from "./CommunityElement"
-
+import CommunityElement from "./CommunityElement";
+// 커뮤니티 게시판 리스트 컴포넌트
 const CommunityList = ({ info, page }) => {
-  console.log(info)
   return (
     <tbody>
       {info.map((item) => {
@@ -12,10 +11,10 @@ const CommunityList = ({ info, page }) => {
             item={item}
             index={info.indexOf(item) + 1}
           />
-        )
+        );
       })}
     </tbody>
-  )
-}
+  );
+};
 
-export default CommunityList
+export default CommunityList;
