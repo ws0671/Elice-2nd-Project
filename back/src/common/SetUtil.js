@@ -14,13 +14,13 @@ const SetUtil = {
 
   validateCategory: (category) => {
     const categoryList = [
-      "공지사항",
-      "유머",
-      "파티 모집",
-      "후기",
-      "건의사항",
-      "꿀팁",
-      "선택 안함",
+      "notice", // 공지사항
+      "humor", // 유머
+      "partyRecruitment", // 파티 모집
+      "postscript", // 후기
+      "suggestions", // 건의사항
+      "honeytip", // 꿀팁
+      "default", // 선택 안함
     ];
 
     return categoryList.includes(category);
@@ -28,16 +28,16 @@ const SetUtil = {
 
   validatePermission: (grade, category) => {
     const categoryPermission = {
-      // "공지사항"이랑 "선택 안함"은 권한이 필요 없음
-      유머: 0,
-      "파티 모집": 1,
-      후기: 2,
-      건의사항: 3,
-      꿀팁: 4,
+      // "notice"랑 "default"는 권한이 필요 없음
+      humor: 0,
+      partyRecruitment: 1,
+      postscript: 2,
+      suggestions: 3,
+      honeytip: 4,
     };
 
     // 확인 가능한지를 true, false로 반환
-    if (category == "공지사항" || category == "선택 안함") {
+    if (category == "notice" || category == "default") {
       return true;
     } else if (grade >= categoryPermission[category]) {
       return true;
