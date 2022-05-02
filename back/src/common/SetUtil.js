@@ -26,6 +26,21 @@ const SetUtil = {
     return categoryList.includes(category);
   },
 
+  convertCategory: (category) => {
+    const categoryList = {
+      notice: "공지사항",
+      humor: "유머",
+      partyRecruitment: "파티 모집",
+      postscript: "후기",
+      suggestions: "건의사항",
+      honeytip: "꿀팁",
+      default: "선택 안함",
+    };
+    const categoryName = categoryList[category];
+
+    return categoryName;
+  },
+
   validatePermission: (grade, category) => {
     const categoryPermission = {
       // "notice"랑 "default"는 권한이 필요 없음
