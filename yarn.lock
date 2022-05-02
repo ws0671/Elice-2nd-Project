@@ -2,3 +2,48 @@
 # yarn lockfile v1
 
 
+"js-tokens@^3.0.0 || ^4.0.0":
+  "integrity" "sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ=="
+  "resolved" "https://registry.npmjs.org/js-tokens/-/js-tokens-4.0.0.tgz"
+  "version" "4.0.0"
+
+"kakao.maps.d.ts@^0.1.26":
+  "integrity" "sha512-62NXQuEN/gsdi6qdsTBndpEvsLLG8GFKnkgFnG1ECi30YIENB1atqozkP2/b8MtkwUztoYwGu3KpXtH2u0xf4Q=="
+  "resolved" "https://registry.npmjs.org/kakao.maps.d.ts/-/kakao.maps.d.ts-0.1.26.tgz"
+  "version" "0.1.26"
+
+"loose-envify@^1.1.0":
+  "integrity" "sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q=="
+  "resolved" "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz"
+  "version" "1.4.0"
+  dependencies:
+    "js-tokens" "^3.0.0 || ^4.0.0"
+
+"react-dom@>=17.0.2 || >=16.9.0":
+  "integrity" "sha512-fU1Txz7Budmvamp7bshe4Zi32d0ll7ect+ccxNu9FlObT605GOEB8BfO4tmRJ39R5Zj831VCpvQ05QPBW5yb+w=="
+  "resolved" "https://registry.npmjs.org/react-dom/-/react-dom-18.1.0.tgz"
+  "version" "18.1.0"
+  dependencies:
+    "loose-envify" "^1.1.0"
+    "scheduler" "^0.22.0"
+
+"react-kakao-maps-sdk@^1.0.6":
+  "integrity" "sha512-2QXAoP0qGKjI36uesr8YQo+6ihbNDtAWdv0+0L9enmxJVsZX3s5mN9/stK3xXxD4mzLuNPoAtH4A4Cbwa7iTvg=="
+  "resolved" "https://registry.npmjs.org/react-kakao-maps-sdk/-/react-kakao-maps-sdk-1.0.6.tgz"
+  "version" "1.0.6"
+  dependencies:
+    "kakao.maps.d.ts" "^0.1.26"
+
+"react@^18.1.0", "react@>=17.0.2 || >=16.9.0":
+  "integrity" "sha512-4oL8ivCz5ZEPyclFQXaNksK3adutVS8l2xzZU0cqEFrE9Sb7fC0EFK5uEk74wIreL1DERyjvsU915j1pcT2uEQ=="
+  "resolved" "https://registry.npmjs.org/react/-/react-18.1.0.tgz"
+  "version" "18.1.0"
+  dependencies:
+    "loose-envify" "^1.1.0"
+
+"scheduler@^0.22.0":
+  "integrity" "sha512-6QAm1BgQI88NPYymgGQLCZgvep4FyePDWFpXVK+zNSUgHwlqpJy8VEh8Et0KxTACS4VWwMousBElAZOH9nkkoQ=="
+  "resolved" "https://registry.npmjs.org/scheduler/-/scheduler-0.22.0.tgz"
+  "version" "0.22.0"
+  dependencies:
+    "loose-envify" "^1.1.0"

@@ -1,4 +1,5 @@
 /*global kakao*/
+import "./findPCplace.css";
 import React, { useEffect } from "react";
 
 const FindPCplace = () => {
@@ -75,8 +76,30 @@ const FindPCplace = () => {
   }, []);
 
   return (
-    <div>
-      <div id="map" style={{ width: "500px", height: "400px" }}></div>
+    <div className="map_wrap">
+      <div
+        id="map"
+        style={{
+          width: "800px",
+          height: "500px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      ></div>
+      <div id="menu_wrap" className="bg_white">
+        {/* <div className="option">
+        <div>
+            <form onSubmit="searchPlaces(); return false;">
+              키워드 :{" "}
+              <input type="text" value="이태원 맛집" id="keyword" size="15" />
+              <button type="submit">검색하기</button>
+            </form>
+          </div>
+        </div> */}
+        <hr />
+        <ul id="placesList"></ul>
+        <div id="pagination"></div>
+      </div>
     </div>
   );
 };
