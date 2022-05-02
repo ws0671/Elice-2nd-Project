@@ -23,7 +23,7 @@ ArticleRouter.post("/", async (req, res, next) => {
   }
 });
 
-ArticleRouter.get("/list/:page", async (req, res, next) => {
+ArticleRouter.get("/", async (req, res, next) => {
   try {
     const category = req.query.category ?? null;
     const page = Number(req.params.page);
