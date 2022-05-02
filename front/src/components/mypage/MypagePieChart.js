@@ -63,7 +63,7 @@ const MypagePieChart = ({ chartData, total }) => {
 
   return (
     <div>
-      <div style={{ textAlign: "center" }}>장르 분포</div>
+      <div style={{ textAlign: "center" }}>관심 장르 분포</div>
       <PieChart width={500} height={300}>
         <Pie
           data={chartData}
