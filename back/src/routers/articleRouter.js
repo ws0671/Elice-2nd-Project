@@ -7,11 +7,12 @@ ArticleRouter.use(loginRequired); // 게시판 기능은 무조건 회원가입
 
 ArticleRouter.post("/", async (req, res, next) => {
   try {
-    const { category, title, body, tags } = req.body;
+    const { category, categoryName, title, body, tags } = req.body;
     const userId = req.currentUserId;
     const newArticle = await ArticleService.addArticle({
       userId,
       category,
+      categoryName,
       title,
       body,
       tags,
@@ -64,9 +65,9 @@ ArticleRouter.put("/:articleId", async (req, res, next) => {
     const articleId = req.params.articleId;
     const author = req.currentUserId;
 
-    const { category, title, body, tags } = req.body ?? null;
+    const { category, categoryName, title, body, tags } = req.body ?? null;
 
-    const updateData = { category, title, body, tags };
+    const updateData = { category, categoryName, title, body, tags };
 
     const updatedArticle = await ArticleService.updateArticle({
       articleId,

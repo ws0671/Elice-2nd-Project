@@ -2,7 +2,7 @@ import { Article, Like, Comment, User } from "../db";
 import { SetUtil } from "../common/setUtil";
 
 const ArticleService = {
-  addArticle: async ({ userId, category, title, body, tags }) => {
+  addArticle: async ({ userId, category, categoryName, title, body, tags }) => {
     if (!SetUtil.validateCategory(category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
@@ -11,7 +11,15 @@ const ArticleService = {
     const author = userId;
     const nickname = user.nickname;
 
-    const newArticle = { author, nickname, category, title, body, tags };
+    const newArticle = {
+      author,
+      nickname,
+      category,
+      categoryName,
+      title,
+      body,
+      tags,
+    };
 
     const createdNewArticle = await Article.create({ newArticle });
     return createdNewArticle;
