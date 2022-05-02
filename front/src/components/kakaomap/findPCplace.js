@@ -62,6 +62,16 @@ const FindPCplace = () => {
       // 지도 중심좌표를 접속위치로 변경합니다.
       map.setCenter(locPostion);
     }
+
+    kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+      // 클릭한 위도, 경도 정보를 가져옵니다
+      var latlng = mouseEvent.latLng;
+
+      var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, ";
+      message += "경도는 " + latlng.getLng() + " 입니다";
+
+      console.log(message);
+    });
   }, []);
 
   return (
