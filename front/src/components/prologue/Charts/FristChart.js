@@ -16,7 +16,7 @@ const FirstChart = () => {
 
     const getData = async () => {
         const res = await Api.get(
-            `gameGraph/releaseByYear`
+            `gameGraph/gamesByGenre`
         );
         console.log(res.data);
         setData(res.data);
