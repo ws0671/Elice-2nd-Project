@@ -20,6 +20,7 @@ const MemorizeCards = () => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const userContext = useContext(UserStateContext);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
