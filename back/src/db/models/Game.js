@@ -10,7 +10,7 @@ const Game = {
     const games = await GameModel.find({})
       .skip((page - 1) * numOfPageSkip)
       .limit(numOfPageLimit);
-    return { gameCount, games };
+    return games;
   },
 
   countGames: async (filter) => {
