@@ -66,7 +66,7 @@ const Game = {
       .sort({ [colName]: [sortOrder] })
       .skip((page - 1) * numOfPageLimit)
       .limit(numOfPageLimit);
-    return { gameCount, games };
+    return games;
   },
 };
 
