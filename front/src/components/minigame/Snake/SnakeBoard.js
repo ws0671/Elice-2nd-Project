@@ -9,3 +9,7 @@ import {
   Speed,
   Directions,
 } from "./SnakeConstants";
+
+const SnakeBoard = () => {};
+
+export default SnakeBoard;
