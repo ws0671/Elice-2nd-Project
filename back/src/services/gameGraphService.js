@@ -64,13 +64,10 @@ const gameGraphService = {
 
   getBestRankByGenre: async ({ gameGenre }) => {
     const games = await GameGraph.findByGenre({ gameGenre });
-    const x = games.map((el) => el.name);
-    const y = games.map((el) => el.positiveRate);
-    console.log(games);
     if (!games) {
       throw new Error("해당 장르가 없습니다. 다시 한 번 확인해 주세요");
     }
-    return [x, y];
+    return games;
   },
 
   getGamesByReleaseYear: async () => {
