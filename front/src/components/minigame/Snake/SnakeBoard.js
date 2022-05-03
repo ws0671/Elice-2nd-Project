@@ -23,6 +23,9 @@ const SnakeBoard = () => {
 
   useInterval(() => gameLoop(), speed);
 
+  const moveSnake = ({ keyCode }) =>
+    keyCode >= 37 && keyCode <= 40 && setDir(Directions[keyCode]);
+
   const gameLoop = () => {
     const snakeCopy = JSON.parse(JSON.stringify(snake));
     const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
