@@ -42,6 +42,8 @@ const SnakeBoard = () => {
     setLastWords("GAME OVER!");
   };
 
+  useEffect(() => {}, [snake, apple, gameOver]);
+
   return (
     <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}>
       {gameOver ? <h1>{lastWords}</h1> : <h1>SNAKE GAME</h1>}
