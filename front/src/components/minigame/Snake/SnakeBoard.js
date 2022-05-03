@@ -10,6 +10,7 @@ import {
 } from "./SnakeConstants";
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
+import Swal from "sweetalert2";
 
 const SnakeBoard = () => {
   const canvasRef = useRef();
