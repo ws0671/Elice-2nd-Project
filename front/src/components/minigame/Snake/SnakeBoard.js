@@ -15,7 +15,7 @@ const SnakeBoard = () => {
   const canvasRef = useRef();
   const [snake, setSnake] = useState(SnakeStart);
   const [apple, setApple] = useState(AppleStart);
-  const [dirs, setDir] = useState([0, -1]);
+  const [dir, setDir] = useState([0, -1]);
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [lastWords, setLastWords] = useState("GAME OVER!");
