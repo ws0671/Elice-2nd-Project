@@ -10,14 +10,23 @@ const ArticleService = {
     const user = await User.findById({ userId });
     const author = userId;
     const nickname = user.nickname;
+    const categoryName = SetUtil.convertCategory(category);
 
-    const newArticle = { author, nickname, category, title, body, tags };
+    const newArticle = {
+      author,
+      nickname,
+      category,
+      categoryName,
+      title,
+      body,
+      tags,
+    };
 
     const createdNewArticle = await Article.create({ newArticle });
     return createdNewArticle;
   },
 
-  getArticles: async ({ category, page, numOfPageSkip, numOfPageLimit }) => {
+  getArticles: async ({ category, page, limit, skip }) => {
     if ((category !== null) & !SetUtil.validateCategory(category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
@@ -29,12 +38,7 @@ const ArticleService = {
       filter = { category };
     }
 
-    const articles = await Article.findAllByCategory(
-      filter,
-      page,
-      numOfPageSkip,
-      numOfPageLimit
-    );
+    const articles = await Article.findAllByCategory(filter, page, limit, skip);
     return articles;
   },
 
@@ -52,13 +56,19 @@ const ArticleService = {
       const likeOrNot = await Like.findByFilter({ articleId, userId });
       const like = Boolean(likeOrNot);
       const comments = await Comment.findAllByArticle({ articleId });
+      if (article.author === userId) {
+        const articleInfo = { article, like, comments };
 
-      const toUpdate = { $inc: { hits: 1 } };
-      article = await Article.update({ articleId, toUpdate });
+        return articleInfo;
+      } else {
+        // 본인이 작성한 글이 아닐 때만 조회수 증가
+        const toUpdate = { $inc: { hits: 1 } };
+        article = await Article.update({ articleId, toUpdate });
 
-      const articleInfo = { article, like, comments };
+        const articleInfo = { article, like, comments };
 
-      return articleInfo;
+        return articleInfo;
+      }
     } else {
       throw new Error(
         "게시글에 접근 권한이 없습니다. 포인트를 쌓아 등업해주세요."
@@ -66,7 +76,7 @@ const ArticleService = {
     }
   },
 
-  updateArticle: async ({ articleId, author, updateData }) => {
+  updateArticle: async ({ articleId, author, category, updateData }) => {
     if (!SetUtil.validateCategory(updateData.category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
@@ -78,7 +88,8 @@ const ArticleService = {
     } else if (article.author !== author) {
       throw new Error("수정 권한이 없는 게시물입니다.");
     }
-
+    const categoryName = SetUtil.convertCategory(category);
+    updateData["categoryName"] = categoryName;
     const toUpdate = SetUtil.compareValues(updateData, article);
 
     article = await Article.update({ articleId, toUpdate });
