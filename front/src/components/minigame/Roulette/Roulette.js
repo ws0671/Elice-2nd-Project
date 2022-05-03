@@ -8,6 +8,7 @@ const Roulette = () => {
   const [spin, setSpin] = useState(false);
   const [pointIndex, setPointIndex] = useState();
   const [point, setPoint] = useState();
+  const userContext = useContext(UserStateContext);
 
   const handleStart = () => {
     // 룰렛을 실행시킴
