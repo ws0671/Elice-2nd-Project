@@ -31,7 +31,7 @@ const Roulette = () => {
   useEffect(() => {
     if (point && pointIndex) {
       Api.put(`user/${userContext.user.userId}/addPoint`, { point: point });
-      axios.post("http://localhost:5001/point", {
+      Api.post("point", {
         miniGame: "Roulette",
         point,
       });
