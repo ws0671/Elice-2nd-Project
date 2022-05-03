@@ -19,7 +19,6 @@ const SnakeBoard = () => {
   const [dir, setDir] = useState([0, -1]);
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const [lastWords, setLastWords] = useState("GAME OVER!");
   const [point, setPoint] = useState(false);
   const userContext = useContext(UserStateContext);
 
@@ -107,7 +106,6 @@ const SnakeBoard = () => {
     setDir([0, -1]);
     setSpeed(Speed);
     setGameOver(false);
-    setLastWords("GAME OVER!");
   };
 
   useEffect(() => {
