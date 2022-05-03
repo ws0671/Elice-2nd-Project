@@ -33,6 +33,7 @@ const SnakeBoard = () => {
     if (!point && snake.length >= 20) {
       setLastWords("축하합니다! 100포인트를 얻으셨습니다.");
       await axios.put(`http://localhost:5001/user/${userId}/addPoint`, { point: 100})
+      await axios.post(`http://localhost:5001/point`, {miniGame: "SnakeGame", point: 100})
     }
   };
 
