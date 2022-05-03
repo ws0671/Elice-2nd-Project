@@ -22,7 +22,7 @@ PointRouter.post("/", async (req, res, next) => {
 PointRouter.get("/", async (req, res, next) => {
   try {
     const userId = req.currentUserId;
-    const miniGame = req.query.miniGame.slice(0, -1);
+    const miniGame = req.query.miniGame;
 
     const point = await pointService.checkPoint({
       userId,
