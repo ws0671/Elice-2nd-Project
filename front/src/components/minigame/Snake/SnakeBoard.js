@@ -34,7 +34,13 @@ const SnakeBoard = () => {
     setSpeed(null);
     setGameOver(true);
     if (!point && snake.length >= 20) {
-      setLastWords("축하합니다! 100포인트를 얻으셨습니다.");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "축하합니다! 100포인트를 얻으셨습니다!!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       await Api.put(`user/${userContext.user.userId}/addPoint`, {
         point: 100,
       });
