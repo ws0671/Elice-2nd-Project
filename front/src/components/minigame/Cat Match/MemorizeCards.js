@@ -1,3 +1,4 @@
+import React from "react";
 import "./MemorizeCards.css";
 import SingleCard from "./SingleCard";
 import axios from "axios";
