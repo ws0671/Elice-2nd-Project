@@ -4,6 +4,16 @@ export const Div = styled.div`
   display: flex;
   flex-direction: column;
   min-height: 50vh;
+  .forPoint {
+    width: 80%;
+    padding: 10px 0;
+    margin: 0;
+    border-radius: 10px;
+
+    &:first-of-type {
+      margin-top: 20px;
+    }
+  }
   .notFound {
     font-size: 30px;
     font-weight: bold;
@@ -17,13 +27,27 @@ export const Div = styled.div`
   }
 `;
 export const Table = styled.table`
+  border-top: 5px #1d1e42 solid;
+  thead {
+    border-bottom: 5px #1d1e42 solid;
+    background: #1d1e42;
+    color: white;
+  }
   tr {
     text-align: center;
+  }
+  .odd {
+    background: white;
+  }
+
+  .even {
+    background: #f7f6fe;
   }
 
   .dropdown {
     position: relative;
     display: inline-block;
+    border: none;
   }
 
   .dropdown-content {
@@ -66,7 +90,6 @@ export const Button = styled.button`
   padding: 8px 12px;
   margin: 0 4px;
   background: #e0e0e0;
-
   font-size: 1rem;
   font-weight: bold;
 
@@ -87,5 +110,6 @@ export const Button = styled.button`
     font-weight: bold;
     cursor: revert;
     transform: revert;
+    color: white;
   }
 `;
