@@ -1,3 +1,4 @@
+import { redisClient, DEFAULT_EXPIRATION } from "../db";
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { gameService } from "../services/gameService";
@@ -11,12 +12,33 @@ gameRouter.get("/list/:page", async (req, res, next) => {
     const numOfPageLimit = req.query.limit
       ? Number(req.query.limit)
       : undefined;
-    const gameList = await gameService.getGames({
-      page,
-      numOfPageSkip,
-      numOfPageLimit,
+    // redis 서버 연결
+    await redisClient.connect();
+    // redis 서버에서 캐시 확인
+    redisClient.get("game/list", async (err, data) => {
+      if (err) console.error(error);
+      if (data) {
+        // 캐시가 있으면
+        res.json(JSON.parse(data));
+      } else {
+        // 캐시가 없으면
+        const gameList = await gameService.getGames({
+          page,
+          numOfPageSkip,
+          numOfPageLimit,
+        });
+        // const { data } = await axios.get("http://localhost:5001/game/list", {
+        //   params: { page },
+        // });
+        redisClient.setex(
+          "game/list",
+          DEFAULT_EXPIRATION,
+          JSON.stringify(gameList)
+        ); // set with an expiration time (or can use other redis expressions
+        // redis can only store strings, so we need to convert the data to a string
+        res.status(200).json(gameList);
+      }
     });
-    res.status(200).json(gameList);
   } catch (error) {
     next(error);
   }
