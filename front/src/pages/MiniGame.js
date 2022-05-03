@@ -11,7 +11,7 @@ import { identity, reject } from "lodash";
 const todayCheck = () => {
   return new Promise((res, rej) => {
     try {
-      const today = Api.get("point/2048");
+      const today = Api.get("point?miniGame=2048");
       res(today.data.point);
     } catch {
       rej(new Error("오늘의 게임 기록을 불러오지 못했습니다."));
@@ -63,7 +63,6 @@ const MiniGame = () => {
         <AboveGame />
       </div>
       <Game setScore={setScore} />
-      {/* </div> */}
     </>
   );
 };
