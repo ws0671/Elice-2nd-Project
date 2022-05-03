@@ -23,6 +23,11 @@ const SnakeBoard = () => {
 
   useInterval(() => gameLoop(), speed);
 
+  useEffect(async () => {
+    const today = await axios.get("http://localhost:5001?miniGmae=SnakeGame");
+    setPoint(today.data.point);
+  }, []);
+
   const endGame = () => {
     setSpeed(null);
     setGameOver(true);
