@@ -13,7 +13,7 @@ const Game = {
     return { gameCount, games };
   },
 
-  countGames: async ({}) => {
+  countGames: async (filter) => {
     const gameCounts = await GameModel.countDocuments({});
     return gameCounts;
   },
