@@ -1,16 +1,32 @@
 import styled from "styled-components";
-
 export const Main = styled.div`
   min-height: 100vh;
   display: flex;
+
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
+
+  .navMargin {
+    height: 50px;
+  }
+  .title {
+    p:first-of-type {
+      font-size: 40px;
+      font-weight: bold;
+    }
+    p:nth-of-type(2) {
+      font-size: 20px;
+    }
+
+    margin: auto;
+    text-align: center;
+  }
 `;
 export const Container = styled.div`
-  max-width: 100vh;
-  width: 100vh;
-  margin-top: 90px;
+  // max-width: 100vw;
+  width: 100vw;
+  // margin-top: 90px;
   // max-height: 100vh;
   // height: 80vh;
 

@@ -15,10 +15,10 @@ const CommentAddForm = ({ clickHandler }) => {
       />
       <Button
         onClick={() => {
-          if (comment.length >= 20) {
+          if (comment.length !== 0) {
             clickHandler(comment);
             setComment("");
-          } else alert("20자 이상을 적어주세요.");
+          }
         }}
       >
         등록

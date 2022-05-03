@@ -3,6 +3,18 @@ import styled from "styled-components";
 export const Div = styled.div`
   display: flex;
   flex-direction: column;
+  min-height: 50vh;
+  .notFound {
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin: auto;
+
+    .material-symbols-outlined {
+      color: red;
+      font-size: 60px;
+    }
+  }
 `;
 export const Table = styled.table`
   tr {
@@ -50,11 +62,11 @@ export const Nav = styled.nav`
 
 export const Button = styled.button`
   border: none;
-  border-radius: 8px;
-  padding: 4px 8px;
-  margin: 0;
-  // background: black;
-  // color: white;
+  border-radius: 12px;
+  padding: 8px 12px;
+  margin: 0 4px;
+  background: #e0e0e0;
+
   font-size: 1rem;
   font-weight: bold;
 
@@ -71,7 +83,7 @@ export const Button = styled.button`
   }
 
   &[aria-current] {
-    background: rgba(108, 99, 255, 0.7);
+    background: #624de3;
     font-weight: bold;
     cursor: revert;
     transform: revert;

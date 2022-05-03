@@ -71,14 +71,14 @@ const CommunityEditForm = ({ isEditing }) => {
             <option style={{ display: "none" }} value="말머리 선택">
               말머리 선택
             </option>
-            <option value="선택 안함">말머리 선택 안함</option>
+            <option value="default">말머리 선택 안함</option>
 
-            <option value="공지사항">공지사항</option>
-            <option value="유머">유머</option>
-            <option value="파티 모집">파티 모집</option>
-            <option value="건의사항">건의사항</option>
-            <option value="후기">후기</option>
-            <option value="꿀팁">꿀팁</option>
+            <option value="notice">공지사항</option>
+            <option value="humor">유머</option>
+            <option value="partyRecruitment">파티 모집</option>
+            <option value="suggestions">건의사항</option>
+            <option value="postscript">후기</option>
+            <option value="honeytip">꿀팁</option>
           </select>
         </fieldset>
         <fieldset className="formFieldset">
