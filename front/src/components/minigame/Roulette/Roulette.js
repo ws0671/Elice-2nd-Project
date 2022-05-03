@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Wheel } from "react-custom-roulette";
 import data from "./rouletteData";
-import axios from "axios";
 
 const Roulette = () => {
   const [spin, setSpin] = useState(false);
