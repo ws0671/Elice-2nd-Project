@@ -1,17 +1,36 @@
 /*global kakao*/
 import "./findPCplace.css";
-import React, { useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
+
+const getCurrentCoordinate = async () => {
+  return new Promise((res, rej) => {
+    // HTML5의 geolocaiton으로 사용할 수 있는지 확인합니다.
+    if (navigator.geolocation) {
+      // GeoLocation을 이용해서 접속 위치를 얻어옵니다.
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const lat = position.coords.latitude; // 위도
+        const lon = position.coords.longitude; // 경도
+
+        const coordinate = new kakao.maps.LatLng(lat, lon);
+        res(coordinate);
+      });
+    } else {
+      rej(new Error("현재 위치를 불러올 수 없습니다."));
+    }
+  });
+};
 
 const FindPCplace = () => {
   useEffect(() => {
     // 마커를 담을 배열입니다
     var markers = [];
 
-    var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-      mapOption = {
-        center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
-        level: 3, // 지도의 확대 레벨
-      };
+    var mapContainer = document.getElementById("map"); // 지도를 표시할 div
+
+    var mapOption = {
+      center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+      level: 3, // 지도의 확대 레벨
+    };
 
     // 지도를 생성합니다
     var map = new kakao.maps.Map(mapContainer, mapOption);
@@ -37,11 +56,18 @@ const FindPCplace = () => {
     searchPlaces();
 
     // 키워드 검색을 요청하는 함수입니다
-    function searchPlaces() {
+    async function searchPlaces() {
       var keyword = "피씨방";
+      const test = await getCurrentCoordinate();
+      console.log(test);
+      var options = {
+        location: test,
+        radius: 10000,
+        sort: kakao.maps.services.SortBy.DISTANCE,
+      };
 
       // 장소검색 객체를 통해 키워드로 장소검색을 요청합니다
-      ps.keywordSearch(keyword, placesSearchCB);
+      ps.keywordSearch(keyword, placesSearchCB, options);
     }
 
     // 장소검색이 완료됐을 때 호출되는 콜백함수 입니다
@@ -50,7 +76,6 @@ const FindPCplace = () => {
         // 정상적으로 검색이 완료됐으면
         // 검색 목록과 마커를 표출합니다
         displayPlaces(data);
-
         // 페이지 번호를 표출합니다
         displayPagination(pagination);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
