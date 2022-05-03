@@ -42,7 +42,15 @@ const SnakeBoard = () => {
     setLastWords("GAME OVER!");
   };
 
-  useEffect(() => {}, [snake, apple, gameOver]);
+  useEffect(() => {
+    const context = canvasRef.current.getContext("2d");
+    context.setTransform(Scale, 0, 0, Scale, 0, 0);
+    context.clearRect(0, 0, CanvasSize[0], CanvasSize[1]);
+    context.fillStyle = "pink";
+    snake.forEach(([x, y]) => context.fillRect(x, y, 1, 1));
+    context.fillStyle = "lightblue";
+    context.fillRect(apple[0], apple[1], 1, 1);
+  }, [snake, apple, gameOver]);
 
   return (
     <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}>
