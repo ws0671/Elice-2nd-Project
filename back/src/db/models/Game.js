@@ -49,11 +49,10 @@ const Game = {
   },
 
   sortByColumn: async ({ colName, numOfLimit = 10 }) => {
-    const gameCount = await GameModel.countDocuments({});
     const games = await GameModel.find({})
       .sort({ [colName]: -1 })
       .limit(numOfLimit);
-    return { gameCount, games };
+    return games;
   },
 
   searchSortByColumn: async ({
