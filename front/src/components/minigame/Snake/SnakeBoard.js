@@ -33,7 +33,16 @@ const SnakeBoard = () => {
     setSnake(snakeCopy);
   };
 
-  return <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}></div>;
+  return (
+    <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}>
+      <canvas
+        style={{ border: "1px solid white" }}
+        ref={canvasRef}
+        width={`${CanvasSize[0]}px`}
+        height={`${CanvasSize[1]}px`}
+      />
+    </div>
+  );
 };
 
 export default SnakeBoard;
