@@ -89,7 +89,7 @@ const MemorizeCards = () => {
       alert("GAME OVER");
       shuffleCards();
     }
-  }, [turns, success]);
+  }, [turns]);
 
   return (
     <div className="MemorizeCards">
