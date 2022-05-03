@@ -66,7 +66,7 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
           <img
             key={key}
             src={val.headerImage}
-            style={{ width: "400px", height: "224px", opacity: 1 }}
+            style={{ width: "300px", height: "300px", opacity: 1 }}
             alt="플랫폼 이미지"
           />
         ))}

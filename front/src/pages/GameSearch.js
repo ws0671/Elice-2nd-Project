@@ -44,7 +44,7 @@ const FLATFORM_DATA = [
   { headerImage: "images/xbox.jpg" },
   { headerImage: "images/ps4.jpg" },
   { headerImage: "images/ps5.jpg" },
-  { headerImage: "images/pc.jpg" },
+  { headerImage: "images/pcGame.png" },
 ];
 function GameSearch() {
   //없는 검색어 검색시 없는 검색이라고 나오도록 구현하기
