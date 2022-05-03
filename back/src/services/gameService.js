@@ -28,7 +28,7 @@ const gameService = {
   getRankedList: async ({ colName, numOfLimit }) => {
     const games = await Game.sortByColumn({ colName, numOfLimit });
     const gameCounts = await Game.countGames({});
-    return games;
+    return { games, gameCounts };
   },
 
   getSearchResult: async ({
