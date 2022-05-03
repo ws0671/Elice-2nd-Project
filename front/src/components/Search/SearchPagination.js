@@ -19,7 +19,7 @@ const SearchPagination = ({ page, lastPage, limit, setPage, setLimit }) => {
   }, [lastPage, page]);
 
   return (
-    <Row className="justify-content-center mt-3">
+    <Row className="justify-content-center mt-3 me-0">
       <Col md={1} xs={3}>
         <Form.Select
           value={limit}
@@ -28,7 +28,6 @@ const SearchPagination = ({ page, lastPage, limit, setPage, setLimit }) => {
             setLimit(e.target.value);
           }}
         >
-          <option value="6">6</option>
           <option value="12">12</option>
           <option value="24">24</option>
           <option value="48">48</option>

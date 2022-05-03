@@ -1,6 +1,14 @@
 import React from "react";
-import styled from "styled-components";
-
+import {
+  Body,
+  DivBold,
+  FlexDiv1,
+  ImageWrapper,
+  Image,
+  Div,
+  FlexDiv2,
+  NewsImg,
+} from "../components/styles/MainStyle";
 // 메인 bg-color:#673ab7
 function Main() {
   return (
@@ -139,60 +147,5 @@ function Main() {
     </Body>
   );
 }
-const ImageWrapper = styled.div`
-  background-color: white;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-const Image = styled.img`
-  width: 120px;
-  height: 120px;
-`;
-const NewsImg = styled.img`
-  width: 250px;
-  height: 150px;
-  border-radius: 10%;
-`;
-const Div = styled.div`
-  text-align: center;
-  div:nth-child(2) {
-    display: flex;
-    justify-content: center;
-  }
-  div:nth-child(3) {
-    display: flex;
-    justify-content: space-evenly;
-  }
-`;
-const FlexDiv1 = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  div {
-    color: white;
-  }
-`;
-const FlexDiv2 = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-
-  & > div {
-    width: 250px;
-  }
-  div {
-    color: white;
-  }
-`;
-
-const Body = styled.div`
-  background-color: #673ab7;
-`;
-const DivBold = styled.div`
-  color: white;
-  font-weight: bold;
-`;
 
 export default Main;
