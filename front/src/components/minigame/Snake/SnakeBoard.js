@@ -9,11 +9,13 @@ import {
   Speed,
   Directions,
 } from "./SnakeConstants";
+import { dirs } from "nodemon/lib/config";
 
 const SnakeBoard = () => {
   const canvasRef = useRef();
   const [snake, setSnake] = useState(SnakeStart);
   const [apple, setApple] = useState(AppleStart);
+  const [dirs, setDir] = useState([0, -1]);
 };
 
 export default SnakeBoard;
