@@ -10,6 +10,7 @@ import { Comment } from "./models/Comment";
 import { Like } from "./models/Like";
 import { ReviewSchema } from "./schemas/review";
 import { Review } from "./models/Review";
+import { GameGraph } from "./models/gameGraph";
 import { Point } from "./models/Point";
 
 const DB_URL =
@@ -86,6 +87,7 @@ export {
   ReviewModel,
   User,
   Game,
+  GameGraph,
   Article,
   Comment,
   Like,

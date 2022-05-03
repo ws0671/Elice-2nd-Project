@@ -43,7 +43,7 @@ userAuthRouter.post("/login", async (req, res, next) => {
   }
 });
 
-userAuthRouter.post("/verify", async (req, res, next) => {
+userAuthRouter.post("/emailVerify", async (req, res, next) => {
   try {
     const email = req.body.email;
 
@@ -61,16 +61,27 @@ userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
     const loginId = req.currentUserId;
     const userId = req.params.userId;
     const criteria = req.query.criteria ? req.query.criteria : undefined; // positiveRate or averagePlaytime
-    const page = Number(req.query.page);
-    console.log(page);
+    const page = req.query.page ? Number(req.query.page) : undefined;
+
     if (loginId === userId) {
       if (!criteria) {
-        // 기준 없으면 전체 myPage 정보 return
-        const currentUserInfo = await userAuthService.getUserInfo({
-          userId,
-        });
+        // 기준이 없고
+        if (!page) {
+          // page도 없으면 전체 myPage 정보 return
+          const currentUserInfo = await userAuthService.getUserInfo({
+            userId,
+          });
 
-        res.status(200).send(currentUserInfo);
+          res.status(200).send(currentUserInfo);
+        } else {
+          // page만 있으면 pagenation 한 전체 북마크 게임 정보 return
+          const bookmarksInfo = await userAuthService.getAllBookmarks({
+            userId,
+            page,
+          });
+
+          res.status(200).send(bookmarksInfo);
+        }
       } else {
         // 기준 있으면 정렬된 북마크 정보만 return
         const sortedBookmarksInfo = await userAuthService.getSortedBookmarks({

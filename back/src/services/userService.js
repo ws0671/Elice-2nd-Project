@@ -123,7 +123,7 @@ const userAuthService = {
       );
     }
     const bookmarkList = user.bookmarks;
-    const bookmarks = await Game.findAllBookmarks({ bookmarkList });
+    const bookmarks = await Game.findAllBookmarks({ bookmarkList, page: 1 });
     const reviews = await Review.findAllByUser({ userId });
 
     return { user, bookmarks, reviews };
@@ -137,16 +137,29 @@ const userAuthService = {
       );
     }
 
-    let code = Math.floor(Math.random() * 1000000) + 100000;
-    if (code > 1000000) {
-      code = code - 100000;
-    }
+    const code = Math.floor(100000 + Math.random() * 900000);
 
     const subject = "[GAME PEARL] 인증코드";
     const text = `귀하의 인증코드는 ${code} 입니다. 인증 후 비밀번호를 변경해주세요.`;
     await sendMail(email, subject, text);
 
     return { user, code };
+  },
+
+  getAllBookmarks: async ({ userId, page }) => {
+    const user = await User.findById({ userId });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+    const bookmarkList = user.bookmarks;
+    const bookmarks = await Game.findAllBookmarks({
+      page,
+      bookmarkList,
+    });
+
+    return bookmarks;
   },
 
   getSortedBookmarks: async ({ userId, criteria, page }) => {
