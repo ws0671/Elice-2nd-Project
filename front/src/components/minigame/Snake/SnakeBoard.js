@@ -10,6 +10,8 @@ import {
   Directions,
 } from "./SnakeConstants";
 
-const SnakeBoard = () => {};
+const SnakeBoard = () => {
+  const canvasRef = useRef();
+};
 
 export default SnakeBoard;
