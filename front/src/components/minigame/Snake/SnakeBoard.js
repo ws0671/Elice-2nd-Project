@@ -8,6 +8,7 @@ import {
   Speed,
   Directions,
 } from "./SnakeConstants";
+import * as Api from "../../../api";
 
 const SnakeBoard = () => {
   const canvasRef = useRef();
