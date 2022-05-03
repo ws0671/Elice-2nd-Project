@@ -33,7 +33,7 @@ const Roulette = () => {
       Api.put(`user/${userContext.user.userId}/addPoint`, { point: point });
       Api.post("point", {
         miniGame: "Roulette",
-        point,
+        point: point,
       });
     }
   }, [point]);
