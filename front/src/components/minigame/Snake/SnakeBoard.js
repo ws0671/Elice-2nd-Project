@@ -17,6 +17,7 @@ const SnakeBoard = () => {
   const [apple, setApple] = useState(AppleStart);
   const [dirs, setDir] = useState([0, -1]);
   const [speed, setSpeed] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
 };
 
 export default SnakeBoard;
