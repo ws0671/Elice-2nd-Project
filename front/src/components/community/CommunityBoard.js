@@ -36,7 +36,7 @@ const CommunityBoard = () => {
   }, [page, query]);
 
   return (
-    <div className="container">
+    <div className="container" style={{ marginTop: 0 }}>
       <Div className="list">
         <Table className="table">
           <colgroup>
@@ -69,7 +69,7 @@ const CommunityBoard = () => {
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
-              <th>조회</th>
+              <th>조회 수</th>
               <th className="dropdown">좋아요</th>
             </tr>
           </thead>

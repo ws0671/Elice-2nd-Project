@@ -33,27 +33,40 @@ export const Container = styled.div`
   padding: 12px;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-
+  .buttonWrap {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 90%;
+    height: 10vh;
+    
+    
+  }
   .write {
-    position : fixed;
-    left: 90%;
-    top: 87%;
-    flex: 1;
     border: none;
-    padding: 10px;
+    
     color: white;
     font-weight: 700;
-    border-radius: 3px;
+    border-radius: 15px;
     font-size: 20px;
     cursor: pointer;
-    background: rgba(108, 99, 255, 0.7);
+    background: #624DE3;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
 
     &:hover {
       background: rgba(108, 99, 255, 0.6);
+      transform: scale(1.05);
+    }
+    .material-symbols-outlined {
+      padding-right: 10px;
     }
   }
 
   }
+  
 `;

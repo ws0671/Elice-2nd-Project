@@ -25,10 +25,15 @@ const Community = () => {
       </div>
 
       <Container>
+        <div className="buttonWrap">
+          <button
+            className="write"
+            onClick={() => navigate("/community/create")}
+          >
+            <span class="material-symbols-outlined">edit</span> 글쓰기
+          </button>
+        </div>
         <CommunityBoard />
-        <button className="write" onClick={() => navigate("/community/create")}>
-          글쓰기
-        </button>
       </Container>
     </Main>
   );
