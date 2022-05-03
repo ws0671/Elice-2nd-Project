@@ -7,11 +7,15 @@ const Game = {
   },
 
   findAll: async ({ page, numOfPageSkip = 10, numOfPageLimit = 10 }) => {
-    const gameCount = await GameModel.countDocuments({});
     const games = await GameModel.find({})
       .skip((page - 1) * numOfPageSkip)
       .limit(numOfPageLimit);
     return { gameCount, games };
+  },
+
+  countGames: async ({}) => {
+    const gameCounts = await GameModel.countDocuments({});
+    return gameCounts;
   },
 
   findById: async ({ gameId }) => {

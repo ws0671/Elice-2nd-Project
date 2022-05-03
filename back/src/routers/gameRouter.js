@@ -67,10 +67,10 @@ gameRouter.get("/rankedList/:colName", async (req, res, next) => {
   }
 });
 
-gameRouter.get("/search/:key/:page", async (req, res, next) => {
+gameRouter.get("/search/:key", async (req, res, next) => {
   try {
     const key = req.params.key;
-    const page = req.params.page;
+    const page = Number(req.query.page);
     const colName = req.query.colName ? req.query.colName : undefined;
     const numOfPageLimit = req.query.limit
       ? Number(req.query.limit)
