@@ -35,6 +35,14 @@ const SnakeBoard = () => {
     apple.map((_, i) => Math.floor(Math.random() * (CanvasSize[i] / Scale)));
 
   const checkCollision = (piece, snk = snake) => {
+    if (
+      piece[0] * Scale >= CanvasSize[0] ||
+      piece[0] < 0 ||
+      piece[1] * Scale >= CanvasSize[1] ||
+      piece[1] < 0
+    )
+      return true;
+
     return false;
   };
 
