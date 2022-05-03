@@ -72,6 +72,9 @@
 #placesList .item .info {
   padding: 10px 0 10px 55px;
 }
+#placesList .info {
+  color: black;
+}
 #placesList .info .gray {
   color: #8a8a8a;
 }
