@@ -76,7 +76,9 @@ const MemorizeCards = () => {
       if (!today.data.point) {
         alert("축하합니다!! 100포인트를 얻으셨습니다.");
         const point = 100;
-        await Api.put(`user/${userId}/addPoint`, { point: point });
+        await Api.put(`user/${userContext.user.userId}/addPoint`, {
+          point: point,
+        });
         await Api.post("point", {
           miniGame: "CatMatch",
           point: point,
