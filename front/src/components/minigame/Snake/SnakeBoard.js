@@ -127,6 +127,7 @@ const SnakeBoard = () => {
         width={`${CanvasSize[0]}px`}
         height={`${CanvasSize[1]}px`}
       />
+      <h1>SCORE : {score}</h1>
       <div>
         <button onClick={startGame}>START</button>
       </div>
