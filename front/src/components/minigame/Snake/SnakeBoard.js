@@ -12,6 +12,7 @@ import {
 
 const SnakeBoard = () => {
   const canvasRef = useRef();
+  const [snake, setSnake] = useState(SnakeStart);
 };
 
 export default SnakeBoard;
