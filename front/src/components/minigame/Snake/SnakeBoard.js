@@ -42,6 +42,14 @@ const SnakeBoard = () => {
         miniGame: "SnakeGame",
         point: 100,
       });
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "GAME OVER!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   };
 
