@@ -1,30 +1,37 @@
-import CommunityList from "./CommunityList"
-import * as Api from "../../api"
-import { useEffect, useState } from "react"
-import styled from "styled-components"
+import CommunityList from "./CommunityList";
+import { get as Get } from "../../api";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Nav, Div, Table, Button } from "../styles/CommunityBoardStyle";
 
+// 커뮤니티 게시판 컴포넌트
 const CommunityBoard = () => {
-  const [info, setInfo] = useState([])
-  const [total, setTotal] = useState(10)
-  const [query, setQuery] = useState("")
-  const limit = 10
-  const [page, setPage] = useState(1)
-  const numPages = Math.ceil(total / limit)
+  // 게시판 리스트 데이터 상태값
+  const [info, setInfo] = useState([]);
+  // 총 페이지 상태값
+  const [total, setTotal] = useState(10);
+  // 카테고리 별 조건 경로 상태값
+  const [query, setQuery] = useState("");
+  // 현재 페이지 상태값
+  const [page, setPage] = useState(1);
+  const numPages = Math.ceil(total / 10);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    Api.get("article/list", page + query)
+    Get("article/list", page + query)
       .then((res) => {
-        setInfo(res.data.articles)
-        setTotal(res.data.articleCount)
+        setInfo(res.data.articles);
+        setTotal(res.data.articleCount);
       })
-      .catch((err) => alert("해당 페이지를 불러오지 못했습니다."))
-  }, [page, query])
+      .catch((err) => {
+        alert("로그인을 해주세요!");
+        navigate("/login");
+      });
+  }, [page, query]);
+
   return (
     <div className="container">
-      <div
-        className="list"
-        style={{ display: "flex", flexDirection: "column" }}
-      >
+      <Div className="list">
         <Table className="table">
           <colgroup>
             <col width="10%" />
@@ -39,29 +46,27 @@ const CommunityBoard = () => {
               <th className="dropdown">
                 말머리
                 <ul className="dropdown-content">
-                  <li
-                    onClick={() => {
-                      setQuery(`?category=선택 안함`)
-                    }}
-                  >
-                    전체보기
+                  <li onClick={() => setQuery("")}>전체</li>
+                  <li onClick={() => setQuery(`?category=선택 안함`)}>자유</li>
+                  <li onClick={() => setQuery(`?category=공지사항`)}>
+                    공지사항
                   </li>
-                  <li onClick={() => setQuery(`?category=건의사항`)}>꿀팁</li>
-                  <li onClick={() => setQuery(`?category=파티 모집`)}>게임</li>
+                  <li onClick={() => setQuery(`?category=유머`)}>유머</li>
+                  <li onClick={() => setQuery(`?category=건의사항`)}>
+                    건의사항
+                  </li>
+                  <li onClick={() => setQuery(`?category=파티 모집`)}>
+                    파티 모집
+                  </li>
+                  <li onClick={() => setQuery(`?category=꿀팁`)}>꿀팁</li>
+                  <li onClick={() => setQuery(`?category=후기`)}>후기</li>
                 </ul>
               </th>
-
               <th>제목</th>
               <th>작성자</th>
               <th>작성일</th>
               <th>조회</th>
-              <th className="dropdown">
-                좋아요
-                <ul className="dropdown-content">
-                  <li>높은순</li>
-                  <li>낮은순</li>
-                </ul>
-              </th>
+              <th className="dropdown">좋아요</th>
             </tr>
           </thead>
           <CommunityList info={info} page={page} />
@@ -88,83 +93,9 @@ const CommunityBoard = () => {
             &gt;
           </Button>
         </Nav>
-      </div>
+      </Div>
     </div>
-  )
-}
+  );
+};
 
-const Table = styled.table`
-  tr {
-    text-align: center;
-  }
-
-  .dropdown {
-    position: relative;
-    display: inline-block;
-  }
-
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 100px;
-    padding: 8px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  }
-
-  .dropdown:hover .dropdown-content {
-    display: block;
-    list-style-type: none;
-
-    li {
-      font-weight: normal;
-    }
-    li:hover {
-      background: rgba(108, 99, 255, 0.3);
-      border-radius: 2px;
-      font-weight: bold;
-      // color: white;
-      cursor: pointer;
-    }
-  }
-`
-
-const Nav = styled.nav`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  margin: 16px;
-`
-
-const Button = styled.button`
-  border: none;
-  border-radius: 8px;
-  padding: 4px 8px;
-  margin: 0;
-  // background: black;
-  // color: white;
-  font-size: 1rem;
-  font-weight: bold;
-
-  &:hover {
-    background: rgba(108, 99, 255, 0.4);
-    cursor: pointer;
-    transform: translateY(-2px);
-  }
-
-  &[disabled] {
-    background: #cbc0d3;
-    cursor: revert;
-    transform: revert;
-  }
-
-  &[aria-current] {
-    background: rgba(108, 99, 255, 0.7);
-    font-weight: bold;
-    cursor: revert;
-    transform: revert;
-  }
-`
-
-export default CommunityBoard
+export default CommunityBoard;

@@ -1,77 +1,65 @@
-import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
-import * as Api from "../../api"
-import { useParams } from "react-router-dom"
+import { useState, useEffect } from "react";
+import { Container } from "../styles/CommunityAddFormStyle";
+import * as Api from "../../api";
+import { useParams } from "react-router-dom";
 
 const CommunityEditForm = ({ isEditing }) => {
-  const navigate = useNavigate()
+  // 해당 글 내용 데이터 상태값
+  const [content, setContent] = useState([]);
+  // 태그 인풋 상태값
+  const [tag, setTag] = useState("");
+  const params = useParams();
 
-  const [content, setContent] = useState([])
-  const [tag, setTag] = useState("")
-  const [error, setError] = useState({ title: true, body: true })
-  const params = useParams()
   useEffect(() => {
     Api.get("article", params.id).then((res) => {
-      setContent(res.data.article)
-    })
-  }, [])
+      setContent(res.data.article);
+    });
+  }, []);
 
+  // 인풋박스 변경시 적용되는 함수
   const changeHandler = (e) => {
-    setContent((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-    console.log(content)
-    // errorHandler(e.target.name)
-  }
+    setContent((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
-  const errorHandler = (v) => {
-    if (content.v === "") {
-      setError((prev) => {
-        return { ...prev, [v]: true }
-      })
-    } else {
-      setError((prev) => {
-        return { ...prev, [v]: false }
-      })
-    }
-  }
-
+  // 폼 제출용 함수
   const submitHandler = () => {
-    if (true) {
-      alert("성공했습니다.")
-      const newContent = content
+    if (content.title && content.body && content.category) {
+      const newContent = content;
       Api.put(`article/${params.id}`, newContent).then((res) => {
-        console.log(res.data)
-        isEditing()
-      })
+        alert("성공했습니다.");
+        isEditing();
+      });
     } else {
-      alert("실패했습니다. 다시 한 번 확인해주세요.")
+      alert("실패했습니다. 다시 한 번 확인해주세요.");
     }
-  }
+  };
 
+  // 태그 추가용 함수
   const keyPressHandler = (e) => {
-    const copied = content
-    if ((e.code = "Enter" && e.target.value)) {
-      copied.tags.push(e.target.value)
+    const copied = content;
+    if (e.key === "Enter" && e.target.value) {
+      copied.tags.push(e.target.value);
       setContent((prev) => {
-        return { ...prev, tags: copied.tags }
-      })
+        return { ...prev, tags: copied.tags };
+      });
+      setTag("");
     }
-    setTag("")
-  }
+  };
 
+  // 태그 삭제용 함수
   const removeHandler = (e) => {
-    const copied = content
+    const copied = content;
     const copiedTags = copied.tags.filter(
       (item) => item !== e.target.textContent
-    )
+    );
     setContent((prev) => {
-      return { ...prev, tags: copiedTags }
-    })
-  }
+      return { ...prev, tags: copiedTags };
+    });
+  };
 
   return (
     <Container>
-      <div className="header">커뮤니티 글쓰기</div>
+      <div className="header">커뮤니티 글쓰기(수정)</div>
       <form className="formContainer">
         <fieldset className="formFieldset">
           <select
@@ -120,14 +108,14 @@ const CommunityEditForm = ({ isEditing }) => {
               id="tag"
               size="20"
               value={tag}
-              // placeholder={
-              //   content.tags.length >= 3
-              //     ? "최대 3개의 태그까지만 가능합니다."
-              //     : "태그를 입력하세요"
-              // }
+              placeholder={
+                content.tags && content.tags.length >= 3
+                  ? "최대 3개의 태그까지만 가능합니다."
+                  : "태그를 입력하세요"
+              }
               onKeyPress={keyPressHandler}
               onChange={(e) => setTag(e.target.value)}
-              // disabled={content.tags.length >= 3 ? true : false}
+              disabled={content.tags && content.tags.length >= 3 ? true : false}
             />
           </div>
 
@@ -145,7 +133,7 @@ const CommunityEditForm = ({ isEditing }) => {
             type="button"
             className="formButton submitButton"
           >
-            글올리기
+            확인
           </button>
 
           <button
@@ -158,94 +146,7 @@ const CommunityEditForm = ({ isEditing }) => {
         </div>
       </form>
     </Container>
-  )
-}
+  );
+};
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  min-width: 60vh;
-
-  form {
-    border: solid 2px grey;
-    border-radius: 3px;
-  }
-
-  .header {
-    margin: 20px;
-    padding: 10px;
-    width: 100vh;
-    border-bottom: 2px solid grey;
-    font-weight: bold;
-    font-size: 30px;
-  }
-
-  .formFieldset {
-    margin: 10px;
-    padding: 10px;
-    width: 100vh;
-
-    select {
-      width: 50vh;
-    }
-
-    input {
-      width: 50vh;
-    }
-
-    textarea {
-      width: 100%;
-      min-height: 20vh;
-    }
-  }
-
-  .buttonContainer {
-    margin: 10px;
-    padding: 10px;
-    width: 100vh;
-    text-align: end;
-
-    .formButton {
-      border: none;
-      padding: 4px;
-      color: white;
-      font-weight: 700;
-      width: 20%;
-
-      border-radius: 3px;
-      cursor: pointer;
-    }
-
-    .submitButton {
-      margin-right: 10px;
-      background: #6c63ff;
-    }
-
-    .cancelButton {
-      background: #ff6b6b;
-    }
-  }
-  span {
-    // margin: 5px;
-    margin-right: 5px;
-    padding: 0 5px;
-    background: rgba(108, 99, 255, 0.5);
-    border-radius: 2px;
-    font-weight: bold;
-    font-size: 15px;
-    // color: white;
-    cursor: pointer;
-
-    &:hover {
-      background: rgba(108, 99, 255, 0.3);
-    }
-  }
-  input#tag {
-    margin-bottom: 5px;
-  }
-`
-
-export default CommunityEditForm
+export default CommunityEditForm;
