@@ -22,6 +22,10 @@ const SnakeBoard = () => {
   const [point, setPoint] = useState(false);
 
   useInterval(() => gameLoop(), speed);
+
+  const gameLoop = () => {
+    const snakeCopy = JSON.parse(JSON.stringify(snake));
+  };
 };
 
 export default SnakeBoard;
