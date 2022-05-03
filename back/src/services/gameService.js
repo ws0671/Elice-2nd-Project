@@ -48,6 +48,7 @@ const gameService = {
       sortOrder,
       numOfPageLimit,
     });
+    const gameCounts = await Game.countGames(filter);
     return games;
   },
 };
