@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import * as Api from "../api";
-import BestGame from "./BestGame";
+import WorstGame from "./WorstGame";
 import { SliderContainer, Container, Button } from "./styles/SliderStyle";
 
 const TOTAL_SLIDES = 1;
-export default function Slider() {
+export default function Slider4() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [data, setData] = useState();
   const slideRef = useRef(null);
@@ -25,12 +25,13 @@ export default function Slider() {
       setCurrentSlide(currentSlide - 1);
     }
   };
-  const bestGame = async () => {
-    const res = await Api.get(`gameGraph/bestGame`);
+  const worstGame = async () => {
+    const res = await Api.get(`gameGraph/worstGame`);
     setData(res.data);
+    console.log(res.data);
   };
   useEffect(() => {
-    bestGame();
+    worstGame();
   }, []);
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
@@ -39,7 +40,7 @@ export default function Slider() {
   return (
     <Container>
       <SliderContainer ref={slideRef}>
-        {data && <BestGame data={data}></BestGame>}
+        {data && <WorstGame data={data}></WorstGame>}
       </SliderContainer>
       <Button className="left" onClick={prevSlide}>
         <IoIosArrowBack size="40" />

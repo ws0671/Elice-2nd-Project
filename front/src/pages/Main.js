@@ -10,7 +10,6 @@ import {
   NewsImg,
 } from "../components/styles/MainStyle";
 // 메인 bg-color:#673ab7
-import React, { useContext } from "react";
 import YouTube from "react-youtube";
 import { useNavigate, useLocation } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";

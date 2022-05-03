@@ -1,5 +1,6 @@
 import React from "react";
 import Slider from "../components/Slider";
+import Slider4 from "../components/Slider4";
 import { MainImage, Main } from "../components/styles/TopChartStyle";
 // 메인 bg-color:#673ab7
 function TopChart() {
@@ -27,7 +28,7 @@ function TopChart() {
         </div>
         <div className="toptenContainer">
           <h3>똥겜 TOP 10</h3>
-          <Slider></Slider>
+          <Slider4></Slider4>
         </div>
       </Main>
     </body>
