@@ -71,7 +71,7 @@ const MemorizeCards = () => {
   }, []);
 
   useEffect(async () => {
-    if (success === 6) {
+    if (turns !== 12 && success === 6) {
       const today = await axios.get("http://localhost:5001/point/CatMatch");
       if (!today.data.point) {
         alert("축하합니다!! 100포인트를 얻으셨습니다.");
