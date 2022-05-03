@@ -33,7 +33,7 @@ const SnakeBoard = () => {
   const endGame = async () => {
     setSpeed(null);
     setGameOver(true);
-    if (!point && snake.length >= 20) {
+    if (!point && score >= 200) {
       Swal.fire({
         position: "center",
         icon: "success",
