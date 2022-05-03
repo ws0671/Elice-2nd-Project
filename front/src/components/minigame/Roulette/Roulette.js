@@ -22,7 +22,7 @@ const Roulette = () => {
   };
 
   useEffect(async () => {
-    const today = await axios.get("http://localhost:5001/point/Roulette");
+    const today = await Api.get("point?miniGame=Roulette");
     if (today.data.point) {
       setPoint(today.data.point);
     }
