@@ -1,29 +1,25 @@
 import React, { useEffect, useState, } from 'react';
-import { PieChart, Pie, Tooltip, Legend, Label } from 'recharts';
+import { PieChart, Pie, ResponsiveContainer, Cell, Tooltip, Legend, Label } from 'recharts';
 import { ImgWrapper } from '../Contents/ContentStyle';
-import * as Api from '../../../api'
+import styled from 'styled-components';
 
 
 const FirstChart = () => {
 
-    const [data, setData] = useState(null);
-
-    const [key, setKey] = useState(1);
-    const [limit, setLimit] = useState('releaseDate');
-    const [lastPage, setLastPage] = useState(1);
-    const [order, setOrder] = useState(1);
-
+    /*   const data = [
+          { name: "아케이드 게임", value: 3.8 },
+          { name: "콘솔 게임", value: 12 },
+          { name: "PC 게임", value: 82.8 },
+          { name: "전자 오락실 게임", value: 1.4 }
+      ]; */
 
     const getData = async () => {
         const res = await Api.get(
-            `gameGraph/gamesByGenre`
+            `gameGraph/indieByYear`
         );
         console.log(res.data);
         setData(res.data);
-        setLastPage(10);
-        //res.lastPage
     };
-
 
 
     useEffect(() => {
@@ -31,55 +27,40 @@ const FirstChart = () => {
 
     }, [])
 
-    const data01 = [
-        { name: 'Group A', value: 400 },
-        { name: 'Group B', value: 300 },
-        { name: 'Group C', value: 300 },
-        { name: 'Group D', value: 200 },
-    ];
-    const data02 = [
-        { name: 'A1', value: 100 },
-        { name: 'A2', value: 300 },
-        { name: 'B1', value: 100 },
-        { name: 'B2', value: 80 },
-        { name: 'B3', value: 40 },
-        { name: 'B4', value: 30 },
-        { name: 'B5', value: 50 },
-        { name: 'C1', value: 100 },
-        { name: 'C2', value: 200 },
-        { name: 'D1', value: 150 },
-        { name: 'D2', value: 50 },
-    ];
-    let renderLabel = function (entry) {
-        return entry.name;
-    }
+    const COLORS = ["#00BFF8", "#FFB618", "#FF4A44", "#008733"];
 
-    let renderLegend = function (entry) {
-        return entry.name;
-    }
+    const customLabel = (entry) => {
+        return `${entry.name} ${entry.value}%`;
+    };
 
     return (
-        <ImgWrapper >
-            <PieChart width={400} height={400}>
-                <Pie dataKey="value"
-                    isAnimationActive={false}
-                    data={data01}
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={60}
-                    fill="#8884d8"
-                />
+        <ResponsiveContainer className='chart1' width="90%" height={400} >
+            <PieChart style={{ backgroundColor: 'white', borderRadius: '1.5rem' }}>
+                <Pie
+                    data={data}
+                    dataKey="value"
+                    outerRadius={90}
+                    innerRadius={40}
+                    startAngle={90}
+                    endAngle={-270}
+                    label={customLabel}
+                >
+                    {data.map((point, index) => (
+                        <Cell
+                            key={`cell-${index}`}
+                            fill={COLORS[index % COLORS.length]}
+                        />
+                    ))}
 
-                <text style={{ fontSize: '30px' }} x={200} y={15} textAnchor="middle" dominantBaseline="middle">
-                    Donut
+                </Pie>
+                <text style={{ fontSize: '23px', fontWeight: 'bold' }} x={100} y={20} textAnchor="inner" dominantBaseline="middle">
+                    2020 분야별 국내 게임 시장 점유율
                 </text>
-
-                <Pie data={data02} dataKey="value" cx="50%" cy="50%" innerRadius={70} outerRadius={90} fill="#82ca9d" label={renderLabel} />
                 <Tooltip />
                 <Legend />
             </PieChart>
-        </ImgWrapper >
 
+        </ResponsiveContainer>
 
     )
 }

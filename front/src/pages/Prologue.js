@@ -5,8 +5,6 @@ import { Content } from "../components/prologue/Contents/Contents"
 import { contentOne, contentTwo, contentThree } from "../components/prologue/Contents/ContentsData"
 import FirstContent from "../components/prologue/Contents/FirstContent.js"
 import LastContent from "../components/prologue/Contents/LastContent"
-import FirstChart from "../components/prologue/Charts/FristChart"
-
 
 function Prologue() {
 
@@ -19,7 +17,6 @@ function Prologue() {
             <Content {...contentTwo} />
             <Content {...contentThree} />
             <LastContent />
-            <FirstChart />
         </PrologueStyle>
     )
 }
