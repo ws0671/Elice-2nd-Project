@@ -87,6 +87,7 @@ const SnakeBoard = () => {
         newApple = createApple();
       }
       setApple(newApple);
+      setScore((num) => num + 10);
       return true;
     }
     return false;
