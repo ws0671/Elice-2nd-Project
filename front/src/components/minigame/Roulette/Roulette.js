@@ -41,11 +41,11 @@ const Roulette = () => {
   return (
     <>
       {point ? (
-        <div style={{ marginBottom: "100px" }}>
+        <div>
           <h1>축하합니다!! {point}점을 획득하셨습니다!!</h1>
         </div>
       ) : (
-        <div style={{ marginBottom: "100px" }}>
+        <div>
           <h1>룰렛을 돌려주세요!</h1>
         </div>
       )}
@@ -57,7 +57,7 @@ const Roulette = () => {
         outerBorderWidth={3}
         onStopSpinning={handleStop}
       />
-      <button onClick={handleStart} style={{ margin: "50px" }} disabled={point}>
+      <button onClick={handleStart} disabled={point}>
         SPIN
       </button>
     </>
