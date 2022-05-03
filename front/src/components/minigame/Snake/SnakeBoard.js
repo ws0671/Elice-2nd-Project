@@ -23,6 +23,11 @@ const SnakeBoard = () => {
 
   useInterval(() => gameLoop(), speed);
 
+  const endGame = () => {
+    setSpeed(null);
+    setGameOver(true);
+  };
+
   const moveSnake = ({ keyCode }) =>
     keyCode >= 37 && keyCode <= 40 && setDir(Directions[keyCode]);
 
