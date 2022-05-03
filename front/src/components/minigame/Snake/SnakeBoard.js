@@ -29,6 +29,8 @@ const SnakeBoard = () => {
     snakeCopy.unshift(newSnakeHead);
     setSnake(snakeCopy);
   };
+
+  return <div role="button"></div>;
 };
 
 export default SnakeBoard;
