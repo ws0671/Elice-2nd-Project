@@ -34,6 +34,10 @@ const SnakeBoard = () => {
   const createApple = () =>
     apple.map((_, i) => Math.floor(Math.random() * (CanvasSize[i] / Scale)));
 
+  const checkCollision = (piece, snk = snake) => {
+    return false;
+  };
+
   const gameLoop = () => {
     const snakeCopy = JSON.parse(JSON.stringify(snake));
     const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
