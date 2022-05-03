@@ -125,10 +125,8 @@ function Main() {
             <h3>내 주변 PC방 찾기</h3>
           </DivBold>
           <FlexDiv2>
-            <div>
-              <div>
-                <FindPCplace />
-              </div>
+            <div style={{ width: "100vw" }}>
+              <FindPCplace />
             </div>
           </FlexDiv2>
         </div>
