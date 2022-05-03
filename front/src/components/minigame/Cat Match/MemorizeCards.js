@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./MemorizeCards.css";
 import SingleCard from "./SingleCard";
 import axios from "axios";
