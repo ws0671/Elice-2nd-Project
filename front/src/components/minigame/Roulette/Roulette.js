@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Wheel } from "react-custom-roulette";
 import data from "./rouletteData";
-import axios from "axios";
+import * as Api from "../../../api";
+import { UserStateContext } from "../../../App";
 
 const Roulette = () => {
   const [spin, setSpin] = useState(false);
   const [pointIndex, setPointIndex] = useState();
   const [point, setPoint] = useState();
+  const userContext = useContext(UserStateContext);
 
   const handleStart = () => {
     // 룰렛을 실행시킴
@@ -20,7 +22,7 @@ const Roulette = () => {
   };
 
   useEffect(async () => {
-    const today = await axios.get("http://localhost:5001/point/Roulette");
+    const today = await Api.get("point?miniGame=Roulette");
     if (today.data.point) {
       setPoint(today.data.point);
     }
@@ -28,10 +30,10 @@ const Roulette = () => {
 
   useEffect(() => {
     if (point && pointIndex) {
-      axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
-      axios.post("http://localhost:5001/point", {
+      Api.put(`user/${userContext.user.userId}/addPoint`, { point: point });
+      Api.post("point", {
         miniGame: "Roulette",
-        point,
+        point: point,
       });
     }
   }, [point]);
@@ -39,11 +41,11 @@ const Roulette = () => {
   return (
     <>
       {point ? (
-        <div style={{ marginBottom: "100px" }}>
+        <div>
           <h1>축하합니다!! {point}점을 획득하셨습니다!!</h1>
         </div>
       ) : (
-        <div style={{ marginBottom: "100px" }}>
+        <div>
           <h1>룰렛을 돌려주세요!</h1>
         </div>
       )}
@@ -55,7 +57,7 @@ const Roulette = () => {
         outerBorderWidth={3}
         onStopSpinning={handleStop}
       />
-      <button onClick={handleStart} style={{ margin: "50px" }} disabled={point}>
+      <button onClick={handleStart} disabled={point}>
         SPIN
       </button>
     </>
