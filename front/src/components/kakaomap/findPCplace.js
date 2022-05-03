@@ -244,7 +244,9 @@ const FindPCplace = () => {
     // 인포윈도우에 장소명을 표시합니다
     function displayInfowindow(marker, title) {
       var content =
-        '<div style="padding:5px;z-index:1;color:black">' + title + "</div>";
+        '<div style="padding:10px;z-index:1;color:black;font-weight:bold">' +
+        title +
+        "</div>";
 
       infowindow.setContent(content);
       infowindow.open(map, marker);
