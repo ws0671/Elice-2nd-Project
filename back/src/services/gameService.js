@@ -49,7 +49,7 @@ const gameService = {
       numOfPageLimit,
     });
     const gameCounts = await Game.countGames(filter);
-    return games;
+    return { games, gameCounts };
   },
 };
 
