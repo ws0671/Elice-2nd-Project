@@ -20,6 +20,8 @@ const SnakeBoard = () => {
   const [gameOver, setGameOver] = useState(false);
   const [lastWords, setLastWords] = useState("GAME OVER!");
   const [point, setPoint] = useState(false);
+
+  useInterval(() => gameLoop(), speed);
 };
 
 export default SnakeBoard;
