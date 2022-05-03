@@ -30,7 +30,7 @@ const SnakeBoard = () => {
     setSnake(snakeCopy);
   };
 
-  return <div role="button"></div>;
+  return <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}></div>;
 };
 
 export default SnakeBoard;
