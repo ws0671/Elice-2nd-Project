@@ -27,6 +27,7 @@ const SnakeBoard = () => {
     const snakeCopy = JSON.parse(JSON.stringify(snake));
     const newSnakeHead = [snakeCopy[0][0] + dir[0], snakeCopy[0][1] + dir[1]];
     snakeCopy.unshift(newSnakeHead);
+    setSnake(snakeCopy);
   };
 };
 
