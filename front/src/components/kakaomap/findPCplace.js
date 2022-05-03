@@ -233,15 +233,6 @@ const FindPCplace = () => {
         }}
       ></div>
       <div id="menu_wrap" className="bg_white">
-        {/* <div className="option">
-        <div>
-            <form onSubmit="searchPlaces(); return false;">
-              키워드 :{" "}
-              <input type="text" value="이태원 맛집" id="keyword" size="15" />
-              <button type="submit">검색하기</button>
-            </form>
-          </div>
-        </div> */}
         <hr />
         <ul id="placesList"></ul>
         <div id="pagination"></div>
