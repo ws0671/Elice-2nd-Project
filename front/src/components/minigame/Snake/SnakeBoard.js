@@ -37,7 +37,7 @@ const SnakeBoard = () => {
       await Api.put(`user/${userId}/addPoint`, {
         point: 100,
       });
-      await axios.post(`http://localhost:5001/point`, {
+      await Api.post(`point`, {
         miniGame: "SnakeGame",
         point: 100,
       });
