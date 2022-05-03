@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import "./MemorizeCards.css";
 import SingleCard from "./SingleCard";
+import * as Api from "../../../api";
 
 const cardImages = [
   { src: "/img/고양이 1.jpg", matched: false },
