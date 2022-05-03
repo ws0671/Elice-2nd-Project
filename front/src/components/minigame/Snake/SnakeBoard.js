@@ -47,6 +47,14 @@ const SnakeBoard = () => {
   };
 
   const checkAppleCollision = (newSnake) => {
+    if (newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1]) {
+      let newApple = createApple();
+      while (checkCollision(newApple, newSnake)) {
+        newApple = createApple();
+      }
+      setApple(newApple);
+      return true;
+    }
     return false;
   };
 
