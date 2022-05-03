@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import { model } from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
+
 import { User } from "./models/User";
 import { Game } from "./models/Game";
 import { ArticleSchema } from "./schemas/article";
