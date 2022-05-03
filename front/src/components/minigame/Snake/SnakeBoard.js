@@ -107,6 +107,7 @@ const SnakeBoard = () => {
     setDir([0, -1]);
     setSpeed(Speed);
     setGameOver(false);
+    setScore(0);
   };
 
   useEffect(() => {
