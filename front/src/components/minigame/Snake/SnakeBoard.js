@@ -41,6 +41,9 @@ const SnakeBoard = () => {
         width={`${CanvasSize[0]}px`}
         height={`${CanvasSize[1]}px`}
       />
+      <div>
+        <button onClick={startGame}>START</button>
+      </div>
     </div>
   );
 };
