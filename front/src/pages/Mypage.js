@@ -6,30 +6,32 @@ import MypageBarChart from "../components/mypage/MypageBarChart";
 import MypagePieChart from "../components/mypage/MypagePieChart";
 import MypageBookmark from "../components/mypage/MypageBookmark";
 import MypageReview from "../components/mypage/MypageReview";
-import MypageEditModal from "../components/mypage/MypageEditModal";
+import Swal from "sweetalert2";
 
 const Mypage = () => {
+  const [editNickname, setEditNickname] = useState("");
   const [TagData, setTagData] = useState([]);
   const [total, setTotal] = useState(0);
   const userContext = useContext(UserStateContext);
   const [data, setData] = useState({});
-  const [gameData, setGameData] = useState([]);
 
   useEffect(() => {
     console.log(userContext.user.userId);
     Api.get("user", `${userContext.user.userId}/myPage`)
       .then((res) => {
         setData(res.data.user);
+        setEditNickname(res.data.user.nickname);
         console.log("마이페이지", res.data);
-        setGameData(res.data.bookmarks);
         setUserData(
-          res.data.bookmarks.map((data) => ({
+          res.data.bookmarks.bookmarkGames.map((data) => ({
             name: data.name,
             긍정적: data.positiveRate,
             부정적: data.negativeRate,
           }))
         );
-        setTagData(making(res.data.bookmarks.map((v) => v.steamspyTags)));
+        setTagData(
+          making(res.data.bookmarks.bookmarkGames.map((v) => v.steamspyTags))
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -69,6 +71,29 @@ const Mypage = () => {
     }));
   };
 
+  // 현재 로그인 유저 데이터 값
+  const MypageEditModal = (nickname, userId) => {
+    (async () => {
+      const { value: getNickname } = await Swal.fire({
+        title: "수정할 닉네임을 적어주세요",
+        // text: "그냥 예시일 뿐입니다.",
+        input: "text",
+        inputValue: nickname,
+        showCancelButton: true,
+        inputPlaceholder: "닉네임을 입력하세요",
+        confirmButtonText: "확인", // confirm 버튼 텍스트 지정
+        cancelButtonText: "취소",
+      });
+      // 이후 처리되는 내용.
+      if (getNickname) {
+        Swal.fire("닉네임이 정상적으로 변경되었습니다");
+        Api.put(`user/${userId}/nickname`, { nickname: getNickname }).then(
+          (res) => setEditNickname(getNickname)
+        );
+      }
+    })();
+  };
+
   return (
     <>
       <Header></Header>
@@ -76,7 +101,7 @@ const Mypage = () => {
         <div className="top">
           <div>
             <div className="title">
-              {data.nickname} 님의 <br />
+              {editNickname} 님의 <br />
               게임 성향은...
             </div>
             <div className="subtitle">
@@ -85,7 +110,7 @@ const Mypage = () => {
             </div>
             <button
               onClick={() =>
-                MypageEditModal(data.nickname, userContext.user.userId)
+                MypageEditModal(editNickname, userContext.user.userId)
               }
             >
               닉네임 수정
@@ -110,7 +135,7 @@ const Mypage = () => {
         <div className="middle1">
           <div className="topic common">내가 찜한 게임</div>
           <div className="common">
-            <MypageBookmark gameData={gameData} />
+            <MypageBookmark />
           </div>
         </div>
         <div className="middle2">
@@ -204,6 +229,9 @@ const Main = styled.div`
         padding: 10px 0;
       }
     }
+  }
+  .chartTitle {
+    text-align: center;
   }
 
   .middle2 {

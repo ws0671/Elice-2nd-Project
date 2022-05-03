@@ -5,7 +5,7 @@ import * as Api from "../../api";
 import styled from "styled-components";
 import MypageBookmarkElement from "./MypageBookmarkElement";
 
-const MypageBookmark = ({ gameData }) => {
+const MypageBookmark = () => {
   const [tabClick, setTabClick] = useState("ALL");
   const [popularData, setPopularData] = useState([]);
   const [page, setPage] = useState(1);
@@ -13,7 +13,8 @@ const MypageBookmark = ({ gameData }) => {
   const numPages = Math.ceil(total / 4);
   const userContext = useContext(UserStateContext);
   const [timeData, setTimeData] = useState([]);
-  const [on, setOn] = useState(false);
+  const [totalData, setTotalData] = useState([]);
+
   useEffect(() => {
     Api.get(
       "user",
@@ -31,6 +32,13 @@ const MypageBookmark = ({ gameData }) => {
       console.log("플레이타임순", res.data);
       setTimeData(res.data.bookmarkGames);
     });
+
+    Api.get("user", `${userContext.user.userId}/myPage?page=${page}`).then(
+      (res) => {
+        console.log("전체순", res.data);
+        setTotalData(res.data.bookmarkGames);
+      }
+    );
   }, [page]);
   const clickHandler = (e) => {
     if (e.target.textContent === "인기순") {
@@ -51,16 +59,16 @@ const MypageBookmark = ({ gameData }) => {
       </div>
       <div className="gameBookmarks">
         {tabClick === "ALL" &&
-          gameData.map((data, index) => (
-            <MypageBookmarkElement data={data} index={index} />
+          totalData.map((data, index) => (
+            <MypageBookmarkElement key={index} data={data} index={index} />
           ))}
         {tabClick === "인기순" &&
           popularData.map((data, index) => (
-            <MypageBookmarkElement data={data} index={index} />
+            <MypageBookmarkElement key={index} data={data} index={index} />
           ))}
         {tabClick === "플레이타임순" &&
           timeData.map((data, index) => (
-            <MypageBookmarkElement data={data} index={index} />
+            <MypageBookmarkElement key={index} data={data} index={index} />
           ))}
       </div>
       <Nav>

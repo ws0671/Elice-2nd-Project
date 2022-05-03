@@ -26,7 +26,7 @@ const MypageBarChart = ({ chartData }) => {
 
   return (
     <div>
-      <div style={{ textAlign: "center" }}>게임별 긍정/부정 리뷰</div>
+      <div className="chartTitle">게임별 긍정/부정 리뷰 비율</div>
       <BarChart
         width={500}
         height={300}
