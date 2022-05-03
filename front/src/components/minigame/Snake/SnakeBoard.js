@@ -20,6 +20,7 @@ const SnakeBoard = () => {
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(false);
   const [point, setPoint] = useState(false);
+  const [score, setScore] = useState(0);
   const userContext = useContext(UserStateContext);
 
   useInterval(() => gameLoop(), speed);
