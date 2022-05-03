@@ -77,9 +77,9 @@ const MemorizeCards = () => {
         alert("축하합니다!! 100포인트를 얻으셨습니다.");
         const point = 100;
         await Api.put(`user/${userId}/addPoint`, { point: point });
-        await axios.post("http://localhost:5001/point", {
+        await Api.post("point", {
           miniGame: "CatMatch",
-          point,
+          point: point,
         });
       } else {
         alert("성공하셨습니다!!");
