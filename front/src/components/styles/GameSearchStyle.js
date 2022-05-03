@@ -31,36 +31,37 @@ export const ImgDiv = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    gap: 20px;
+    gap: 40px;
   }
-  & > div > div {
+  .imgWrap {
     position: relative;
+  }
+  .imgWrap:hover {
+    .text {
+      opacity: 1;
+    }
   }
 
   img {
-    margin: 10px;
-    transition: all ease 1s 0s;
+    width: 100%;
   }
-  img:hover {
-    opacity: 0.3;
-    & + div {
-      display: block;
-      position: absolute;
-      top: 40%;
-      left: 40%;
-      margin: -50px 0 0 -50px;
-      text-align: center;
-      z-index: 10;
-
-      & > h5 {
-        font-weight: bold;
-      }
-    }
-  }
-  .noneDiv {
-    display: none;
-    color: black;
+  h5 {
     font-weight: bold;
+  }
+  .text {
+    padding: 8% 0 0 0;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: bold;
+    background-color: rgba(45, 50, 150, 0.5);
+    transition: opacity 0.35s ease-in-out;
+    opacity: 0;
   }
 `;
 export const Button = styled.button`

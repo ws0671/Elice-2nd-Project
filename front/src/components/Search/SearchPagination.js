@@ -4,7 +4,7 @@ import { Row, Col, Form, Pagination } from "react-bootstrap";
 const SearchPagination = ({ page, lastPage, limit, setPage, setLimit }) => {
   const pagination = useMemo(() => {
     const pagination = [];
-    for (let num = 1; num <= lastPage; num++) {
+    for (let num = 1; num <= lastPage; num += 10000) {
       pagination.push(
         <Pagination.Item
           key={num}
@@ -35,6 +35,7 @@ const SearchPagination = ({ page, lastPage, limit, setPage, setLimit }) => {
       </Col>
       <Col md={2} xs={5}>
         <Pagination>
+          <Pagination.First disabled={page === 1} onClick={() => setPage(1)} />
           <Pagination.Prev
             disabled={page === 1}
             onClick={() => setPage((cur) => cur - 1)}
@@ -43,6 +44,10 @@ const SearchPagination = ({ page, lastPage, limit, setPage, setLimit }) => {
           <Pagination.Next
             disabled={page === lastPage}
             onClick={() => setPage((cur) => cur + 1)}
+          />
+          <Pagination.Last
+            disabled={page === lastPage}
+            onClick={() => setPage(lastPage)}
           />
         </Pagination>
       </Col>

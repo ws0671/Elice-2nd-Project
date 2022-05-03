@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import * as Api from "../api";
 const TOTAL_SLIDES = 1;
 export default function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -21,7 +22,13 @@ export default function Slider() {
       setCurrentSlide(currentSlide - 1);
     }
   };
-
+  const bestGame = async () => {
+    const res = await Api.get(`gameGraph/bestGame`);
+    console.log(res.data);
+  };
+  useEffect(() => {
+    bestGame();
+  }, []);
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;

@@ -1,8 +1,8 @@
 import React from "react";
 
-function DataExpression({ data, inputData, mode, age, flatForm }) {
+function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
   return (
-    <div>
+    <div className="box">
       {mode === "전체 목록" &&
         data &&
         data
@@ -17,23 +17,49 @@ function DataExpression({ data, inputData, mode, age, flatForm }) {
           })
           .map((val, key) => {
             return (
-              <div>
+              <div className="imgWrap">
                 <img
                   key={key}
                   src={val.headerImage}
                   alt="게임 이미지"
                   style={{ width: "400px" }}
                 />
-                <div className="noneDiv">
+                <div className="text">
                   <h5>{val.name}</h5>
                   <div>{val.developer[0]}</div>
                   <div>{val.releaseDate.split("T")[0]}</div>
-                  <div>{val.price}</div>
-                  <div>별점</div>
+                  <div>{val.price} \</div>
+                  <div>{val.positiveRate}점</div>
                 </div>
               </div>
             );
           })}
+      {mode === "장르" &&
+        genre &&
+        genre.map((val, key) => (
+          <div
+            key={key}
+            style={{
+              width: "400px",
+              height: "224px",
+              opacity: 1,
+              background: "linear-gradient(lightCyan, skyBlue, deepSkyBlue)",
+              color: "white",
+              position: "relative",
+            }}
+          >
+            <h3
+              style={{
+                position: "absolute",
+                fontWeight: "bold",
+                right: "10px",
+                bottom: "0",
+              }}
+            >
+              {val}
+            </h3>
+          </div>
+        ))}
       {mode === "플랫폼" &&
         flatForm &&
         flatForm.map((val, key) => (
@@ -41,7 +67,7 @@ function DataExpression({ data, inputData, mode, age, flatForm }) {
             key={key}
             src={val.headerImage}
             style={{ width: "400px", height: "224px", opacity: 1 }}
-            alt="이용등급 이미지"
+            alt="플랫폼 이미지"
           />
         ))}
       {mode === "이용등급" &&
@@ -50,7 +76,7 @@ function DataExpression({ data, inputData, mode, age, flatForm }) {
           <img
             key={key}
             src={val.headerImage}
-            style={{ width: "400px", opacity: 1 }}
+            style={{ width: "300px", opacity: 1 }}
             alt="이용등급 이미지"
           />
         ))}

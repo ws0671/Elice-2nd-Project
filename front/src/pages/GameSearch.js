@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState, useRef, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
-import Data from "./gamesearch_data";
 import DataExpression from "../components/Search/DataExpression";
 import * as Api from "../api";
 import SearchPagination from "../components/Search/SearchPagination";
@@ -22,6 +20,20 @@ import {
 
 const types = ["전체 목록", "장르", "플랫폼", "이용등급"];
 const vers = ["이름순", "내림차순"];
+const GENRE_DATA = [
+  "Indie",
+  "Adventure",
+  "Casual",
+  "Strategy",
+  "Simulation",
+  "RPG",
+  "Action",
+  "Racing",
+  "Sports",
+  "Violent",
+  "MMO",
+  "Gore",
+];
 const AGE_DATA = [
   { headerImage: "images/전체이용가.png" },
   { headerImage: "images/12세이용가.png" },
@@ -46,11 +58,14 @@ function GameSearch() {
   const [mode, setMode] = useState(types[0]);
   const [age, setAge] = useState(null);
   const [flatForm, setFlatForm] = useState(null);
+  const [genre, setGenre] = useState(null);
 
   // 페이지네이션과 관련된 state
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(12);
   const [lastPage, setLastPage] = useState(1);
+
+  const showMore = useRef([]);
 
   // 전체 데이터를 api 응답으로 받아오는 함수
   const getData = async () => {
@@ -59,13 +74,28 @@ function GameSearch() {
       `?page=${limit}&limit=${limit}`
     );
     setData(res.data);
-    setLastPage(10);
+    setLastPage(res.lastPage);
     //res.lastPage
   };
 
   useEffect(() => {
     getData();
   }, [page, limit, inputData]);
+
+  useEffect(() => {
+    document.addEventListener("mousedown", clickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", clickOutside);
+    };
+  });
+
+  // 드롭다운 외부 클릭 시에도 닫히도록 하는 함수
+  const clickOutside = (e) => {
+    if (show && !showMore.current.includes(e.target)) {
+      setShow((prev) => !prev);
+    }
+  };
   // input태그를 제출하는 함수입니다.
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -88,6 +118,7 @@ function GameSearch() {
     }
     if (e.target.textContent === "장르") {
       setMode(e.target.textContent);
+      setGenre(GENRE_DATA);
     }
     if (e.target.textContent === "플랫폼") {
       setMode(e.target.textContent);
@@ -156,7 +187,11 @@ function GameSearch() {
             <div className="drop-down-panel">
               <ul>
                 <li>
-                  <button className="list-button" onClick={handleDropBtn1}>
+                  <button
+                    className="list-button"
+                    ref={(el) => (showMore.current[0] = el)}
+                    onClick={handleDropBtn1}
+                  >
                     <label>
                       <input type="radio" name="list" />
                       이름순
@@ -164,7 +199,11 @@ function GameSearch() {
                   </button>
                 </li>
                 <li>
-                  <button className="list-button" onClick={handleDropBtn1}>
+                  <button
+                    className="list-button"
+                    ref={(el) => (showMore.current[1] = el)}
+                    onClick={handleDropBtn1}
+                  >
                     <label>
                       <input type="radio" name="list" />
                       가격순
@@ -172,7 +211,11 @@ function GameSearch() {
                   </button>
                 </li>
                 <li>
-                  <button className="list-button" onClick={handleDropBtn1}>
+                  <button
+                    className="list-button"
+                    ref={(el) => (showMore.current[2] = el)}
+                    onClick={handleDropBtn1}
+                  >
                     <label>
                       <input type="radio" name="list" />
                       플레이타임순
@@ -180,7 +223,11 @@ function GameSearch() {
                   </button>
                 </li>
                 <li>
-                  <button className="list-button" onClick={handleDropBtn1}>
+                  <button
+                    className="list-button"
+                    ref={(el) => (showMore.current[3] = el)}
+                    onClick={handleDropBtn1}
+                  >
                     <label>
                       <input
                         type="radio"
@@ -193,7 +240,10 @@ function GameSearch() {
                   </button>
                 </li>
                 <li>
-                  <button className="list-button">
+                  <button
+                    className="list-button"
+                    ref={(el) => (showMore.current[4] = el)}
+                  >
                     <label>
                       <input type="radio" name="list" />
                       출시일순
@@ -215,7 +265,11 @@ function GameSearch() {
             <div className="drop-down-panel2">
               <ul>
                 <li>
-                  <button className="list-button" onClick={handleDropBtn2}>
+                  <button
+                    className="list-button"
+                    ref={(el) => (showMore.current[5] = el)}
+                    onClick={handleDropBtn2}
+                  >
                     <label>
                       <input type="radio" name="list" />
                       내림차순
@@ -223,7 +277,11 @@ function GameSearch() {
                   </button>
                 </li>
                 <li>
-                  <button className="list-button" onClick={handleDropBtn2}>
+                  <button
+                    className="list-button"
+                    ref={(el) => (showMore.current[6] = el)}
+                    onClick={handleDropBtn2}
+                  >
                     <label>
                       <input type="radio" name="list" />
                       오름차순
@@ -244,17 +302,20 @@ function GameSearch() {
             inputData={inputData}
             age={age}
             flatForm={flatForm}
+            genre={genre}
           ></DataExpression>
         </ImgDiv>
       </Main>
       <Footer>
-        <SearchPagination
-          page={page}
-          lastPage={lastPage}
-          limit={limit}
-          setPage={setPage}
-          setLimit={setLimit}
-        ></SearchPagination>
+        {mode === "전체 목록" && (
+          <SearchPagination
+            page={page}
+            lastPage={lastPage}
+            limit={limit}
+            setPage={setPage}
+            setLimit={setLimit}
+          ></SearchPagination>
+        )}
       </Footer>
     </>
   );
