@@ -31,6 +31,9 @@ const SnakeBoard = () => {
   const endGame = () => {
     setSpeed(null);
     setGameOver(true);
+    if (!point && snake.length >= 20) {
+      setLastWords("축하합니다! 100포인트를 얻으셨습니다.");
+    }
   };
 
   const moveSnake = ({ keyCode }) =>
