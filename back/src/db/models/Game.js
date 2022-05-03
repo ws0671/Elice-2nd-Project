@@ -62,7 +62,6 @@ const Game = {
     page,
     numOfPageLimit = 10,
   }) => {
-    const gameCount = await GameModel.countDocuments(filter);
     const games = await GameModel.find(filter)
       .sort({ [colName]: [sortOrder] })
       .skip((page - 1) * numOfPageLimit)
