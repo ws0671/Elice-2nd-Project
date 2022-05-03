@@ -9,6 +9,7 @@ import {
   Directions,
 } from "./SnakeConstants";
 import * as Api from "../../../api";
+import { UserStateContext } from "../../../App";
 
 const SnakeBoard = () => {
   const canvasRef = useRef();
