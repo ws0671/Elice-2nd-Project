@@ -23,11 +23,19 @@ const Game = {
     return game;
   },
 
-  findAllBookmarks: async ({ bookmarkList }) => {
+  findAllBookmarks: async ({
+    bookmarkList,
+    page,
+    numOfPageSkip = 4,
+    numOfPageLimit = 4,
+  }) => {
+    const bookmarkCount = bookmarkList.length;
     const bookmarkGames = await GameModel.find({
       gameId: { $in: bookmarkList },
-    });
-    return bookmarkGames;
+    })
+      .skip((page - 1) * numOfPageSkip)
+      .limit(numOfPageLimit);
+    return { bookmarkCount, bookmarkGames };
   },
 
   findSortedBookmarks: async ({
@@ -37,7 +45,6 @@ const Game = {
     numOfPageSkip = 4,
     numOfPageLimit = 4,
   }) => {
-    console.log(page);
     const bookmarkCount = bookmarkList.length;
     const bookmarkGames = await GameModel.find({
       gameId: { $in: bookmarkList },
