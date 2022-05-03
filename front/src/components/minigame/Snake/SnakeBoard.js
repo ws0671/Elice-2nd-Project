@@ -33,6 +33,15 @@ const SnakeBoard = () => {
     setSnake(snakeCopy);
   };
 
+  const startGame = () => {
+    setSnake(SnakeStart);
+    setApple(AppleStart);
+    setDir([0, -1]);
+    setSpeed(Speed);
+    setGameOver(false);
+    setLastWords("GAME OVER!");
+  };
+
   return (
     <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}>
       <canvas
