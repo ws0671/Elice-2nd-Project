@@ -123,7 +123,7 @@ const userAuthService = {
       );
     }
     const bookmarkList = user.bookmarks;
-    const bookmarks = await Game.findAllBookmarks({ bookmarkList });
+    const bookmarks = await Game.findAllBookmarks({ bookmarkList, page: 1 });
     const reviews = await Review.findAllByUser({ userId });
 
     return { user, bookmarks, reviews };
@@ -144,6 +144,22 @@ const userAuthService = {
     await sendMail(email, subject, text);
 
     return { user, code };
+  },
+
+  getAllBookmarks: async ({ userId, page }) => {
+    const user = await User.findById({ userId });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+    const bookmarkList = user.bookmarks;
+    const bookmarks = await Game.findAllBookmarks({
+      page,
+      bookmarkList,
+    });
+
+    return bookmarks;
   },
 
   getSortedBookmarks: async ({ userId, criteria, page }) => {
