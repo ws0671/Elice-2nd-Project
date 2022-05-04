@@ -75,7 +75,6 @@ function GameSearch() {
     );
     setData(res.data);
     setLastPage(res.lastPage);
-    console.log(res.data);
     //res.lastPage
   };
 
