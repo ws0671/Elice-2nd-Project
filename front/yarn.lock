@@ -4997,6 +4997,11 @@
   "resolved" "https://registry.npmjs.org/hoopy/-/hoopy-0.1.4.tgz"
   "version" "0.1.4"
 
+"hotkeys-js@^3.9.3":
+  "integrity" "sha512-s+f0xyvDmf6+DyrFQ2SY+eA7lbvMbjqkqi0I0SpMgnN5tZx7DeH8nsWhkJR4KEq3pxDPHJppDUhdt1rZFW5LeQ=="
+  "resolved" "https://registry.npmjs.org/hotkeys-js/-/hotkeys-js-3.9.3.tgz"
+  "version" "3.9.3"
+
 "hpack.js@^2.1.6":
   "integrity" "sha1-h3dMCUnlE/QuhFdbPEVoH63ioLI="
   "resolved" "https://registry.npmjs.org/hpack.js/-/hpack.js-2.1.6.tgz"
@@ -8811,11 +8816,6 @@
   "integrity" "sha512-Ms3mryLA/c5+llHNY0I9KXU8bv0N1a874gZr7xMPOiSnLD9veHZA92nZvJOkuN1hrdcR8kyj4IN8tBxlAIjVww=="
   "resolved" "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.4.10.tgz"
   "version" "11.4.10"
-
-"symbol-tree@^3.2.4":
-  "integrity" "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw=="
-  "resolved" "https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.4.tgz"
-  "version" "3.2.4"
 
 "symbol-tree@^3.2.4":
   "integrity" "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw=="

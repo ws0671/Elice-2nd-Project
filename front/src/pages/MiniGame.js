@@ -6,7 +6,6 @@ import Header from "../components/minigame/2048/component/Header";
 import AboveGame from "../components/minigame/2048/component/AboveGame";
 import Game from "../components/minigame/2048/component/Game";
 import useLocalStorageNumber from "../components/minigame/2048/hook/useLocalStorage";
-import { identity, reject } from "lodash";
 
 const MiniGame = () => {
   // 로그인 유저 전역 데이터값
@@ -18,7 +17,7 @@ const MiniGame = () => {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useLocalStorageNumber("bestScore", 0);
 
-  useEffect(async () => {
+  useLayoutEffect(async () => {
     const today = await Api.get("point?miniGame=2048");
     console.log(today.data.point);
     setToday(today.data.point);
@@ -28,7 +27,6 @@ const MiniGame = () => {
   useEffect(() => {
     if (checked && today) {
       // 오늘 포인트 얻은 기록이 있으면
-      console.log(today);
       if (!hasPrinted) {
         setHasPrinted(true);
         alert(
@@ -37,7 +35,6 @@ const MiniGame = () => {
       }
     } else if (!today && score >= 50) {
       // 오늘 얻은 포인트가 없으면
-      console.log("여길?", today);
       setToday(100);
       setHasPrinted(true);
       const record = { miniGame: 2048, point: 100 };
@@ -48,7 +45,7 @@ const MiniGame = () => {
       Api.put(`user/${userContext.user.userId}/addPoint`, point);
       alert("축하합니다!! 100포인트를 얻으셨습니다.");
     }
-  }, [score]);
+  });
 
   useEffect(() => {
     if (score > bestScore) {
