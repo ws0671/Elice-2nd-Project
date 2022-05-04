@@ -8,6 +8,8 @@ const ArticleService = {
     }
 
     const user = await User.findById({ userId });
+    const permission = SetUtil.validatePermission(user.grade, category);
+
     const author = userId;
     const nickname = user.nickname;
     const categoryName = SetUtil.convertCategory(category);
