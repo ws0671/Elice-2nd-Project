@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { param } from "express/lib/request";
 
 const AuthRouter = Router();
 
