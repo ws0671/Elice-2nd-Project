@@ -10,6 +10,11 @@ const Like = {
     return like;
   },
 
+  findAllByUser: async ({ userId }) => {
+    const likes = await LikeModel.find({ userId });
+    return likes;
+  },
+
   delete: async (filter) => {
     await LikeModel.deleteOne(filter);
   },
