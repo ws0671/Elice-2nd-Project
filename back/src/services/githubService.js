@@ -7,6 +7,10 @@ class GithubService {
     const user = await User.create({ newUser });
     return user;
   };
+
+  static checkUser = async ({ email, nickname, id, loginMethod }) => {
+    const user = await User.findByEmail({ email });
+  };
 }
 
 export { GithubService };
