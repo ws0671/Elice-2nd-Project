@@ -25,7 +25,7 @@ const Github = () => {
       const res = await axios.get(
         `http://localhost:5001/auth/github?code=${code}`
       );
-      const jwtToken = res.data.token;
+      const user = res.data;
 
       sessionStorage.setItem("userToken", jwtToken);
 
