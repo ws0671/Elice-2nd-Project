@@ -11,7 +11,8 @@ const ReviewService = {
 
     const createdNewReview = await Review.create({ newReview });
 
-    const user = await User.findById({ userId });
+    let user = await User.findById({ userId });
+    const { toUpdate, isUpgraded } = SetUtil.setPointAndGrade(user, point);
 
     return createdNewReview;
   },
