@@ -26,6 +26,7 @@ const Github = () => {
         `http://localhost:5001/auth/github?code=${code}`
       );
       const user = res.data;
+      const jwtToken = user.token;
 
       sessionStorage.setItem("userToken", jwtToken);
 
