@@ -35,8 +35,10 @@ const Roulette = () => {
   useEffect(() => {
     if (point && pointIndex) {
       const addPoint = async () => {
-        Api.put(`user/${userContext.user.userId}/addPoint`, { point: point });
-        Api.post("point", {
+        await Api.put(`user/${userContext.user.userId}/addPoint`, {
+          point: point,
+        });
+        await Api.post("point", {
           route: "Roulette",
           point: point,
         });
