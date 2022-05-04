@@ -1,6 +1,4 @@
-import axios from "axios";
 import { Router } from "express";
-import { User } from "../db";
 
 const AuthRouter = Router();
 
