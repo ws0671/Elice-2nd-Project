@@ -1,13 +1,13 @@
-import { GameGraphModel } from "../schemas/gameGraph";
+import { GameGenreGraphModel } from "../schemas/gameGenreGraph";
 
-const GameGraph = {
+const GameGenreGraph = {
   create: async ({ newGame }) => {
-    const createdNewGame = await GameGraphModel.create(newGame);
+    const createdNewGame = await GameGenreGraphModel.create(newGame);
     return createdNewGame;
   },
 
   findByGenre: async ({ gameGenre }) => {
-    const game = await GameGraphModel.find({
+    const game = await GameGenreGraphModel.find({
       genres: { $regex: `^${gameGenre}`, $options: "i" },
     }).sort({
       positiveRate: -1,
@@ -17,4 +17,4 @@ const GameGraph = {
   },
 };
 
-export { GameGraph };
+export { GameGenreGraph };
