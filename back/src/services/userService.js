@@ -190,6 +190,10 @@ const userAuthService = {
     const likes = await Like.findAllByUser({ userId }); // 유저 좋아요한 내역 조회
     const likeArticleIds = likes.map((like) => like.articleId); // 좋아요 내역에서 게시글 아이디만 빼서 배열로 만듦
 
+    const filter = { articleId: { $in: likeArticleIds } };
+    const toUpdate = { $inc: { like: -1 } };
+    await Article.updateLikes({ filter, toUpdate });
+
     await Like.deleteAllByUser({ userId });
 
     return { status: "ok" };
