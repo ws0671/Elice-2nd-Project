@@ -61,8 +61,11 @@ const MiniGame = () => {
       <div className="container">
         <div style={{ height: "150px" }} />
         <Header score={score} bestScore={bestScore} />
+        <br />
         <AboveGame />
       </div>
+      <br />
+      <br />
       <Game setScore={setScore} />
     </>
   );

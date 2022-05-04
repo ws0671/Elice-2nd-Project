@@ -3,8 +3,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #faf8ef;
-  color: #776e65;
+  /* background: #faf8ef;
+  color: #776e65; */
   font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
   font-size: 18px;
 }
@@ -66,6 +66,7 @@ h1.title {
   margin: 0;
   display: block;
   float: left;
+  color: #57407c;
 }
 
 @-webkit-keyframes move-up {
@@ -110,14 +111,14 @@ h1.title {
 .best-container {
   position: relative;
   display: inline-block;
-  background: #bbada0;
+  background: #3d2963;
   padding: 15px 25px;
   font-size: 25px;
   height: 25px;
   line-height: 47px;
   font-weight: bold;
   border-radius: 3px;
-  color: white;
+  color: #57407c;
   margin-top: 8px;
   text-align: center;
 }
@@ -131,7 +132,7 @@ h1.title {
   font-size: 13px;
   line-height: 13px;
   text-align: center;
-  color: #eee4da;
+  color: white;
 }
 .score-container .score-addition,
 .best-container .score-addition {
@@ -254,7 +255,7 @@ hr {
   -ms-user-select: none;
   -ms-touch-action: none;
   touch-action: none;
-  background: #bbada0;
+  background: #57407c;
   border-radius: 6px;
   width: 500px;
   height: 500px;
@@ -376,7 +377,7 @@ hr {
   margin-right: 15px;
   float: left;
   border-radius: 3px;
-  background: rgba(238, 228, 218, 0.35);
+  background: #3d2963;
 }
 .grid-cell:last-child {
   margin-right: 0;
@@ -501,41 +502,43 @@ hr {
 }
 .tile .tile-inner {
   border-radius: 3px;
-  background: #eee4da;
+  background: #3d2963;
   text-align: center;
   font-weight: bold;
   z-index: 10;
   font-size: 55px;
 }
 .tile.tile-2 .tile-inner {
-  background: #eee4da;
+  color: #f9f6f2;
+  background: #7ed4c9;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0),
     inset 0 0 0 1px rgba(255, 255, 255, 0);
 }
 .tile.tile-4 .tile-inner {
-  background: #ede0c8;
+  color: #f9f6f2;
+  background: #1bcdcd;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0),
     inset 0 0 0 1px rgba(255, 255, 255, 0);
 }
 .tile.tile-8 .tile-inner {
   color: #f9f6f2;
-  background: #f2b179;
+  background: #ee6881;
 }
 .tile.tile-16 .tile-inner {
   color: #f9f6f2;
-  background: #f59563;
+  background: #e73c75;
 }
 .tile.tile-32 .tile-inner {
   color: #f9f6f2;
-  background: #f67c5f;
+  background: #b81c64;
 }
 .tile.tile-64 .tile-inner {
   color: #f9f6f2;
-  background: #f65e3b;
+  background: #9e005d;
 }
 .tile.tile-128 .tile-inner {
   color: #f9f6f2;
-  background: #edcf72;
+  background: #ffb33c;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.2381),
     inset 0 0 0 1px rgba(255, 255, 255, 0.14286);
   font-size: 45px;
@@ -547,7 +550,7 @@ hr {
 }
 .tile.tile-256 .tile-inner {
   color: #f9f6f2;
-  background: #edcc61;
+  background: #f68530;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.31746),
     inset 0 0 0 1px rgba(255, 255, 255, 0.19048);
   font-size: 45px;
@@ -559,7 +562,7 @@ hr {
 }
 .tile.tile-512 .tile-inner {
   color: #f9f6f2;
-  background: #edc850;
+  background: #e85938;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.39683),
     inset 0 0 0 1px rgba(255, 255, 255, 0.2381);
   font-size: 45px;
@@ -571,7 +574,7 @@ hr {
 }
 .tile.tile-1024 .tile-inner {
   color: #f9f6f2;
-  background: #edc53f;
+  background: #251440;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.47619),
     inset 0 0 0 1px rgba(255, 255, 255, 0.28571);
   font-size: 35px;
@@ -583,7 +586,7 @@ hr {
 }
 .tile.tile-2048 .tile-inner {
   color: #f9f6f2;
-  background: #edc22e;
+  background: #ffb33c;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.55556),
     inset 0 0 0 1px rgba(255, 255, 255, 0.33333);
   font-size: 35px;
@@ -750,11 +753,12 @@ hr {
   float: left;
   line-height: 42px;
   margin-bottom: 0;
+  color: #57407c;
 }
 
 .restart-button {
   display: inline-block;
-  background: #8f7a66;
+  background: #3d2963;
   border-radius: 3px;
   padding: 0 20px;
   text-decoration: none;
@@ -796,6 +800,7 @@ hr {
   h1.title {
     font-size: 27px;
     margin-top: 15px;
+    color: #57407c;
   }
 
   .container {
@@ -841,7 +846,7 @@ hr {
     -ms-user-select: none;
     -ms-touch-action: none;
     touch-action: none;
-    background: #bbada0;
+    background: #57407c;
     border-radius: 6px;
     width: 280px;
     height: 280px;
@@ -963,7 +968,7 @@ hr {
     margin-right: 10px;
     float: left;
     border-radius: 3px;
-    background: rgba(238, 228, 218, 0.35);
+    background: #3d2963;
   }
   .grid-cell:last-child {
     margin-right: 0;
