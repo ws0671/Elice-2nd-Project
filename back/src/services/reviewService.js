@@ -1,4 +1,4 @@
-import { Review } from "../db";
+import { Review, User } from "../db";
 import { SetUtil } from "../common/setUtil";
 
 const ReviewService = {
