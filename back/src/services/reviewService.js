@@ -10,6 +10,9 @@ const ReviewService = {
     const newReview = { userId, gameId, review };
 
     const createdNewReview = await Review.create({ newReview });
+
+    const user = await User.findById({ userId });
+
     return createdNewReview;
   },
 
