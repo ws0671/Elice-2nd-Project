@@ -17,5 +17,9 @@ const Like = {
   deleteAllByArticle: async ({ articleId }) => {
     await LikeModel.deleteMany({ articleId });
   },
+
+  deleteAllByUser: async ({ userId }) => {
+    await LikeModel.deleteMany({ userId });
+  },
 };
 export { Like };
