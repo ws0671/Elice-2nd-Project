@@ -1,8 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const BestGame = ({ data }) => {
   return (
     <>
-      <div>
+      <Link to="/gamedetail">
         <img alt="이미지" src={data[4][17]} />
         <div className="flexDiv">
           <div className="numberDiv">
@@ -13,7 +14,7 @@ const BestGame = ({ data }) => {
             <div>{data[3][17]}</div>
           </div>
         </div>
-      </div>
+      </Link>
       <div>
         <img alt="이미지" src={data[4][21]} />
         <div className="flexDiv">

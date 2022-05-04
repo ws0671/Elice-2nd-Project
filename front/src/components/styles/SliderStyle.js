@@ -4,6 +4,13 @@ export const Container = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
+  button {
+    font-weight: bold;
+    width: 120px;
+    margin: 5px;
+    border-radius: 10px;
+    background: linear-gradient(lightCyan, skyBlue, deepSkyBlue);
+  }
   .flexDiv {
     display: flex;
     width: 100%;
@@ -19,6 +26,10 @@ export const Container = styled.div`
     .span {
       width: 100%;
     }
+  }
+  a {
+    text-decoration: none;
+    color: black;
   }
 `;
 

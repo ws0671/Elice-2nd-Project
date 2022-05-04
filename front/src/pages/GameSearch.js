@@ -74,7 +74,9 @@ function GameSearch() {
       `?page=${limit}&limit=${limit}`
     );
     setData(res.data);
-    setLastPage(res.lastPage);
+    const count = Math.ceil(res.data.gameCounts / 12);
+    setLastPage(count);
+    // res.data.gameCounts
     //res.lastPage
   };
 

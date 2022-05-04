@@ -18,6 +18,7 @@ import Prologue from "./pages/Prologue";
 import Mypage from "./pages/Mypage";
 import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
+import GameDetail from "./pages/GameDetail";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -84,6 +85,7 @@ function App() {
             <Route path="/prologue" element={<Prologue />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
+            <Route path="/gamedetail" element={<GameDetail />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
