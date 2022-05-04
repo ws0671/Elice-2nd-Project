@@ -72,7 +72,7 @@ const MemorizeCards = () => {
 
   useEffect(async () => {
     if (turns !== 12 && success === 6) {
-      const today = await Api.get2("point?miniGame=CatMatch");
+      const today = await Api.get2("point?route=CatMatch");
       if (!today.data.point) {
         alert("축하합니다!! 100포인트를 얻으셨습니다.");
         const point = 100;
@@ -80,7 +80,7 @@ const MemorizeCards = () => {
           point: point,
         });
         await Api.post("point", {
-          miniGame: "CatMatch",
+          route: "CatMatch",
           point: point,
         });
       } else {
