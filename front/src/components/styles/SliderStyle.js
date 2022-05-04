@@ -55,6 +55,6 @@ export const SliderContainer = styled.div`
     color: gray;
   }
   img {
-    width: 400px;
+    width: 338px;
   }
 `;

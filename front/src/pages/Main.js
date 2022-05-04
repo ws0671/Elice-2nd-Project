@@ -9,19 +9,16 @@ import {
   FlexDiv2,
   NewsImg,
 } from "../components/styles/MainStyle";
-// 메인 bg-color:#673ab7
 import YouTube from "react-youtube";
-import { useNavigate, useLocation } from "react-router-dom";
-import Nav from "react-bootstrap/Nav";
-import { UserStateContext, DispatchContext } from "../App";
-import { Container, Card, Row, Col, Button } from "react-bootstrap";
-import styled from "styled-components";
+import { Container, Row, Col } from "react-bootstrap";
+
+// 메인 bg-color:#673ab7
 function Main() {
   const opts = {
     width: "250",
     height: "150",
     playerVars: {
-      autoplay: 1,
+      autoplay: 0,
     },
   };
   return (
