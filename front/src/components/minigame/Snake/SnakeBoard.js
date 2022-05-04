@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import useInterval from "./useInterval";
 import {
   CanvasSize,
@@ -10,6 +10,7 @@ import {
 } from "./SnakeConstants";
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
+import Swal from "sweetalert2";
 
 const SnakeBoard = () => {
   const canvasRef = useRef();
@@ -18,28 +19,42 @@ const SnakeBoard = () => {
   const [dir, setDir] = useState([0, -1]);
   const [speed, setSpeed] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const [lastWords, setLastWords] = useState("GAME OVER!");
   const [point, setPoint] = useState(false);
+  const [score, setScore] = useState(0);
   const userContext = useContext(UserStateContext);
 
   useInterval(() => gameLoop(), speed);
 
   useEffect(async () => {
-    const today = await Api.get("point?miniGame=SnakeGame");
+    const today = await Api.get2("point?miniGame=SnakeGame");
     setPoint(today.data.point);
   }, []);
 
   const endGame = async () => {
     setSpeed(null);
     setGameOver(true);
-    if (!point && snake.length >= 20) {
-      setLastWords("축하합니다! 100포인트를 얻으셨습니다.");
+    if (!point && score >= 200) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "축하합니다! 100포인트를 얻으셨습니다!!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       await Api.put(`user/${userContext.user.userId}/addPoint`, {
         point: 100,
       });
       await Api.post(`point`, {
         miniGame: "SnakeGame",
         point: 100,
+      });
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "GAME OVER!",
+        showConfirmButton: false,
+        timer: 1500,
       });
     }
   };
@@ -72,6 +87,7 @@ const SnakeBoard = () => {
         newApple = createApple();
       }
       setApple(newApple);
+      setScore((num) => num + 10);
       return true;
     }
     return false;
@@ -92,7 +108,7 @@ const SnakeBoard = () => {
     setDir([0, -1]);
     setSpeed(Speed);
     setGameOver(false);
-    setLastWords("GAME OVER!");
+    setScore(0);
   };
 
   useEffect(() => {
@@ -107,13 +123,13 @@ const SnakeBoard = () => {
 
   return (
     <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}>
-      {gameOver ? <h1>{lastWords}</h1> : <h1>SNAKE GAME</h1>}
       <canvas
         style={{ border: "1px solid white" }}
         ref={canvasRef}
         width={`${CanvasSize[0]}px`}
         height={`${CanvasSize[1]}px`}
       />
+      <h1>SCORE : {score}</h1>
       <div>
         <button onClick={startGame}>START</button>
       </div>
