@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // 사용하는 함수만 import 하도록
 import { post as Post } from "../../api";
-import { Form } from "../styles/RegisterFormStyle";
+import { Form } from "../styles/Register/RegisterFormStyle";
 
 // 회원가입 폼 컴포넌트
 const RegisterForm = () => {

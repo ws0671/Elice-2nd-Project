@@ -9,7 +9,7 @@ import {
     Subtitle,
     ContentColumn,
 } from './FirstLastStyle.js';
-import { LoginButton } from '../../login/LoginButton.js';
+import { LoginButton } from '../../user/login/LoginButton.js';
 import LastCarousel from "../Carousel/LastCarousel"
 import { useInView } from 'react-intersection-observer';
 import { useAnimation } from 'framer-motion';

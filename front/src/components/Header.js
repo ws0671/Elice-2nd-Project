@@ -1,8 +1,18 @@
 import styled from "styled-components";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserStateContext, DispatchContext } from "../App";
 
-function Header() {
+const Header = () => {
+  const userContext = useContext(UserStateContext);
+  const dispatch = useContext(DispatchContext);
+  const logout = () => {
+    sessionStorage.removeItem("userToken");
+    sessionStorage.removeItem("user");
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
     <HeaderTag className="mainHeader">
       <div className="logo">
@@ -23,18 +33,30 @@ function Header() {
         <div>
           <Link to="/topchart">TOP 차트</Link>
         </div>
+        {userContext.user && (
+          <>
+            <div>
+              <Link to="/community">커뮤니티</Link>
+            </div>
+            <div>
+              <Link to="/mypage">마이 페이지</Link>
+            </div>
+          </>
+        )}
         <div>
-          <Link to="/community">콘텐츠</Link>
+          {userContext.user ? (
+            <Link to="/" onClick={logout}>
+              로그아웃
+            </Link>
+          ) : (
+            <Link to="/login">로그인</Link>
+          )}
         </div>
-        <div>
-          <Link to="/mypage">마이 페이지</Link>
-        </div>
-        <div>
-          <Link to="/login">로그인</Link>
-        </div>
-        <div>
-          <Link to="/register">회원가입</Link>
-        </div>
+        {!userContext.user && (
+          <div>
+            <Link to="/register">회원가입</Link>
+          </div>
+        )}
       </div>
       {/* {isLogin && (
         <Nav.Item>
@@ -43,7 +65,7 @@ function Header() {
       )} */}
     </HeaderTag>
   );
-}
+};
 
 export default Header;
 
@@ -58,8 +80,6 @@ const HeaderTag = styled.div`
   transition-duration: 1s;
   justify-content: center;
   align-items: center;
-}
-
 
   & > .headerRight {
     width: 50vw;
