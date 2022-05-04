@@ -119,7 +119,6 @@ h1.title {
   font-weight: bold;
   border-radius: 3px;
   color: #57407c;
-  margin-bottom: 10px;
   margin-top: 8px;
   text-align: center;
 }
@@ -185,7 +184,7 @@ hr {
   margin-bottom: 30px;
 }
 
-.container {
+.container #game2048 {
   width: 500px;
   margin: 0 auto;
 }
