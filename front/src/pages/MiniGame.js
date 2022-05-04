@@ -17,11 +17,14 @@ const MiniGame = () => {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useLocalStorageNumber("bestScore", 0);
 
-  useLayoutEffect(async () => {
-    const today = await Api.get("point?miniGame=2048");
-    console.log(today.data.point);
-    setToday(today.data.point);
-    setChecked(true);
+  useLayoutEffect(() => {
+    const checkToday = async () => {
+      const today = await Api.get("point?miniGame=2048");
+      console.log(today.data.point);
+      setToday(today.data.point);
+      setChecked(true);
+    };
+    checkToday();
   }, []);
 
   useEffect(() => {
