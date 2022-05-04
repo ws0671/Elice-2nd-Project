@@ -21,20 +21,25 @@ const Github = () => {
   };
 
   const githubLogin = async (code) => {
-      try {
-          const res = await axios.get(`http://localhost:5001/auth/github?code=${code}`)
-          const jwtToken = res.data.token
+    try {
+      const res = await axios.get(
+        `http://localhost:5001/auth/github?code=${code}`
+      );
+      const jwtToken = res.data.token;
 
-          sessionStorage.setItem("userToken", jwtToken)
+      sessionStorage.setItem("userToken", jwtToken);
 
-          dispatch({
-              type: "LOGIN_SUCCESS",
-              payload: user,
-          })
+      dispatch({
+        type: "LOGIN_SUCCESS",
+        payload: user,
+      });
 
-          navigate("/", {replace: true})
-      }
-  }
+      navigate("/", { replace: true });
+    } catch (err) {
+      alert("로그인 실패");
+      navigate("/", { replace: true });
+    }
+  };
 };
 
 export default Github;
