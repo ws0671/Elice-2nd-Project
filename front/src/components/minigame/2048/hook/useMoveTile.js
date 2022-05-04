@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { addKeyObserver, removeKeyObserver } from "../util/keyboard";
 import { makeTile, moveTile } from "../util/tile";
 
-let tried = 0;
+let state = {};
 const useMoveTile = ({ tileList, setTileList, setScore }) => {
   useEffect(() => {
     const moveAndAdd = ({ x, y }) => {
@@ -18,11 +18,13 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
         setScore((v) => v + score);
         const newTile = makeTile(newTileList);
         if (!newTile) {
-          tried += 1;
-          console.log(tried);
-          if (tried == 4) {
-            alert("!!! You Lose !!!");
-          }
+          // 더이상 추가할 타일이 없을 때
+          return true;
+          // tried += 1;
+          // console.log(tried);
+          // if (tried == 4) {
+          //   alert("!!! You Lose !!!");
+          // }
         } else {
           newTile.isNew = true;
           newTileList.push(newTile);
@@ -35,37 +37,60 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
     };
 
     const moveUp = () => {
-      moveAndAdd({ x: 0, y: -1 });
+      const canNotMove = moveAndAdd({ x: 0, y: -1 });
+      if (canNotMove) {
+        console.log("here?");
+        state["moveUp"] = false;
+        console.log(state);
+      }
       console.log("moveUp 실행");
+      if (Object.keys(state).length == 4) {
+        alert("!!! You Lose !!!");
+      }
     };
     const moveDown = () => {
-      moveAndAdd({ x: 0, y: 1 });
+      const canNotMove = moveAndAdd({ x: 0, y: 1 });
+      if (canNotMove) {
+        state["moveDown"] = false;
+      }
       console.log("moveDown 실행");
+      if (Object.keys(state).length == 4) {
+        alert("!!! You Lose !!!");
+      }
     };
     const moveLeft = () => {
-      moveAndAdd({ x: -1, y: 0 });
+      const canNotMove = moveAndAdd({ x: -1, y: 0 });
+      if (canNotMove) {
+        state["moveLeft"] = false;
+      }
       console.log("moveLeft 실행");
+      if (Object.keys(state).length == 4) {
+        alert("!!! You Lose !!!");
+      }
     };
     const moveRight = () => {
-      moveAndAdd({ x: 1, y: 0 });
+      const canNotMove = moveAndAdd({ x: 1, y: 0 });
+      if (canNotMove) {
+        state["moveRight"] = false;
+      }
       console.log("moveRight 실행");
+      if (Object.keys(state).length == 4) {
+        alert("!!! You Lose !!!");
+      }
     };
-    try {
-      addKeyObserver("up", moveUp);
-      addKeyObserver("down", moveDown);
-      addKeyObserver("left", moveLeft);
-      addKeyObserver("right", moveRight);
 
-      return () => {
-        removeKeyObserver("up", moveUp);
-        removeKeyObserver("down", moveDown);
-        removeKeyObserver("left", moveLeft);
-        removeKeyObserver("right", moveRight);
-      };
-    } catch (err) {
-      console.log("return쪽 에러");
-    }
-  }, [tileList, setTileList, setScore]);
+    addKeyObserver("up", moveUp);
+    addKeyObserver("down", moveDown);
+    addKeyObserver("left", moveLeft);
+    addKeyObserver("right", moveRight);
+
+    return () => {
+      removeKeyObserver("up", moveUp);
+      removeKeyObserver("down", moveDown);
+      removeKeyObserver("left", moveLeft);
+      removeKeyObserver("right", moveRight);
+    };
+  }, [tileList, setTileList, setScore, state]);
 };
 
 export default useMoveTile;
