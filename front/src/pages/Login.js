@@ -1,10 +1,20 @@
-import React, { useState, useContext } from "react"
-import { useNavigate } from "react-router-dom"
-import { BodyContainer, BodyWrapper, InputContainer, MainContainer, ButtonContainer, WelcomeText, GoToRegister, HorizeontalRule } from "../components/user/login/LoginStyle"
-import * as Api from "../api"
-import { DispatchContext } from "../App"
-import { LoginButton } from "../components/user/login/LoginButton"
-import { LoginInput } from "../components/user/login/LoginInput"
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  BodyContainer,
+  BodyWrapper,
+  InputContainer,
+  MainContainer,
+  ButtonContainer,
+  WelcomeText,
+  GoToRegister,
+  HorizeontalRule,
+} from "../components/user/login/LoginStyle";
+import * as Api from "../api";
+import { DispatchContext } from "../App";
+import { LoginButton } from "../components/user/login/LoginButton";
+import { LoginInput } from "../components/user/login/LoginInput";
+import Swal from "sweetalert2";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -56,14 +66,31 @@ function LoginForm() {
         type: "LOGIN_SUCCESS",
         payload: user,
       });
-
+      Swal.fire({
+        icon: "success",
+        title: `환영합니다, ${user.nickname}!`,
+        showConfirmButton: false,
+        timer: 1500,
+        width: 600,
+        background: "rgba(0, 0, 0, 0.8)",
+        color: "white",
+      });
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
       console.log("로그인에 실패하였습니다.\n", err);
+      Swal.fire({
+        icon: "error",
+        title: `${err.response.data}`,
+        showConfirmButton: false,
+        timer: 1500,
+        width: 600,
+        background: "rgba(0, 0, 0, 0.8)",
+        color: "white",
+      });
     }
-    console.log(email)
-  }
+    console.log(email);
+  };
 
   return (
     <BodyWrapper>
@@ -71,25 +98,38 @@ function LoginForm() {
         <MainContainer>
           <WelcomeText>WELCOME</WelcomeText>
           <InputContainer>
-            <LoginInput type='email' placeholder='Email' autoComplete="on" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <LoginInput type='password' placeholder='Password' autoComplete="on" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <LoginInput
+              type="email"
+              placeholder="Email"
+              autoComplete="on"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <LoginInput
+              type="password"
+              placeholder="Password"
+              autoComplete="on"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </InputContainer>
           <ButtonContainer>
-            <LoginButton type="submit" onClick={handleSubmit}>LOG IN</LoginButton>
+            <LoginButton type="submit" onClick={handleSubmit}>
+              LOG IN
+            </LoginButton>
           </ButtonContainer>
           <GoToRegister>or become a new member!</GoToRegister>
           <HorizeontalRule />
-          <LoginButton content='register' onClick={() => navigate("/register")}>REGISTER</LoginButton>
-
+          <LoginButton content="register" onClick={() => navigate("/register")}>
+            REGISTER
+          </LoginButton>
         </MainContainer>
-
       </BodyContainer>
     </BodyWrapper>
-  )
+  );
 }
 
-
-export default LoginForm
+export default LoginForm;
 
 /* const Button = styled.button`
     background: linear-gradient(to right, #14163c 0%, #03217b 79%);
