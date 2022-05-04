@@ -50,7 +50,10 @@ text-decoration:none;
 opacity: 0.5;
 ${({ clicked }) => clicked && `opacity: 1; background-color: black`};
 
-
+.active {
+    opacity : 1;
+    background-color: black;
+}
 
 
 &:hover {

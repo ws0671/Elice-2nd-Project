@@ -50,15 +50,15 @@ function RecomQuestion() {
 
 
 
-
     const Answers = () => {
 
         return (
             qnaList[qIdx].a.map((item) => {
                 return (
                     <>
-                        <AnswerButton checked clicked={clicked === item} key={item.id} onClick={
+                        <AnswerButton clicked={clicked === item || select[qIdx] === item.id} key={item.id} onClick={
                             () => {
+                                console.log('item', item)
                                 setClicked(item)
                                 selectedButton(item.answer)
                             }}>{item.answer}</AnswerButton><br />

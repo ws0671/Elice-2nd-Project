@@ -1,14 +1,14 @@
 export const genre = [
-  { name: 'Adventure' },
-  { name: 'Action' },
-  { name: 'RPG' },
-  { name: 'Strategy' },
-  { name: 'Simulation' },
-  { name: 'Racing' },
-  { name: 'Casual' },
-  { name: 'Sports' },
-  { name: 'Violent ' },
-  { name: 'Indie' }
+  'Adventure',
+  'Action',
+  'RPG',
+  'Strategy',
+  'Simulation',
+  'Racing',
+  'Casual',
+  'Sports',
+  'Violent ',
+  'Indie'
 ]
 
 
