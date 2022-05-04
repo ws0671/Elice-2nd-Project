@@ -1,75 +1,102 @@
-import styled from "styled-components"
-import React, { useState, useEffect } from "react"
-import { useNavigate, useLocation } from "react-router-dom"
-import Nav from "react-bootstrap/Nav"
-import { UserStateContext, DispatchContext } from "../App"
-import { Button, Row, Col } from "react-bootstrap"
-import { throttle } from "lodash"
+import styled from "styled-components";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserStateContext, DispatchContext } from "../App";
 
-function Header() {
-  const navigate = useNavigate()
-  const [scrollPositon, setScrollPostion] = useState(0)
-  const updateScroll = () => {
-    setScrollPostion(window.scrollY || document.documentElement.scrollTop)
-  }
-  useEffect(() => {
-    window.addEventListener("scroll", throttle(updateScroll, 300))
-    return () => {
-      window.removeEventListener("scroll", throttle(updateScroll, 300))
-    }
-  })
+const Header = () => {
+  const userContext = useContext(UserStateContext);
+  const dispatch = useContext(DispatchContext);
+  const logout = () => {
+    sessionStorage.removeItem("userToken");
+    sessionStorage.removeItem("user");
+    dispatch({ type: "LOGOUT" });
+  };
 
   return (
-    <>
-      <Nav className={scrollPositon < 80 ? "mainHeader" : "mode"}>
+    <HeaderTag className="mainHeader">
+      <div className="logo">
+        <Link className="logoLink" to="/">
+          Game Pearl
+        </Link>
+      </div>
+      <div className="headerRight">
         <div>
-          <Nav.Item className="logo">
-            <Nav.Link disabled>Game Pearl</Nav.Link>
-          </Nav.Item>
+          <Link to="/prologue">프롤로그</Link>
         </div>
         <div>
-          <Nav>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>프롤로그</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>게임 추천</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/gamesearch")}>
-                게임 검색
-              </Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>TOP 차트</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/community")}>콘텐츠</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/")}>마이 페이지</Nav.Link>
-            </Nav.Item>
-
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/login")}>로그인</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link onClick={() => navigate("/register")}>
-                회원가입
-              </Nav.Link>
-            </Nav.Item>
-          </Nav>
+          <Link to="/recommend">게임 추천</Link>
         </div>
-        {/* {isLogin && (
+        <div>
+          <Link to="/gamesearch">게임 검색</Link>
+        </div>
+        <div>
+          <Link to="/topchart">TOP 차트</Link>
+        </div>
+        {userContext.user && (
+          <>
+            <div>
+              <Link to="/community">커뮤니티</Link>
+            </div>
+            <div>
+              <Link to="/mypage">마이 페이지</Link>
+            </div>
+          </>
+        )}
+        <div>
+          {userContext.user ? (
+            <Link to="/" onClick={logout}>
+              로그아웃
+            </Link>
+          ) : (
+            <Link to="/login">로그인</Link>
+          )}
+        </div>
+        {!userContext.user && (
+          <div>
+            <Link to="/register">회원가입</Link>
+          </div>
+        )}
+      </div>
+      {/* {isLogin && (
         <Nav.Item>
           <Nav.Link onClick={logout}>로그아웃</Nav.Link>
         </Nav.Item>
       )} */}
-      </Nav>
+    </HeaderTag>
+  );
+};
 
-      {/* footer추가,반응형 작업하기, 네비게이션 수정 */}
-    </>
-  )
-}
+export default Header;
 
-export default Header
+const HeaderTag = styled.div`
+  text-decoration: none;
+  display: flex;
+  z-index: 99999;
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.8);
+  transition-duration: 1s;
+  justify-content: center;
+  align-items: center;
+
+  & > .headerRight {
+    width: 50vw;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  a.logoLink {
+    text-decoration: none;
+    color: #6c757d;
+    font-size: 13px;
+  }
+  a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 13px;
+  }
+  a:hover {
+    color: rgba(255, 255, 255);
+  }
+`;
