@@ -1,6 +1,6 @@
 /*global kakao*/
 import "./findPCplace.css";
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 
 const getCurrentCoordinate = async () => {
   return new Promise((res, rej) => {
