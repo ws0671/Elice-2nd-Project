@@ -15,6 +15,12 @@ const ArticleSchema = new Schema(
       required: true,
     },
     category: {
+      // 영어
+      type: String,
+      required: true,
+    },
+    categoryName: {
+      // 한글
       type: String,
       required: true,
     },

@@ -4,11 +4,18 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import * as Api from "./api"
 import { loginReducer } from "./reducer"
 
-import Header from "./pages/Header"
+import Header from "./components/Header"
 import Main from "./pages/Main"
-import Network from "./components/user/Network"
-import RegisterForm from "./components/user/RegisterForm"
-import Portfolio from "./pages/Portfolio"
+import GameSearch from "./pages/GameSearch"
+
+import Register from "./pages/Register"
+import Community from "./pages/Community"
+import CommunityDetail from "./components/community/CommunityDetail"
+import LoginForm from "./pages/LoginForm"
+
+import "./css/header.css"
+import "./css/gamesearch.css"
+import CommunityAddForm from "./components/community/CommunityAddForm"
 
 export const UserStateContext = createContext(null)
 export const DispatchContext = createContext(null)
@@ -25,19 +32,24 @@ function App() {
 
   const fetchCurrentUser = async () => {
     try {
-      // 이전에 발급받은 토큰이 있다면, 이를 가지고 유저 정보를 받아옴.
-      const res = await Api.get("user/current")
-      const currentUser = res.data
+      // 유저의 닉네임 값을 가져옴.
+      const currentUser = sessionStorage.nickName
 
-      // dispatch 함수를 통해 로그인 성공 상태로 만듦.
-      dispatch({
-        type: "LOGIN_SUCCESS",
-        payload: currentUser,
-      })
+      // 로그인 한 유저가 아니라면
+      if (!currentUser)
+        console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;")
+      // 로그인 유저이면
+      else {
+        // dispatch 함수를 통해 로그인 성공 상태로 만듦.
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: currentUser,
+        })
 
-      console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;")
+        console.log("%c sessionStorage에 토큰 있음.", "color: #d93d1a;")
+      }
     } catch {
-      console.log("%c SessionStorage에 토큰 없음.", "color: #d93d1a;")
+      console.log("에러입니다.")
     }
     // fetchCurrentUser 과정이 끝났으므로, isFetchCompleted 상태를 true로 바꿔줌
     setIsFetchCompleted(true)
@@ -58,12 +70,13 @@ function App() {
         <Router>
           <Header />
           <Routes>
-            <Route path="/" exact element={<Portfolio />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/login" element={<Main />} />
-            <Route path="/users/:userId" element={<Portfolio />} />
-            <Route path="/network" element={<Network />} />
-            <Route path="*" element={<Portfolio />} />
+            <Route path="/" element={<Main />} />
+            <Route path="/gamesearch" element={<GameSearch />} />
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/community" element={<Community />} />
+            <Route path="/community/:id" element={<CommunityDetail />} />
+            <Route path="/community/create" element={<CommunityAddForm />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

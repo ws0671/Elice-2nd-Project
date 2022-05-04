@@ -18,6 +18,7 @@ const likeService = {
     const toUpdate = { $inc: { like: 1 } };
     await Article.update({ articleId, toUpdate });
   },
+
   deleteLike: async ({ userId, articleId }) => {
     const article = await Article.findById({ articleId });
     if (!article) {

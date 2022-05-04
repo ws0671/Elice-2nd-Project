@@ -8,16 +8,30 @@ const ArticleService = {
     }
 
     const user = await User.findById({ userId });
+    const permission = SetUtil.validatePermission(user.grade, category);
+    if (!permission) {
+      throw new Error("귀하는 해당 말머리를 선택할 수 없는 등급입니다.");
+    }
+
     const author = userId;
     const nickname = user.nickname;
+    const categoryName = SetUtil.convertCategory(category);
 
-    const newArticle = { author, nickname, category, title, body, tags };
+    const newArticle = {
+      author,
+      nickname,
+      category,
+      categoryName,
+      title,
+      body,
+      tags,
+    };
 
     const createdNewArticle = await Article.create({ newArticle });
     return createdNewArticle;
   },
 
-  getArticles: async ({ category, page, numOfPageSkip, numOfPageLimit }) => {
+  getArticles: async ({ category, page, limit, skip }) => {
     if ((category !== null) & !SetUtil.validateCategory(category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
@@ -29,12 +43,7 @@ const ArticleService = {
       filter = { category };
     }
 
-    const articles = await Article.findAllByCategory(
-      filter,
-      page,
-      numOfPageSkip,
-      numOfPageLimit
-    );
+    const articles = await Article.findAllByCategory(filter, page, limit, skip);
     return articles;
   },
 
@@ -52,13 +61,19 @@ const ArticleService = {
       const likeOrNot = await Like.findByFilter({ articleId, userId });
       const like = Boolean(likeOrNot);
       const comments = await Comment.findAllByArticle({ articleId });
+      if (article.author === userId) {
+        const articleInfo = { article, like, comments };
 
-      const toUpdate = { $inc: { hits: 1 } };
-      article = await Article.update({ articleId, toUpdate });
+        return articleInfo;
+      } else {
+        // 본인이 작성한 글이 아닐 때만 조회수 증가
+        const toUpdate = { $inc: { hits: 1 } };
+        article = await Article.update({ articleId, toUpdate });
 
-      const articleInfo = { article, like, comments };
+        const articleInfo = { article, like, comments };
 
-      return articleInfo;
+        return articleInfo;
+      }
     } else {
       throw new Error(
         "게시글에 접근 권한이 없습니다. 포인트를 쌓아 등업해주세요."
@@ -66,7 +81,7 @@ const ArticleService = {
     }
   },
 
-  updateArticle: async ({ articleId, author, updateData }) => {
+  updateArticle: async ({ articleId, author, category, updateData }) => {
     if (!SetUtil.validateCategory(updateData.category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
     }
@@ -78,7 +93,8 @@ const ArticleService = {
     } else if (article.author !== author) {
       throw new Error("수정 권한이 없는 게시물입니다.");
     }
-
+    const categoryName = SetUtil.convertCategory(category);
+    updateData["categoryName"] = categoryName;
     const toUpdate = SetUtil.compareValues(updateData, article);
 
     article = await Article.update({ articleId, toUpdate });
@@ -95,39 +111,8 @@ const ArticleService = {
       throw new Error("삭제 권한이 없는 게시물입니다.");
     }
 
+    await Like.deleteAllByArticle({ articleId }); // 해당 게시글의 좋아요 전체 삭제
     await Article.delete({ articleId });
-  },
-
-  // 게시글 좋아요
-  like: async ({ userId, articleId, like }) => {
-    const article = await Article.findById({ articleId }); // 좋아요 할 게시글 객체 찾기
-    if (!article) {
-      throw new Error(
-        "해당 id를 가진 게시글 데이터는 없습니다. 다시 한 번 확인해주세요."
-      );
-    }
-
-    const filter = { userId, articleId };
-    const likeOrNot = await Like.findByFilter(filter);
-
-    if (like) {
-      if (likeOrNot) {
-        throw new Error("이미 좋아요를 누른 게시물입니다.");
-      }
-      const newLike = { userId, articleId };
-      await Like.create({ newLike });
-      const toUpdate = { $inc: { like: 1 } };
-      await Article.update({ articleId, toUpdate });
-    } else {
-      if (!likeOrNot) {
-        throw new Error(
-          "이미 좋아요 취소가 되었거나 좋아요를 누르지 않은 게시물입니다."
-        );
-      }
-      await Like.delete(filter);
-      const toUpdate = { $inc: { like: -1 } };
-      await Article.update({ articleId, toUpdate });
-    }
   },
 };
 

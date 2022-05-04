@@ -1,12 +1,14 @@
 import cors from "cors";
 import express from "express";
-import { userAuthRouter } from "./routers/userRouter";
-import { gameRouter } from "./routers/gameRouter";
+import { OutsideApiRouter } from "./routers/outsideApiRouter";
+import { UserAuthRouter } from "./routers/userRouter";
+import { GameRouter } from "./routers/gameRouter";
 import { ArticleRouter } from "./routers/articleRouter";
 import { CommentRouter } from "./routers/commentRouter";
 import { ReviewRouter } from "./routers/reviewRouter";
 import { LikeRouter } from "./routers/likeRouter";
-import { gameGraphRouter } from "./routers/gameGraphRouter";
+import { GameGraphRouter } from "./routers/gameGraphRouter";
+import { PointRouter } from "./routers/pointRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 const app = express();
@@ -26,13 +28,15 @@ app.get("/", (req, res) => {
 });
 
 // router, service 구현 (userAuthRouter는 맨 위에 있어야 함.)
-app.use("/user", userAuthRouter);
-app.use("/game", gameRouter);
+app.use("/", OutsideApiRouter);
+app.use("/user", UserAuthRouter);
+app.use("/game", GameRouter);
 app.use("/article", ArticleRouter);
 app.use("/comment", CommentRouter);
 app.use("/review", ReviewRouter);
 app.use("/like", LikeRouter);
-app.use("/gameGraph", gameGraphRouter);
+app.use("/gameGraph", GameGraphRouter);
+app.use("/point", PointRouter);
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
 app.use(errorMiddleware);
 

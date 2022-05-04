@@ -1,4 +1,4 @@
-import { Review } from "../db";
+import { Review, User } from "../db";
 import { SetUtil } from "../common/setUtil";
 
 const ReviewService = {
@@ -10,6 +10,12 @@ const ReviewService = {
     const newReview = { userId, gameId, review };
 
     const createdNewReview = await Review.create({ newReview });
+
+    let user = await User.findById({ userId });
+    const { toUpdate, isUpgraded } = SetUtil.setPointAndGrade(user, 250);
+
+    user = await User.update({ userId, toUpdate });
+
     return createdNewReview;
   },
 
