@@ -87,6 +87,7 @@ function App() {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
             <Route path="/gamedetail/:id" element={<GameDetail />} />
+            <Route path="/auth/github/callback" element={<Github />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
