@@ -11,7 +11,7 @@ LikeRouter.post("/", async (req, res, next) => {
     const articleId = req.body.articleId; // 게시글의 Id,
     const authorUserId = req.body.author; // 게시글 작성자의 userId
 
-    if (userId == author) {
+    if (userId == authorUserId) {
       // 로그인 사용자 = 게시글 작성자이면
       throw new Error("본인 글에는 좋아요 할 수 없습니다.");
     } else {
