@@ -3,6 +3,7 @@ import { Wheel } from "react-custom-roulette";
 import data from "./rouletteData";
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
+import Swal from "sweetalert2";
 
 const Roulette = () => {
   const [spin, setSpin] = useState(false);
