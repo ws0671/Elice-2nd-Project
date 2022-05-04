@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const BestGame = ({ data }) => {
   return (
     <>
-      <Link to="/gamedetail">
+      <Link to="">
         <img alt="이미지" src={data[4][17]} />
         <div className="flexDiv">
           <div className="numberDiv">

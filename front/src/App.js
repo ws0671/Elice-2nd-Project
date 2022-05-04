@@ -85,7 +85,7 @@ function App() {
             <Route path="/prologue" element={<Prologue />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
-            <Route path="/gamedetail" element={<GameDetail />} />
+            <Route path="/gamedetail/:id" element={<GameDetail />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

@@ -1,16 +1,21 @@
-import React, { useEffect } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import * as Api from "../api";
 const GameDetail = () => {
-  return (
-    <>
-      {/* <h1>{data[0][17]}</h1>
-      <div>{data[1][17]}</div>
-      <div>{data[2][17]}</div>
-      <div>{data[3][17]}</div>
-      <div>{data[6][17]}</div>
-      <div>{data[7][17]}</div> */}
-    </>
-  );
+  const [data, setData] = useState(null);
+  const [id, setId] = useState(null);
+  const params = useParams();
+
+  const handleData = async () => {
+    const res = await Api.get(`game/${params.id}/guest`);
+    setData(res.data);
+    console.log(data);
+  };
+  useEffect(() => {
+    handleData();
+  }, []);
+
+  return <>{data && <h1>{data.game.name}</h1>}</>;
 };
 
 export default GameDetail;
