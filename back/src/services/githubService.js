@@ -52,6 +52,22 @@ class GithubService {
     console.log(nickname, id);
     return this.checkUser({ email, nickname, id, loginMethod: "Github" });
   };
+
+  static getToken = async ({ code }) => {
+    const baseUrl = "https://github.com/login/oauth/access_token";
+    const body = {
+      client_id: process.env.GITHUB_CLIENT,
+      client_secret: process.env.GITHUB_SECRET,
+      code,
+    };
+    const finalURL = baseUrl;
+
+    const { data: requestToken } = await axios.post(finalUrl, body, {
+      headers: { Accept: "application/json" },
+    });
+    const { access_token } = requestToken;
+    return this.getUserData({ access_token });
+  };
 }
 
 export { GithubService };
