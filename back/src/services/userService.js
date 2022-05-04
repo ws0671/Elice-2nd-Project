@@ -187,6 +187,7 @@ const userAuthService = {
         "해당하는 회원 정보가 없습니다. 다시 한 번 확인해 주세요."
       );
     }
+    const likes = await Like.findAllByUser({ userId }); // 유저 좋아요한 내역 조회
 
     await Like.deleteAllByUser({ userId });
 
