@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserStateContext, DispatchContext } from "../App";
-import logo from "../images/logoreal.png";
+import logo from "../images/logo.png";
 import Swal from "sweetalert2";
 const Header = () => {
   const userContext = useContext(UserStateContext);
@@ -13,13 +13,11 @@ const Header = () => {
     sessionStorage.removeItem("user");
     dispatch({ type: "LOGOUT" });
     Swal.fire({
-      position: "top-center",
       icon: "success",
       title: "정상적으로 로그아웃 되었습니다.",
       showConfirmButton: false,
       timer: 1500,
       width: 600,
-      height: 300,
       background: "rgba(0, 0, 0, 0.8)",
       color: "white",
     });
