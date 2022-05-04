@@ -25,9 +25,12 @@ const SnakeBoard = () => {
 
   useInterval(() => gameLoop(), speed);
 
-  useEffect(async () => {
-    const today = await Api.get2("point?route=SnakeGame");
-    setPoint(today.data.point);
+  useEffect(() => {
+    const checkPoint = async () => {
+      const today = await Api.get2("point?route=SnakeGame");
+      setPoint(today.data.point);
+    };
+    checkPoint();
   }, []);
 
   const endGame = async () => {
