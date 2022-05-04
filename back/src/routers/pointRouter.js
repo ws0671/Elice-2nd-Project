@@ -22,11 +22,11 @@ PointRouter.post("/", async (req, res, next) => {
 PointRouter.get("/", async (req, res, next) => {
   try {
     const userId = req.currentUserId;
-    const miniGame = req.query.miniGame;
+    const route = req.query.route;
 
     const point = await pointService.checkPoint({
       userId,
-      miniGame,
+      route,
     });
     res.status(200).json(point);
   } catch (error) {
