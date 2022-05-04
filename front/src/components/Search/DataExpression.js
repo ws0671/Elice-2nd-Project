@@ -5,7 +5,7 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
     <div className="box">
       {mode === "전체 목록" &&
         data &&
-        data
+        data.games
           .filter((val) => {
             if (inputData === "") {
               return val;
@@ -17,9 +17,8 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
           })
           .map((val, key) => {
             return (
-              <div className="imgWrap">
+              <div key={key} className="imgWrap">
                 <img
-                  key={key}
                   src={val.headerImage}
                   alt="게임 이미지"
                   style={{ width: "400px" }}
