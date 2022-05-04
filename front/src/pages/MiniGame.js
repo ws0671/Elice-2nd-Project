@@ -56,24 +56,6 @@ const MiniGame = () => {
     }
   }, [score]);
 
-  // useEffect(() => {
-  //   if (!today) {
-  //     // 오늘 얻은 포인트가 없으면
-  //     if (score >= 50) {
-  //       alert("축하합니다!! 100포인트를 얻으셨습니다.");
-  //       const record = { miniGame: 2048, point: 100 };
-  //       const point = { point: 100 };
-  //       // 2048 게임 기록 추가하기
-  //       Api.post("point", record);
-  //       // user 계정에 포인트 올려주기
-  //       Api.put(`user/${userContext.user.userId}/addPoint`, point);
-  //     }
-  //   }
-  //   if (score > bestScore) {
-  //     setBestScore(score);
-  //   }
-  // });
-
   return (
     <>
       <div className="container">
