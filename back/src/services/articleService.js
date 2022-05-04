@@ -106,6 +106,7 @@ const ArticleService = {
       throw new Error("삭제 권한이 없는 게시물입니다.");
     }
 
+    await Like.deleteAllByArticle({ articleId }); // 해당 게시글의 좋아요 전체 삭제
     await Article.delete({ articleId });
   },
 };
