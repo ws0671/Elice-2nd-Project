@@ -60,7 +60,7 @@ class GithubService {
       client_secret: process.env.GITHUB_SECRET,
       code,
     };
-    const finalURL = baseUrl;
+    const finalUrl = baseUrl;
 
     const { data: requestToken } = await axios.post(finalUrl, body, {
       headers: { Accept: "application/json" },
