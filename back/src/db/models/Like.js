@@ -5,11 +5,6 @@ const Like = {
     await LikeModel.create(newLike);
   },
 
-  findAllByArticle: async ({ articleId }) => {
-    const likes = await LikeModel.find({ articleId });
-    return likes;
-  },
-
   findByFilter: async (filter) => {
     const like = await LikeModel.findOne(filter);
     return like;
