@@ -44,7 +44,7 @@ OutsideApiRouter.get("/youtubeVideos", async (req, res, next) => {
 
       await redisClient.SETEX(
         `youtubeVideos`,
-        DEFAULT_EXPIRATION,
+        86400, // 유튜브 캐시는 하루동안 저장
         JSON.stringify(searchedVideos)
       );
       res.status(200).json(searchedVideos);
