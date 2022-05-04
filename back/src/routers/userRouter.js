@@ -3,9 +3,9 @@ import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { userAuthService } from "../services/userService";
 
-const userAuthRouter = Router();
+const UserAuthRouter = Router();
 
-userAuthRouter.post("/register", async (req, res, next) => {
+UserAuthRouter.post("/register", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -29,7 +29,7 @@ userAuthRouter.post("/register", async (req, res, next) => {
   }
 });
 
-userAuthRouter.post("/login", async (req, res, next) => {
+UserAuthRouter.post("/login", async (req, res, next) => {
   try {
     // req (request) 에서 데이터 가져오기
     const { email, password } = req.body;
@@ -43,7 +43,7 @@ userAuthRouter.post("/login", async (req, res, next) => {
   }
 });
 
-userAuthRouter.post("/emailVerify", async (req, res, next) => {
+UserAuthRouter.post("/emailVerify", async (req, res, next) => {
   try {
     const email = req.body.email;
 
@@ -55,7 +55,7 @@ userAuthRouter.post("/emailVerify", async (req, res, next) => {
   }
 });
 
-userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
+UserAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
   try {
     // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
     const loginId = req.currentUserId;
@@ -98,7 +98,7 @@ userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
   }
 });
 
-userAuthRouter.put(
+UserAuthRouter.put(
   "/:userId/nickname",
   loginRequired,
   async (req, res, next) => {
@@ -125,7 +125,7 @@ userAuthRouter.put(
   }
 );
 
-userAuthRouter.put(
+UserAuthRouter.put(
   "/:userId/password",
   loginRequired,
   async (req, res, next) => {
@@ -149,7 +149,7 @@ userAuthRouter.put(
   }
 );
 
-userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
+UserAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
     const loginId = req.currentUserId;
     const userId = req.params.userId;
@@ -164,7 +164,7 @@ userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
 });
 
 // 포인트 적립
-userAuthRouter.put(
+UserAuthRouter.put(
   "/:userId/addPoint",
   loginRequired,
   async (req, res, next) => {
@@ -189,7 +189,7 @@ userAuthRouter.put(
 );
 
 // 게임 북마크/북마크 취소
-userAuthRouter.put(
+UserAuthRouter.put(
   "/:userId/addBookmark",
   loginRequired,
   async (req, res, next) => {
@@ -214,7 +214,7 @@ userAuthRouter.put(
 );
 
 // 사용자별 북마크 리스트
-userAuthRouter.get(
+UserAuthRouter.get(
   "/:userId/bookmarks",
   loginRequired,
   async (req, res, next) => {
@@ -233,7 +233,7 @@ userAuthRouter.get(
 );
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-userAuthRouter.get("/afterlogin", loginRequired, (req, res, next) => {
+UserAuthRouter.get("/afterlogin", loginRequired, (req, res, next) => {
   res
     .status(200)
     .send(
@@ -241,4 +241,4 @@ userAuthRouter.get("/afterlogin", loginRequired, (req, res, next) => {
     );
 });
 
-export { userAuthRouter };
+export { UserAuthRouter };
