@@ -18,9 +18,8 @@ import { Point } from "./models/Point";
 const redisClient = new Redis.createClient(); // redis 기본 포트는 6379
 const DEFAULT_EXPIRATION = 3600; //seconds
 
-redisClient.on("ready", () => {
-  console.log("Redis 서버에 연결할 준비가 되었습니다.");
-});
+// redis 서버 연결
+redisClient.connect();
 
 redisClient.on("connect", () => {
   console.log("정상적으로 Redis 서버에 연결되었습니다.");
