@@ -4,7 +4,7 @@ import { User } from "../db";
 
 const AuthRouter = Router();
 
-AuthRouter.get("/github/callback", async (req, res, next) => {
+AuthRouter.get("/github", async (req, res, next) => {
   try {
     const code = req.query.code;
     const baseUrl = "https://github.com/login/oauth/access_token";
