@@ -115,6 +115,23 @@ const userAuthService = {
     return user;
   },
 
+  resetPassword: async ({ email, updateData }) => {
+    let user = await User.findByEmail({ email });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(updateData.password, 10);
+    updateData.password = hashedPassword;
+
+    const toUpdate = SetUtil.compareValues(updateData, user);
+    user = await User.update({ userId: user.userId, toUpdate });
+
+    return user;
+  },
+
   getUserInfo: async ({ userId }) => {
     const user = await User.findById({ userId });
     if (!user) {
