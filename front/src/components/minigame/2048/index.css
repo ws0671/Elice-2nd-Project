@@ -67,6 +67,7 @@ h1.title {
   display: block;
   float: left;
   color: #57407c;
+  text-shadow: 3px 3px 3px #7ed4c9;
 }
 
 @-webkit-keyframes move-up {
@@ -105,6 +106,7 @@ h1.title {
 .scores-container {
   float: right;
   text-align: right;
+  margin-top: 15px;
 }
 
 .score-container,
