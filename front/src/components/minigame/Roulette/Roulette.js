@@ -23,7 +23,7 @@ const Roulette = () => {
   };
 
   useEffect(async () => {
-    const today = await Api.get2("point?miniGame=Roulette");
+    const today = await Api.get2("point?route=Roulette");
     if (today.data.point) {
       setPoint(today.data.point);
     }
@@ -33,7 +33,7 @@ const Roulette = () => {
     if (point && pointIndex) {
       Api.put(`user/${userContext.user.userId}/addPoint`, { point: point });
       Api.post("point", {
-        miniGame: "Roulette",
+        route: "Roulette",
         point: point,
       });
       Swal.fire({
