@@ -12,6 +12,8 @@ import { ReviewSchema } from "./schemas/review";
 import { Review } from "./models/Review";
 import { GameGenreGraph } from "./models/GameGenreGraph";
 import { GameAgeGraph } from "./models/GameAgeGraph";
+import { GameRecommend } from "./models/GameRecommend";
+import { GameRecommendCache } from "./models/GameRecommendCache";
 import { Point } from "./models/Point";
 
 const DB_URL =
@@ -90,6 +92,8 @@ export {
   Game,
   GameGenreGraph,
   GameAgeGraph,
+  GameRecommend,
+  GameRecommendCache,
   Article,
   Comment,
   Like,
