@@ -1,4 +1,4 @@
-import { User, Game, Review } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { User, Game, Review, Like, Article } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
@@ -187,6 +187,14 @@ const userAuthService = {
         "해당하는 회원 정보가 없습니다. 다시 한 번 확인해 주세요."
       );
     }
+    const likes = await Like.findAllByUser({ userId }); // 유저 좋아요한 내역 조회
+    const likeArticleIds = likes.map((like) => like.articleId); // 좋아요 내역에서 게시글 아이디만 빼서 배열로 만듦
+
+    const filter = { articleId: { $in: likeArticleIds } };
+    const toUpdate = { $inc: { like: -1 } };
+    await Article.updateLikes({ filter, toUpdate });
+
+    await Like.deleteAllByUser({ userId });
 
     return { status: "ok" };
   },

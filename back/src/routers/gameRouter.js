@@ -2,9 +2,9 @@ import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { gameService } from "../services/gameService";
 
-const gameRouter = Router();
+const GameRouter = Router();
 
-gameRouter.get("/list/:page", async (req, res, next) => {
+GameRouter.get("/list/:page", async (req, res, next) => {
   try {
     const page = Number(req.params.page);
     const numOfPageSkip = req.query.page ? Number(req.query.page) : undefined;
@@ -22,7 +22,7 @@ gameRouter.get("/list/:page", async (req, res, next) => {
   }
 });
 // 로그인 안 한 사용자, 북마크 정보 없음
-gameRouter.get("/:gameId/guest", async (req, res, next) => {
+GameRouter.get("/:gameId/guest", async (req, res, next) => {
   try {
     const userId = undefined;
     const gameId = Number(req.params.gameId);
@@ -37,7 +37,7 @@ gameRouter.get("/:gameId/guest", async (req, res, next) => {
   }
 });
 // 로그인 한 사용자, 북마크 정보 있음
-gameRouter.get("/:gameId", loginRequired, async (req, res, next) => {
+GameRouter.get("/:gameId", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
     const gameId = Number(req.params.gameId);
@@ -52,7 +52,7 @@ gameRouter.get("/:gameId", loginRequired, async (req, res, next) => {
   }
 });
 
-gameRouter.get("/rankedList/:colName", async (req, res, next) => {
+GameRouter.get("/rankedList/:colName", async (req, res, next) => {
   try {
     const colName = req.params.colName;
     const numOfLimit = req.query.limit ? Number(req.query.limit) : undefined;
@@ -67,7 +67,7 @@ gameRouter.get("/rankedList/:colName", async (req, res, next) => {
   }
 });
 
-gameRouter.get("/search/:key", async (req, res, next) => {
+GameRouter.get("/search/:key", async (req, res, next) => {
   try {
     const key = req.params.key;
     const page = Number(req.query.page);
@@ -90,4 +90,4 @@ gameRouter.get("/search/:key", async (req, res, next) => {
   }
 });
 
-export { gameRouter };
+export { GameRouter };
