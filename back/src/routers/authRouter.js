@@ -4,24 +4,6 @@ import { User } from "../db";
 
 const AuthRouter = Router();
 
-AuthRouter.get("/github", async (req, res, next) => {
-  try {
-    const baseUrl = "https://github.com/login/oauth/authorize";
-    const config = {
-      client_id: process.env.GITHUB_CLIENT,
-      scope: "read:user user:email",
-      allow_signup: true,
-    };
-    const parmas = new URLSearchParams(config).toString();
-    const finalUrl = `${baseUrl}?${parmas}`;
-    console.log(finalUrl);
-
-    res.redirect(finalUrl);
-  } catch (error) {
-    next(error);
-  }
-});
-
 AuthRouter.get("/github/callback", async (req, res, next) => {
   try {
     const code = req.query.code;
