@@ -145,13 +145,8 @@ const moveTile = ({ tileList, x, y }) => {
         }
       }
     }
-    let isChanged; // 이전 타일 상태와 비교하여 움직였는지
-    if (tileList === newTileList) {
-      isChanged = false;
-    } else {
-      isChanged = true;
-    }
-    return { isChanged, newTileList };
+
+    return newTileList;
   } catch (err) {
     console.log("moveTile 에러");
   }
