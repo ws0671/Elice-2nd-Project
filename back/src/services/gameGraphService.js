@@ -1,70 +1,83 @@
-import { name as worstName, negativeRate } from "../json/worstGameTOP10";
-import { name as bestName, positiveRate } from "../json/bestGameTOP10";
-import { name as recentName, releaseDate } from "../json/recentGameTOP5";
+import worstGame from "../json/worstGameTOP10";
+import bestGame from "../json/bestGameTOP10";
+import recentGame from "../json/recentGameTOP10";
 import { gameByReleaseYear, gameByGenre, indieByYear } from "../json/chartData";
-import { GameGraph } from "../db";
+import { GameGenreGraph } from "../db";
+import { GameAgeGraph } from "../db";
 
 const gameGraphService = {
   getWorstRank: async () => {
-    const name = Object.values(worstName);
-    if (!name) {
+    const games = Object.values(worstGame);
+    if (!games) {
       throw new Error("해당 데이터가 없습니다. 다시 한 번 확인해 주세요.");
     }
-    const rating = Object.values(negativeRate);
-    const zip = name.map((e, i) => [e, rating[i]]);
-    zip.sort((a, b) => b[1] - a[1]);
-    let [x, y] = [[], []];
-    zip.map((e) => {
-      x.push(e[0]);
-      y.push(e[1]);
-    });
+    const gameData = [
+      games[0],
+      games[1],
+      games[5],
+      games[8],
+      games[17],
+      games[18],
+      games[20],
+      games[21],
+    ];
 
-    return [x, y];
+    return gameData;
   },
 
   getBestRank: async () => {
-    const name = Object.values(bestName);
-    if (!name) {
+    const games = Object.values(bestGame);
+    if (!games) {
       throw new Error("해당 데이터가 없습니다. 다시 한 번 확인해 주세요.");
     }
-    const rating = Object.values(positiveRate);
-    const zip = name.map((e, i) => [e, rating[i]]);
-    zip.sort((a, b) => b[1] - a[1]);
-    let [x, y] = [[], []];
-    zip.map((e) => {
-      x.push(e[0]);
-      y.push(e[1]);
-    });
+    const gameData = [
+      games[0],
+      games[1],
+      games[5],
+      games[8],
+      games[17],
+      games[18],
+      games[20],
+      games[21],
+    ];
 
-    return [x, y];
+    return gameData;
   },
 
   getRecentRelease: async () => {
-    const name = Object.values(recentName);
-    if (!name) {
+    const games = Object.values(recentGame);
+    if (!games) {
       throw new Error("해당 데이터가 없습니다. 다시 한 번 확인해 주세요.");
     }
-    const date = Object.values(releaseDate);
-    const zip = name.map((e, i) => [e, date[i]]);
-    zip.sort((a, b) => b[1] - a[1]);
-    let [x, y] = [[], []];
-    zip.map((e) => {
-      x.push(e[0]);
-      y.push(e[1]);
-    });
+    const gameData = [
+      games[0],
+      games[1],
+      games[5],
+      games[8],
+      games[17],
+      games[18],
+      games[20],
+      games[21],
+    ];
 
-    return [x, y];
+    return gameData;
   },
 
   getBestRankByGenre: async ({ gameGenre }) => {
-    const games = await GameGraph.findByGenre({ gameGenre });
-    const x = games.map((el) => el.name);
-    const y = games.map((el) => el.positiveRate);
-
+    const games = await GameGenreGraph.findByGenre({ gameGenre });
     if (!games) {
       throw new Error("해당 장르가 없습니다. 다시 한 번 확인해 주세요");
     }
-    return [x, y];
+    return games;
+  },
+
+  getBestRankByAge: async ({ gameAge }) => {
+
+    const games = await GameAgeGraph.findByAge({ gameAge });
+    if (!games) {
+      throw new Error("해당 장르가 없습니다. 다시 한 번 확인해 주세요");
+    }
+    return games;
   },
 
   getGamesByReleaseYear: async () => {
