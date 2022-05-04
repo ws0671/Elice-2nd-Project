@@ -41,6 +41,12 @@ const Github = () => {
     }
   };
   const code = new URL(window.location.href).searchParams.get("code");
+
+  useEffect(() => {
+    dispatch(githubLogin(code));
+  }, []);
+
+  return <Spinner />;
 };
 
 export default Github;
