@@ -1,0 +1,3 @@
+const githubUrl = () => {};
+
+export { githubUrl };
