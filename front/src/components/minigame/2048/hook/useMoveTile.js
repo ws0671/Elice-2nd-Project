@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import { useEffect } from "react";
 import { addKeyObserver, removeKeyObserver } from "../util/keyboard";
 import { makeTile, moveTile } from "../util/tile";
@@ -20,11 +21,6 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
         if (!newTile) {
           // 더이상 추가할 타일이 없을 때
           return true;
-          // tried += 1;
-          // console.log(tried);
-          // if (tried == 4) {
-          //   alert("!!! You Lose !!!");
-          // }
         } else {
           newTile.isNew = true;
           newTileList.push(newTile);
@@ -45,7 +41,13 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
       }
       console.log("moveUp 실행");
       if (Object.keys(state).length == 4) {
-        alert("!!! You Lose !!!");
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "GAME OVER!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       }
     };
     const moveDown = () => {
@@ -55,7 +57,13 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
       }
       console.log("moveDown 실행");
       if (Object.keys(state).length == 4) {
-        alert("!!! You Lose !!!");
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "GAME OVER!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       }
     };
     const moveLeft = () => {
@@ -65,7 +73,13 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
       }
       console.log("moveLeft 실행");
       if (Object.keys(state).length == 4) {
-        alert("!!! You Lose !!!");
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "GAME OVER!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       }
     };
     const moveRight = () => {
@@ -75,7 +89,13 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
       }
       console.log("moveRight 실행");
       if (Object.keys(state).length == 4) {
-        alert("!!! You Lose !!!");
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "GAME OVER!",
+          showConfirmButton: false,
+          timer: 3000,
+        });
       }
     };
 
