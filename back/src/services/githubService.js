@@ -33,6 +33,25 @@ class GithubService {
       return createdNewUser;
     }
   };
+
+  static getUserData = async ({ access_token }) => {
+    const apiUrl = "https://api.github.com";
+    const { data: userdata } = await axios.get(`${apiUrl}/user`, {
+      headers: { Authorization: `token ${access_token}` },
+    });
+
+    const { data: emailDataArr } = await axios.get(`${apiUrl}/user/emails`, {
+      headers: { Authorization: `token ${access_token}` },
+    });
+
+    const { email } = emailDataArr.find(
+      (emailObj) => emailObj.primary === true && emailObj.verified === true
+    );
+
+    const { login: nickname, id } = userdata;
+    console.log(nickname, id);
+    return this.checkUser({ email, nickname, id, loginMethod: "Github" });
+  };
 }
 
 export { GithubService };
