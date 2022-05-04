@@ -14,11 +14,10 @@ gameRouter.get("/list/:page", async (req, res, next) => {
       : undefined;
 
     // redis 서버에서 캐시 확인
-    const cache = await redisClient.get("game/list");
-    console.log(cache);
+    const cache = await redisClient.GET(`game/list/${[page]}`);
     if (cache) {
       // 캐시가 있으면
-      res.status(200).json(cache);
+      res.status(200).json(JSON.parse(cache));
     } else {
       // 캐시가 없으면
       const gameList = await gameService.getGames({
@@ -26,10 +25,8 @@ gameRouter.get("/list/:page", async (req, res, next) => {
         numOfPageSkip,
         numOfPageLimit,
       });
-      // const { data } = await axios.get("http://localhost:5001/game/list", {
-      //   params: { page },
-      // });
-      redisClient.set(
+
+      await redisClient.SETEX(
         `game/list/${[page]}`,
         DEFAULT_EXPIRATION,
         JSON.stringify(gameList)
