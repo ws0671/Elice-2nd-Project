@@ -30,8 +30,7 @@ gameRouter.get("/list/:page", async (req, res, next) => {
         `game/list/${[page]}`,
         DEFAULT_EXPIRATION,
         JSON.stringify(gameList)
-      ); // set with an expiration time (or can use other redis expressions
-      // redis can only store strings, so we need to convert the data to a string
+      );
       res.status(200).json(gameList);
     }
   } catch (error) {
