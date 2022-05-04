@@ -17,7 +17,7 @@ function RecomMainPage() {
           <figcaption>
             <h1 className="display-2 mt-lg-5 mb-lg-3">Welcome!</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-            <Sbutton onClick={() => navigate("/recommend/qna")}>시작</Sbutton>
+            <Sbutton onClick={() => navigate("/recommend/qna/1")}>시작</Sbutton>
           </figcaption>
         </figure>
       </div>

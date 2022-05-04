@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import * as Api from "./api";
 import { loginReducer } from "./reducer";
 
 import Header from "./components/Header"
@@ -12,6 +11,7 @@ import Register from "./pages/Register"
 import Community from "./pages/Community"
 import CommunityDetail from "./components/community/CommunityDetail"
 import Recommend from "./pages/Recommend";
+import RecomGenre from "./components/recommend/RecomGenre";
 import RecomQnA from "./components/recommend/RecomQnA";
 import RecomResult from "./components/recommend/RecomResult"
 import Prologue from "./pages/Prologue"
@@ -79,7 +79,8 @@ function App() {
             <Route path="/community" element={<Community />} />
             <Route path="/community/:id" element={<CommunityDetail />} />
             <Route path="/recommend" element={<Recommend />} />
-            <Route path="/recommend/qna" element={<RecomQnA />} />
+            <Route path="/recommend/qna/1" element={<RecomGenre />} />
+            <Route path="/recommend/qna/2" element={<RecomQnA />} />
             <Route path="/recommend/result" element={<RecomResult />} />
             <Route path="/prologue" element={<Prologue />} />
             <Route path="/mypage" element={<Mypage />} />

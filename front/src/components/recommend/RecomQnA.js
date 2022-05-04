@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react"
-import ReactDOM from 'react-dom'
 import { useNavigate } from 'react-router-dom';
-import { Button, ProgressBar } from "react-bootstrap"
-import styled, { keyframes } from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { qnaList } from "./data_example"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { BodyStyle, QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle'
 
 function RecomQuestion() {
 
@@ -13,6 +11,7 @@ function RecomQuestion() {
     const [question, setQuestion] = useState(qnaList[qIdx].q) // 질문 내용
     const [loading, setLoading] = useState(true)
     const [clicked, setClicked] = useState(null) //클릭된 버튼 표시
+    const [checked, setChecked] = useState(false)
 
     const statusRef = useRef(null)
     const navigate = useNavigate()
@@ -41,17 +40,29 @@ function RecomQuestion() {
     }
     /* console.log('함수 밖 select', select) */
 
+    useEffect(() => {
+        for (let i = 0; i < qnaList[qIdx].a.length; i++) {
+            if (select[qIdx] === qnaList[qIdx].a[i].id)
+                setChecked(true)
+            console.log(checked)
+        }
+    }, [qIdx])
+
+
+
+
     const Answers = () => {
 
         return (
             qnaList[qIdx].a.map((item) => {
                 return (
                     <>
-                        <AnswerButton checked={select.qIdx === item.id} clicked={clicked === item} key={item.id} onClick={
+                        <AnswerButton checked clicked={clicked === item} key={item.id} onClick={
                             () => {
                                 setClicked(item)
                                 selectedButton(item.answer)
                             }}>{item.answer}</AnswerButton><br />
+
 
                     </>
                 )
@@ -59,6 +70,8 @@ function RecomQuestion() {
         )
     }
 
+    console.log('select', select)
+    /*     console.log('select', select) */
     const NextQnA = () => {
         setQIdx(qIdx + 1)
         setQuestion(qnaList[qIdx + 1].q)
@@ -73,6 +86,7 @@ function RecomQuestion() {
         navigate('/recommend/result')
     }
 
+
     //이전, 다음 버튼 감추기
     useEffect(() => {
         qIdx === 0 ? setFirstP(true) : setFirstP(false)
@@ -80,24 +94,25 @@ function RecomQuestion() {
 
     useEffect(() => {
         qIdx === endPoint - 1 ? setLastP(true) : setLastP(false)
+
     }, [qIdx])
+
 
     //진행바 초기화
     useEffect(() => {
         statusRef.current.style.width = 0 + '%';
     }, [])
 
-
-    // 클릭된 버튼 Localstorage에 저장
     useEffect(() => {
-        const clicked_Data = window.localStorage.getItem('CLICKED_ANSWER')
-        setClicked(JSON.parse(clicked_Data))
+        window.localStorage.setItem('userAnswers', JSON.stringify(select))
+    })
+
+    useEffect(() => {
+        const answersData = window.localStorage.getItem('userAnswers')
+        console.log(answersData)
+        setSelect(JSON.parse(answersData))
     }, [])
 
-    useEffect(() => {
-        window.localStorage.setItem('CLICKED_ANSWER', JSON.stringify(clicked))
-
-    }, [clicked])
 
     return (
         <>
@@ -125,83 +140,5 @@ function RecomQuestion() {
     )
 
 }
-
-
-
-const BodyStyle = styled.div`
-    width: 100vw;
-    height: 100vh;
-    font-family: "Roboto", sans-serif;
-    background-color: #f8fafb;
-`
-
-
-const QnaBox = styled.section`
-    position: relative;
-    left: 50%;
-    top: 50%;
-    width: 1000px;
-    text-align: center;
-    transform: translate(-50%, -50%);
-
-
-    .LeftButton {
-        position: absolute;
-        z-index: 1;
-        left: 3rem;
-        top: 7rem;
-    }
-
-    .RightButton {
-        position: absolute;
-        z-index: 1;
-        right: 3rem;
-        top: 7rem;
-    }
-
-`
-
-const AnswerButton = styled.button`
-    margin: 10px;
-    outline: 0;
-    font-size: 16px;
-    border-radius:25px;
-	border:2px solid #6c63ff;
-	display:inline-block;
-	cursor: pointer;
-	color:#6c63ff;
-	font-family:Arial;
-	font-size:14px;
-	padding:10px 40px;
-	text-decoration:none;
-
-    opacity: 0.5;
-    ${({ clicked }) => clicked && `opacity: 1; background-color: black`};
-
-    &:hover {
-    color: white;
-        background-color:#bab1ba;
-
-        &:active {
-            position:relative;
-            top:1px;
-        }
-    }
-`
-
-const Status = styled.div`
-    border: 2px solid #FFF;
-    height: 30px;
-    width: 80%;
-    background-color: #FFF;
-    border-radius: 20px;
-`
-
-const StatusBar = styled.div`
-    height: 100%;
-    background-image: linear-gradient(to right, #ef32d9, #89fffd);
-    border-radius: 20px;
-`
-
 
 export default RecomQuestion

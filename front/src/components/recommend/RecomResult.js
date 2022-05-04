@@ -8,6 +8,7 @@ import select from './RecomQnA'
 
 
 function RecomResult() {
+    const selectValue = Object.values(select)
     const endPoint = 12
     const calResult = () => {
         let pointArray = [
@@ -25,8 +26,9 @@ function RecomResult() {
             { name: 'pig', value: 0, key: 11 },
         ]
 
+
         for (let i = 0; i < endPoint; i++) {
-            var target = qnaList[i].a[select[i]]
+            var target = qnaList[i].a[selectValue[i]]
             for (let j = 0; j < target.length; j++) {
                 for (let k = 0; k < pointArray.length; k++) {
                     if (target.type[j] === pointArray[k].name) {
@@ -36,27 +38,31 @@ function RecomResult() {
 
             }
 
+
+
+            /*      var resultArray = pointArray.sort(function (a, b) {
+                     if (a.value > b.value) {
+                         return -1
+                     }
+                     if (a.value < b.value) {
+                         return 1
+                     }
+                     return 0
+                 })
+     
+                 let resultWord = resultArray[0].key
+                 return resultWord */
+
         }
-
-        var resultArray = pointArray.sort(function (a, b) {
-            if (a.value > b.value) {
-                return -1
-            }
-            if (a.value < b.value) {
-                return 1
-            }
-            return 0
-        })
-
-        let resultWord = resultArray[0].key
-        return resultWord
-
+        console.log(pointArray)
     }
+
+
 
 
     return (
         <ResultBox>
-            <h1><Button>결과보기(지금 결과페이지임)</Button></h1>
+            <h1><Button onClick={calResult}>결과보기(지금 결과페이지임)</Button></h1>
         </ResultBox>
     )
 }
