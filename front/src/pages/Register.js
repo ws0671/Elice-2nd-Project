@@ -1,5 +1,5 @@
-import RegisterForm from "../components/user/RegisterForm"
-import { Main, Container } from "../components/styles/RegisterStyle"
+import RegisterForm from "../components/user/RegisterForm";
+import { Main, Container } from "../components/styles/Register/RegisterStyle";
 
 // 회원가입 최상위 컴포넌트
 const Register = () => {
@@ -12,7 +12,7 @@ const Register = () => {
         <RegisterForm />
       </Container>
     </Main>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;

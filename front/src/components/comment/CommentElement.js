@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useContext } from "react";
-import { Div, ButtonGroup } from "../styles/CommentElementStyle";
+import { Div, ButtonGroup } from "../styles/Comment/CommentElementStyle";
 import { UserStateContext } from "../../App";
 
 const CommentElement = ({ item, removeHandler, editHandler }) => {

@@ -66,7 +66,7 @@ export const ButtonGroup = styled.div`
   width: 60%;
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: space-between;
 
   button {
     border: none;
@@ -78,7 +78,7 @@ export const ButtonGroup = styled.div`
     cursor: pointer;
     background: #6c63ff;
 
-    &:first-of-type {
+    &:not(:nth-of-type(3)) {
       margin-right: 10px;
     }
   }
