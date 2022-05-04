@@ -14,7 +14,7 @@ gameRouter.get("/list/:page", async (req, res, next) => {
       : undefined;
 
     // redis 서버에서 캐시 확인
-    const cache = await redisClient.GET(`game/list/${[page]}`);
+    const cache = await redisClient.GET(`game/list/${page}`);
     if (cache) {
       // 캐시가 있으면
       res.status(200).json(JSON.parse(cache));
@@ -27,7 +27,7 @@ gameRouter.get("/list/:page", async (req, res, next) => {
       });
 
       await redisClient.SETEX(
-        `game/list/${[page]}`,
+        `game/list/${page}`,
         DEFAULT_EXPIRATION,
         JSON.stringify(gameList)
       );
