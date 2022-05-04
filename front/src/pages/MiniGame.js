@@ -1,4 +1,3 @@
-import "./index.css";
 import React, { useState, useLayoutEffect, useEffect, useContext } from "react";
 import * as Api from "../api";
 import { UserStateContext } from "../App";
