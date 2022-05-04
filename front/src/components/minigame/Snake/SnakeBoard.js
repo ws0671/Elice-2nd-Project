@@ -26,7 +26,7 @@ const SnakeBoard = () => {
   useInterval(() => gameLoop(), speed);
 
   useEffect(async () => {
-    const today = await Api.get2("point?miniGame=SnakeGame");
+    const today = await Api.get2("point?route=SnakeGame");
     setPoint(today.data.point);
   }, []);
 
@@ -45,7 +45,7 @@ const SnakeBoard = () => {
         point: 100,
       });
       await Api.post(`point`, {
-        miniGame: "SnakeGame",
+        route: "SnakeGame",
         point: 100,
       });
     } else {
