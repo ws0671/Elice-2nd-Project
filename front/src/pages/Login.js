@@ -108,6 +108,7 @@ function LoginForm() {
           <LoginButton content="register" onClick={() => navigate("/register")}>
             REGISTER
           </LoginButton>
+          <a href={githuburl}>GITHUB</a>
         </MainContainer>
       </BodyContainer>
     </BodyWrapper>
