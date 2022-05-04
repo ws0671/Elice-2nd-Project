@@ -29,6 +29,7 @@ const Github = () => {
       const jwtToken = user.token;
 
       sessionStorage.setItem("userToken", jwtToken);
+      sessionStorage.setItem("user", JSON.stringify(user));
 
       dispatch({
         type: "LOGIN_SUCCESS",
