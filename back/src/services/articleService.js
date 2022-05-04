@@ -108,38 +108,6 @@ const ArticleService = {
 
     await Article.delete({ articleId });
   },
-
-  // 게시글 좋아요
-  like: async ({ userId, articleId, like }) => {
-    const article = await Article.findById({ articleId }); // 좋아요 할 게시글 객체 찾기
-    if (!article) {
-      throw new Error(
-        "해당 id를 가진 게시글 데이터는 없습니다. 다시 한 번 확인해주세요."
-      );
-    }
-
-    const filter = { userId, articleId };
-    const likeOrNot = await Like.findByFilter(filter);
-
-    if (like) {
-      if (likeOrNot) {
-        throw new Error("이미 좋아요를 누른 게시물입니다.");
-      }
-      const newLike = { userId, articleId };
-      await Like.create({ newLike });
-      const toUpdate = { $inc: { like: 1 } };
-      await Article.update({ articleId, toUpdate });
-    } else {
-      if (!likeOrNot) {
-        throw new Error(
-          "이미 좋아요 취소가 되었거나 좋아요를 누르지 않은 게시물입니다."
-        );
-      }
-      await Like.delete(filter);
-      const toUpdate = { $inc: { like: -1 } };
-      await Article.update({ articleId, toUpdate });
-    }
-  },
 };
 
 export { ArticleService };
