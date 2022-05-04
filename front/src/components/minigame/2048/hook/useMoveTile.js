@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { addKeyObserver, removeKeyObserver } from "../util/keyboard";
 import { makeTile, moveTile } from "../util/tile";
 
-export default function useMoveTile({ tileList, setTileList, setScore }) {
+const useMoveTile = ({ tileList, setTileList, setScore }) => {
   useEffect(() => {
-    function moveAndAdd({ x, y }) {
+    const moveAndAdd = ({ x, y }) => {
       // 움직이고 추가까지
       const { isChanged, newTileList } = moveTile({ tileList, x, y }); // 타일을 움직여서 새로운 타일을 주는
       console.log(isChanged);
@@ -18,9 +18,9 @@ export default function useMoveTile({ tileList, setTileList, setScore }) {
       newTile.isNew = true;
       newTileList.push(newTile);
       setTileList(newTileList);
-    }
+    };
 
-    // function ableToMove({ x, y }) {
+    // const ableToMove = ({ x, y }) => {
     //   // 움직여보고 이전과 같은지 확인
     //   let isChanged;
     //   const { newTileList } = moveTile({ tileList, x, y }); // 타일을 움직여서 새로운 타일을 주는
@@ -30,18 +30,18 @@ export default function useMoveTile({ tileList, setTileList, setScore }) {
     //     isChanged = true;
     //   }
     // }
-    function moveUp() {
+    const moveUp = () => {
       moveAndAdd({ x: 0, y: -1 });
-    }
-    function moveDown() {
+    };
+    const moveDown = () => {
       moveAndAdd({ x: 0, y: 1 });
-    }
-    function moveLeft() {
+    };
+    const moveLeft = () => {
       moveAndAdd({ x: -1, y: 0 });
-    }
-    function moveRight() {
+    };
+    const moveRight = () => {
       moveAndAdd({ x: 1, y: 0 });
-    }
+    };
     addKeyObserver("up", moveUp);
     addKeyObserver("down", moveDown);
     addKeyObserver("left", moveLeft);
@@ -54,7 +54,7 @@ export default function useMoveTile({ tileList, setTileList, setScore }) {
       removeKeyObserver("right", moveRight);
     };
   }, [tileList, setTileList, setScore]);
-}
+};
 
 // 게임 끝났는지 확인
 // export const isGameOver = (board) => {
@@ -64,3 +64,5 @@ export default function useMoveTile({ tileList, setTileList, setScore }) {
 //   if (moveBottom(board) !== board) return false;
 //   return true;
 // };
+
+export default useMoveTile;

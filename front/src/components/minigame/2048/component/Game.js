@@ -6,7 +6,7 @@ import { getInitialTileList } from "../util/tile";
 import { MAX_POS } from "../constant";
 import Tile from "./Tile";
 
-export default function Game({ setScore }) {
+const Game = ({ setScore }) => {
   const [tileList, setTileList] = useState(getInitialTileList);
   // up, down, left, right 타일 움직이기
   // hook을 이용해 로직을 분리
@@ -30,4 +30,6 @@ export default function Game({ setScore }) {
       </div>
     </div>
   );
-}
+};
+
+export default Game;

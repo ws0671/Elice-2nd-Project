@@ -2,7 +2,7 @@ import { MAX_POS } from "../constant";
 import { assert } from "./assert";
 import { getRandomInteger } from "./number";
 
-export function getInitialTileList() {
+const getInitialTileList = () => {
   const tileList = [];
   // 타일 2개를 만들어서 넣는다.
   const tile1 = makeTile(tileList);
@@ -10,16 +10,18 @@ export function getInitialTileList() {
   const tile2 = makeTile(tileList);
   tileList.push(tile2);
   return tileList;
-}
+};
 
-export function checkCollision(tileList, tile) {
+const checkCollision = (tileList, tile) => {
   return tileList.some((item) => item.x === tile.x && item.y === tile.y); // item중 어느 하나라도 만족하면 true를 반환 : some
-}
+};
 
 let currentId = 0;
-export function makeTile(tileList) {
+const makeTile = (tileList) => {
   // 타일 만들기
   let tile;
+  // console.log(tile);
+  // console.log(checkCollision(tileList, tile));
   // 생성될 타일이 이전 타일과 충돌하지 않도록 검사
   while (!tile || (tileList && checkCollision(tileList, tile))) {
     tile = {
@@ -33,9 +35,9 @@ export function makeTile(tileList) {
   }
 
   return tile;
-}
+};
 
-export function moveTile({ tileList, x, y }) {
+const moveTile = ({ tileList, x, y }) => {
   // 움직이는 방향 정보를 받아 newTile로 전달
   assert(x === 0 || y === 0, "");
   const isMoveY = y !== 0;
@@ -126,4 +128,6 @@ export function moveTile({ tileList, x, y }) {
     isChanged = true;
   }
   return { isChanged, newTileList };
-}
+};
+
+export { getInitialTileList, checkCollision, makeTile, moveTile };
