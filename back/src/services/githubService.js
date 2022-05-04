@@ -10,6 +10,14 @@ class GithubService {
 
   static checkUser = async ({ email, nickname, id, loginMethod }) => {
     const user = await User.findByEmail({ email });
+    if (user) {
+      if (user.userId == id) {
+        const secretKey = process.env.JWT_SECRET_KEY;
+        const token = jwt.sign({ user_id: user.userId }, secretKey);
+        const loginUser = { token, userId: id, email, nickname };
+        return loginUser;
+      }
+    }
   };
 }
 
