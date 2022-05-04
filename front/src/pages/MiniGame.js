@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import React, { useState, useLayoutEffect, useEffect, useContext } from "react";
 import * as Api from "../api";
 import { UserStateContext } from "../App";
@@ -31,9 +32,14 @@ const MiniGame = () => {
       // 오늘 포인트 얻은 기록이 있으면
       if (!hasPrinted) {
         setHasPrinted(true);
-        alert(
-          "오늘은 이미 100포인트를 얻으셨습니다. 게임은 무한으로 즐겨주세요 :)"
-        );
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: "Notice",
+          html: "오늘은 이미 100포인트를 얻으셨습니다.<br />게임은 무한으로 즐겨주세요😁",
+          showConfirmButton: true,
+          timer: 5000,
+        });
       }
     } else if (!today && score >= 50) {
       // 오늘 얻은 포인트가 없으면
@@ -45,7 +51,14 @@ const MiniGame = () => {
       Api.post("point", record);
       // user 계정에 포인트 올려주기
       Api.put(`user/${userContext.user.userId}/addPoint`, point);
-      alert("축하합니다!! 100포인트를 얻으셨습니다.");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Success",
+        html: "축하합니다!! 100포인트를 얻으셨습니다🎉",
+        showConfirmButton: true,
+        timer: 5000,
+      });
     }
   });
 

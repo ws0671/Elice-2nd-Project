@@ -61,8 +61,9 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
           position: "center",
           icon: "warning",
           title: "GAME OVER!",
-          showConfirmButton: false,
-          timer: 3000,
+          text: "다시 시도하려면 New Game 버튼을 눌러주세요.",
+          showConfirmButton: true,
+          timer: 5000,
         });
       }
     };
