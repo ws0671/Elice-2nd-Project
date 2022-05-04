@@ -7,28 +7,23 @@ let state = {};
 const useMoveTile = ({ tileList, setTileList, setScore }) => {
   useEffect(() => {
     const moveAndAdd = ({ x, y }) => {
-      try {
-        // 움직이고 추가까지
-        console.log("moveAndAdd 실행");
-        const newTileList = moveTile({ tileList, x, y }); // moveTile은 타일을 움직이고 새로운 타일을 주는 함수
-        // 그럼 그대로 움직인 다음에 추가
-        const score = newTileList.reduce(
-          (acc, item) => (item.isMerged ? acc + item.value : acc),
-          0
-        );
-        setScore((v) => v + score);
-        const newTile = makeTile(newTileList);
-        if (!newTile) {
-          // 더이상 추가할 타일이 없을 때
-          return true;
-        } else {
-          newTile.isNew = true;
-          newTileList.push(newTile);
-          setTileList(newTileList);
-        }
-      } catch (err) {
-        console.log("moveAndAdd 에러");
-        console.log(err);
+      // 움직이고 추가까지
+      console.log("moveAndAdd 실행");
+      const newTileList = moveTile({ tileList, x, y }); // moveTile은 타일을 움직이고 새로운 타일을 주는 함수
+      // 그럼 그대로 움직인 다음에 추가
+      const score = newTileList.reduce(
+        (acc, item) => (item.isMerged ? acc + item.value : acc),
+        0
+      );
+      setScore((v) => v + score);
+      const newTile = makeTile(newTileList);
+      if (!newTile) {
+        // 더이상 추가할 타일이 없을 때
+        return true;
+      } else {
+        newTile.isNew = true;
+        newTileList.push(newTile);
+        setTileList(newTileList);
       }
     };
 
