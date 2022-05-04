@@ -3,6 +3,7 @@ import { Wheel } from "react-custom-roulette";
 import data from "./rouletteData";
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
+import Swal from "sweetalert2";
 
 const Roulette = () => {
   const [spin, setSpin] = useState(false);
@@ -22,7 +23,7 @@ const Roulette = () => {
   };
 
   useEffect(async () => {
-    const today = await Api.get("point?miniGame=Roulette");
+    const today = await Api.get2("point?miniGame=Roulette");
     if (today.data.point) {
       setPoint(today.data.point);
     }
@@ -34,6 +35,13 @@ const Roulette = () => {
       Api.post("point", {
         miniGame: "Roulette",
         point: point,
+      });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `축하합니다! ${point}포인트를 얻으셨습니다!!`,
+        showConfirmButton: false,
+        timer: 1500,
       });
     }
   }, [point]);

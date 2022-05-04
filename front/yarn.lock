@@ -8483,10 +8483,15 @@
     "picocolors" "^1.0.0"
     "stable" "^0.1.8"
 
-"symbol-tree@^3.2.4":
-  "integrity" "sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw=="
-  "resolved" "https://registry.npmjs.org/symbol-tree/-/symbol-tree-3.2.4.tgz"
-  "version" "3.2.4"
+sweetalert2@^11.4.10:
+  version "11.4.10"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.4.10.tgz#d0f7733a0997aad18b81c6f6b39a01c3a6cb4e21"
+  integrity sha512-Ms3mryLA/c5+llHNY0I9KXU8bv0N1a874gZr7xMPOiSnLD9veHZA92nZvJOkuN1hrdcR8kyj4IN8tBxlAIjVww==
+
+symbol-tree@^3.2.4:
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"
+  integrity sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==
 
 "tailwindcss@^3.0.2":
   "integrity" "sha512-H3uMmZNWzG6aqmg9q07ZIRNIawoiEcNFKDfL+YzOPuPsXuDXxJxB9icqzLgdzKNwjG3SAro2h9SYav8ewXNgig=="
