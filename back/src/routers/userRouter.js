@@ -1,3 +1,4 @@
+import { redisClient, DEFAULT_EXPIRATION } from "../db";
 import is from "@sindresorhus/is";
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
@@ -68,11 +69,24 @@ userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
         // 기준이 없고
         if (!page) {
           // page도 없으면 전체 myPage 정보 return
-          const currentUserInfo = await userAuthService.getUserInfo({
-            userId,
-          });
+          // redis 서버에서 캐시 확인
+          const cache = await redisClient.GET(`myPage`);
+          if (cache) {
+            // 캐시가 있으면
+            res.status(200).json(JSON.parse(cache));
+          } else {
+            // 캐시가 없으면
+            const currentUserInfo = await userAuthService.getUserInfo({
+              userId,
+            });
 
-          res.status(200).send(currentUserInfo);
+            await redisClient.SETEX(
+              `myPage`,
+              DEFAULT_EXPIRATION,
+              JSON.stringify(currentUserInfo)
+            );
+            res.status(200).send(currentUserInfo);
+          }
         } else {
           // page만 있으면 pagenation 한 전체 북마크 게임 정보 return
           const bookmarksInfo = await userAuthService.getAllBookmarks({
