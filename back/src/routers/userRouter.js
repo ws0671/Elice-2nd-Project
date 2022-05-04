@@ -152,6 +152,7 @@ UserAuthRouter.put(
 UserAuthRouter.put("/missingPassword", async (req, res, next) => {
   try {
     const { email, verified, password } = req.body;
+    console.log(email, verified, password);
     const updateData = { password };
 
     if (!verified) {
