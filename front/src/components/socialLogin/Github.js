@@ -26,6 +26,13 @@ const Github = () => {
           const jwtToken = res.data.token
 
           sessionStorage.setItem("userToken", jwtToken)
+
+          dispatch({
+              type: "LOGIN_SUCCESS",
+              payload: user,
+          })
+
+          navigate("/", {replace: true})
       }
   }
 };
