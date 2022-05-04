@@ -160,7 +160,7 @@ const userAuthService = {
     const text = `귀하의 인증코드는 ${code} 입니다. 인증 후 비밀번호를 변경해주세요.`;
     await sendMail(email, subject, text);
 
-    return { user, code };
+    return { email: user.email, code };
   },
 
   getAllBookmarks: async ({ userId, page }) => {
