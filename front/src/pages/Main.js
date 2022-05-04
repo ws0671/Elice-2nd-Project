@@ -5,7 +5,6 @@ import Nav from "react-bootstrap/Nav";
 import { UserStateContext, DispatchContext } from "../App";
 import { Container, Card, Row, Col, Button } from "react-bootstrap";
 import styled from "styled-components";
-
 function Main() {
   const opts = {
     width: "250",

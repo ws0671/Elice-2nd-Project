@@ -72,7 +72,7 @@ const ArticleService = {
     } else {
       throw new Error(
         "게시글에 접근 권한이 없습니다. 포인트를 쌓아 등업해주세요."
-      )
+      );
     }
   },
 
