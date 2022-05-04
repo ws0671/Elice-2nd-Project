@@ -36,6 +36,13 @@ const Roulette = () => {
         miniGame: "Roulette",
         point: point,
       });
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `축하합니다! ${point}포인트를 얻으셨습니다!!`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
   }, [point]);
 
