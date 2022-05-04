@@ -9,6 +9,9 @@ const ArticleService = {
 
     const user = await User.findById({ userId });
     const permission = SetUtil.validatePermission(user.grade, category);
+    if (!permission) {
+      throw new Error("귀하는 해당 말머리를 선택할 수 없는 등급입니다.");
+    }
 
     const author = userId;
     const nickname = user.nickname;
