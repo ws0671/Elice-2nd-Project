@@ -149,6 +149,26 @@ UserAuthRouter.put(
   }
 );
 
+UserAuthRouter.put("/missingPassword", async (req, res, next) => {
+  try {
+    const { email, verified, password } = req.body;
+    const updateData = { password };
+
+    if (!verified) {
+      throw new Error("인증이 완료되지 않았습니다.");
+    }
+
+    const updatedUser = await userAuthService.resetPassword({
+      email,
+      updateData,
+    });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
 UserAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
     const loginId = req.currentUserId;
