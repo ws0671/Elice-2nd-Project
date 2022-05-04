@@ -40,6 +40,7 @@ const Github = () => {
       navigate("/", { replace: true });
     }
   };
+  const code = new URL(window.location.href).searchParams.get("code");
 };
 
 export default Github;
