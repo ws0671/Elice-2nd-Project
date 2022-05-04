@@ -31,7 +31,8 @@ LikeRouter.post("/", async (req, res, next) => {
 LikeRouter.delete("/", async (req, res, next) => {
   try {
     const userId = req.currentUserId; // 로그인 한 사용자
-    const { articleId, author } = req.body; // 게시글의 Id, 게시글 작성자의 userId
+    const articleId = req.body.articleId; // 게시글의 Id,
+    const authorUserId = req.body.author; // 게시글의 Id, 게시글 작성자의 userId
 
     if (userId == author) {
       // 로그인 사용자 = 게시글 작성자이면
