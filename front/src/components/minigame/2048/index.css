@@ -845,8 +845,10 @@ hr {
   }
 
   .game-container {
-    margin-top: 17px;
-    position: relative;
+    margin-top: 70px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0%);
     padding: 10px;
     cursor: default;
     -webkit-touch-callout: none;
