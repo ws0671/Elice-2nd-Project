@@ -22,27 +22,33 @@ const Roulette = () => {
     setPoint(data[pointIndex].option);
   };
 
-  useEffect(async () => {
-    const today = await Api.get2("point?route=Roulette");
-    if (today.data.point) {
-      setPoint(today.data.point);
-    }
+  useEffect(() => {
+    const checkPoint = async () => {
+      const today = await Api.get2("point?route=Roulette");
+      if (today.data.point) {
+        setPoint(today.data.point);
+      }
+    };
+    checkPoint();
   }, []);
 
   useEffect(() => {
     if (point && pointIndex) {
-      Api.put(`user/${userContext.user.userId}/addPoint`, { point: point });
-      Api.post("point", {
-        route: "Roulette",
-        point: point,
-      });
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: `축하합니다! ${point}포인트를 얻으셨습니다!!`,
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      const addPoint = async () => {
+        Api.put(`user/${userContext.user.userId}/addPoint`, { point: point });
+        Api.post("point", {
+          route: "Roulette",
+          point: point,
+        });
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `축하합니다! ${point}포인트를 얻으셨습니다!!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      };
+      addPoint();
     }
   }, [point]);
 
