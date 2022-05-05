@@ -1,6 +1,8 @@
+import * as Redis from "redis";
 import mongoose from "mongoose";
 import { model } from "mongoose";
 import autoIncrement from "mongoose-auto-increment";
+
 import { User } from "./models/User";
 import { Game } from "./models/Game";
 import { ArticleSchema } from "./schemas/article";
@@ -13,6 +15,20 @@ import { Review } from "./models/Review";
 import { GameGenreGraph } from "./models/GameGenreGraph";
 import { GameAgeGraph } from "./models/GameAgeGraph";
 import { Point } from "./models/Point";
+
+const redisClient = new Redis.createClient(); // redis 기본 포트는 6379
+const DEFAULT_EXPIRATION = 3600; //seconds
+
+// redis 서버 연결
+redisClient.connect();
+
+redisClient.on("connect", () => {
+  console.log("정상적으로 Redis 서버에 연결되었습니다.");
+});
+
+redisClient.on("error", (error) => {
+  console.log("Redis 서버 연결에 실패하였습니다..." + error);
+});
 
 const DB_URL =
   process.env.MONGODB_URL ||
@@ -83,6 +99,8 @@ const CommentModel = makeModels.CommentModel();
 const ReviewModel = makeModels.ReviewModel();
 
 export {
+  redisClient,
+  DEFAULT_EXPIRATION,
   ArticleModel,
   CommentModel,
   ReviewModel,
