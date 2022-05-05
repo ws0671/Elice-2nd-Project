@@ -5,7 +5,7 @@ import { gameByReleaseYear, gameByGenre, indieByYear } from "../json/chartData";
 import { GameGenreGraph } from "../db";
 import { GameAgeGraph } from "../db";
 
-const gameGraphService = {
+const GameGraphService = {
   getWorstRank: async () => {
     const games = Object.values(worstGame);
     if (!games) {
@@ -72,7 +72,6 @@ const gameGraphService = {
   },
 
   getBestRankByAge: async ({ gameAge }) => {
-
     const games = await GameAgeGraph.findByAge({ gameAge });
     if (!games) {
       throw new Error("해당 장르가 없습니다. 다시 한 번 확인해 주세요");
@@ -99,4 +98,4 @@ const gameGraphService = {
   },
 };
 
-export { gameGraphService };
+export { GameGraphService };

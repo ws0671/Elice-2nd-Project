@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
-import { gameService } from "../services/gameService";
+import { GameService } from "../services/gameService";
 
 const GameRouter = Router();
 
@@ -11,7 +11,7 @@ GameRouter.get("/list/:page", async (req, res, next) => {
     const numOfPageLimit = req.query.limit
       ? Number(req.query.limit)
       : undefined;
-    const gameList = await gameService.getGames({
+    const gameList = await GameService.getGames({
       page,
       numOfPageSkip,
       numOfPageLimit,
@@ -26,7 +26,7 @@ GameRouter.get("/:gameId/guest", async (req, res, next) => {
   try {
     const userId = undefined;
     const gameId = Number(req.params.gameId);
-    const gameInfo = await gameService.getGameInfo({
+    const gameInfo = await GameService.getGameInfo({
       userId,
       gameId,
     });
@@ -41,7 +41,7 @@ GameRouter.get("/:gameId", loginRequired, async (req, res, next) => {
   try {
     const userId = req.currentUserId;
     const gameId = Number(req.params.gameId);
-    const gameInfo = await gameService.getGameInfo({
+    const gameInfo = await GameService.getGameInfo({
       userId,
       gameId,
     });
@@ -56,7 +56,7 @@ GameRouter.get("/rankedList/:colName", async (req, res, next) => {
   try {
     const colName = req.params.colName;
     const numOfLimit = req.query.limit ? Number(req.query.limit) : undefined;
-    const rankedList = await gameService.getRankedList({
+    const rankedList = await GameService.getRankedList({
       colName,
       numOfLimit,
     });
@@ -76,7 +76,7 @@ GameRouter.get("/search/:key", async (req, res, next) => {
       ? Number(req.query.limit)
       : undefined;
     const sortOrder = req.query.sortOrder ? Number(req.query.sortOrder) : 1;
-    const gameSearchResult = await gameService.getSearchResult({
+    const gameSearchResult = await GameService.getSearchResult({
       key,
       colName,
       sortOrder,
