@@ -14,7 +14,7 @@ import * as Api from "../api";
 import { DispatchContext } from "../App";
 import { LoginButton } from "../components/user/login/LoginButton";
 import { LoginInput } from "../components/user/login/LoginInput";
-import { githubUrl } from "../components/socialLogin/SocialLoginUrl";
+import { githubUrl, googleUrl } from "../components/socialLogin/SocialLoginUrl";
 
 function LoginForm() {
   const navigate = useNavigate();
