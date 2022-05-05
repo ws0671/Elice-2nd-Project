@@ -14,6 +14,8 @@ class KakaoService {
     };
     const params = new URLSearchParams(body);
     const finalUrl = `${baseUrl}?${params}`;
+
+    const tokenRequest = await axios.post(finalUrl, body);
   };
 }
 
