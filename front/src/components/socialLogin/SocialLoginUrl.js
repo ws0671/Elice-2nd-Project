@@ -10,4 +10,6 @@ const githubUrl = () => {
   return finalUrl;
 };
 
-export { githubUrl };
+const googleUrl = () => {};
+
+export { githubUrl, googleUrl };
