@@ -3,7 +3,7 @@ import { DispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { application } from "express";
+import * as Api from "../../api";
 
 const Kakao = () => {
   const navigate = useNavigate();
