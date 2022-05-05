@@ -8,7 +8,7 @@ class GithubService {
     return user;
   };
 
-  static checkUser = async ({ email, nickname, id, loginMethod }) => {
+  static checkUser = async ({ email, nickname, userId, loginMethod }) => {
     const user = await User.findByEmail({ email });
     if (user) {
       if (user.userId == id) {
