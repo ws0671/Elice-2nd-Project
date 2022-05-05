@@ -25,6 +25,7 @@ const Kakao = () => {
       const res = await axios.get(
         `http://localhost:5001/auth/kakao?code=${code}`
       );
+      const user = res.data;
     } catch (err) {
       alert("로그인 실패");
       navigate("/", { replace: true });
