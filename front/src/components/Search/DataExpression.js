@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
   return (
@@ -17,7 +18,11 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
           })
           .map((val, key) => {
             return (
-              <div key={key} className="imgWrap">
+              <Link
+                key={key}
+                to={`/gamedetail/${val["gameId"]}`}
+                className="imgWrap"
+              >
                 <img
                   src={val.headerImage}
                   alt="게임 이미지"
@@ -30,7 +35,7 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
                   <div>{val.price} \</div>
                   <div>{val.positiveRate}점</div>
                 </div>
-              </div>
+              </Link>
             );
           })}
       {mode === "장르" &&
