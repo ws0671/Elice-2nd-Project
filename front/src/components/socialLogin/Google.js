@@ -19,6 +19,14 @@ const Google = () => {
       </div>
     );
   };
+
+  const googleLogin = async (code) => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5001/auth/google?code=${code}`
+      );
+    } catch (error) {}
+  };
 };
 
 export default Google;
