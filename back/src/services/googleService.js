@@ -12,7 +12,7 @@ class GoogleService {
     return str.replace(/\-/g, "+").replace(/_/g, "/");
   };
 
-  static getUserData = async (payload) => {
+  static getUserData = async ({ payload }) => {
     const { sub, email, name } = payload;
     return this.checkUser({
       userId: sub,
@@ -37,7 +37,7 @@ class GoogleService {
     const tokenRequest = await axios.post(finalUrl, config);
     const idToken = tokenRequest.data.id_token.split(".");
     const payload = JSON.parse(this.base64urlDecode(idToken[1]));
-    return this.getUserData(payload);
+    return this.getUserData({ payload });
   };
 }
 
