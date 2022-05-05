@@ -20,6 +20,7 @@ import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
 import GameDetail from "./pages/GameDetail";
 import Github from "./components/socialLogin/Github";
+import Google from "./components/socialLogin/Google";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
