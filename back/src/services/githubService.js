@@ -5,7 +5,7 @@ import { SetUtil } from "../common/setUtil";
 
 class GithubService {
   static addUser = async ({ newUser }) => {
-    const user = await User.findByNickname({ nickname });
+    const user = await User.findByNickname({ nickname: newUser.nickname });
 
     if (user) {
       const randomCode = SetUtil.randomCode();
