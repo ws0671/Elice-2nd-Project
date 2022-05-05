@@ -49,6 +49,10 @@ const Google = () => {
   };
 
   let code = new URL(window.location.href).searchParams.get("code");
+
+  useEffect(() => {
+    dispatch(googleLogin(code));
+  }, []);
 };
 
 export default Google;
