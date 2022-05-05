@@ -70,6 +70,8 @@ const Kakao = () => {
       navigate("/", { replace: true });
     }
   };
+
+  let code = new URL(window.location.href).searchParams.get("code");
 };
 
 export default Kakao;
