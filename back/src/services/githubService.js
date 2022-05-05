@@ -14,7 +14,7 @@ class GithubService {
       if (user.userId == userId) {
         const secretKey = process.env.JWT_SECRET_KEY;
         const token = jwt.sign({ user_id: user.userId }, secretKey);
-        const loginUser = { token, userId: id, email, nickname };
+        const loginUser = { token, userId, email, nickname };
         return loginUser;
       } else if (user.loginMethod !== loginMethod) {
         throw new Error(
@@ -25,7 +25,7 @@ class GithubService {
       const newUser = {
         email,
         nickname,
-        userId: id,
+        userId,
         loginMethod,
         password: "noPassword!",
       };
