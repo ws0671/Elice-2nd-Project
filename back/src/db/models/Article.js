@@ -15,7 +15,8 @@ const Article = {
     const articles = await ArticleModel.find(filter)
       .sort({ createdAt: -1 })
       .skip((page - 1) * skip)
-      .limit(limit);
+      .limit(limit)
+      .populate("author");
 
     return articles;
   },
