@@ -7,11 +7,8 @@ const ArticleSchema = new Schema(
       required: true,
     },
     author: {
-      type: String,
-      required: true,
-    },
-    nickname: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     category: {
