@@ -6,14 +6,18 @@ const Article = {
     return createdNewArticle;
   },
 
-  findAllByCategory: async (filter, page, skip = 10, limit = 10) => {
+  countArticles: async (filter) => {
     const articleCount = await ArticleModel.countDocuments(filter);
+    return articleCount;
+  },
+
+  findAllByCategory: async (filter, page, skip = 10, limit = 10) => {
     const articles = await ArticleModel.find(filter)
       .sort({ createdAt: -1 })
       .skip((page - 1) * skip)
       .limit(limit);
 
-    return { articleCount, articles };
+    return articles;
   },
 
   findById: async ({ articleId }) => {

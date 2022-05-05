@@ -16,7 +16,6 @@ const ArticleService = {
     const author = userId;
     const nickname = user.nickname;
     const categoryName = SetUtil.convertCategory(category);
-
     const newArticle = {
       author,
       nickname,
@@ -43,8 +42,10 @@ const ArticleService = {
       filter = { category };
     }
 
+    const articleCount = await Article.countArticles(filter);
     const articles = await Article.findAllByCategory(filter, page, limit, skip);
-    return articles;
+
+    return { articleCount, articles };
   },
 
   getArticleInfo: async ({ articleId, userId }) => {
