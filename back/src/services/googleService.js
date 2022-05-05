@@ -12,6 +12,11 @@ class GoogleService {
     return str.replace(/\-/g, "+").replace(/_/g, "/");
   };
 
+  static addUser = async ({ newUser }) => {
+    const user = await User.create({ newUser });
+    return user;
+  };
+
   static checkUser = async ({ userId, email, nickname, loginMethod }) => {
     const user = await User.findByEmail({ email });
     if (user) {
