@@ -6,6 +6,20 @@ import { SetUtil } from "../common/setUtil";
 class KakaoService {
   static checkUser = async ({ email, nickname, userId, loginMethod }) => {
     const user = await User.findByEmail({ email });
+    if (user) {
+      if (user.userId == userId) {
+        const secretKey = process.env.JWT_SECRET_KEY;
+        const token = jwt.sign({ user_id: user.userId }, secretKey);
+        const loginUser = {
+          token,
+          userId,
+          email,
+          nickname: user.nickname,
+          bookmarks: user.bookmarks,
+        };
+        return loginUser;
+      }
+    }
   };
 
   static getUserData = async ({ accessToken }) => {
