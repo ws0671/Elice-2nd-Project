@@ -70,7 +70,7 @@ class GoogleService {
     });
   };
 
-  static getToken = async () => {
+  static getToken = async ({ code }) => {
     const uri = "https://oauth2.googleapis.com/token";
     const config = {
       code,
