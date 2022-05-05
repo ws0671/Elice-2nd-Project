@@ -1,11 +1,19 @@
 import { User } from "../db";
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import { SetUtil } from "../common/setUtil";
 
 class GithubService {
   static addUser = async ({ newUser }) => {
-    const user = await User.create({ newUser });
-    return user;
+    const user = await User.findByNickname({ nickname });
+
+    if (user) {
+      const randomCode = SetUtil.randomCode();
+      newUser.nickname = `GITHUB_USER${randomCode}`;
+    }
+
+    const createdNewUser = await User.create({ newUser });
+    return createdNewUser;
   };
 
   static checkUser = async ({ email, nickname, userId, loginMethod }) => {
