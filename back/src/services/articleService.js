@@ -1,5 +1,5 @@
 import { Article, Like, Comment, User } from "../db";
-import { SetUtil } from "../common/setUtil";
+import { SetUtil } from "../common/SetUtil";
 
 const ArticleService = {
   addArticle: async ({ userId, category, title, body, tags }) => {

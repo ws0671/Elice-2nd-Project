@@ -1,5 +1,5 @@
 import { Review, User } from "../db";
-import { SetUtil } from "../common/setUtil";
+import { SetUtil } from "../common/SetUtil";
 
 const ReviewService = {
   addReview: async ({ userId, gameId, review }) => {
