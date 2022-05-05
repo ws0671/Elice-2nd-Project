@@ -21,7 +21,9 @@ const Article = {
   },
 
   findById: async ({ articleId }) => {
-    const article = await ArticleModel.findOne({ articleId });
+    const article = await ArticleModel.findOne({ articleId }).populate(
+      "author"
+    );
     return article;
   },
 
