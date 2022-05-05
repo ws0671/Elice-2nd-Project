@@ -16,6 +16,9 @@ class KakaoService {
     const finalUrl = `${baseUrl}?${params}`;
 
     const tokenRequest = await axios.post(finalUrl, body);
+
+    const accessToken = tokenRequest.data.access_token;
+    return this.getUserData({ accessToken });
   };
 }
 
