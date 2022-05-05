@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import { sendMail } from "./mailService";
 import { SetUtil } from "../common/setUtil";
 
-const userAuthService = {
+const UserAuthService = {
   addUser: async ({ nickname, email, password }) => {
     // 이메일 중복 확인
     const userEmail = await User.findByEmail({ email });
@@ -274,4 +274,4 @@ const userAuthService = {
   },
 };
 
-export { userAuthService };
+export { UserAuthService };
