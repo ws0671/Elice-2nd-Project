@@ -89,6 +89,7 @@ function App() {
             <Route path="/community/create" element={<CommunityAddForm />} />
             <Route path="/gamedetail/:id" element={<GameDetail />} />
             <Route path="/auth/github/callback" element={<Github />} />
+            <Route path="/auth/google/callback" element={<Google />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
