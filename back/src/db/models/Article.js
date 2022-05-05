@@ -37,7 +37,7 @@ const Article = {
       filter,
       update,
       option
-    );
+    ).populate("author");
 
     return updateArticle;
   },
