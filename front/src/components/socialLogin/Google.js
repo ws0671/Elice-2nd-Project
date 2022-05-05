@@ -3,6 +3,9 @@ import { DispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Google = () => {};
+const Google = () => {
+  const navigate = useNavigate();
+  const dispatch = useContext(DispatchContext);
+};
 
 export default Google;
