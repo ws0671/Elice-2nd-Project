@@ -9,6 +9,12 @@ class KakaoService {
     const userData = await axios.get(`${apiUrl}`, {
       Headers: { Authorization: `Bearer ${accessToken}` },
     });
+
+    const userId = userData.data.id;
+    const { nickname } = userData.data.properties;
+    const { email } = userData.data.kakao_account;
+
+    return this.checkUser({ email, nickname, userId, loginMethod: "Kakao" });
   };
 
   static getToken = async ({ code }) => {
