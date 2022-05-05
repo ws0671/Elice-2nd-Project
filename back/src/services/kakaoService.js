@@ -4,6 +4,18 @@ import jwt from "jsonwebtoken";
 import { SetUtil } from "../common/setUtil";
 
 class KakaoService {
+  static addUser = async ({ newUser }) => {
+    const user = await User.findByNickname({ nickname: newUser.nickname });
+
+    if (user) {
+      const randomCode = SetUtil.randomCode();
+      newUser.nickname = `KAKAO_USER${randomCode}`;
+    }
+
+    const createdNewUser = await User.create({ newUser });
+    return createdNewUser;
+  };
+
   static checkUser = async ({ email, nickname, userId, loginMethod }) => {
     const user = await User.findByEmail({ email });
     if (user) {
