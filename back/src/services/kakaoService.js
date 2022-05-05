@@ -4,6 +4,10 @@ import jwt from "jsonwebtoken";
 import { SetUtil } from "../common/setUtil";
 
 class KakaoService {
+  static checkUser = async ({ email, nickname, userId, loginMethod }) => {
+    const user = await User.findByEmail({ email });
+  };
+
   static getUserData = async ({ accessToken }) => {
     const apiUrl = "https://kapi.kakao.com/v2/user/me";
     const userData = await axios.get(`${apiUrl}`, {
