@@ -25,4 +25,15 @@ AuthRouter.get("/google", async (req, res, next) => {
   }
 });
 
+AuthRouter.get("/kakao", async (req, res, next) => {
+  try {
+    const code = req.query.code;
+    const user = await KakaoService.getToken({ code });
+
+    res.status(201).json(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 export { AuthRouter };
