@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import * as Api from "../../api";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import loadingbg from "../../images/loadingbg.svg";
 
 const Kakao = () => {
   const navigate = useNavigate();
@@ -11,13 +13,24 @@ const Kakao = () => {
 
   const Spinner = () => {
     return (
-      <div className="text-center">
-        <img
-          src={`/img/고양이 3.jpg`}
-          alt="loading"
-          width="800px"
-          height="800px"
-        />
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundImage: `url(${loadingbg})`,
+          backgroundSize: "100%",
+          width: "100%",
+        }}
+      >
+        <div style={{ marginRight: 100, marginBottom: 100 }}>
+          <PacmanLoader
+            size={30}
+            // style={{ marginRight: 100 }}
+            color={"rgba(201,138,204,1)"}
+          />
+        </div>
       </div>
     );
   };

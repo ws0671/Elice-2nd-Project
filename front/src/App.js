@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { GlobalStyle } from '../../front/src/components/styles/GlobalStyle'
+import { GlobalStyle } from "../../front/src/components/styles/GlobalStyle";
 
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
@@ -23,7 +23,8 @@ import GameDetail from "./pages/GameDetail";
 import Github from "./components/socialLogin/Github";
 import Google from "./components/socialLogin/Google";
 import Kakao from "./components/socialLogin/Kakao";
-import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import loadingbg from "./images/loadingbg.svg";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -75,9 +76,18 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          backgroundImage: `url(${loadingbg})`,
+          backgroundSize: "100%",
+          width: "100%",
         }}
       >
-        <ClimbingBoxLoader size={30} color={"#F37A24"} />
+        <div style={{ marginRight: 100, marginBottom: 100 }}>
+          <PacmanLoader
+            size={30}
+            // style={{ marginRight: 100 }}
+            color={"rgba(201,138,204,1)"}
+          />
+        </div>
       </div>
     );
   }
