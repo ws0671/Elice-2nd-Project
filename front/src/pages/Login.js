@@ -15,6 +15,7 @@ import { DispatchContext } from "../App";
 import { LoginButton } from "../components/user/login/LoginButton";
 import { LoginInput } from "../components/user/login/LoginInput";
 import { githubUrl, googleUrl } from "../components/socialLogin/SocialLoginUrl";
+import Swal from "sweetalert2";
 
 function LoginForm() {
   const navigate = useNavigate();
