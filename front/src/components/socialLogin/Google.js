@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { DispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+import * as Api from "../../api";
 
 const Google = () => {
   const navigate = useNavigate();
@@ -27,7 +29,13 @@ const Google = () => {
       );
       const user = res.data;
       if (user.register) {
-        alert("회원가입되었습니다. 로그인해주세요.");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "회원가입되었습니다. 로그인해주세요 :)",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         navigate("/login", { replace: true });
       } else {
         const jwtToken = user.token;
@@ -39,6 +47,22 @@ const Google = () => {
           type: "LOGIN_SUCCESS",
           payload: user,
         });
+
+        const today = await Api.get2(`point?route=Login`);
+        if (!today.data.point) {
+          Api.put(`user/${user.userId}/addPoint`, { point: 100 });
+          Api.post("point", {
+            route: "Loing",
+            point: 100,
+          });
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "축하합니다! 100포인트를 얻으셨습니다!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
 
         navigate("/", { replace: true });
       }

@@ -15,6 +15,7 @@ import { DispatchContext } from "../App";
 import { LoginButton } from "../components/user/login/LoginButton";
 import { LoginInput } from "../components/user/login/LoginInput";
 import { githubUrl, googleUrl } from "../components/socialLogin/SocialLoginUrl";
+import Swal from "sweetalert2";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -69,6 +70,22 @@ function LoginForm() {
         type: "LOGIN_SUCCESS",
         payload: user,
       });
+
+      const today = await Api.get2(`point?route=Login`);
+      if (!today.data.point) {
+        Api.put(`user/${user.userId}/addPoint`, { point: 100 });
+        Api.post("point", {
+          route: "Login",
+          point: 100,
+        });
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `축하합니다! 100포인트를 얻으셨습니다!!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
 
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
