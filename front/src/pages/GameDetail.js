@@ -15,7 +15,17 @@ const GameDetail = () => {
     handleData();
   }, []);
 
-  return <>{data && <h1>{data.game.name}</h1>}</>;
+  return <>
+  {data &&
+    <div>
+      <h1>{data.game.name}</h1>
+      <div>{data.game.releaseDate}</div>
+      <div>{data.game.genre}</div>
+      <div>{data.game.platforms}</div>
+      <div>{data.game.overallReview}</div>
+      <div>{data.game.positiveRate}</div>
+    <div/>}
+    </>
 };
 
 export default GameDetail;

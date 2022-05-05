@@ -110,7 +110,7 @@ function GameSearch() {
     }
     setSearchWord(e.target.value);
   };
-  // //버튼을 클릭하면 실행되는 함수입니다.
+  // 검색 navbar버튼을 클릭하면 실행되는 함수입니다.
   const handleButton = (e, type) => {
     e.preventDefault();
     setSelect(type);
