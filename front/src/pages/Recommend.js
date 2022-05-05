@@ -2,6 +2,7 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
+import startImg from '../images/RecomBg_9.svg'
 
 
 function RecomMainPage() {
@@ -12,11 +13,10 @@ function RecomMainPage() {
     <RecommendStyle>
       <div>
         <figure className="banner">
-          <img className="img-fluid" width="100%" src={process.env.PUBLIC_URL + '/images/recom_bg.jpg'} />
-          {/*{require("../images/recom_bg.jpg")} */}
+          <img className="img-fluid" width="100%" height="100%" src={startImg} />
           <figcaption>
             <h1 className="display-2 mt-lg-5 mb-lg-3">Welcome!</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p style={{ marginBottom: '1.5rem' }}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
             <Sbutton onClick={() => navigate("/recommend/qna/1")}>시작</Sbutton>
           </figcaption>
         </figure>
@@ -43,7 +43,7 @@ const RecommendStyle = styled.div`
   figcaption{
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 40%;
     width: 500px;
     text-align: center;
     transform: translate(-50%, -50%);

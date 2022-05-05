@@ -1,10 +1,12 @@
 import styled from "styled-components"
 
+
+
 export const BodyStyle = styled.div`
+background-image: ${(props) => `url(${props.imgUrl})`}; 
 width: 100vw;
 height: 100vh;
 font-family: "Roboto", sans-serif;
-background-color: #f8fafb;
 `
 
 
@@ -18,17 +20,21 @@ transform: translate(-50%, -50%);
 
 
 .LeftButton {
+    
     position: absolute;
     z-index: 1;
     left: 3rem;
     top: 7rem;
+    cursor: pointer;
 }
 
 .RightButton {
+    color: ${({ color }) => (color ? 'white' : '')};
     position: absolute;
     z-index: 1;
     right: 3rem;
     top: 7rem;
+    cursor: pointer;
 }
 
 `

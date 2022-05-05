@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { qnaList } from "./data_example"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BodyStyle, QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle'
+import qnaImg from '../../images/RecomBg_quiz_3.svg'
 
 function RecomQuestion() {
 
@@ -73,7 +74,7 @@ function RecomQuestion() {
         setQIdx(qIdx + 1)
         setQuestion(qnaList[qIdx + 1].q)
 
-        statusRef.current.style.width = (100 / endPoint + 1) * (qIdx + 1) + '%';
+        statusRef.current.style.width = (100 / endPoint) * (qIdx + 1) + '%';
     }
 
     /*console.log(qnaList[0].a[1].type)*/
@@ -118,9 +119,7 @@ function RecomQuestion() {
 
     return (
         <>
-
-
-            <BodyStyle>
+            <BodyStyle imgUrl={qnaImg}>
                 <QnaBox>
                     <div className="qBox">
                         <h1>{question}</h1>

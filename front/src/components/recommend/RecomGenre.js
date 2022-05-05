@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { FaChevronRight } from "react-icons/fa";
 import { BodyStyle, QnaBox, AnswerButton } from './RecomStyle'
 import styled from "styled-components";
+import genreImg from '../../images/RecomBg_genre_3.svg'
+
 function RecomGenre() {
 
     const navigate = useNavigate()
@@ -53,10 +55,10 @@ function RecomGenre() {
 
     return (
         <>
-            <BodyStyle>
+            <BodyStyle imgUrl={genreImg}>
                 <QnaBox>
-                    <h1>관심있는 장르를 3가지 골라주세요!</h1>
-                    <ul className="menu-group">
+                    <Title>관심있는 장르를 '3가지' 골라주세요!</Title>
+                    <ul className="genresButton" >
                         {gameGenres.map((genres, idx) => (
                             <>
                                 <GenreButton
@@ -75,7 +77,7 @@ function RecomGenre() {
                             </>
                         ))}
                     </ul>
-                    < FaChevronRight className="RightButton" size={70} onClick={goSecondPage} />
+                    < FaChevronRight className="RightButton" style={{ top: '17rem' }} color='white' size={70} onClick={goSecondPage} />
                 </QnaBox>
             </BodyStyle>
         </>
@@ -83,6 +85,12 @@ function RecomGenre() {
 }
 
 export default RecomGenre
+
+
+const Title = styled.h1`
+ margin-bottom: 30px;
+ color: white;
+`
 
 
 
