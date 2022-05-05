@@ -27,7 +27,7 @@ class GithubService {
         nickname,
         userId: id,
         loginMethod,
-        password: "noPassword",
+        password: "noPassword!",
       };
       const createdNewUser = await this.addUser({ newUser });
       return createdNewUser;
