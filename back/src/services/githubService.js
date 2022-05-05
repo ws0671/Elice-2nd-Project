@@ -49,7 +49,12 @@ class GithubService {
     );
 
     const { login: nickname, id } = userdata;
-    return this.checkUser({ email, nickname, id, loginMethod: "Github" });
+    return this.checkUser({
+      email,
+      nickname,
+      userId: id,
+      loginMethod: "Github",
+    });
   };
 
   static getToken = async ({ code }) => {
