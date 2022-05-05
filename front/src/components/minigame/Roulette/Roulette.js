@@ -12,6 +12,12 @@ const Roulette = () => {
   const userContext = useContext(UserStateContext);
 
   const handleStart = () => {
+    if (!point) {
+      // 룰렛을 실행시킴
+      setSpin(true);
+      // 결과값의 인덱스를 랜덤으로 지정해줌
+      setPointIndex(Math.floor(Math.random() * data.length));
+    }
     // 룰렛을 실행시킴
     setSpin(true);
     // 결과값의 인덱스를 랜덤으로 지정해줌
@@ -73,9 +79,7 @@ const Roulette = () => {
         outerBorderWidth={3}
         onStopSpinning={handleStop}
       />
-      <button onClick={handleStart} disabled={point}>
-        SPIN
-      </button>
+      <button onClick={handleStart}>SPIN</button>
     </>
   );
 };
