@@ -49,6 +49,13 @@ const Github = () => {
         });
 
         const today = await Api.get2(`point?route=Login`);
+        if (!today.data.point) {
+          Api.put(`user/${user.userId}/addPoint`, { point: 100 });
+          Api.post("point", {
+            route: "Login",
+            point: 100,
+          });
+        }
 
         navigate("/", { replace: true });
       }
