@@ -37,7 +37,9 @@ class GithubService {
         password: "noPassword!",
       };
       const createdNewUser = await this.addUser({ newUser });
-      return createdNewUser;
+
+      const registerUser = { ...createdNewUser, register: true };
+      return registerUser;
     }
   };
 
