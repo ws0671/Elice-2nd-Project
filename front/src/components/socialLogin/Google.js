@@ -55,6 +55,13 @@ const Google = () => {
             route: "Loing",
             point: 100,
           });
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "축하합니다! 100포인트를 얻으셨습니다!",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
 
         navigate("/", { replace: true });
