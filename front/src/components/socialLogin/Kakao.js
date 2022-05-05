@@ -3,6 +3,7 @@ import { DispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { application } from "express";
 
 const Kakao = () => {
   const navigate = useNavigate();
@@ -46,6 +47,8 @@ const Kakao = () => {
           type: "LOGIN_SUCCESS",
           payload: user,
         });
+
+        const today = await Api.get2(`point?route=Login`);
       }
     } catch (err) {
       alert("로그인 실패");
