@@ -26,6 +26,10 @@ const Github = () => {
         `http://localhost:5001/auth/github?code=${code}`
       );
       const user = res.data;
+      if (user.register) {
+        alert("회원가입되었습니다. 로그인해주세요.");
+        navigate("/login", { replace: true });
+      }
       const jwtToken = user.token;
 
       sessionStorage.setItem("userToken", jwtToken);
