@@ -12,6 +12,16 @@ class GoogleService {
     return str.replace(/\-/g, "+").replace(/_/g, "/");
   };
 
+  static getUserData = async (payload) => {
+    const { sub, email, name } = payload;
+    return this.checkUser({
+      userId: sub,
+      email,
+      nickname: name,
+      loginMethod: "Google",
+    });
+  };
+
   static getToken = async () => {
     const uri = "https://oauth2.googleapis.com/token";
     const config = {
