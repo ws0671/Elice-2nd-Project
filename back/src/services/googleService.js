@@ -13,8 +13,15 @@ class GoogleService {
   };
 
   static addUser = async ({ newUser }) => {
-    const user = await User.create({ newUser });
-    return user;
+    const user = await User.findByNickname({ nickname: newUser.nickname });
+
+    if (user) {
+      const randomCode = SetUtil.randomeCode();
+      newUser.nickname = `GOOGLE_USER${randomCode}`;
+    }
+
+    const createdNewUser = await User.create({ newUser });
+    return createdNewUser;
   };
 
   static checkUser = async ({ userId, email, nickname, loginMethod }) => {
