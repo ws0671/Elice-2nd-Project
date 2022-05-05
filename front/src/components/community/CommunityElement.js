@@ -16,7 +16,6 @@ const CommunityElement = ({ item, index, page }) => {
   const clickHandler = () => {
     navigate(`/community/${item.articleId}`);
   };
-
   return (
     <Tr className={(index + 1) % 2 === 0 ? "even" : "odd"}>
       <td>{index + (page - 1) * 10}</td>
@@ -27,12 +26,6 @@ const CommunityElement = ({ item, index, page }) => {
         {item.title}
       </td>
       <td>
-        {/* <div
-          style={{ width: 20, height: 20, backgroundImage: `url(${stone})` }}
-        >
-          {" "} */}
-
-        {/* </div> */}
         {item.nickname}
         <img src={tapioca} style={{ width: 20, height: 20, margin: 0 }} />
       </td>

@@ -45,8 +45,8 @@ const Mypage = () => {
   }, []);
 
   const [userData, setUserData] = useState([]);
-  // const [tagData, setTagData] = useState([]);
-  console.log(TagData);
+
+  console.log(data);
 
   const making = (v) => {
     let realTagData = [];
