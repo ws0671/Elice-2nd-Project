@@ -31,7 +31,13 @@ class GoogleService {
         const secretKey = process.env.JWT_SECRET_KEY;
         const token = jwt.sign({ user_id: userId }, secretKey);
 
-        const loginUser = { token, userId, nickname: user.nickname, email };
+        const loginUser = {
+          token,
+          userId,
+          nickname: user.nickname,
+          email,
+          bookmarks: user.bookmarks,
+        };
         return loginUser;
       } else if (user.loginMethod !== loginMethod) {
         throw new Error(
