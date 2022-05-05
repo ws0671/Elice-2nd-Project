@@ -14,13 +14,14 @@ import * as Api from "../api";
 import { DispatchContext } from "../App";
 import { LoginButton } from "../components/user/login/LoginButton";
 import { LoginInput } from "../components/user/login/LoginInput";
-import { githubUrl } from "../components/socialLogin/SocialLoginUrl";
+import { githubUrl, googleUrl } from "../components/socialLogin/SocialLoginUrl";
 
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
   const githuburl = githubUrl();
+  const googleurl = googleUrl();
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
@@ -109,6 +110,7 @@ function LoginForm() {
             REGISTER
           </LoginButton>
           <a href={githuburl}>GITHUB</a>
+          <a href={googleurl}>GOOGLE</a>
         </MainContainer>
       </BodyContainer>
     </BodyWrapper>

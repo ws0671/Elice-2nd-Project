@@ -3,7 +3,7 @@ import { DispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const Github = () => {
+const Google = () => {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
 
@@ -11,7 +11,7 @@ const Github = () => {
     return (
       <div className="text-center">
         <img
-          src={`/img/고양이 1.jpg`}
+          src={`/img/고양이 2.jpg`}
           alt="loading"
           width="800px"
           height="800px"
@@ -20,10 +20,10 @@ const Github = () => {
     );
   };
 
-  const githubLogin = async (code) => {
+  const googleLogin = async (code) => {
     try {
       const res = await axios.get(
-        `http://localhost:5001/auth/github?code=${code}`
+        `http://localhost:5001/auth/google?code=${code}`
       );
       const user = res.data;
       if (user.register) {
@@ -47,13 +47,14 @@ const Github = () => {
       navigate("/", { replace: true });
     }
   };
-  const code = new URL(window.location.href).searchParams.get("code");
+
+  let code = new URL(window.location.href).searchParams.get("code");
 
   useEffect(() => {
-    dispatch(githubLogin(code));
+    dispatch(googleLogin(code));
   }, []);
 
   return <Spinner />;
 };
 
-export default Github;
+export default Google;

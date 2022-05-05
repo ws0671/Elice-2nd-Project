@@ -1,20 +1,35 @@
 import { User } from "../db";
 import axios from "axios";
 import jwt from "jsonwebtoken";
+import { SetUtil } from "../common/setUtil";
 
 class GithubService {
   static addUser = async ({ newUser }) => {
-    const user = await User.create({ newUser });
-    return user;
+    const user = await User.findByNickname({ nickname });
+
+    if (user) {
+      const randomCode = SetUtil.randomCode();
+      newUser.nickname = `GITHUB_USER${randomCode}`;
+    }
+
+    const createdNewUser = await User.create({ newUser });
+    return createdNewUser;
   };
 
-  static checkUser = async ({ email, nickname, id, loginMethod }) => {
+  static checkUser = async ({ email, nickname, userId, loginMethod }) => {
     const user = await User.findByEmail({ email });
     if (user) {
-      if (user.userId == id) {
+      if (user.userId == userId) {
         const secretKey = process.env.JWT_SECRET_KEY;
         const token = jwt.sign({ user_id: user.userId }, secretKey);
-        const loginUser = { token, userId: id, email, nickname };
+
+        const loginUser = {
+          token,
+          userId,
+          email,
+          nickname: user.nickname,
+          bookmarks: user.bookmarks,
+        };
         return loginUser;
       } else if (user.loginMethod !== loginMethod) {
         throw new Error(
@@ -25,12 +40,14 @@ class GithubService {
       const newUser = {
         email,
         nickname,
-        userId: id,
+        userId,
         loginMethod,
-        password: "noPassword",
+        password: "noPassword!",
       };
       const createdNewUser = await this.addUser({ newUser });
-      return createdNewUser;
+
+      const registerUser = { ...createdNewUser, register: true };
+      return registerUser;
     }
   };
 
@@ -49,8 +66,12 @@ class GithubService {
     );
 
     const { login: nickname, id } = userdata;
-    console.log(nickname, id);
-    return this.checkUser({ email, nickname, id, loginMethod: "Github" });
+    return this.checkUser({
+      email,
+      nickname,
+      userId: id,
+      loginMethod: "Github",
+    });
   };
 
   static getToken = async ({ code }) => {
