@@ -39,7 +39,8 @@ const RegisterForm = () => {
   // 비밀번호 유효성 검사 함수
   const validatePassword = (password) => {
     const specialLetter = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-    const isValidPassword = password.length >= 8 && specialLetter >= 1;
+    const isValidPassword =
+      password.length >= 8 && specialLetter >= 1 && password.length <= 16;
     setHasError((prev) => ({ ...prev, password: !isValidPassword }));
   };
 
@@ -181,7 +182,7 @@ const RegisterForm = () => {
         ></input>
         <div className="error">
           {hasError.password &&
-            "비밀번호는 특수문자 1개를 포함하여 8글자 이상이어야 합니다."}
+            "비밀번호는 특수문자 1개를 포함하여 8글자 이상 16글자 이하여야 합니다."}
         </div>
       </fieldset>
 
