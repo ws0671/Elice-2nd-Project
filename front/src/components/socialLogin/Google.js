@@ -42,7 +42,10 @@ const Google = () => {
 
         navigate("/", { replace: true });
       }
-    } catch (error) {}
+    } catch (err) {
+      alert("로그인 실패");
+      navigate("/", { replace: true });
+    }
   };
 };
 
