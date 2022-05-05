@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { GlobalStyle } from '../../front/src/components/styles/GlobalStyle'
+
 
 import { loginReducer } from "./reducer";
 
@@ -70,6 +72,7 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
+          <GlobalStyle />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
