@@ -53,7 +53,7 @@ class KakaoService {
   static getUserData = async ({ accessToken }) => {
     const apiUrl = "https://kapi.kakao.com/v2/user/me";
     const userData = await axios.get(`${apiUrl}`, {
-      Headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
 
     const userId = userData.data.id;
