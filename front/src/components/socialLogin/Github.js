@@ -3,6 +3,7 @@ import { DispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import * as Api from "../../api";
 
 const Github = () => {
   const navigate = useNavigate();
