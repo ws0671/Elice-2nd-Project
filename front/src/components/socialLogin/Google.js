@@ -53,6 +53,8 @@ const Google = () => {
   useEffect(() => {
     dispatch(googleLogin(code));
   }, []);
+
+  return <Spinner />;
 };
 
 export default Google;
