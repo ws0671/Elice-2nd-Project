@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 // 사용하는 함수만 import 하도록
 import { post as Post } from "../../api";
 import { Form } from "../styles/Register/RegisterFormStyle";
+import Swal from "sweetalert2";
 
 // 회원가입 폼 컴포넌트
 const RegisterForm = () => {
@@ -38,7 +39,7 @@ const RegisterForm = () => {
   // 비밀번호 유효성 검사 함수
   const validatePassword = (password) => {
     const specialLetter = password.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
-    const isValidPassword = password.length >= 4 && specialLetter >= 1;
+    const isValidPassword = password.length >= 8 && specialLetter >= 1;
     setHasError((prev) => ({ ...prev, password: !isValidPassword }));
   };
 
@@ -92,15 +93,41 @@ const RegisterForm = () => {
 
       Post("user/register", newUser)
         .then((res) => {
-          alert("회원가입에 성공했습니다.");
-          handleReset();
-          navigate("/login");
+          (async () => {
+            await Swal.fire({
+              icon: "success",
+              title: `회원가입에 성공했습니다🎉\n 로그인 페이지로 이동합니다.`,
+              showConfirmButton: false,
+              timer: 3000,
+              width: 600,
+              background: "rgba(0, 0, 0, 0.8)",
+              color: "white",
+            });
+            await handleReset();
+            await navigate("/login");
+          })();
         })
-        .catch((err) => alert(err.response.data));
+        .catch((err) =>
+          Swal.fire({
+            icon: "error",
+            title: err.response.data,
+            showConfirmButton: false,
+            timer: 3000,
+            width: 600,
+            background: "rgba(0, 0, 0, 0.8)",
+            color: "white",
+          })
+        );
     } else
-      alert(
-        "회원가입에 실패했습니다. 입력한 정보가 조건에 맞는지 확인해주세요."
-      );
+      Swal.fire({
+        icon: "warning",
+        title: `회원가입에 실패했습니다.\n 입력한 정보가 조건에 맞는지 다시 한 번 확인해주세요.`,
+        showConfirmButton: false,
+        timer: 3000,
+        width: 600,
+        background: "rgba(0, 0, 0, 0.8)",
+        color: "white",
+      });
   };
 
   return (
@@ -154,7 +181,7 @@ const RegisterForm = () => {
         ></input>
         <div className="error">
           {hasError.password &&
-            "비밀번호는 특수문자 1개를 포함하여 4글자 이상이어야 합니다."}
+            "비밀번호는 특수문자 1개를 포함하여 8글자 이상이어야 합니다."}
         </div>
       </fieldset>
 
