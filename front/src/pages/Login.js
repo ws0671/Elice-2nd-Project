@@ -70,6 +70,8 @@ function LoginForm() {
         payload: user,
       });
 
+      const today = await Api.get2(`point?route=Login`);
+
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
