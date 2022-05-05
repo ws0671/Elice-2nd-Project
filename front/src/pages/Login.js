@@ -21,6 +21,7 @@ function LoginForm() {
   const dispatch = useContext(DispatchContext);
 
   const githuburl = githubUrl();
+  const googleurl = googleUrl();
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
