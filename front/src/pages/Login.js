@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   BodyContainer,
   BodyWrapper,
@@ -20,6 +20,7 @@ import {
   kakaoUrl,
 } from "../components/socialLogin/SocialLoginUrl";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -50,6 +51,81 @@ function LoginForm() {
   //
   // 이메일과 비밀번호 조건이 동시에 만족되는지 확인함.
   const isFormValid = isEmailValid && isPasswordValid;
+  // 비밀번호 찾을 때 인증코드 정답
+  var answerCode = 0;
+
+  // 비밀번호 찾기 함수(sweetalert2 라이브러리 사용)
+  const findPassword = () => {
+    (async () => {
+      const { value: email } = await Swal.fire({
+        title: "가입한 이메일을 적어주세요",
+        input: "text",
+        showCancelButton: true,
+        inputPlaceholder: "이메일을 입력하세요",
+        confirmButtonText: "확인",
+        cancelButtonText: "취소",
+        allowOutsideClick: false,
+      });
+      // 이후 처리되는 내용.
+      if (email) {
+        axios
+          .post(`http://localhost:5001/user/emailVerify`, {
+            email,
+          })
+
+          .then((res) => {
+            // setAnswerCode(res.data.code);
+            // real = res.data.code;
+            // console.log(res.data.code);
+            (async () => {
+              answerCode = res.data.code;
+              console.log(res.data.code);
+              await Swal.fire(
+                `${email}로 인증코드를 발송했습니다. 확인해주세요`
+              );
+              const { value: formValues } = await Swal.fire({
+                title: "",
+                html:
+                  '<div>인증 코드 :<input id="swal-input1" class="swal2-input" placeholder="인증코드를 입력해주세요"></div>' +
+                  '<div>새 비밀번호 :<input id="swal-input2" class="swal2-input" placeholder="비밀번호를 입력해주세요"></div>',
+                focusConfirm: false,
+                confirmButtonText: "확인",
+                cancelButtonText: "취소",
+                allowOutsideClick: false,
+                showCancelButton: true,
+                preConfirm: () => {
+                  return {
+                    email: email,
+                    verified:
+                      Number(answerCode) ===
+                      Number(document.getElementById("swal-input1").value),
+
+                    password: document.getElementById("swal-input2").value,
+                  };
+                },
+              });
+
+              if (formValues) {
+                (async () => {
+                  await axios
+                    .put(
+                      `http://localhost:5001/user/missingPassword`,
+                      formValues
+                    )
+                    .then((res) => Swal.fire("정상적으로 변경되었습니다."))
+                    .catch((err) => Swal.fire(err.response.data));
+                })();
+              }
+            })();
+          })
+          .catch((err) =>
+            (async () => {
+              await Swal.fire(`${err.response.data} 다시 진행해주세요.`);
+            })()
+          );
+      }
+    })();
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -75,6 +151,15 @@ function LoginForm() {
         type: "LOGIN_SUCCESS",
         payload: user,
       });
+      Swal.fire({
+        icon: "success",
+        title: `환영합니다, ${user.nickname}님!`,
+        showConfirmButton: false,
+        timer: 1500,
+        width: 600,
+        background: "rgba(0, 0, 0, 0.8)",
+        color: "white",
+      });
 
       const today = await Api.get2(`point?route=Login`);
       if (!today.data.point) {
@@ -96,6 +181,15 @@ function LoginForm() {
       navigate("/", { replace: true });
     } catch (err) {
       console.log("로그인에 실패하였습니다.\n", err);
+      Swal.fire({
+        icon: "error",
+        title: `${err.response.data}`,
+        showConfirmButton: false,
+        timer: 1500,
+        width: 600,
+        background: "rgba(0, 0, 0, 0.8)",
+        color: "white",
+      });
     }
     console.log(email);
   };

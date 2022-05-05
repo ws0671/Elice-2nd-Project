@@ -2,6 +2,7 @@ import CommunityBoard from "../components/community/CommunityBoard";
 import { Main, Container } from "../components/styles/Community/CommunityStyle";
 import { useNavigate } from "react-router-dom";
 import banner from "../images/communitybanner.png";
+
 // 커뮤니티 최상위 컴포넌트
 const Community = () => {
   const navigate = useNavigate();
@@ -25,13 +26,15 @@ const Community = () => {
       </div>
 
       <Container>
-        <div className="buttonWrap">
-          <button
-            className="write"
-            onClick={() => navigate("/community/create")}
-          >
-            <span class="material-symbols-outlined">edit</span> 글쓰기
-          </button>
+        <div className="container">
+          <div className="buttonWrap">
+            <button
+              className="write"
+              onClick={() => navigate("/community/create")}
+            >
+              <span class="material-symbols-outlined">edit</span> 글쓰기
+            </button>
+          </div>
         </div>
         <CommunityBoard />
       </Container>

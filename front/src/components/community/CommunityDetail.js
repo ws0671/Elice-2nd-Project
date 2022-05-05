@@ -5,6 +5,7 @@ import CommentAddForm from "../comment/CommentAddForm";
 import CommentList from "../comment/CommentList";
 import { UserStateContext } from "../../App";
 import CommunityEditForm from "./CommunityEditForm";
+import ReactHtmlParser from "react-html-parser";
 import {
   Header,
   Container,
@@ -24,13 +25,14 @@ const CommunityDetail = () => {
   // 수정폼 show/notshow 확인용 변수(수정폼 컴포넌트에서 사용)
   const [isEdit, setIsEdit] = useState(false);
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState("ready");
   // 로그인 유저 전역 데이터값
   const userContext = useContext(UserStateContext);
   const navigate = useNavigate();
 
   // 수정 삭제 권한 유저인지 확인용 변수
-  const isUser = detail.author === userContext.user.userId;
+  const isUser = detail?.author?.userId == userContext.user.userId;
+  console.log(userContext);
   const params = useParams();
   // 수정폼 컴포넌트 전달용 함수
   const isEditing = () => setIsEdit((prev) => !prev);
@@ -46,9 +48,10 @@ const CommunityDetail = () => {
         console.log("detail", res.data);
         setIsLiked(res.data.like);
         setExample(res.data.comments);
-        setShow(true);
+        setShow("success");
       })
       .catch((err) => {
+        setShow("error");
         Swal.fire({
           icon: "error",
           title: `해당 게시물 열람 권한이<br /> 없습니다.`,
@@ -128,97 +131,99 @@ const CommunityDetail = () => {
     }
   };
 
-  return (
-    <>
-      {show ? (
-        <>
-          <Header />
-          <Container isUser={isUser}>
-            {isEdit ? (
-              <CommunityEditForm isEditing={isEditing} />
-            ) : (
-              <>
-                <ButtonGroup>
-                  <a href="javascript:window.history.back();">
-                    <button>뒤로가기</button>
-                  </a>
+  if (show === "success") {
+    return (
+      <>
+        <Header />
+        <Container isUser={isUser}>
+          {isEdit ? (
+            <CommunityEditForm isEditing={isEditing} />
+          ) : (
+            <>
+              <ButtonGroup>
+                <a href="javascript:window.history.back();">
+                  <button>뒤로가기</button>
+                </a>
 
-                  {isUser && (
-                    <div>
-                      <button onClick={() => setIsEdit((prev) => !prev)}>
-                        수정
-                      </button>
-                      <button
-                        onClick={() => {
-                          alert("해당 내용을 삭제합니다.");
-                          Api.delete("article", params.id).then((res) => {
-                            navigate("/community");
-                          });
-                        }}
-                      >
-                        삭제
-                      </button>
-                    </div>
-                  )}
-                </ButtonGroup>
-
-                <div className="detail title">{detail.title}</div>
-                <div className="detail writer">
-                  <div>{detail.nickname}</div>
+                {isUser && (
                   <div>
-                    {createDate && createDate.split("T")[0]} / 조회수 :{" "}
-                    {detail.hits}
+                    <button onClick={() => setIsEdit((prev) => !prev)}>
+                      수정
+                    </button>
+                    <button
+                      onClick={() => {
+                        alert("해당 내용을 삭제합니다.");
+                        Api.delete("article", params.id).then((res) => {
+                          navigate("/community");
+                        });
+                      }}
+                    >
+                      삭제
+                    </button>
                   </div>
+                )}
+              </ButtonGroup>
+
+              <div className="detail title">{detail.title}</div>
+              <div className="detail writer">
+                <div>{detail.nickname}</div>
+                <div>
+                  {createDate && createDate.split("T")[0]} / 조회수 :{" "}
+                  {detail.hits}
                 </div>
-                <div className="detail body">{detail.body}</div>
-                <div className="detail etc">
-                  <img
-                    src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
-                    alt="좋아요"
-                  ></img>
-                  <span className="liking" onClick={pushLike}>
-                    좋아요
-                  </span>
-                  <span>{detail.like}</span>
-                  <img src="/images/comment.png" alt="댓글"></img>
-                  <span>댓글</span>
-                  <span>{realComments.length}</span>
+              </div>
+              <div className="detail body">{ReactHtmlParser(detail.body)}</div>
+              <div className="detail etc">
+                <img
+                  src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
+                  alt="좋아요"
+                ></img>
+                <span className="liking" onClick={pushLike}>
+                  좋아요
+                </span>
+                <span>{detail.like}</span>
+                <img src="/images/comment.png" alt="댓글"></img>
+                <span>댓글</span>
+                <span>{realComments.length}</span>
+              </div>
+              <div className="detail comment">
+                <div className="head">댓글</div>
+                <div className="area">
+                  <CommentList
+                    example={example}
+                    removeHandler={removeHandler}
+                    editHandler={editHandler}
+                  />
+                  <CommentAddForm clickHandler={clickHandler} />
                 </div>
-                <div className="detail comment">
-                  <div className="head">댓글</div>
-                  <div className="area">
-                    <CommentList
-                      example={example}
-                      removeHandler={removeHandler}
-                      editHandler={editHandler}
-                    />
-                    <CommentAddForm clickHandler={clickHandler} />
-                  </div>
-                </div>
-              </>
-            )}
-          </Container>
-        </>
-      ) : (
-        <Div style={{ height: "100vh" }}>
-          <div className="notFound">
-            <div>
-              <span class="material-symbols-outlined">error</span>
-            </div>
-            해당 글 열람 권한이 없습니다. <br />
-            포인트를 쌓아 등업해보세요. <br />
-            <a className="forPoint" href="article/37">
-              포인트는 어디서 얻나요?
-            </a>
-            <br />
-            <a className="forPoint" href="">
-              게시물 열람 권한 알아보기
-            </a>
+              </div>
+            </>
+          )}
+        </Container>
+      </>
+    );
+  } else if (show === "error") {
+    return (
+      <Div style={{ height: "100vh" }}>
+        <div className="notFound">
+          <div>
+            <span class="material-symbols-outlined">error</span>
           </div>
-        </Div>
-      )}
-    </>
-  );
+          해당 글 열람 권한이 없습니다. <br />
+          포인트를 쌓아 등업해보세요. <br />
+          <a className="forPoint" href="article/37">
+            포인트는 어디서 얻나요?
+          </a>
+          <br />
+          <a className="forPoint" href="">
+            게시물 열람 권한 알아보기
+          </a>
+        </div>
+      </Div>
+    );
+  } else {
+    return <div></div>;
+  }
 };
 
 export default CommunityDetail;

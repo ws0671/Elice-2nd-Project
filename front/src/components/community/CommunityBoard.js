@@ -13,6 +13,7 @@ import {
 const CommunityBoard = () => {
   // 게시판 리스트 데이터 상태값
   const [info, setInfo] = useState([]);
+  const [show, setShow] = useState("ready");
   // 총 페이지 상태값
   const [total, setTotal] = useState(10);
   // 카테고리 별 조건 경로 상태값
@@ -27,6 +28,10 @@ const CommunityBoard = () => {
       .then((res) => {
         setInfo(res.data.articles);
         setTotal(res.data.articleCount);
+        console.log(res.data);
+        if (res.data.articles.length === 0) {
+          setShow("blank");
+        } else setShow("success");
       })
       .catch((err) => {
         console.log(err);
@@ -75,7 +80,7 @@ const CommunityBoard = () => {
           </thead>
           <CommunityList info={info} page={page} />
         </Table>
-        {info.length === 0 && (
+        {show === "blank" && (
           <div className="notFound">
             <div>
               <span class="material-symbols-outlined">error</span>
@@ -84,7 +89,7 @@ const CommunityBoard = () => {
             존재하지 않습니다.
           </div>
         )}
-        {info.length !== 0 && (
+        {show === "success" && (
           <Nav>
             <Button onClick={() => setPage(page - 1)} disabled={page === 1}>
               이전

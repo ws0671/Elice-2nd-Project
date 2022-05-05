@@ -1,14 +1,19 @@
 import styled from "styled-components";
 import { useEffect, useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Api from "../api";
-import { UserStateContext } from "../App";
+import { UserStateContext, DispatchContext } from "../App";
 import MypageBarChart from "../components/mypage/MypageBarChart";
 import MypagePieChart from "../components/mypage/MypagePieChart";
 import MypageBookmark from "../components/mypage/MypageBookmark";
 import MypageReview from "../components/mypage/MypageReview";
 import Swal from "sweetalert2";
+import MypageMap from "../components/mypage/MypageMap";
+import { Button } from "react-bootstrap";
 
 const Mypage = () => {
+  const dispatch = useContext(DispatchContext);
+  const navigate = useNavigate();
   const [editNickname, setEditNickname] = useState("");
   const [TagData, setTagData] = useState([]);
   const [total, setTotal] = useState(0);
@@ -40,8 +45,8 @@ const Mypage = () => {
   }, []);
 
   const [userData, setUserData] = useState([]);
-  // const [tagData, setTagData] = useState([]);
-  console.log(TagData);
+
+  console.log(data);
 
   const making = (v) => {
     let realTagData = [];
@@ -86,20 +91,44 @@ const Mypage = () => {
       });
       // 이후 처리되는 내용.
       if (getNickname) {
-        Swal.fire("닉네임이 정상적으로 변경되었습니다");
-        Api.put(`user/${userId}/nickname`, { nickname: getNickname }).then(
-          (res) => setEditNickname(getNickname)
-        );
+        (async () => {
+          await Swal.fire("닉네임이 정상적으로 변경되었습니다");
+          await Api.put(`user/${userId}/nickname`, {
+            nickname: getNickname,
+          }).then((res) => setEditNickname(getNickname));
+        })();
       }
     })();
+  };
+
+  // 회원 탈퇴 기능 함수
+  const withdrawlHandler = () => {
+    Swal.fire({
+      title: "회원 탈퇴를 하시겠습니까?",
+      showDenyButton: true,
+      denyButtonText: "취소",
+      confirmButtonText: "확인",
+      allowOutsideClick: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Api.delete(`user/${userContext.user.userId}`).then((res) =>
+          Swal.fire(
+            "회원 탈퇴가 완료되었습니다.\n그동안 저희 서비스를 이용해주셔서 감사합니다."
+          ).then((res) => navigate("/"))
+        );
+        sessionStorage.removeItem("userToken");
+        sessionStorage.removeItem("user");
+        dispatch({ type: "LOGOUT" });
+      }
+    });
   };
 
   return (
     <>
       <Header></Header>
-      <Main>
+      <Main imgUrl="images/controller.jpg">
         <div className="top">
-          <div>
+          <div className="first">
             <div className="title">
               {editNickname} 님의 <br />
               게임 성향은...
@@ -108,13 +137,22 @@ const Mypage = () => {
               나의 게임 성향과 관심 게임 정보를
               <br /> 한 눈에 담아보세요
             </div>
-            <button
+            <Button
+              variant="secondary"
+              className="topButton"
               onClick={() =>
                 MypageEditModal(editNickname, userContext.user.userId)
               }
             >
               닉네임 수정
-            </button>
+            </Button>
+            <Button
+              className="topButton"
+              variant="danger"
+              onClick={withdrawlHandler}
+            >
+              회원 탈퇴
+            </Button>
           </div>
           <div className="chart">
             {TagData && (
@@ -138,11 +176,21 @@ const Mypage = () => {
             <MypageBookmark />
           </div>
         </div>
+
+        <div className="kakaoMap middle2">
+          <div className="topic common">내 주변 PC방 찾기</div>
+          <div className="common">
+            <MypageMap />
+          </div>
+        </div>
+
         <div className="middle2">
           <div className="topic common">내가 쓴 리뷰</div>
-          <MypageReview />
-          <MypageReview />
-          <MypageReview />
+          <div className="common">
+            <MypageReview />
+            <MypageReview />
+            <MypageReview />
+          </div>
         </div>
       </Main>
     </>
@@ -150,22 +198,43 @@ const Mypage = () => {
 };
 
 const Header = styled.div`
-  height: 10vh;
+  height: 50px;
 `;
 const Main = styled.div`
+background-size: 100%;
+  background-image: linear-gradient(
+      to right,
+      rgba(20, 20, 20, 0.1) 10%,
+      rgba(20, 20, 20, 0.7) 70%,
+      rgba(20, 20, 20, 1)
+    ),
+    ${(props) => `url(${props.imgUrl})`};
   min-height: 100vh;
-  padding: 10% 0;
+  padding 10% 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 
   .top {
+    .first {
+      margin : 0 30px;
+    }
+    width: 90%;
+    margin-bottom: 80px;
+    padding: 20px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 80%;
+   
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px #6869d0;
+    backdrop-filter: blur(2.5px);
+    border-radius: 10px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4rem;
 
     .title {
       font-size: 2.5em;
@@ -174,12 +243,29 @@ const Main = styled.div`
     .subtitle {
       font-size: 1.2em;
     }
+    .topButton {
+      margin-top: 30px;
+
+      &:first-of-type {
+        margin-right: 20px;
+      }
+      
+    }
   }
   .middle1 {
     text-align: basis;
-    width: 80%;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px #6869d0;
+    backdrop-filter: blur(2.5px);
+    border-radius: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.4rem;
+    padding: 20px;
+    margin-bottom: 80px;
 
     button {
+      
       background: #f6f6f6;
       font-weight: bold;
       text-align: center;
@@ -235,8 +321,18 @@ const Main = styled.div`
   }
 
   .middle2 {
+    width: 90%;
+    margin-bottom: 80px;
     text-align: basis;
-    width: 80%;
+    // width: 80%;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px #6869d0;
+    backdrop-filter: blur(2.5px);
+    border-radius: 10px;
+
+    text-transform: uppercase;
+    letter-spacing: 0.4rem;
+    padding: 20px;
   }
 
   .topic {
