@@ -59,7 +59,7 @@ const ArticleService = {
       const likeOrNot = await Like.findByFilter({ articleId, userId });
       const like = Boolean(likeOrNot);
       const comments = await Comment.findAllByArticle({ articleId });
-      if (article.author === userId) {
+      if (article.author.userId === userId) {
         const articleInfo = { article, like, comments };
 
         return articleInfo;
