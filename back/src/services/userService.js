@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
 import { SendMail } from "./mailService";
-import { SetUtil } from "../common/setUtil";
+import { SetUtil } from "../common/SetUtil";
 
 const UserAuthService = {
   addUser: async ({ nickname, email, password }) => {
