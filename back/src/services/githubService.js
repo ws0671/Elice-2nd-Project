@@ -49,7 +49,6 @@ class GithubService {
     );
 
     const { login: nickname, id } = userdata;
-    console.log(nickname, id);
     return this.checkUser({ email, nickname, id, loginMethod: "Github" });
   };
 
