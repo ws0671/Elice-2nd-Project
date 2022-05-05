@@ -7,6 +7,7 @@ import MypagePieChart from "../components/mypage/MypagePieChart";
 import MypageBookmark from "../components/mypage/MypageBookmark";
 import MypageReview from "../components/mypage/MypageReview";
 import Swal from "sweetalert2";
+import MypageMap from "../components/mypage/MypageMap";
 
 const Mypage = () => {
   const [editNickname, setEditNickname] = useState("");
@@ -138,6 +139,18 @@ const Mypage = () => {
             <MypageBookmark />
           </div>
         </div>
+
+        <div className="kakaoMap">
+          <div className="mb-5 ms-5">
+            <h3>내 주변 PC방 찾기</h3>
+          </div>
+          <div>
+            <div style={{ width: "100vw" }}>
+              <MypageMap />
+            </div>
+          </div>
+        </div>
+
         <div className="middle2">
           <div className="topic common">내가 쓴 리뷰</div>
           <MypageReview />

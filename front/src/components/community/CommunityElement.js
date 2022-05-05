@@ -2,6 +2,11 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Tr } from "../styles/Community/CommunityElementStyle";
 import { get as Get } from "../../api";
+import stone from "../../images/stone.png";
+import ball from "../../images/ball.png";
+import pearl from "../../images/pearl.png";
+import rainbow from "../../images/rainbow.png";
+import tapioca from "../../images/tapioca.png";
 
 // 커뮤니티 게시판 해당 데이터 요소 컴포넌트
 const CommunityElement = ({ item, index, page }) => {
@@ -21,7 +26,16 @@ const CommunityElement = ({ item, index, page }) => {
         </span>{" "}
         {item.title}
       </td>
-      <td>{item.nickname}</td>
+      <td>
+        {/* <div
+          style={{ width: 20, height: 20, backgroundImage: `url(${stone})` }}
+        >
+          {" "} */}
+
+        {/* </div> */}
+        {item.nickname}
+        <img src={tapioca} style={{ width: 20, height: 20, margin: 0 }} />
+      </td>
       <td>{createdAt[0]}</td>
       <td>{item.hits}</td>
       <td>{item.like}</td>

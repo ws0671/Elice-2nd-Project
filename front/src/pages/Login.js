@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   BodyContainer,
   BodyWrapper,
@@ -193,9 +193,7 @@ function LoginForm() {
             <LoginButton type="submit" onClick={handleSubmit}>
               LOG IN
             </LoginButton>
-            <LoginButton onClick={findPassword}>
-              비밀번호를 잊으셨나요?
-            </LoginButton>
+            <div onClick={findPassword}>비밀번호를 잊으셨나요?</div>
           </ButtonContainer>
           <GoToRegister>or become a new member!</GoToRegister>
           <HorizeontalRule />

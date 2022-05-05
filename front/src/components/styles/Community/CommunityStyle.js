@@ -36,11 +36,16 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  .container {
+    margin-top: 0;
+    margin-bottom: 0;
+    height:100%;
+  }
   .buttonWrap {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    width: 90%;
+    // width: 90%;
     height: 10vh;
     
     
@@ -57,6 +62,7 @@ export const Container = styled.div`
     padding: 8px 20px;
     display: flex;
     align-items: center;
+    
 
     &:hover {
       background: rgba(108, 99, 255, 0.6);
