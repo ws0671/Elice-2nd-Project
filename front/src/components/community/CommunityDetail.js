@@ -5,6 +5,7 @@ import CommentAddForm from "../comment/CommentAddForm";
 import CommentList from "../comment/CommentList";
 import { UserStateContext } from "../../App";
 import CommunityEditForm from "./CommunityEditForm";
+import ReactHtmlParser from "react-html-parser";
 import {
   Header,
   Container,
@@ -170,7 +171,7 @@ const CommunityDetail = () => {
                   {detail.hits}
                 </div>
               </div>
-              <div className="detail body">{detail.body}</div>
+              <div className="detail body">{ReactHtmlParser(detail.body)}</div>
               <div className="detail etc">
                 <img
                   src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
