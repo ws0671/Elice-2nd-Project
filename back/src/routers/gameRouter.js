@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
-import { GameService } from "../services/GameService";
+import { GameService } from "../services/gameService";
 
 const GameRouter = Router();
 

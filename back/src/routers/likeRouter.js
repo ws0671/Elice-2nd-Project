@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
-import { likeService } from "../services/likeService";
+import { LikeService } from "../services/likeService";
 
 const LikeRouter = Router();
 LikeRouter.use(loginRequired);
@@ -16,7 +16,7 @@ LikeRouter.post("/", async (req, res, next) => {
       throw new Error("본인 글에는 좋아요 할 수 없습니다.");
     } else {
       // 본인 게시글이 아니면
-      await likeService.addLike({
+      await LikeService.addLike({
         userId,
         articleId,
       });
@@ -39,7 +39,7 @@ LikeRouter.delete("/", async (req, res, next) => {
       throw new Error("본인 글에는 좋아요 취소가 불가능합니다.");
     } else {
       // 본인 게시글이 아니면
-      await likeService.deleteLike({
+      await LikeService.deleteLike({
         userId,
         articleId,
       });
