@@ -110,6 +110,7 @@ function LoginForm() {
             REGISTER
           </LoginButton>
           <a href={githuburl}>GITHUB</a>
+          <a href={googleurl}>GOOGLE</a>
         </MainContainer>
       </BodyContainer>
     </BodyWrapper>
