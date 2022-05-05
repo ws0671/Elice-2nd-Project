@@ -17,11 +17,15 @@ const Roulette = () => {
       setSpin(true);
       // 결과값의 인덱스를 랜덤으로 지정해줌
       setPointIndex(Math.floor(Math.random() * data.length));
+    } else {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: `이미 ${point}포인트를 획득하셨습니다. 내일 다시 도전해주세요 :)`,
+        showConfirmButton: false,
+        timer: 1500,
+      });
     }
-    // 룰렛을 실행시킴
-    setSpin(true);
-    // 결과값의 인덱스를 랜덤으로 지정해줌
-    setPointIndex(Math.floor(Math.random() * data.length));
   };
 
   const handleStop = () => {
