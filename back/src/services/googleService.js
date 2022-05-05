@@ -26,6 +26,18 @@ class GoogleService {
           `${user.loginMethod}로 가입한 이력이 있습니다. ${user.loginMethod}로 로그인해주세요.`
         );
       }
+    } else {
+      const newUser = {
+        email,
+        nickname,
+        userId,
+        loginMethod,
+        password: "noPassword!",
+      };
+      const createdNewUser = await this.addUser({ newUser });
+
+      const registerUser = { ...createdNewUser, register: true };
+      return registerUser;
     }
   };
 
