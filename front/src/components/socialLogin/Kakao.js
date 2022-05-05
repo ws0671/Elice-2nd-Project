@@ -36,6 +36,16 @@ const Kakao = () => {
           timer: 1500,
         });
         navigate("/login", { replace: true });
+      } else {
+        const jwtToken = user.token;
+
+        sessionStorage.setItem("userToken", jwtToken);
+        sessionStorage.setItem("user", JSON.stringify(user));
+
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: user,
+        });
       }
     } catch (err) {
       alert("로그인 실패");
