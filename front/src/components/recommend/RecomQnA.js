@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { qnaList } from "./data_example"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -7,21 +7,23 @@ import { BodyStyle, QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle
 
 function RecomQuestion() {
 
+
     const [qIdx, setQIdx] = useState(0) // 질문 인덱스
     const [question, setQuestion] = useState(qnaList[qIdx].q) // 질문 내용
     const [loading, setLoading] = useState(true)
     const [clicked, setClicked] = useState(null) //클릭된 버튼 표시
-    const [checked, setChecked] = useState(false)
 
     const statusRef = useRef(null)
     const navigate = useNavigate()
+    const location = useLocation()
+    const genre = location.state.genre
 
     const [firstP, setFirstP] = useState(false)
     const [lastP, setLastP] = useState(false) // 첫페이지인지 확인
     const endPoint = Object.keys(qnaList).length; // 총 슬라이드(총 질문 개수)
 
     const [select, setSelect] = useState({}) // 선택사항 1번, 2번, 3번 저장, 나중에 1번, 2번, 3번의 type 개수를 저장해서 결과값 계산
-
+    const answer = Object.values(select)// 보내기 용 select value값만 저장
 
     const PrevQnA = () => {
         setQIdx(qIdx - 1)
@@ -40,15 +42,11 @@ function RecomQuestion() {
     }
     /* console.log('함수 밖 select', select) */
 
+
     useEffect(() => {
-        for (let i = 0; i < qnaList[qIdx].a.length; i++) {
-            if (select[qIdx] === qnaList[qIdx].a[i].id)
-                setChecked(true)
-            console.log(checked)
-        }
-    }, [qIdx])
-
-
+        console.log(location);
+        console.log(genre);
+    }, [location]);
 
     const Answers = () => {
 
@@ -58,7 +56,6 @@ function RecomQuestion() {
                     <>
                         <AnswerButton clicked={clicked === item || select[qIdx] === item.id} key={item.id} onClick={
                             () => {
-                                console.log('item', item)
                                 setClicked(item)
                                 selectedButton(item.answer)
                             }}>{item.answer}</AnswerButton><br />
@@ -83,7 +80,12 @@ function RecomQuestion() {
 
     const goResult = () => {
         setLoading(true)
-        navigate('/recommend/result')
+        navigate('/recommend/result', {
+            state: {
+                genre: genre,
+                answer: answer
+            },
+        });
     }
 
 
@@ -103,16 +105,16 @@ function RecomQuestion() {
         statusRef.current.style.width = 0 + '%';
     }, [])
 
-    useEffect(() => {
-        window.localStorage.setItem('userAnswers', JSON.stringify(select))
-    })
-
-    useEffect(() => {
-        const answersData = window.localStorage.getItem('userAnswers')
-        console.log(answersData)
-        setSelect(JSON.parse(answersData))
-    }, [])
-
+    /*     useEffect(() => {
+            window.localStorage.setItem('userAnswers', JSON.stringify(select))
+        })
+    
+        useEffect(() => {
+            const answersData = window.localStorage.getItem('userAnswers')
+            console.log(answersData)
+            setSelect(JSON.parse(answersData))
+        }, [])
+     */
 
     return (
         <>

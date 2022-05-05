@@ -22,7 +22,6 @@ function RecomGenre() {
     ];
 
     const [genre, setGenre] = useState([]);
-    const [numCheck, setNumCheck] = useState(false)
 
     const onClickHandler = (selectedItem) => {
         if (genre.includes(selectedItem)) {
@@ -41,16 +40,14 @@ function RecomGenre() {
             alert('3가지를 골라주세요!')
         }
         else {
-            navigate('/recommend/qna/2')
+            navigate('/recommend/qna/2', {
+                state: {
+                    genre: genre,
+                },
+            });
         }
 
     }
-
-    useEffect(() => {
-        window.localStorage.setItem('userAnswers', JSON.stringify(genre))
-    })
-
-
 
     console.log(genre);
 
