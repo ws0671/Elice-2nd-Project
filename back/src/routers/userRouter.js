@@ -233,25 +233,6 @@ UserAuthRouter.put(
   }
 );
 
-// 사용자별 북마크 리스트
-UserAuthRouter.get(
-  "/:userId/bookmarks",
-  loginRequired,
-  async (req, res, next) => {
-    try {
-      const loginId = req.currentUserId;
-      const userId = req.params.userId;
-      if (loginId === userId) {
-        const bookmarkList = await UserAuthService.getBookmarkList({ userId });
-
-        res.status(200).send(bookmarkList);
-      }
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
 UserAuthRouter.get("/afterlogin", loginRequired, (req, res, next) => {
   res

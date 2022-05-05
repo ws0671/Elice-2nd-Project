@@ -259,19 +259,6 @@ const UserAuthService = {
 
     return user;
   },
-
-  getBookmarkList: async ({ userId }) => {
-    const user = await User.findById({ userId });
-    if (!user) {
-      throw new Error(
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
-      );
-    }
-    const bookmarks = user.bookmarks;
-    // TODO : 북마크에 해당하는 게임 정보들을 gameService 메소드로 가져와서 객체들의 배열로 넘겨줄 것인가
-
-    return bookmarks;
-  },
 };
 
 export { UserAuthService };
