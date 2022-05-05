@@ -12,7 +12,8 @@ import { Comment } from "./models/Comment";
 import { Like } from "./models/Like";
 import { ReviewSchema } from "./schemas/review";
 import { Review } from "./models/Review";
-import { GameGraph } from "./models/gameGraph";
+import { GameGenreGraph } from "./models/GameGenreGraph";
+import { GameAgeGraph } from "./models/GameAgeGraph";
 import { Point } from "./models/Point";
 
 const redisClient = new Redis.createClient(); // redis 기본 포트는 6379
@@ -105,7 +106,8 @@ export {
   ReviewModel,
   User,
   Game,
-  GameGraph,
+  GameGenreGraph,
+  GameAgeGraph,
   Article,
   Comment,
   Like,

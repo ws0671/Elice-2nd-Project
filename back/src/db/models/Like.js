@@ -5,18 +5,26 @@ const Like = {
     await LikeModel.create(newLike);
   },
 
-  findAllByArticle: async ({ articleId }) => {
-    const likes = await LikeModel.find({ articleId });
-    return likes;
-  },
-
   findByFilter: async (filter) => {
     const like = await LikeModel.findOne(filter);
     return like;
   },
 
+  findAllByUser: async ({ userId }) => {
+    const likes = await LikeModel.find({ userId });
+    return likes;
+  },
+
   delete: async (filter) => {
     await LikeModel.deleteOne(filter);
+  },
+
+  deleteAllByArticle: async ({ articleId }) => {
+    await LikeModel.deleteMany({ articleId });
+  },
+
+  deleteAllByUser: async ({ userId }) => {
+    await LikeModel.deleteMany({ userId });
   },
 };
 export { Like };

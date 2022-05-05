@@ -36,6 +36,10 @@ const Article = {
     return updateArticle;
   },
 
+  updateLikes: async ({ filter, toUpdate }) => {
+    await ArticleModel.updateMany(filter, toUpdate);
+  },
+
   delete: async ({ articleId }) => {
     await ArticleModel.deleteOne({ articleId });
   },

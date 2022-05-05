@@ -93,29 +93,4 @@ ArticleRouter.delete("/:articleId", async (req, res, next) => {
   }
 });
 
-ArticleRouter.put("/:articleId/like", async (req, res, next) => {
-  try {
-    const userId = req.currentUserId; // 로그인 한 사용자
-    const articleId = req.params.articleId; // 게시글 Id
-    const authorUserId = req.body.author; // 게시글 작성자의 userId
-    const like = req.body.like;
-
-    if (userId == authorUserId) {
-      // 로그인 사용자 = 게시글 작성자이면
-      throw new Error("본인 글에는 좋아요 할 수 없습니다.");
-    } else {
-      // 본인 게시글이 아니면
-      await ArticleService.like({
-        userId,
-        articleId,
-        like,
-      });
-
-      res.status(204).end();
-    }
-  } catch (error) {
-    next(error);
-  }
-});
-
 export { ArticleRouter };
