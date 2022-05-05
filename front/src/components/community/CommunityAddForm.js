@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { post as Post } from "../../api";
 import { Container } from "../styles/Community/CommunityAddFormStyle";
+import Swal from "sweetalert2";
 
 // 커뮤니티 글쓰기 추가폼 컴포넌트
 const CommunityAddForm = () => {
@@ -39,11 +40,16 @@ const CommunityAddForm = () => {
   };
   // 폼 제출 함수
   const submitHandler = () => {
-    if (!error.title && !error.body && content.category) {
-      alert("성공했습니다.");
+    if (!error.title && !error.body) {
       const newContent = content;
-      Post("article", newContent).then((res) => navigate("/community"));
-    } else alert("실패했습니다. 다시 한 번 확인해주세요.");
+      Post("article", newContent)
+        .then((res) => {
+          Swal.fire(`게시글이 생성되었습니다.\n해당 페이지로 이동합니다.`).then(
+            (result) => navigate(`/community/${res.data.articleId}`)
+          );
+        })
+        .catch((err) => Swal.fire(err.response.data));
+    } else Swal.fire("말머리, 제목, 내용은 필수입니다.");
   };
 
   // 태그 인풋 enter시 태그값 추가 함수
