@@ -10,6 +10,11 @@ import MypageReview from "../components/mypage/MypageReview";
 import Swal from "sweetalert2";
 import MypageMap from "../components/mypage/MypageMap";
 import { Button } from "react-bootstrap";
+import stone from "../images/stone.png";
+import ball from "../images/ball.png";
+import pearl from "../images/pearl.png";
+import rainbow from "../images/rainbow.png";
+import tapioca from "../images/tapioca.png";
 
 const Mypage = () => {
   const dispatch = useContext(DispatchContext);
@@ -123,6 +128,20 @@ const Mypage = () => {
     });
   };
 
+  const gradeHandler = (grade) => {
+    if (grade === 0) {
+      return [stone, "돌멩이"];
+    } else if (grade === 1) {
+      return [ball, "탱탱볼"];
+    } else if (grade === 2) {
+      return [tapioca, "타피오카 펄"];
+    } else if (grade === 3) {
+      return [pearl, "진주"];
+    } else {
+      return [rainbow, "무지개 진주"];
+    }
+  };
+
   return (
     <>
       <Header></Header>
@@ -153,6 +172,7 @@ const Mypage = () => {
             >
               회원 탈퇴
             </Button>
+            {/* <div>나의 등급: <img src={gradeHandler(data.grade)[0]} alt=""></img></div> */}
           </div>
           <div className="chart">
             {TagData && (
