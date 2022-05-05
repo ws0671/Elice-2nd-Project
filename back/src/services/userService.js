@@ -2,7 +2,7 @@ import { User, Game, Review, Like, Article } from "../db"; // from을 폴더(db)
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
-import { sendMail } from "./mailService";
+import { SendMail } from "./mailService";
 import { SetUtil } from "../common/setUtil";
 
 const UserAuthService = {
@@ -158,7 +158,7 @@ const UserAuthService = {
 
     const subject = "[GAME PEARL] 인증코드";
     const text = `귀하의 인증코드는 ${code} 입니다. 인증 후 비밀번호를 변경해주세요.`;
-    await sendMail(email, subject, text);
+    await SendMail(email, subject, text);
 
     return { email: user.email, code };
   },
