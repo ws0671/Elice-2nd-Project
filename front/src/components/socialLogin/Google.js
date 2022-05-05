@@ -29,6 +29,18 @@ const Google = () => {
       if (user.register) {
         alert("회원가입되었습니다. 로그인해주세요.");
         navigate("/login", { replace: true });
+      } else {
+        const jwtToken = user.token;
+
+        sessionStorage.setItem("userToken", jwtToken);
+        sessionStorage.setItem("user", JSON.stringify(user));
+
+        dispatch({
+          type: "LOGIN_SUCCESS",
+          payload: user,
+        });
+
+        navigate("/", { replace: true });
       }
     } catch (error) {}
   };
