@@ -1,33 +1,47 @@
-import is from "@sindresorhus/is";
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { UserAuthService } from "../services/userService";
+import { body, validationResult } from "express-validator";
 
 const UserAuthRouter = Router();
 
-UserAuthRouter.post("/register", async (req, res, next) => {
-  try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
+UserAuthRouter.post(
+  "/register",
+  body("email").isEmail().withMessage("이메일 형식이 올바르지 않습니다."),
+  body("password")
+    .isLength({ min: 8, max: 16 })
+    .withMessage("8 ~ 16자리 비밀번호를 입력해주세요"),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const errorMsg = errors.errors[0].msg;
+        throw new Error(errorMsg);
+      }
+
+      const { nickname, email, password } = req.body;
+      // 특수문자 포함 검사
+      const REGEX = /^(?=.*[!@#\$%\^&\*]).{8,}$/;
+      console.log(REGEX.test(password));
+      if (REGEX.test(password)) {
+        // 위 데이터를 유저 db에 추가하기
+        const newUser = await UserAuthService.addUser({
+          nickname,
+          email,
+          password,
+        });
+
+        res.status(201).json(newUser);
+      } else {
+        throw new Error(
+          "비밀번호에는 최소 한 개의 특수문자가 포함돼야 합니다."
+        );
+      }
+    } catch (error) {
+      next(error);
     }
-
-    // req (request) 에서 데이터 가져오기
-    const { nickname, email, password } = req.body;
-
-    // 위 데이터를 유저 db에 추가하기
-    const newUser = await UserAuthService.addUser({
-      nickname,
-      email,
-      password,
-    });
-
-    res.status(201).json(newUser);
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 UserAuthRouter.post("/login", async (req, res, next) => {
   try {
