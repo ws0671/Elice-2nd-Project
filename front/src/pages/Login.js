@@ -14,7 +14,11 @@ import * as Api from "../api";
 import { DispatchContext } from "../App";
 import { LoginButton } from "../components/user/login/LoginButton";
 import { LoginInput } from "../components/user/login/LoginInput";
-import { githubUrl, googleUrl } from "../components/socialLogin/SocialLoginUrl";
+import {
+  githubUrl,
+  googleUrl,
+  kakaoUrl,
+} from "../components/socialLogin/SocialLoginUrl";
 import Swal from "sweetalert2";
 
 function LoginForm() {
@@ -23,6 +27,7 @@ function LoginForm() {
 
   const githuburl = githubUrl();
   const googleurl = googleUrl();
+  const kakaourl = kakaoUrl();
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
@@ -128,6 +133,7 @@ function LoginForm() {
           </LoginButton>
           <a href={githuburl}>GITHUB</a>
           <a href={googleurl}>GOOGLE</a>
+          <a herf={kakaourl}>KAKAO</a>
         </MainContainer>
       </BodyContainer>
     </BodyWrapper>

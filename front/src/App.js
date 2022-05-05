@@ -21,6 +21,7 @@ import CommunityAddForm from "./components/community/CommunityAddForm";
 import GameDetail from "./pages/GameDetail";
 import Github from "./components/socialLogin/Github";
 import Google from "./components/socialLogin/Google";
+import Kakao from "./components/socialLogin/Kakao";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -90,6 +91,7 @@ function App() {
             <Route path="/gamedetail/:id" element={<GameDetail />} />
             <Route path="/auth/github/callback" element={<Github />} />
             <Route path="/auth/google/callback" element={<Google />} />
+            <Route path="/auth/kakao/callback" element={<Kakao />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

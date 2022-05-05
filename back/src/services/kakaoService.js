@@ -3,13 +3,13 @@ import axios from "axios";
 import jwt from "jsonwebtoken";
 import { SetUtil } from "../common/setUtil";
 
-class GithubService {
+class KakaoService {
   static addUser = async ({ newUser }) => {
     const user = await User.findByNickname({ nickname: newUser.nickname });
 
     if (user) {
       const randomCode = SetUtil.randomCode();
-      newUser.nickname = `GITHUB_USER${randomCode}`;
+      newUser.nickname = `KAKAO_USER${randomCode}`;
     }
 
     const createdNewUser = await User.create({ newUser });
@@ -22,7 +22,6 @@ class GithubService {
       if (user.userId == userId) {
         const secretKey = process.env.JWT_SECRET_KEY;
         const token = jwt.sign({ user_id: user.userId }, secretKey);
-
         const loginUser = {
           token,
           userId,
@@ -51,44 +50,35 @@ class GithubService {
     }
   };
 
-  static getUserData = async ({ access_token }) => {
-    const apiUrl = "https://api.github.com";
-    const { data: userdata } = await axios.get(`${apiUrl}/user`, {
-      headers: { Authorization: `token ${access_token}` },
+  static getUserData = async ({ accessToken }) => {
+    const apiUrl = "https://kapi.kakao.com/v2/user/me";
+    const userData = await axios.get(`${apiUrl}`, {
+      Headers: { Authorization: `Bearer ${accessToken}` },
     });
 
-    const { data: emailDataArr } = await axios.get(`${apiUrl}/user/emails`, {
-      headers: { Authorization: `token ${access_token}` },
-    });
+    const userId = userData.data.id;
+    const { nickname } = userData.data.properties;
+    const { email } = userData.data.kakao_account;
 
-    const { email } = emailDataArr.find(
-      (emailObj) => emailObj.primary === true && emailObj.verified === true
-    );
-
-    const { login: nickname, id } = userdata;
-    return this.checkUser({
-      email,
-      nickname,
-      userId: id,
-      loginMethod: "Github",
-    });
+    return this.checkUser({ email, nickname, userId, loginMethod: "Kakao" });
   };
 
   static getToken = async ({ code }) => {
-    const baseUrl = "https://github.com/login/oauth/access_token";
+    const baseUrl = "https://kauth.kakao.com/oauth/token";
     const body = {
-      client_id: process.env.GITHUB_CLIENT,
-      client_secret: process.env.GITHUB_SECRET,
+      client_id: process.env.KAKAO_CLIENT,
+      redirect_uri: "http://localhost:3000/auth/kakao/callback",
+      grant_type: "authorization_code",
       code,
     };
-    const finalUrl = baseUrl;
+    const params = new URLSearchParams(body);
+    const finalUrl = `${baseUrl}?${params}`;
 
-    const { data: requestToken } = await axios.post(finalUrl, body, {
-      headers: { Accept: "application/json" },
-    });
-    const { access_token } = requestToken;
-    return this.getUserData({ access_token });
+    const tokenRequest = await axios.post(finalUrl, body);
+
+    const accessToken = tokenRequest.data.access_token;
+    return this.getUserData({ accessToken });
   };
 }
 
-export { GithubService };
+export { KakaoService };
