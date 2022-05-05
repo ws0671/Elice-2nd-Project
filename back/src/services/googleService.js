@@ -14,6 +14,11 @@ class GoogleService {
     const params = new URLSearchParams(config);
 
     const finalUrl = `${uri}?${params}&grant_type=authorization_code`;
+
+    const tokenRequest = await axios.post(finalUrl, config);
+    const idToken = tokenRequest.data.id_token.split(".");
+    const payload = JSON.parse(this.base64urlDecode(idToken[1]));
+    return this.getUserData(payload);
   };
 }
 
