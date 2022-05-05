@@ -14,30 +14,45 @@ const SetUtil = {
 
   validateCategory: (category) => {
     const categoryList = [
-      "공지사항",
-      "유머",
-      "파티 모집",
-      "후기",
-      "건의사항",
-      "꿀팁",
-      "선택 안함",
+      "notice", // 공지사항
+      "humor", // 유머
+      "partyRecruitment", // 파티 모집
+      "postscript", // 후기
+      "suggestions", // 건의사항
+      "honeytip", // 꿀팁
+      "default", // 선택 안함
     ];
 
     return categoryList.includes(category);
   },
 
+  convertCategory: (category) => {
+    const categoryList = {
+      notice: "공지사항",
+      humor: "유머",
+      partyRecruitment: "파티 모집",
+      postscript: "후기",
+      suggestions: "건의사항",
+      honeytip: "꿀팁",
+      default: "선택 안함",
+    };
+    const categoryName = categoryList[category];
+
+    return categoryName;
+  },
+
   validatePermission: (grade, category) => {
     const categoryPermission = {
-      // "공지사항"이랑 "선택 안함"은 권한이 필요 없음
-      유머: 0,
-      "파티 모집": 1,
-      후기: 2,
-      건의사항: 3,
-      꿀팁: 4,
+      // "notice"랑 "default"는 권한이 필요 없음
+      humor: 0,
+      partyRecruitment: 1,
+      postscript: 2,
+      suggestions: 3,
+      honeytip: 4,
     };
 
     // 확인 가능한지를 true, false로 반환
-    if (category == "공지사항" || category == "선택 안함") {
+    if (category == "notice" || category == "default") {
       return true;
     } else if (grade >= categoryPermission[category]) {
       return true;
@@ -50,7 +65,12 @@ const SetUtil = {
     let result = {};
     result.isUpgraded = true;
 
-    if (user.point + point >= 1500 && user.grade < 4) {
+    const GRADE_4_THRESHOLD = 1500;
+    const GRADE_3_THRESHOLD = 1000;
+    const GRADE_2_THRESHOLD = 600;
+    const GRADE_1_THRESHOLD = 300;
+
+    if (user.point + point >= GRADE_4_THRESHOLD && user.grade < 4) {
       result.toUpdate = {
         $inc: {
           point: point,
@@ -59,7 +79,7 @@ const SetUtil = {
           grade: 4,
         },
       };
-    } else if (user.point + point >= 1000 && user.grade < 3) {
+    } else if (user.point + point >= GRADE_3_THRESHOLD && user.grade < 3) {
       result.toUpdate = {
         $inc: {
           point: point,
@@ -68,7 +88,7 @@ const SetUtil = {
           grade: 3,
         },
       };
-    } else if (user.point + point >= 600 && user.grade < 2) {
+    } else if (user.point + point >= GRADE_2_THRESHOLD && user.grade < 2) {
       result.toUpdate = {
         $inc: {
           point: point,
@@ -77,7 +97,7 @@ const SetUtil = {
           grade: 2,
         },
       };
-    } else if (user.point + point >= 300 && user.grade < 1) {
+    } else if (user.point + point >= GRADE_1_THRESHOLD && user.grade < 1) {
       result.toUpdate = {
         $inc: {
           point: point,
@@ -96,6 +116,10 @@ const SetUtil = {
     }
 
     return result;
+  },
+  randomCode: () => {
+    const code = Math.floor(100000 + Math.random() * 900000);
+    return code;
   },
 };
 

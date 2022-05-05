@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { gameGraphService } from "../services/gameGraphService";
 
-const gameGraphRouter = Router();
+const GameGraphRouter = Router();
 
-gameGraphRouter.get("/worstGame", async (req, res, next) => {
+GameGraphRouter.get("/worstGame", async (req, res, next) => {
   try {
     const gameGraphList = await gameGraphService.getWorstRank();
     res.status(200).send(gameGraphList);
@@ -12,7 +12,7 @@ gameGraphRouter.get("/worstGame", async (req, res, next) => {
   }
 });
 
-gameGraphRouter.get("/bestGame", async (req, res, next) => {
+GameGraphRouter.get("/bestGame", async (req, res, next) => {
   try {
     const gameGraphList = await gameGraphService.getBestRank();
     res.status(200).send(gameGraphList);
@@ -21,7 +21,7 @@ gameGraphRouter.get("/bestGame", async (req, res, next) => {
   }
 });
 
-gameGraphRouter.get("/recentRelease", async (req, res, next) => {
+GameGraphRouter.get("/recentRelease", async (req, res, next) => {
   try {
     const gameGraphList = await gameGraphService.getRecentRelease();
     res.status(200).send(gameGraphList);
@@ -29,4 +29,55 @@ gameGraphRouter.get("/recentRelease", async (req, res, next) => {
     next(error);
   }
 });
-export { gameGraphRouter };
+
+GameGraphRouter.get("/bestGenre/:genre", async (req, res, next) => {
+  try {
+    const gameGenre = req.params.genre;
+    const gameGraphList = await gameGraphService.getBestRankByGenre({
+      gameGenre,
+    });
+    res.status(200).send(gameGraphList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+GameGraphRouter.get("/bestAge/:age", async (req, res, next) => {
+  try {
+    const gameAge = req.params.age;
+    const gameGraphList = await gameGraphService.getBestRankByAge({
+      gameAge,
+    });
+    res.status(200).send(gameGraphList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+GameGraphRouter.get("/releaseByYear", async (req, res, next) => {
+  try {
+    const gamesByYear = await gameGraphService.getGamesByReleaseYear();
+    res.status(200).send(gamesByYear);
+  } catch (error) {
+    next(error);
+  }
+});
+
+GameGraphRouter.get("/gamesByGenre", async (req, res, next) => {
+  try {
+    const gamesByGenre = await gameGraphService.getGamesByGenre();
+    res.status(200).send(gamesByGenre);
+  } catch (error) {
+    next(error);
+  }
+});
+
+GameGraphRouter.get("/indieByYear", async (req, res, next) => {
+  try {
+    const indieByYear = await gameGraphService.getIndieByYear();
+    res.status(200).send(indieByYear);
+  } catch (error) {
+    next(error);
+  }
+});
+export { GameGraphRouter };

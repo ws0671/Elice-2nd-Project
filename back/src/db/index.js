@@ -10,6 +10,9 @@ import { Comment } from "./models/Comment";
 import { Like } from "./models/Like";
 import { ReviewSchema } from "./schemas/review";
 import { Review } from "./models/Review";
+import { GameGenreGraph } from "./models/GameGenreGraph";
+import { GameAgeGraph } from "./models/GameAgeGraph";
+import { Point } from "./models/Point";
 
 const DB_URL =
   process.env.MONGODB_URL ||
@@ -85,8 +88,11 @@ export {
   ReviewModel,
   User,
   Game,
+  GameGenreGraph,
+  GameAgeGraph,
   Article,
   Comment,
   Like,
   Review,
+  Point,
 };

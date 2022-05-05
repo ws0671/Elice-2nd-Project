@@ -4,20 +4,24 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
 
-import Header from "./components/Header"
-import Main from "./pages/Main"
-import GameSearch from "./pages/GameSearch"
-import Login from "./pages/Login"
-import Register from "./pages/Register"
-import Community from "./pages/Community"
-import CommunityDetail from "./components/community/CommunityDetail"
+import Header from "./components/Header";
+import Main from "./pages/Main";
+import GameSearch from "./pages/GameSearch";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Community from "./pages/Community";
+import CommunityDetail from "./components/community/CommunityDetail";
 import Recommend from "./pages/Recommend";
 import RecomQnA from "./components/recommend/RecomQnA";
-import RecomResult from "./components/recommend/RecomResult"
-import Prologue from "./pages/Prologue"
+import RecomResult from "./components/recommend/RecomResult";
+import Prologue from "./pages/Prologue";
 import Mypage from "./pages/Mypage";
 import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
+import GameDetail from "./pages/GameDetail";
+import Github from "./components/socialLogin/Github";
+import Google from "./components/socialLogin/Google";
+import Kakao from "./components/socialLogin/Kakao";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -84,7 +88,10 @@ function App() {
             <Route path="/prologue" element={<Prologue />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
-
+            <Route path="/gamedetail/:id" element={<GameDetail />} />
+            <Route path="/auth/github/callback" element={<Github />} />
+            <Route path="/auth/google/callback" element={<Google />} />
+            <Route path="/auth/kakao/callback" element={<Kakao />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
@@ -93,4 +100,3 @@ function App() {
 }
 
 export default App;
-

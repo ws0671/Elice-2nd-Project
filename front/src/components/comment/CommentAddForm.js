@@ -1,4 +1,4 @@
-import { TextArea, Button } from "../styles/CommentAddFormStyle";
+import { TextArea, Button } from "../styles/Comment/CommentAddFormStyle";
 import { useState } from "react";
 const CommentAddForm = ({ clickHandler }) => {
   // 커멘트 textarea 상태값
@@ -15,10 +15,10 @@ const CommentAddForm = ({ clickHandler }) => {
       />
       <Button
         onClick={() => {
-          if (comment.length >= 20) {
+          if (comment.length !== 0) {
             clickHandler(comment);
             setComment("");
-          } else alert("20자 이상을 적어주세요.");
+          }
         }}
       >
         등록

@@ -1,14 +1,33 @@
-import React, { useState, useContext } from "react"
-import { useNavigate } from "react-router-dom"
-import { BodyContainer, BodyWrapper, InputContainer, MainContainer, ButtonContainer, WelcomeText, GoToRegister, HorizeontalRule } from "../components/user/login/LoginStyle"
-import * as Api from "../api"
-import { DispatchContext } from "../App"
-import { LoginButton } from "../components/user/login/LoginButton"
-import { LoginInput } from "../components/user/login/LoginInput"
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  BodyContainer,
+  BodyWrapper,
+  InputContainer,
+  MainContainer,
+  ButtonContainer,
+  WelcomeText,
+  GoToRegister,
+  HorizeontalRule,
+} from "../components/user/login/LoginStyle";
+import * as Api from "../api";
+import { DispatchContext } from "../App";
+import { LoginButton } from "../components/user/login/LoginButton";
+import { LoginInput } from "../components/user/login/LoginInput";
+import {
+  githubUrl,
+  googleUrl,
+  kakaoUrl,
+} from "../components/socialLogin/SocialLoginUrl";
+import Swal from "sweetalert2";
 
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
+
+  const githuburl = githubUrl();
+  const googleurl = googleUrl();
+  const kakaourl = kakaoUrl();
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
@@ -57,13 +76,29 @@ function LoginForm() {
         payload: user,
       });
 
+      const today = await Api.get2(`point?route=Login`);
+      if (!today.data.point) {
+        Api.put(`user/${user.userId}/addPoint`, { point: 100 });
+        Api.post("point", {
+          route: "Login",
+          point: 100,
+        });
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `축하합니다! 100포인트를 얻으셨습니다!!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
       console.log("로그인에 실패하였습니다.\n", err);
     }
-    console.log(email)
-  }
+    console.log(email);
+  };
 
   return (
     <BodyWrapper>
@@ -71,25 +106,41 @@ function LoginForm() {
         <MainContainer>
           <WelcomeText>WELCOME</WelcomeText>
           <InputContainer>
-            <LoginInput type='email' placeholder='Email' autoComplete="on" value={email} onChange={(e) => setEmail(e.target.value)} />
-            <LoginInput type='password' placeholder='Password' autoComplete="on" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <LoginInput
+              type="email"
+              placeholder="Email"
+              autoComplete="on"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <LoginInput
+              type="password"
+              placeholder="Password"
+              autoComplete="on"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </InputContainer>
           <ButtonContainer>
-            <LoginButton type="submit" onClick={handleSubmit}>LOG IN</LoginButton>
+            <LoginButton type="submit" onClick={handleSubmit}>
+              LOG IN
+            </LoginButton>
           </ButtonContainer>
           <GoToRegister>or become a new member!</GoToRegister>
           <HorizeontalRule />
-          <LoginButton content='register' onClick={() => navigate("/register")}>REGISTER</LoginButton>
-
+          <LoginButton content="register" onClick={() => navigate("/register")}>
+            REGISTER
+          </LoginButton>
+          <a href={githuburl}>GITHUB</a>
+          <a href={googleurl}>GOOGLE</a>
+          <a href={kakaourl}>KAKAO</a>
         </MainContainer>
-
       </BodyContainer>
     </BodyWrapper>
-  )
+  );
 }
 
-
-export default LoginForm
+export default LoginForm;
 
 /* const Button = styled.button`
     background: linear-gradient(to right, #14163c 0%, #03217b 79%);
