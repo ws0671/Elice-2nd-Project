@@ -2,6 +2,8 @@ import CommunityBoard from "../components/community/CommunityBoard";
 import { Main, Container } from "../components/styles/Community/CommunityStyle";
 import { useNavigate } from "react-router-dom";
 import banner from "../images/communitybanner.png";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import loadingbg from "../images/loadingbg.svg";
 // 커뮤니티 최상위 컴포넌트
 const Community = () => {
   const navigate = useNavigate();
@@ -37,6 +39,25 @@ const Community = () => {
         </div>
         <CommunityBoard />
       </Container>
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundImage: `url(${loadingbg})`,
+          backgroundSize: "100%",
+          width: "100%",
+        }}
+      >
+        <div style={{ marginRight: 100, marginBottom: 100 }}>
+          <PacmanLoader
+            size={30}
+            // style={{ marginRight: 100 }}
+            color={"#f4c19f"}
+          />
+        </div>
+      </div>
     </Main>
   );
 };

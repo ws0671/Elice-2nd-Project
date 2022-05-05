@@ -34,7 +34,7 @@ const Kakao = () => {
           icon: "success",
           title: "회원가입되었습니다. 로그인해주세요 :)",
           showConfirmButton: false,
-          timer: 1500,
+          timer: 3000,
         });
         navigate("/login", { replace: true });
       } else {

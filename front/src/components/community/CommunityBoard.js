@@ -28,6 +28,7 @@ const CommunityBoard = () => {
       .then((res) => {
         setInfo(res.data.articles);
         setTotal(res.data.articleCount);
+        console.log(res.data);
         if (res.data.articles.length === 0) {
           setShow("blank");
         } else setShow("success");

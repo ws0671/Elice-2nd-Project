@@ -16,6 +16,21 @@ const CommunityElement = ({ item, index, page }) => {
   const clickHandler = () => {
     navigate(`/community/${item.articleId}`);
   };
+  console.log(item);
+
+  const gradeHandler = (grade) => {
+    if (grade === 0) {
+      return stone;
+    } else if (grade === 1) {
+      return ball;
+    } else if (grade === 2) {
+      return tapioca;
+    } else if (grade === 3) {
+      return pearl;
+    } else {
+      return rainbow;
+    }
+  };
   return (
     <Tr className={(index + 1) % 2 === 0 ? "even" : "odd"}>
       <td>{index + (page - 1) * 10}</td>
@@ -25,9 +40,20 @@ const CommunityElement = ({ item, index, page }) => {
         </span>{" "}
         {item.title}
       </td>
-      <td>
-        {item.nickname}
-        <img src={tapioca} style={{ width: 20, height: 20, margin: 0 }} />
+      <td
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {item.author.nickname}
+
+        <img
+          src={gradeHandler(item.author.grade)}
+          style={{ width: 20, height: 20, margin: "0 0 0 5px" }}
+        />
       </td>
       <td>{createdAt[0]}</td>
       <td>{item.hits}</td>

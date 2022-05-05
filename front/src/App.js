@@ -22,6 +22,7 @@ import GameDetail from "./pages/GameDetail";
 import Github from "./components/socialLogin/Github";
 import Google from "./components/socialLogin/Google";
 import Kakao from "./components/socialLogin/Kakao";
+import ClimbingBoxLoader from "react-spinners/ClimbingBoxLoader";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -66,7 +67,18 @@ function App() {
   }, []);
 
   if (!isFetchCompleted) {
-    return "loading...";
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ClimbingBoxLoader size={30} color={"#F37A24"} />
+      </div>
+    );
   }
 
   return (

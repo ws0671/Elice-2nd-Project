@@ -227,7 +227,7 @@ function LoginForm() {
           </LoginButton>
           <a href={githuburl}>GITHUB</a>
           <a href={googleurl}>GOOGLE</a>
-          <a herf={kakaourl}>KAKAO</a>
+          <a href={kakaourl}>KAKAO</a>
         </MainContainer>
       </BodyContainer>
     </BodyWrapper>

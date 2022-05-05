@@ -31,7 +31,8 @@ const CommunityDetail = () => {
   const navigate = useNavigate();
 
   // 수정 삭제 권한 유저인지 확인용 변수
-  const isUser = detail.author === userContext.user.userId;
+  const isUser = detail?.author?.userId == userContext.user.userId;
+  console.log(userContext);
   const params = useParams();
   // 수정폼 컴포넌트 전달용 함수
   const isEditing = () => setIsEdit((prev) => !prev);

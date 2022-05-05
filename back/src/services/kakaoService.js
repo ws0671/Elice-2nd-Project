@@ -53,7 +53,7 @@ class KakaoService {
   static getUserData = async ({ accessToken }) => {
     const apiUrl = "https://kapi.kakao.com/v2/user/me";
     const userData = await axios.get(`${apiUrl}`, {
-      Headers: { Authorization: `Bearer ${accessToken}` },
+      headers: { Authorization: `Bearer ${accessToken}` },
     });
 
     const userId = userData.data.id;
@@ -65,16 +65,16 @@ class KakaoService {
 
   static getToken = async ({ code }) => {
     const baseUrl = "https://kauth.kakao.com/oauth/token";
-    const body = {
+    const config = {
       client_id: process.env.KAKAO_CLIENT,
       redirect_uri: "http://localhost:3000/auth/kakao/callback",
       grant_type: "authorization_code",
       code,
     };
-    const params = new URLSearchParams(body);
+    const params = new URLSearchParams(config);
     const finalUrl = `${baseUrl}?${params}`;
 
-    const tokenRequest = await axios.post(finalUrl, body);
+    const tokenRequest = await axios.post(finalUrl, config);
 
     const accessToken = tokenRequest.data.access_token;
     return this.getUserData({ accessToken });
