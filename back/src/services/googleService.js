@@ -14,6 +14,15 @@ class GoogleService {
 
   static checkUser = async ({ userId, email, nickname, loginMethod }) => {
     const user = await User.findByEmail({ email });
+    if (user) {
+      if (user.userId === userId) {
+        const secretKey = process.env.JWT_SECRET_KEY;
+        const token = jwt.sign({ user_id: userId }, secretKey);
+
+        const loginUser = { token, userId, nickname, email };
+        return loginUser;
+      }
+    }
   };
 
   static getUserData = async ({ payload }) => {
