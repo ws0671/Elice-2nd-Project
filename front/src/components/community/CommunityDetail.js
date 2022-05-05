@@ -24,7 +24,7 @@ const CommunityDetail = () => {
   // 수정폼 show/notshow 확인용 변수(수정폼 컴포넌트에서 사용)
   const [isEdit, setIsEdit] = useState(false);
 
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(true);
   // 로그인 유저 전역 데이터값
   const userContext = useContext(UserStateContext);
   const navigate = useNavigate();
@@ -49,6 +49,7 @@ const CommunityDetail = () => {
         setShow(true);
       })
       .catch((err) => {
+        setShow(false);
         Swal.fire({
           icon: "error",
           title: `해당 게시물 열람 권한이<br /> 없습니다.`,
