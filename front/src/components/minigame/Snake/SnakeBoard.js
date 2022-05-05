@@ -51,6 +51,7 @@ const SnakeBoard = () => {
         route: "SnakeGame",
         point: 100,
       });
+      setPoint(100);
     } else {
       Swal.fire({
         position: "center",
