@@ -1,6 +1,8 @@
+import React, { useState, useEffect, useContext } from "react";
 import "./MemorizeCards.css";
 import SingleCard from "./SingleCard";
-import axios from "axios";
+import * as Api from "../../../api";
+import { UserStateContext } from "../../../App";
 
 const cardImages = [
   { src: "/img/고양이 1.jpg", matched: false },
@@ -18,6 +20,7 @@ const MemorizeCards = () => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const userContext = useContext(UserStateContext);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -67,26 +70,31 @@ const MemorizeCards = () => {
     shuffleCards();
   }, []);
 
-  useEffect(async () => {
-    if (success === 6) {
-      const today = await axios.get("http://localhost:5001/point/CatMatch");
-      if (!today.data.point) {
-        alert("축하합니다!! 100포인트를 얻으셨습니다.");
-        const point = 100;
-        await axios.put(`http://localhost:5001/user/${userId}/addPoint`, point);
-        await axios.post("http://localhost:5001/point", {
-          miniGame: "CatMatch",
-          point,
-        });
-      } else {
-        alert("성공하셨습니다!!");
+  useEffect(() => {
+    const Message = async () => {
+      if (turns !== 12 && success === 6) {
+        const today = await Api.get2("point?route=CatMatch");
+        if (!today.data.point) {
+          alert("축하합니다!! 100포인트를 얻으셨습니다.");
+          const point = 100;
+          await Api.put(`user/${userContext.user.userId}/addPoint`, {
+            point: point,
+          });
+          await Api.post("point", {
+            route: "CatMatch",
+            point: point,
+          });
+        } else {
+          alert("성공하셨습니다!!");
+        }
+        shuffleCards();
+      } else if (turns === 0) {
+        alert("GAME OVER");
+        shuffleCards();
       }
-      shuffleCards();
-    } else if (turns === 0) {
-      alert("GAME OVER");
-      shuffleCards();
-    }
-  }, [turns, success]);
+    };
+    Message();
+  }, [turns]);
 
   return (
     <div className="MemorizeCards">

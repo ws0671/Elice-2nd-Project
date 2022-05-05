@@ -18,6 +18,10 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    loginMethod: {
+      type: String,
+      default: "email",
+    },
     point: {
       type: Number,
       default: 0,

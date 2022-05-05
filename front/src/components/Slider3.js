@@ -2,13 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import * as Api from "../api";
-import BestGame from "./BestGame";
 import { SliderContainer, Container, Button } from "./styles/SliderStyle";
+import AgeGame from "./AgeGame";
 
 const TOTAL_SLIDES = 1;
-export default function Slider() {
+export default function Slider4() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [data, setData] = useState();
+  const [mode, setMode] = useState(0);
   const slideRef = useRef(null);
 
   const nextSlide = () => {
@@ -25,12 +26,28 @@ export default function Slider() {
       setCurrentSlide(currentSlide - 1);
     }
   };
-  const bestGame = async () => {
-    const res = await Api.get(`gameGraph/bestGame`);
+  const ageGame = async () => {
+    setMode(0);
+    const res = await Api.get(`gameGraph/bestAge/${mode}`);
+    setData(res.data);
+  };
+  const ageGame12 = async () => {
+    setMode(12);
+    const res = await Api.get(`gameGraph/bestAge/${mode}`);
+    setData(res.data);
+  };
+  const ageGame15 = async () => {
+    setMode(16);
+    const res = await Api.get(`gameGraph/bestAge/${mode}`);
+    setData(res.data);
+  };
+  const ageGame18 = async () => {
+    setMode(18);
+    const res = await Api.get(`gameGraph/bestAge/${mode}`);
     setData(res.data);
   };
   useEffect(() => {
-    bestGame();
+    ageGame();
   }, []);
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
@@ -38,8 +55,12 @@ export default function Slider() {
   }, [currentSlide]);
   return (
     <Container>
+      <button onClick={ageGame}>전체 이용가</button>
+      <button onClick={ageGame12}>12세</button>
+      <button onClick={ageGame15}>15세</button>
+      <button onClick={ageGame18}>18세</button>
       <SliderContainer ref={slideRef}>
-        {data && <BestGame data={data}></BestGame>}
+        {data && <AgeGame data={data}></AgeGame>}
       </SliderContainer>
       <Button className="left" onClick={prevSlide}>
         <IoIosArrowBack size="40" />

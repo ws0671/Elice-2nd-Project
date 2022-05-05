@@ -14,12 +14,21 @@ import * as Api from "../api";
 import { DispatchContext } from "../App";
 import { LoginButton } from "../components/user/login/LoginButton";
 import { LoginInput } from "../components/user/login/LoginInput";
+import {
+  githubUrl,
+  googleUrl,
+  kakaoUrl,
+} from "../components/socialLogin/SocialLoginUrl";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 function LoginForm() {
   const navigate = useNavigate();
   const dispatch = useContext(DispatchContext);
+
+  const githuburl = githubUrl();
+  const googleurl = googleUrl();
+  const kakaourl = kakaoUrl();
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
@@ -151,6 +160,23 @@ function LoginForm() {
         background: "rgba(0, 0, 0, 0.8)",
         color: "white",
       });
+
+      const today = await Api.get2(`point?route=Login`);
+      if (!today.data.point) {
+        Api.put(`user/${user.userId}/addPoint`, { point: 100 });
+        Api.post("point", {
+          route: "Login",
+          point: 100,
+        });
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `축하합니다! 100포인트를 얻으셨습니다!!`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
@@ -193,13 +219,15 @@ function LoginForm() {
             <LoginButton type="submit" onClick={handleSubmit}>
               LOG IN
             </LoginButton>
-            <div onClick={findPassword}>비밀번호를 잊으셨나요?</div>
           </ButtonContainer>
           <GoToRegister>or become a new member!</GoToRegister>
           <HorizeontalRule />
           <LoginButton content="register" onClick={() => navigate("/register")}>
             REGISTER
           </LoginButton>
+          <a href={githuburl}>GITHUB</a>
+          <a href={googleurl}>GOOGLE</a>
+          <a herf={kakaourl}>KAKAO</a>
         </MainContainer>
       </BodyContainer>
     </BodyWrapper>
