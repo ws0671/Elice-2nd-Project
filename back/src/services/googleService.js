@@ -17,7 +17,7 @@ class GoogleService {
     const user = await User.findByNickname({ nickname: newUser.nickname });
 
     if (user) {
-      const randomCode = SetUtil.randomeCode();
+      const randomCode = SetUtil.randomCode();
       newUser.nickname = `GOOGLE_USER${randomCode}`;
     }
 
