@@ -72,6 +72,12 @@ const Kakao = () => {
   };
 
   let code = new URL(window.location.href).searchParams.get("code");
+
+  useEffect(() => {
+    dispatch(kakaoLogin(code));
+  }, []);
+
+  return <Spinner />;
 };
 
 export default Kakao;
