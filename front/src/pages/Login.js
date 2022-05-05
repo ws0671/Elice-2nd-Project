@@ -144,7 +144,7 @@ function LoginForm() {
       });
       Swal.fire({
         icon: "success",
-        title: `환영합니다, ${user.nickname}!`,
+        title: `환영합니다, ${user.nickname}님!`,
         showConfirmButton: false,
         timer: 1500,
         width: 600,
