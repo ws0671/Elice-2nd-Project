@@ -48,6 +48,8 @@ const Github = () => {
           payload: user,
         });
 
+        const today = await Api.get2(`point?route=Login`);
+
         navigate("/", { replace: true });
       }
     } catch (err) {
