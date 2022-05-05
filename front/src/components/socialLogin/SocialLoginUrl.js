@@ -23,4 +23,16 @@ const googleUrl = () => {
   return finalUrl;
 };
 
-export { githubUrl, googleUrl };
+const kakaoUrl = () => {
+  const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const config = {
+    client_id: process.env.REACT_APP_KAKAO_CLIENT,
+    redirect_uri: "http://localhost:3000/auth/kakao/callback",
+    response_type: "code",
+  };
+  const params = new URLSearchParams(config).toString();
+  const finalUrl = `${baseUrl}?${params}`;
+  return finalUrl;
+};
+
+export { githubUrl, googleUrl, kakaoUrl };
