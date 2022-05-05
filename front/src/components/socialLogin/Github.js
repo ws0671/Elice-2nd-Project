@@ -29,7 +29,13 @@ const Github = () => {
       );
       const user = res.data;
       if (user.register) {
-        alert("회원가입되었습니다. 로그인해주세요.");
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `회원가입되었습니다. 로그인해주세요 :)`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
         navigate("/login", { replace: true });
       } else {
         const jwtToken = user.token;
