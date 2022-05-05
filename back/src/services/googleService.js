@@ -21,6 +21,10 @@ class GoogleService {
 
         const loginUser = { token, userId, nickname, email };
         return loginUser;
+      } else if (user.loginMethod !== loginMethod) {
+        throw new Error(
+          `${user.loginMethod}로 가입한 이력이 있습니다. ${user.loginMethod}로 로그인해주세요.`
+        );
       }
     }
   };
