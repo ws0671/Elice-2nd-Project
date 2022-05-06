@@ -1,6 +1,6 @@
 import { Game, Review, User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
 
-const gameService = {
+const GameService = {
   getGameInfo: async ({ userId, gameId }) => {
     const game = await Game.findById({ gameId });
     if (!game) {
@@ -51,6 +51,22 @@ const gameService = {
     const gameCounts = await Game.countGames(filter);
     return { games, gameCounts };
   },
+
+  getAgeList: async ({ age, page, numOfPageLimit }) => {
+    const games = await Game.findByAge({ age, page, numOfPageLimit });
+    return { games };
+  },
+
+  getGenreList: async ({ gameGenre, page, numOfPageLimit }) => {
+    const games = await Game.findByGenre({ gameGenre, page, numOfPageLimit });
+    console.log(games);
+    return { games };
+  },
+
+  getPlatformList: async ({ platform, page, numOfPageLimit }) => {
+    const games = await Game.findByPlatform({ platform, page, numOfPageLimit });
+    return { games };
+  },
 };
 
-export { gameService };
+export { GameService };
