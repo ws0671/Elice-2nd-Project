@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import * as Api from "../../api";
 function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
   return (
     <div className="box">
@@ -41,7 +41,8 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
       {mode === "장르" &&
         genre &&
         genre.map((val, key) => (
-          <div
+          <Link
+            to={`/gamesearch/${val}`}
             key={key}
             style={{
               width: "400px",
@@ -62,7 +63,7 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
             >
               {val}
             </h3>
-          </div>
+          </Link>
         ))}
       {mode === "플랫폼" &&
         flatForm &&

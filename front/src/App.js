@@ -19,6 +19,7 @@ import Mypage from "./pages/Mypage";
 import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
 import GameDetail from "./pages/GameDetail";
+import GameSearchGenre from "./components/Search/GameSearchGenre";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -86,6 +87,7 @@ function App() {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
             <Route path="/gamedetail/:id" element={<GameDetail />} />
+            <Route path="/gamesearch/:genre" element={<GameSearchGenre />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
