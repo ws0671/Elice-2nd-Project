@@ -13,14 +13,12 @@ const getInitialTileList = () => {
 };
 
 const checkCollision = (tileList, tile) => {
-  console.log("checkCollision 실행");
   return tileList.some((item) => item.x === tile.x && item.y === tile.y); // item중 어느 하나라도 만족하면 true를 반환 : some
 };
 
 let currentId = 0;
 const makeTile = (tileList) => {
   // 타일 만들기
-  console.log("makeTile 실행");
   let tile;
   let count = 0;
   while (!tile || (tileList && checkCollision(tileList, tile))) {
@@ -45,7 +43,6 @@ const makeTile = (tileList) => {
 
 const moveTile = ({ tileList, x, y }) => {
   // 움직이는 방향 정보를 받아 newTile로 전달
-  console.log("moveTile 실행");
   assert(x === 0 || y === 0, "");
   const isMoveY = y !== 0;
   const isMinus = x + y < 0;

@@ -8,7 +8,6 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
   useEffect(() => {
     const moveAndAdd = ({ x, y }) => {
       // 움직이고 추가까지
-      console.log("moveAndAdd 실행");
       const newTileList = moveTile({ tileList, x, y }); // moveTile은 타일을 움직이고 새로운 타일을 주는 함수
       // 그럼 그대로 움직인 다음에 추가
       const score = newTileList.reduce(
@@ -30,11 +29,9 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
     const moveUp = () => {
       const canNotMove = moveAndAdd({ x: 0, y: -1 });
       if (canNotMove) {
-        console.log("here?");
         state["moveUp"] = false;
         console.log(state);
       }
-      console.log("moveUp 실행");
       if (Object.keys(state).length == 4) {
         Swal.fire({
           position: "center",
@@ -50,7 +47,6 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
       if (canNotMove) {
         state["moveDown"] = false;
       }
-      console.log("moveDown 실행");
       if (Object.keys(state).length == 4) {
         Swal.fire({
           position: "center",
@@ -67,7 +63,6 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
       if (canNotMove) {
         state["moveLeft"] = false;
       }
-      console.log("moveLeft 실행");
       if (Object.keys(state).length == 4) {
         Swal.fire({
           position: "center",
@@ -83,7 +78,6 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
       if (canNotMove) {
         state["moveRight"] = false;
       }
-      console.log("moveRight 실행");
       if (Object.keys(state).length == 4) {
         Swal.fire({
           position: "center",
