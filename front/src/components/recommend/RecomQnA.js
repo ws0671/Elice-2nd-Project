@@ -1,23 +1,26 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState, useContext } from "react"
 import { useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { qnaList } from "./RecomData"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BodyStyle, QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle'
 import qnaImg from '../../images/RecomBg_quiz_3.svg'
+import { UserStateContext } from "../../App"
+import * as Api from "../../api";
+
 
 function RecomQuestion() {
 
 
     const [qIdx, setQIdx] = useState(0) // 질문 인덱스
     const [question, setQuestion] = useState(qnaList[qIdx].q) // 질문 내용
-    const [loading, setLoading] = useState(true)
     const [clicked, setClicked] = useState(null) //클릭된 버튼 표시
 
     const statusRef = useRef(null)
     const navigate = useNavigate()
     const location = useLocation()
     const genre = location.state.genre
+    const userContext = useContext(UserStateContext)
 
     const [firstP, setFirstP] = useState(false)
     const [lastP, setLastP] = useState(false) // 첫페이지인지 확인
@@ -25,6 +28,7 @@ function RecomQuestion() {
 
     const [select, setSelect] = useState({}) // 선택사항 1번, 2번, 3번 저장, 나중에 1번, 2번, 3번의 type 개수를 저장해서 결과값 계산
     const answer = Object.values(select)// 보내기 용 select value값만 저장
+
 
     const PrevQnA = () => {
         setQIdx(qIdx - 1)
@@ -48,6 +52,9 @@ function RecomQuestion() {
         console.log(location);
         console.log(genre);
     }, [location]);
+
+
+
 
     const Answers = () => {
 
@@ -79,14 +86,26 @@ function RecomQuestion() {
 
     /*console.log(qnaList[0].a[1].type)*/
 
-    const goResult = () => {
-        setLoading(true)
-        navigate('/recommend/result', {
-            state: {
-                genre: genre,
-                answer: answer
-            },
-        });
+
+    const goResult = async (e) => {
+
+        answer.splice(4, 1)
+        const userId = userContext.user.userId
+        navigate('/recommend/result');
+
+        e.preventDefault();
+
+        try {
+            await Api.post("gameRecommend", {
+                userId,
+                genre,
+                answer,
+            })
+
+        } catch (err) {
+            alert("결과를 보내는 데 실패했습니다.\n", err);
+        }
+
     }
 
 
@@ -106,16 +125,31 @@ function RecomQuestion() {
         statusRef.current.style.width = 0 + '%';
     }, [])
 
-    /*     useEffect(() => {
-            window.localStorage.setItem('userAnswers', JSON.stringify(select))
-        })
-    
-        useEffect(() => {
-            const answersData = window.localStorage.getItem('userAnswers')
-            console.log(answersData)
-            setSelect(JSON.parse(answersData))
-        }, [])
-     */
+    /*  const handleSubmit = async (e) => {
+         e.preventDefault();
+ 
+         try {
+             const res = await Api.post("gameRecommend", {
+                 genre,
+                 answer,
+             });
+ 
+             // 유저 정보는 response의 data임.
+             const user = res.data;
+ 
+             // JWT 토큰은 유저 정보의 token임.
+             const jwtToken = user.token;
+             // sessionStorage에 "userToken"이라는 키로 JWT 토큰과 닉네임을 저장함.
+ 
+             sessionStorage.setItem("userToken", jwtToken);
+             sessionStorage.setItem("user", JSON.stringify(user));
+ 
+         } catch (err) {
+             alert("결과를 보내는 데 실패했습니다.\n", err);
+         }
+     };
+  */
+
 
     return (
         <>
