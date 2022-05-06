@@ -4,6 +4,7 @@ import data from "./rouletteData";
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
 import Swal from "sweetalert2";
+import "./Roulette.css";
 
 const Roulette = () => {
   const [spin, setSpin] = useState(false);
@@ -65,26 +66,30 @@ const Roulette = () => {
   }, [point]);
 
   return (
-    <>
-      {point ? (
-        <div>
-          <h1>축하합니다!! {point}점을 획득하셨습니다!!</h1>
+    <div className="RouletteContainer">
+      <div className="RouletteBoard">
+        {point ? (
+          <div>
+            <p>축하합니다!! {point}점을 획득하셨습니다!!</p>
+          </div>
+        ) : (
+          <div>
+            <p>룰렛을 돌려주세요!</p>
+          </div>
+        )}
+        <div className="Wheel">
+          <Wheel
+            mustStartSpinning={spin}
+            prizeNumber={pointIndex}
+            data={data}
+            radiusLineWidth={0}
+            outerBorderWidth={3}
+            onStopSpinning={handleStop}
+          />
         </div>
-      ) : (
-        <div>
-          <h1>룰렛을 돌려주세요!</h1>
-        </div>
-      )}
-      <Wheel
-        mustStartSpinning={spin}
-        prizeNumber={pointIndex}
-        data={data}
-        radiusLineWidth={0}
-        outerBorderWidth={3}
-        onStopSpinning={handleStop}
-      />
-      <button onClick={handleStart}>SPIN</button>
-    </>
+        <button onClick={handleStart}>SPIN</button>
+      </div>
+    </div>
   );
 };
 

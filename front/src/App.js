@@ -26,6 +26,9 @@ import Google from "./components/socialLogin/Google";
 import Kakao from "./components/socialLogin/Kakao";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import loadingbg from "./images/loadingbg.svg";
+import Roulette from "./components/minigame/Roulette/Roulette";
+import MemorizeCards from "./components/minigame/Cat Match/MemorizeCards";
+import SnakeBoard from "./components/minigame/Snake/SnakeBoard";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -102,7 +105,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
-            <Route path="/minigame" element={<MiniGame />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/topchart" element={<TopChart />} />
@@ -118,6 +120,10 @@ function App() {
             <Route path="/auth/github/callback" element={<Github />} />
             <Route path="/auth/google/callback" element={<Google />} />
             <Route path="/auth/kakao/callback" element={<Kakao />} />
+            <Route path="/minigame/2048" element={<MiniGame />} />
+            <Route path="/minigame/roulette" element={<Roulette />} />
+            <Route path="/minigame/catMatch" element={<MemorizeCards />} />
+            <Route path="/minigame/snake" element={<SnakeBoard />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
