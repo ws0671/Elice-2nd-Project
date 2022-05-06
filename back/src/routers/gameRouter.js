@@ -28,7 +28,7 @@ GameRouter.get("/genre/:page", async (req, res, next) => {
     const numOfPageLimit = req.query.limit
       ? Number(req.query.limit)
       : undefined;
-    const gameList = await gameService.getGenreList({
+    const gameList = await GameService.getGenreList({
       gameGenre,
       page,
       numOfPageLimit,
@@ -45,7 +45,7 @@ GameRouter.get("/age/:page", async (req, res, next) => {
     const numOfPageLimit = req.query.limit
       ? Number(req.query.limit)
       : undefined;
-    const gameList = await gameService.getAgeList({
+    const gameList = await GameService.getAgeList({
       age,
       page,
       numOfPageLimit,
@@ -62,7 +62,7 @@ GameRouter.get("/platform/:page", async (req, res, next) => {
     const numOfPageLimit = req.query.limit
       ? Number(req.query.limit)
       : undefined;
-    const gameList = await gameService.getPlatformList({
+    const gameList = await GameService.getPlatformList({
       platform,
       page,
       numOfPageLimit,

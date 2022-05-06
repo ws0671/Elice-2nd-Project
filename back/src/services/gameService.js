@@ -59,7 +59,6 @@ const GameService = {
 
   getGenreList: async ({ gameGenre, page, numOfPageLimit }) => {
     const games = await Game.findByGenre({ gameGenre, page, numOfPageLimit });
-    console.log(games);
     return { games };
   },
 
