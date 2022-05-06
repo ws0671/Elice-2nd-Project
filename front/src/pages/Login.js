@@ -29,6 +29,7 @@ function LoginForm() {
   const githuburl = githubUrl();
   const googleurl = googleUrl();
   const kakaourl = kakaoUrl();
+  console.log("카카오 함수에서 만든 URL :", kakaourl);
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
