@@ -12,7 +12,7 @@ const transport = nodemailer.createTransport({
   },
 });
 
-let sendMail = (to, subject, text) => {
+let SendMail = (to, subject, text) => {
   return new Promise((resolve, reject) => {
     const message = {
       from: adminEmail,
@@ -31,4 +31,4 @@ let sendMail = (to, subject, text) => {
   });
 };
 
-export { sendMail };
+export { SendMail };

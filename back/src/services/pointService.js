@@ -1,7 +1,7 @@
 import { Point } from "../db";
 import moment from "moment";
 
-const pointService = {
+const PointService = {
   addPoint: async ({ newPoint }) => {
     await Point.create({ newPoint });
   },
@@ -23,4 +23,4 @@ const pointService = {
   },
 };
 
-export { pointService };
+export { PointService };

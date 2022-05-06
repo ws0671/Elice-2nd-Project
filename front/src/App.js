@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { GlobalStyle } from "../../front/src/components/styles/GlobalStyle";
 
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
@@ -22,6 +23,8 @@ import GameDetail from "./pages/GameDetail";
 import Github from "./components/socialLogin/Github";
 import Google from "./components/socialLogin/Google";
 import Kakao from "./components/socialLogin/Kakao";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import loadingbg from "./images/loadingbg.svg";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -66,7 +69,27 @@ function App() {
   }, []);
 
   if (!isFetchCompleted) {
-    return "loading...";
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundImage: `url(${loadingbg})`,
+          backgroundSize: "100%",
+          width: "100%",
+        }}
+      >
+        <div style={{ marginRight: 100, marginBottom: 100 }}>
+          <PacmanLoader
+            size={30}
+            // style={{ marginRight: 100 }}
+            color={"rgba(201,138,204,1)"}
+          />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -74,6 +97,7 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
+          <GlobalStyle />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
