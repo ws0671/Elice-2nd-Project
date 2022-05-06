@@ -1,6 +1,6 @@
 import { GameRecommend } from "../db";
 
-const gameRecommendService = {
+const GameRecommendService = {
   getRecommendGames: async ({ data }) => {
     const genres = data[0].genre;
     const tags = data[0].answer;
@@ -15,4 +15,4 @@ const gameRecommendService = {
   },
 };
 
-export { gameRecommendService };
+export { GameRecommendService };

@@ -27,6 +27,12 @@ export const Div = styled.div`
     display: flex;
     justify-content: space-evenly;
   }
+  button {
+    padding: 10px;
+    font-weight: bold;
+    background-color: purple;
+    border-radius: 10px;
+  }
 `;
 export const FlexDiv1 = styled.div`
   display: flex;

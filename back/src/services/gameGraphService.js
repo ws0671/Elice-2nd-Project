@@ -5,9 +5,8 @@ import { GameGenreGraph } from "../db";
 import { GameAgeGraph } from "../db";
 
 const GameGraphService = {
-  getWorstRank: async () => {
-    const games = Object.values(worstGame);
-
+  getBestRank: async () => {
+    const games = GameRatingGraph.findBestRating();
     if (!games) {
       throw new Error("해당 데이터가 없습니다. 다시 한 번 확인해 주세요.");
     }

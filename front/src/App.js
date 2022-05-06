@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { GlobalStyle } from '../../front/src/components/styles/GlobalStyle'
-
-
+import { GlobalStyle } from "../../front/src/components/styles/GlobalStyle";
 
 import { loginReducer } from "./reducer";
 
@@ -31,6 +29,9 @@ import loadingbg from "./images/loadingbg.svg";
 import Roulette from "./components/minigame/Roulette/Roulette";
 import MemorizeCards from "./components/minigame/Cat Match/MemorizeCards";
 import SnakeBoard from "./components/minigame/Snake/SnakeBoard";
+import GameSearchGenre from "./components/Search/GameSearchGenre";
+import GameSearchPlatform from "./components/Search/GameSearchPlatform";
+import GameSearchAge from "./components/Search/GameSearchAge";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -127,6 +128,12 @@ function App() {
             <Route path="/minigame/roulette" element={<Roulette />} />
             <Route path="/minigame/catMatch" element={<MemorizeCards />} />
             <Route path="/minigame/snake" element={<SnakeBoard />} />
+            <Route path="/gamesearch/:genre" element={<GameSearchGenre />} />
+            <Route
+              path="/gamesearch/platform/:platform"
+              element={<GameSearchPlatform />}
+            />
+            <Route path="/gamesearch/age/:age" element={<GameSearchAge />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

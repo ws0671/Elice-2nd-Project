@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
+import * as Api from "../../api";
+function DataExpression({ data, inputData, genre, mode, age, platForm }) {
   return (
     <div className="box">
       {mode === "전체 목록" &&
@@ -41,7 +41,8 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
       {mode === "장르" &&
         genre &&
         genre.map((val, key) => (
-          <div
+          <Link
+            to={`/gamesearch/${val}`}
             key={key}
             style={{
               width: "400px",
@@ -62,27 +63,29 @@ function DataExpression({ data, inputData, genre, mode, age, flatForm }) {
             >
               {val}
             </h3>
-          </div>
+          </Link>
         ))}
       {mode === "플랫폼" &&
-        flatForm &&
-        flatForm.map((val, key) => (
-          <img
-            key={key}
-            src={val.headerImage}
-            style={{ width: "300px", height: "300px", opacity: 1 }}
-            alt="플랫폼 이미지"
-          />
+        platForm &&
+        platForm.map((val, key) => (
+          <Link to={`/gamesearch/platform/${val.platform}`} key={key}>
+            <img
+              src={val.headerImage}
+              style={{ width: "400px", height: "350px" }}
+              alt="플랫폼 이미지"
+            />
+          </Link>
         ))}
       {mode === "이용등급" &&
         age &&
         age.map((val, key) => (
-          <img
-            key={key}
-            src={val.headerImage}
-            style={{ width: "300px", opacity: 1 }}
-            alt="이용등급 이미지"
-          />
+          <Link to={`/gamesearch/age/${val.age}`} key={key}>
+            <img
+              src={val.headerImage}
+              style={{ width: "300px", opacity: 1 }}
+              alt="이용등급 이미지"
+            />
+          </Link>
         ))}
     </div>
   );

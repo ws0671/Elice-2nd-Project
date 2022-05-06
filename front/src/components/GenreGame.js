@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const GenreGame = ({ data }) => {
-  console.log(data);
   return (
     <>
       {data &&

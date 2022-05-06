@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import * as Api from "../api";
 import { AiOutlineRightCircle } from "react-icons/ai";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
+import { UserStateContext } from "../App";
+
 const GameDetail = () => {
   const [data, setData] = useState(null);
   const [genre, setGenre] = useState();
   const [os, setOs] = useState();
   const [bookmark, setBookmark] = useState(false);
   const params = useParams();
-
+  const userContext = useContext(UserStateContext);
   const handleData = async () => {
     const res = await Api.get(`game/${params.id}/guest`);
     setData(res.data);
@@ -25,6 +27,7 @@ const GameDetail = () => {
   };
   useEffect(() => {
     handleData();
+    console.log(userContext);
   }, []);
 
   return (
