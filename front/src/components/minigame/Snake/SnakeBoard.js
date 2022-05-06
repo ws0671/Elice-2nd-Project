@@ -25,9 +25,12 @@ const SnakeBoard = () => {
 
   useInterval(() => gameLoop(), speed);
 
-  useEffect(async () => {
-    const today = await Api.get2("point?miniGame=SnakeGame");
-    setPoint(today.data.point);
+  useEffect(() => {
+    const checkPoint = async () => {
+      const today = await Api.get2("point?route=SnakeGame");
+      setPoint(today.data.point);
+    };
+    checkPoint();
   }, []);
 
   const endGame = async () => {
@@ -45,9 +48,10 @@ const SnakeBoard = () => {
         point: 100,
       });
       await Api.post(`point`, {
-        miniGame: "SnakeGame",
+        route: "SnakeGame",
         point: 100,
       });
+      setPoint(100);
     } else {
       Swal.fire({
         position: "center",

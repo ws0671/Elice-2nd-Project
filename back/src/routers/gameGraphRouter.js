@@ -1,39 +1,39 @@
 import { Router } from "express";
-import { gameGraphService } from "../services/gameGraphService";
+import { GameGraphService } from "../services/gameGraphService";
 
-const gameGraphRouter = Router();
+const GameGraphRouter = Router();
 
-gameGraphRouter.get("/worstGame", async (req, res, next) => {
+GameGraphRouter.get("/worstGame", async (req, res, next) => {
   try {
-    const gameGraphList = await gameGraphService.getWorstRank();
+    const gameGraphList = await GameGraphService.getWorstRank();
     res.status(200).send(gameGraphList);
   } catch (error) {
     next(error);
   }
 });
 
-gameGraphRouter.get("/bestGame", async (req, res, next) => {
+GameGraphRouter.get("/bestGame", async (req, res, next) => {
   try {
-    const gameGraphList = await gameGraphService.getBestRank();
+    const gameGraphList = await GameGraphService.getBestRank();
     res.status(200).send(gameGraphList);
   } catch (error) {
     next(error);
   }
 });
 
-gameGraphRouter.get("/recentRelease", async (req, res, next) => {
+GameGraphRouter.get("/recentRelease", async (req, res, next) => {
   try {
-    const gameGraphList = await gameGraphService.getRecentRelease();
+    const gameGraphList = await GameGraphService.getRecentRelease();
     res.status(200).send(gameGraphList);
   } catch (error) {
     next(error);
   }
 });
 
-gameGraphRouter.get("/bestGenre/:genre", async (req, res, next) => {
+GameGraphRouter.get("/bestGenre/:genre", async (req, res, next) => {
   try {
     const gameGenre = req.params.genre;
-    const gameGraphList = await gameGraphService.getBestRankByGenre({
+    const gameGraphList = await GameGraphService.getBestRankByGenre({
       gameGenre,
     });
     res.status(200).send(gameGraphList);
@@ -42,29 +42,42 @@ gameGraphRouter.get("/bestGenre/:genre", async (req, res, next) => {
   }
 });
 
-gameGraphRouter.get("/releaseByYear", async (req, res, next) => {
+GameGraphRouter.get("/bestAge/:age", async (req, res, next) => {
   try {
-    const gamesByYear = await gameGraphService.getGamesByReleaseYear();
+    const gameAge = req.params.age;
+    const gameGraphList = await GameGraphService.getBestRankByAge({
+      gameAge,
+    });
+    res.status(200).send(gameGraphList);
+  } catch (error) {
+    next(error);
+  }
+});
+
+GameGraphRouter.get("/releaseByYear", async (req, res, next) => {
+  try {
+    const gamesByYear = await GameGraphService.getGamesByReleaseYear();
     res.status(200).send(gamesByYear);
   } catch (error) {
     next(error);
   }
 });
 
-gameGraphRouter.get("/gamesByGenre", async (req, res, next) => {
+GameGraphRouter.get("/gamesByGenre", async (req, res, next) => {
   try {
-    const gamesByGenre = await gameGraphService.getGamesByGenre();
+    const gamesByGenre = await GameGraphService.getGamesByGenre();
     res.status(200).send(gamesByGenre);
   } catch (error) {
     next(error);
   }
 });
-gameGraphRouter.get("/indieByYear", async (req, res, next) => {
+
+GameGraphRouter.get("/indieByYear", async (req, res, next) => {
   try {
-    const indieByYear = await gameGraphService.getIndieByYear();
+    const indieByYear = await GameGraphService.getIndieByYear();
     res.status(200).send(indieByYear);
   } catch (error) {
     next(error);
   }
 });
-export { gameGraphRouter };
+export { GameGraphRouter };

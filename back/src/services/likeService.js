@@ -1,6 +1,6 @@
 import { Like, Article } from "../db";
 
-const likeService = {
+const LikeService = {
   addLike: async ({ userId, articleId }) => {
     const article = await Article.findById({ articleId });
     if (!article) {
@@ -18,6 +18,7 @@ const likeService = {
     const toUpdate = { $inc: { like: 1 } };
     await Article.update({ articleId, toUpdate });
   },
+
   deleteLike: async ({ userId, articleId }) => {
     const article = await Article.findById({ articleId });
     if (!article) {
@@ -39,4 +40,4 @@ const likeService = {
   },
 };
 
-export { likeService };
+export { LikeService };

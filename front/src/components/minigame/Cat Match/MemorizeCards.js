@@ -70,27 +70,30 @@ const MemorizeCards = () => {
     shuffleCards();
   }, []);
 
-  useEffect(async () => {
-    if (turns !== 12 && success === 6) {
-      const today = await Api.get2("point?miniGame=CatMatch");
-      if (!today.data.point) {
-        alert("축하합니다!! 100포인트를 얻으셨습니다.");
-        const point = 100;
-        await Api.put(`user/${userContext.user.userId}/addPoint`, {
-          point: point,
-        });
-        await Api.post("point", {
-          miniGame: "CatMatch",
-          point: point,
-        });
-      } else {
-        alert("성공하셨습니다!!");
+  useEffect(() => {
+    const Message = async () => {
+      if (turns !== 12 && success === 6) {
+        const today = await Api.get2("point?route=CatMatch");
+        if (!today.data.point) {
+          alert("축하합니다!! 100포인트를 얻으셨습니다.");
+          const point = 100;
+          await Api.put(`user/${userContext.user.userId}/addPoint`, {
+            point: point,
+          });
+          await Api.post("point", {
+            route: "CatMatch",
+            point: point,
+          });
+        } else {
+          alert("성공하셨습니다!!");
+        }
+        shuffleCards();
+      } else if (turns === 0) {
+        alert("GAME OVER");
+        shuffleCards();
       }
-      shuffleCards();
-    } else if (turns === 0) {
-      alert("GAME OVER");
-      shuffleCards();
-    }
+    };
+    Message();
   }, [turns]);
 
   return (

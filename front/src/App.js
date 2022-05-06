@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useReducer, createContext } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { GlobalStyle } from "../../front/src/components/styles/GlobalStyle";
 
 import * as Api from "./api";
 import { loginReducer } from "./reducer";
 
 import Header from "./components/Header";
 import Main from "./pages/Main";
-import MiniGame from "./pages/MiniGame";
 import GameSearch from "./pages/GameSearch";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -19,6 +19,12 @@ import Prologue from "./pages/Prologue";
 import Mypage from "./pages/Mypage";
 import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
+import GameDetail from "./pages/GameDetail";
+import Github from "./components/socialLogin/Github";
+import Google from "./components/socialLogin/Google";
+import Kakao from "./components/socialLogin/Kakao";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import loadingbg from "./images/loadingbg.svg";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -63,7 +69,27 @@ function App() {
   }, []);
 
   if (!isFetchCompleted) {
-    return "loading...";
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundImage: `url(${loadingbg})`,
+          backgroundSize: "100%",
+          width: "100%",
+        }}
+      >
+        <div style={{ marginRight: 100, marginBottom: 100 }}>
+          <PacmanLoader
+            size={30}
+            // style={{ marginRight: 100 }}
+            color={"rgba(201,138,204,1)"}
+          />
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -71,6 +97,7 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
+          <GlobalStyle />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
@@ -86,6 +113,10 @@ function App() {
             <Route path="/prologue" element={<Prologue />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
+            <Route path="/gamedetail/:id" element={<GameDetail />} />
+            <Route path="/auth/github/callback" element={<Github />} />
+            <Route path="/auth/google/callback" element={<Google />} />
+            <Route path="/auth/kakao/callback" element={<Kakao />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

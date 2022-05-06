@@ -6,9 +6,9 @@ const PointSchema = new Schema(
       type: String,
       required: true,
     },
-    miniGame: {
+    route: {
       type: String,
-      enum: ["Roulette", "CatMatch", "SnakeGame", "2048"],
+      enum: ["Roulette", "CatMatch", "SnakeGame", "2048", "Login"],
       required: true,
     },
     point: {

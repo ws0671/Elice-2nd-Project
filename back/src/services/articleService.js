@@ -8,13 +8,14 @@ const ArticleService = {
     }
 
     const user = await User.findById({ userId });
-    const author = userId;
-    const nickname = user.nickname;
-    const categoryName = SetUtil.convertCategory(category);
+    const permission = SetUtil.validatePermission(user.grade, category);
+    if (!permission) {
+      throw new Error("귀하는 해당 말머리를 선택할 수 없는 등급입니다.");
+    }
 
+    const categoryName = SetUtil.convertCategory(category);
     const newArticle = {
-      author,
-      nickname,
+      author: user,
       category,
       categoryName,
       title,
@@ -38,8 +39,10 @@ const ArticleService = {
       filter = { category };
     }
 
+    const articleCount = await Article.countArticles(filter);
     const articles = await Article.findAllByCategory(filter, page, limit, skip);
-    return articles;
+
+    return { articleCount, articles };
   },
 
   getArticleInfo: async ({ articleId, userId }) => {
@@ -56,7 +59,7 @@ const ArticleService = {
       const likeOrNot = await Like.findByFilter({ articleId, userId });
       const like = Boolean(likeOrNot);
       const comments = await Comment.findAllByArticle({ articleId });
-      if (article.author === userId) {
+      if (article.author.userId === userId) {
         const articleInfo = { article, like, comments };
 
         return articleInfo;
@@ -106,39 +109,8 @@ const ArticleService = {
       throw new Error("삭제 권한이 없는 게시물입니다.");
     }
 
+    await Like.deleteAllByArticle({ articleId }); // 해당 게시글의 좋아요 전체 삭제
     await Article.delete({ articleId });
-  },
-
-  // 게시글 좋아요
-  like: async ({ userId, articleId, like }) => {
-    const article = await Article.findById({ articleId }); // 좋아요 할 게시글 객체 찾기
-    if (!article) {
-      throw new Error(
-        "해당 id를 가진 게시글 데이터는 없습니다. 다시 한 번 확인해주세요."
-      );
-    }
-
-    const filter = { userId, articleId };
-    const likeOrNot = await Like.findByFilter(filter);
-
-    if (like) {
-      if (likeOrNot) {
-        throw new Error("이미 좋아요를 누른 게시물입니다.");
-      }
-      const newLike = { userId, articleId };
-      await Like.create({ newLike });
-      const toUpdate = { $inc: { like: 1 } };
-      await Article.update({ articleId, toUpdate });
-    } else {
-      if (!likeOrNot) {
-        throw new Error(
-          "이미 좋아요 취소가 되었거나 좋아요를 누르지 않은 게시물입니다."
-        );
-      }
-      await Like.delete(filter);
-      const toUpdate = { $inc: { like: -1 } };
-      await Article.update({ articleId, toUpdate });
-    }
   },
 };
 
