@@ -4,6 +4,7 @@ import data from "./rouletteData";
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
 import Swal from "sweetalert2";
+import "./Roulette.css";
 
 const Roulette = () => {
   const [spin, setSpin] = useState(false);
