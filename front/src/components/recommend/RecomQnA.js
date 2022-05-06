@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { qnaList } from "./data_example"
+import { qnaList } from "./RecomData"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BodyStyle, QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle'
 import qnaImg from '../../images/RecomBg_quiz_3.svg'
