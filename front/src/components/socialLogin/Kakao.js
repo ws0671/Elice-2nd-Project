@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { DispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Swal from "sweetalert2";
 import * as Api from "../../api";
 import PacmanLoader from "react-spinners/PacmanLoader";
@@ -37,10 +36,10 @@ const Kakao = () => {
 
   const kakaoLogin = async (code) => {
     try {
-      const res = await axios.get(
-        `http://localhost:5001/auth/kakao?code=${code}`
-      );
+      console.log("code가 잘 넘어가니? :", code);
+      const res = await Api.get2(`auth/kakao?code=${code}`);
       const user = res.data;
+      console.log("답장 옴? :", user);
       if (user.register) {
         Swal.fire({
           position: "center",
@@ -85,6 +84,7 @@ const Kakao = () => {
   };
 
   let code = new URL(window.location.href).searchParams.get("code");
+  console.log("redirect 에서 코드 뽑아오기 :", code);
 
   useEffect(() => {
     dispatch(kakaoLogin(code));

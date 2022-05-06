@@ -51,11 +51,13 @@ class KakaoService {
   };
 
   static getUserData = async ({ accessToken }) => {
+    console.log("access token이 잘 넘어왔니? :", accessToken);
     const apiUrl = "https://kapi.kakao.com/v2/user/me";
     const userData = await axios.get(`${apiUrl}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     });
 
+    console.log("너만 되면 다 된 거야!!!! :", userData);
     const userId = userData.data.id;
     const { nickname } = userData.data.properties;
     const { email } = userData.data.kakao_account;
@@ -64,10 +66,12 @@ class KakaoService {
   };
 
   static getToken = async ({ code }) => {
+    console.log("서비스로 코드가 넘어왔니? :", code);
     const baseUrl = "https://kauth.kakao.com/oauth/token";
     const config = {
       client_id: process.env.KAKAO_CLIENT,
-      redirect_uri: "http://localhost:3000/auth/kakao/callback",
+      redirect_uri:
+        "http://elice-kdt-ai-4th-team06.elicecoding.com/auth/kakao/callback",
       grant_type: "authorization_code",
       code,
     };
@@ -75,6 +79,7 @@ class KakaoService {
     const finalUrl = `${baseUrl}?${params}`;
 
     const tokenRequest = await axios.post(finalUrl, config);
+    console.log("tokenRequest 결과 :", tokenRequest);
 
     const accessToken = tokenRequest.data.access_token;
     return this.getUserData({ accessToken });
