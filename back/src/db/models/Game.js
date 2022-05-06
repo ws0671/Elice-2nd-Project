@@ -62,7 +62,7 @@ const Game = {
     return games;
   },
 
-  findByGenre: async ({ gameGenre, page, numOfPageLimit = 10 }) => {
+  findByGenre: async ({ gameGenre, page, numOfPageLimit = 12 }) => {
     const games = await GameModel.find({
       genres: { $regex: `^${gameGenre}`, $options: "i" },
     })
@@ -72,7 +72,7 @@ const Game = {
     return games;
   },
 
-  findByPlatform: async ({ platform, page, numOfPageLimit = 10 }) => {
+  findByPlatform: async ({ platform, page, numOfPageLimit = 12 }) => {
     const games = await GameModel.find({
       platforms: { $regex: `^${platform}`, $options: "i" },
     })
@@ -82,7 +82,7 @@ const Game = {
     return games;
   },
 
-  findByAge: async ({ age, page, numOfPageLimit = 10 }) => {
+  findByAge: async ({ age, page, numOfPageLimit = 12 }) => {
     if (age == 0) {
       age = "전체";
     }
