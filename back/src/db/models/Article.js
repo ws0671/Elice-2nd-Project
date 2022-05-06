@@ -15,13 +15,16 @@ const Article = {
     const articles = await ArticleModel.find(filter)
       .sort({ createdAt: -1 })
       .skip((page - 1) * skip)
-      .limit(limit);
+      .limit(limit)
+      .populate("author");
 
     return articles;
   },
 
   findById: async ({ articleId }) => {
-    const article = await ArticleModel.findOne({ articleId });
+    const article = await ArticleModel.findOne({ articleId }).populate(
+      "author"
+    );
     return article;
   },
 
@@ -35,7 +38,7 @@ const Article = {
       filter,
       update,
       option
-    );
+    ).populate("author");
 
     return updateArticle;
   },

@@ -51,6 +51,21 @@ const GameService = {
     const gameCounts = await Game.countGames(filter);
     return { games, gameCounts };
   },
+
+  getAgeList: async ({ age, page, numOfPageLimit }) => {
+    const games = await Game.findByAge({ age, page, numOfPageLimit });
+    return { games };
+  },
+
+  getGenreList: async ({ gameGenre, page, numOfPageLimit }) => {
+    const games = await Game.findByGenre({ gameGenre, page, numOfPageLimit });
+    return { games };
+  },
+
+  getPlatformList: async ({ platform, page, numOfPageLimit }) => {
+    const games = await Game.findByPlatform({ platform, page, numOfPageLimit });
+    return { games };
+  },
 };
 
 export { GameService };
