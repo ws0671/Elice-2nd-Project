@@ -32,6 +32,8 @@ import SnakeBoard from "./components/minigame/Snake/SnakeBoard";
 import GameSearchGenre from "./components/Search/GameSearchGenre";
 import GameSearchPlatform from "./components/Search/GameSearchPlatform";
 import GameSearchAge from "./components/Search/GameSearchAge";
+import TeamInfo from "./pages/TeamInfo";
+import Footer from "./components/Footer";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -106,6 +108,7 @@ function App() {
         <Router>
           <Header />
           <GlobalStyle />
+
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
@@ -119,6 +122,7 @@ function App() {
             <Route path="/recommend/qna/2" element={<RecomQnA />} />
             <Route path="/recommend/result" element={<RecomResult />} />
             <Route path="/prologue" element={<Prologue />} />
+            <Route path="/teaminfo" element={<TeamInfo />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
             <Route path="/gamedetail/:id" element={<GameDetail />} />
@@ -136,6 +140,7 @@ function App() {
             />
             <Route path="/gamesearch/age/:age" element={<GameSearchAge />} />
           </Routes>
+          <Footer />
         </Router>
       </UserStateContext.Provider>
     </DispatchContext.Provider>

@@ -46,8 +46,8 @@ const MypageBarChart = ({ chartData }) => {
         <Tooltip content={<CustomTooltip />} />
         <Legend />
         <CartesianGrid stroke="#ccc" strokeDasharray="5 5" />
-        <Bar dataKey="긍정적" stackId="a" barSize={30} fill="#36A2EB" />
-        <Bar dataKey="부정적" stackId="a" barSize={30} fill="#FF6384" />
+        <Bar dataKey="긍정적" stackId="a" barSize={30} fill="#4895EF" />
+        <Bar dataKey="부정적" stackId="a" barSize={30} fill="#F72585" />
       </BarChart>
     </div>
   );

@@ -71,7 +71,7 @@ const MiniGame = () => {
   return (
     <>
       <div className="container" id="game2048">
-        <div style={{ height: "150px" }} />
+        <div style={{ height: "80px" }} />
         <Header score={score} bestScore={bestScore} />
         <br />
         <AboveGame />

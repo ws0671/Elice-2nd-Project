@@ -70,7 +70,7 @@ const Roulette = () => {
       <div className="RouletteBoard">
         {point ? (
           <div>
-            <p>축하합니다!! {point}점을 획득하셨습니다!!</p>
+            <p>축하합니다!! {point} pt를 획득하셨습니다!!</p>
           </div>
         ) : (
           <div>
