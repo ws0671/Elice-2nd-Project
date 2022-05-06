@@ -1,5 +1,4 @@
-import worstGame from "../json/worstGameTOP10";
-import bestGame from "../json/bestGameTOP10";
+import { GameRatingGraph } from "../db";
 import recentGame from "../json/recentGameTOP10";
 import { gameByReleaseYear, gameByGenre, indieByYear } from "../json/chartData";
 import { GameGenreGraph } from "../db";
@@ -8,40 +7,19 @@ import { GameAgeGraph } from "../db";
 const GameGraphService = {
   getWorstRank: async () => {
     const games = Object.values(worstGame);
+
     if (!games) {
       throw new Error("해당 데이터가 없습니다. 다시 한 번 확인해 주세요.");
     }
-    const gameData = [
-      games[0],
-      games[1],
-      games[5],
-      games[8],
-      games[17],
-      games[18],
-      games[20],
-      games[21],
-    ];
-
-    return gameData;
+    return games;
   },
 
-  getBestRank: async () => {
-    const games = Object.values(bestGame);
+  getWorstRank: async () => {
+    const games = GameRatingGraph.findWorstRating();
     if (!games) {
       throw new Error("해당 데이터가 없습니다. 다시 한 번 확인해 주세요.");
     }
-    const gameData = [
-      games[0],
-      games[1],
-      games[5],
-      games[8],
-      games[17],
-      games[18],
-      games[20],
-      games[21],
-    ];
-
-    return gameData;
+    return games;
   },
 
   getRecentRelease: async () => {

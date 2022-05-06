@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const GameAgeGraphSchema = new Schema(
+const GameRecommendSchema = new Schema(
   {
     gameId: {
       type: Number,
@@ -11,19 +11,11 @@ const GameAgeGraphSchema = new Schema(
       required: true,
     },
     releaseDate: {
-      type: Date,
-      required: true,
-    },
-    english: {
-      type: Number,
+      type: String,
       required: true,
     },
     developer: {
       type: [String],
-      required: true,
-    },
-    publisher: {
-      type: String,
       required: true,
     },
     platforms: {
@@ -44,18 +36,6 @@ const GameAgeGraphSchema = new Schema(
     },
     steamspyTags: {
       type: [String],
-      required: true,
-    },
-    achievements: {
-      type: Number,
-      required: true,
-    },
-    positiveRatings: {
-      type: Number,
-      required: true,
-    },
-    negativeRatings: {
-      type: Number,
       required: true,
     },
     averagePlaytime: {
@@ -98,12 +78,16 @@ const GameAgeGraphSchema = new Schema(
       type: Number,
       required: true,
     },
+    tag: {
+      type: String,
+      required: true,
+    },
   },
   {
     timestamps: true,
   }
 );
 
-const GameAgeGraphModel = model("GameAgeGraph", GameAgeGraphSchema);
+const GameRecommendModel = model("GameRecommend", GameRecommendSchema);
 
-export { GameAgeGraphModel };
+export { GameRecommendModel };
