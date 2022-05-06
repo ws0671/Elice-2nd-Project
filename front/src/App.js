@@ -20,6 +20,8 @@ import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
 import GameDetail from "./pages/GameDetail";
 import GameSearchGenre from "./components/Search/GameSearchGenre";
+import GameSearchPlatform from "./components/Search/GameSearchPlatform";
+import GameSearchAge from "./components/Search/GameSearchAge";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -88,6 +90,11 @@ function App() {
             <Route path="/community/create" element={<CommunityAddForm />} />
             <Route path="/gamedetail/:id" element={<GameDetail />} />
             <Route path="/gamesearch/:genre" element={<GameSearchGenre />} />
+            <Route
+              path="/gamesearch/platform/:platform"
+              element={<GameSearchPlatform />}
+            />
+            <Route path="/gamesearch/age/:age" element={<GameSearchAge />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>

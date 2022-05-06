@@ -12,12 +12,13 @@ const GameSearchGenre = () => {
   // 전체 데이터를 api 응답으로 받아오는 함수
   const getData = async () => {
     const res = await Api.get(
-      `game/genre/${page}`,
-      `?genre=${params.genre}&limit=12`
+      `game/platform/${page}`,
+      `?platform=windows&limit=12`
     );
     setData(res.data);
     const count = Math.ceil(res.data.gameCounts / 12);
     setLastPage(count);
+    console.log(res.data);
   };
   useEffect(() => {
     getData();

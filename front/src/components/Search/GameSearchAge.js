@@ -7,25 +7,42 @@ const GameSearchGenre = () => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState();
   const [lastPage, setLastPage] = useState();
+  const [age, setAge] = useState();
   const params = useParams();
 
   // 전체 데이터를 api 응답으로 받아오는 함수
   const getData = async () => {
     const res = await Api.get(
-      `game/genre/${page}`,
-      `?genre=${params.genre}&limit=12`
+      `game/age/${page}`,
+      `?age=${params.age}&limit=12`
     );
     setData(res.data);
     const count = Math.ceil(res.data.gameCounts / 12);
     setLastPage(count);
+    console.log(params.age);
+  };
+  const getAge = () => {
+    if (params.age === "0") {
+      setAge("전체 이용가");
+    }
+    if (params.age === "12") {
+      setAge("12세 이용가");
+    }
+    if (params.age === "16") {
+      setAge("15세 이용가");
+    }
+    if (params.age === "18") {
+      setAge("18세 이용가");
+    }
   };
   useEffect(() => {
     getData();
+    getAge();
   }, [page]);
   return (
     <>
       <div style={{ height: "10vh" }}></div>
-      <Title>{params.genre}</Title>
+      <Title>{age && age}</Title>
 
       <Main>
         <Box>

@@ -35,12 +35,12 @@ const GENRE_DATA = [
   "Gore",
 ];
 const AGE_DATA = [
-  { headerImage: "images/전체이용가.png" },
-  { headerImage: "images/12세이용가.png" },
-  { headerImage: "images/15세이용가.png" },
-  { headerImage: "images/청소년이용불가.png" },
+  { headerImage: "images/전체이용가.png", age: 0 },
+  { headerImage: "images/12세이용가.png", age: 12 },
+  { headerImage: "images/15세이용가.png", age: 16 },
+  { headerImage: "images/청소년이용불가.png", age: 18 },
 ];
-const FLATFORM_DATA = [
+const PLATFORM_DATA = [
   { headerImage: "images/xbox.jpg" },
   { headerImage: "images/ps4.jpg" },
   { headerImage: "images/ps5.jpg" },
@@ -57,7 +57,7 @@ function GameSearch() {
   const [btn2, setBtn2] = useState(vers[1]);
   const [mode, setMode] = useState(types[0]);
   const [age, setAge] = useState(null);
-  const [flatForm, setFlatForm] = useState(null);
+  const [platForm, setPlatForm] = useState(null);
   const [genre, setGenre] = useState(null);
 
   // 페이지네이션과 관련된 state
@@ -124,7 +124,7 @@ function GameSearch() {
     }
     if (e.target.textContent === "플랫폼") {
       setMode(e.target.textContent);
-      setFlatForm(FLATFORM_DATA);
+      setPlatForm(PLATFORM_DATA);
     }
     if (e.target.textContent === "이용등급") {
       setMode(e.target.textContent);
@@ -303,7 +303,7 @@ function GameSearch() {
             data={data}
             inputData={inputData}
             age={age}
-            flatForm={flatForm}
+            platForm={platForm}
             genre={genre}
           ></DataExpression>
         </ImgDiv>
