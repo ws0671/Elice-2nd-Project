@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserStateContext, DispatchContext } from "../App";
-import logo from "../images/logo.png";
+import logo from "../images/headerLogo.png";
 import Swal from "sweetalert2";
 const Header = () => {
   const userContext = useContext(UserStateContext);
@@ -30,7 +30,7 @@ const Header = () => {
           <img
             src={logo}
             alt="Game Pearl"
-            style={{ width: "170px", height: "60px" }}
+            style={{ width: "180px", height: "45px" }}
           />
         </Link>
       </div>
