@@ -79,7 +79,6 @@ const Game = {
       .skip((page - 1) * numOfPageLimit)
       .limit(numOfPageLimit)
       .sort({ overallReview: -1, positiveRate: -1 });
-    console.log(games);
     return games;
   },
 

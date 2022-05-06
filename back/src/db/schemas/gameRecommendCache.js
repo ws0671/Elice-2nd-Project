@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const gameRecommendCacheSchema = new Schema(
+const GameRecommendCacheSchema = new Schema(
   {
     userId: {
       type: String,
@@ -22,7 +22,7 @@ const gameRecommendCacheSchema = new Schema(
 
 const GameRecommendCacheModel = model(
   "GameRecommendCache",
-  gameRecommendCacheSchema
+  GameRecommendCacheSchema
 );
 
 export { GameRecommendCacheModel };
