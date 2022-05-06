@@ -46,13 +46,13 @@ const OutsideApi = {
     });
   },
 
-  getYoutubeDatas: async (keyword) => {
+  getYoutubeDatas: async () => {
     const params = {
       key: process.env.YOUTUBE_API_KEY,
-      q: keyword,
+      q: "게임 리뷰",
       part: "snippet",
       type: "video",
-      maxResults: 5,
+      maxResults: 8,
       fields: "items(id, snippet(title))",
       videoEmbeddable: true,
     };

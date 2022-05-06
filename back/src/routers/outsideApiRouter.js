@@ -5,7 +5,7 @@ const OutsideApiRouter = Router();
 
 OutsideApiRouter.get("/gameNews", async (req, res, next) => {
   try {
-    const category = req.body.category;
+    const category = req.query.category;
     const gameNews = await OutsideApi.getNews(category);
     res.status(200).json(gameNews);
   } catch (error) {
@@ -15,8 +15,7 @@ OutsideApiRouter.get("/gameNews", async (req, res, next) => {
 
 OutsideApiRouter.get("/youtubeVideos", async (req, res, next) => {
   try {
-    const keyword = req.body.keyword;
-    const youtubeVideos = await OutsideApi.getYoutubeDatas(keyword);
+    const youtubeVideos = await OutsideApi.getYoutubeDatas();
     const searchedVideos = await OutsideApi.getSearchedVideos(youtubeVideos);
     res.status(200).json(searchedVideos);
   } catch (error) {
