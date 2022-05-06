@@ -15,19 +15,47 @@ const GameDetail = () => {
   const params = useParams();
   const userContext = useContext(UserStateContext);
   const handleData = async () => {
-    const res = await Api.get(`game/${params.id}/guest`);
-    setData(res.data);
-    setGenre(res.data.game.steamspyTags);
-    setOs(res.data.game.platforms);
+    if (userContext.user) {
+      const res = await Api.get(`game/${params.id}`);
+      setData(res.data);
+      setGenre(res.data.game.steamspyTags);
+      setOs(res.data.game.platforms);
+      console.log(res.data);
+    } else {
+      const res = await Api.get(`game/${params.id}/guest`);
+      setData(res.data);
+      setGenre(res.data.game.steamspyTags);
+      setOs(res.data.game.platforms);
+    }
   };
-
-  const handleBookmark = (e) => {
-    console.log(e.target.value);
-    setBookmark((prev) => !prev);
+  const handleBookmark = () => {
+    if (!bookmark) {
+      setBookmark((prev) => !prev);
+      const putData = { bookmark: true, gameId: params.id };
+      Api.put(`user/${userContext.user.userId}/addBookmark`, putData);
+    } else {
+      setBookmark((prev) => !prev);
+      const putData = { bookmark: false, gameId: params.id };
+      Api.put(`user/${userContext.user.userId}/addBookmark`, putData);
+    }
   };
+  // const bookmarkTrue = async () => {
+  //   await Api.put(`user/${userContext.user.userId}/addBookmark`, {
+  //     bookmark: true,
+  //     gameId: params.id,
+  //   });
+  // };
+  // const bookmarkFalse = async () => {
+  //   await Api.put(`user/${userContext.user.userId}/addBookmark`, {
+  //     bookmark: false,
+  //     gameId: params.id,
+  //   });
+  // };
+  // const handleBookmark = (e) => {
+  //   setBookmark((prev) => !prev);
+  // };
   useEffect(() => {
     handleData();
-    console.log(userContext);
   }, []);
 
   return (
@@ -36,13 +64,15 @@ const GameDetail = () => {
         <FlexBody>
           {data && genre && os && (
             <div className="information">
-              <div className="bookmark">
-                {bookmark ? (
-                  <FaBookmark size="30" onClick={handleBookmark} />
-                ) : (
-                  <FaRegBookmark size="30" onClick={handleBookmark} />
-                )}
-              </div>
+              {userContext.user && (
+                <div className="bookmark">
+                  {data.bookmarkOrNot ? (
+                    <FaBookmark size="30" onClick={handleBookmark} />
+                  ) : (
+                    <FaRegBookmark size="30" onClick={handleBookmark} />
+                  )}
+                </div>
+              )}
               <h1>{data.game.name}</h1>
               <div>
                 <AiOutlineRightCircle />
