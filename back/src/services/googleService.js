@@ -76,7 +76,8 @@ class GoogleService {
       code,
       client_id: process.env.GOOGLE_CLIENT,
       client_secret: process.env.GOOGLE_SECRET,
-      redirect_uri: "http://localhost:3000/auth/google/callback",
+      redirect_uri:
+        "http://elice-kdt-ai-4th-team06.elicecoding.com/auth/google/callback",
     };
     const params = new URLSearchParams(config);
 
