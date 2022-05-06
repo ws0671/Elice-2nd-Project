@@ -2,7 +2,20 @@
 import "../styles/Mypage/MypageMap.css";
 import React, { useEffect } from "react";
 
+// const componentDidMount = () => {
+//   let _script = document.createElement("script");
+//   _script.async = true;
+//   _script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAOMAP_API_KEY}&libraries=services&autoload=false`;
+//   document.head.appendChild(_script);
+
+//   _script.onload = () => {
+//     MypageMap();
+//   };
+// };
+
 const getCurrentCoordinate = async () => {
+  console.log("getCurrentCoordinate 함수 실행!!!");
+  console.log("navigator.geolocation", navigator.geolocation);
   return new Promise((res, rej) => {
     // HTML5의 geolocaiton으로 사용할 수 있는지 확인합니다.
     if (navigator.geolocation) {
@@ -49,21 +62,23 @@ const MypageMap = () => {
 
       // 장소 검색 객체를 생성합니다
       var ps = new kakao.maps.services.Places();
-      console.log(ps);
+      console.log("ps:", ps);
 
       // 검색 결과 목록이나 마커를 클릭했을 때 장소명을 표출할 인포윈도우를 생성합니다
       var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
+      console.log("infowindow:", infowindow);
 
       // 키워드로 장소를 검색합니다
       searchPlaces();
 
       // 키워드 검색을 요청하는 함수입니다
       async function searchPlaces() {
+        console.log("searchPlaces 실행!!!");
         var keyword = "피씨방";
-        const test = await getCurrentCoordinate();
-        console.log(test);
+        const currentCoordinate = await getCurrentCoordinate();
+        console.log(currentCoordinate);
         var options = {
-          location: test,
+          location: currentCoordinate,
           radius: 10000,
           sort: kakao.maps.services.SortBy.DISTANCE,
         };
