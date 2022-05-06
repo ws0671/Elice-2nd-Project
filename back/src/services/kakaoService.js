@@ -67,7 +67,8 @@ class KakaoService {
     const baseUrl = "https://kauth.kakao.com/oauth/token";
     const config = {
       client_id: process.env.KAKAO_CLIENT,
-      redirect_uri: "http://localhost:3000/auth/kakao/callback",
+      redirect_uri:
+        "http://elice-kdt-ai-4th-team06.elicecoding.com/auth/kakao/callback",
       grant_type: "authorization_code",
       code,
     };
