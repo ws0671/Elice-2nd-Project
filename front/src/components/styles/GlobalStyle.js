@@ -3,6 +3,6 @@ import './Font.css'
 
 export const GlobalStyle = createGlobalStyle`
   body {
-    font-family: "Wemakeprice-Regular", sans-serif;
+    font-family: "NEXONFootballGothicLA1", sans-serif;
   }
 `;
