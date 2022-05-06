@@ -8,13 +8,14 @@ const ArticleService = {
     }
 
     const user = await User.findById({ userId });
-    const author = userId;
-    const nickname = user.nickname;
-    const categoryName = SetUtil.convertCategory(category);
+    const permission = SetUtil.validatePermission(user.grade, category);
+    if (!permission) {
+      throw new Error("귀하는 해당 말머리를 선택할 수 없는 등급입니다.");
+    }
 
+    const categoryName = SetUtil.convertCategory(category);
     const newArticle = {
-      author,
-      nickname,
+      author: user,
       category,
       categoryName,
       title,
@@ -38,8 +39,10 @@ const ArticleService = {
       filter = { category };
     }
 
+    const articleCount = await Article.countArticles(filter);
     const articles = await Article.findAllByCategory(filter, page, limit, skip);
-    return articles;
+
+    return { articleCount, articles };
   },
 
   getArticleInfo: async ({ articleId, userId }) => {
@@ -56,7 +59,7 @@ const ArticleService = {
       const likeOrNot = await Like.findByFilter({ articleId, userId });
       const like = Boolean(likeOrNot);
       const comments = await Comment.findAllByArticle({ articleId });
-      if (article.author === userId) {
+      if (article.author.userId === userId) {
         const articleInfo = { article, like, comments };
 
         return articleInfo;

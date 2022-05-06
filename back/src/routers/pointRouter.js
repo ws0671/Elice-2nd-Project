@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
-import { pointService } from "../services/pointService";
+import { PointService } from "../services/pointService";
 
 const PointRouter = Router();
 PointRouter.use(loginRequired);
@@ -8,11 +8,11 @@ PointRouter.use(loginRequired);
 PointRouter.post("/", async (req, res, next) => {
   try {
     const userId = req.currentUserId;
-    const { miniGame, point } = req.body;
+    const { route, point } = req.body;
 
-    const newPoint = { userId, miniGame, point };
+    const newPoint = { userId, route, point };
 
-    await pointService.addPoint({ newPoint });
+    await PointService.addPoint({ newPoint });
     res.status(201).end();
   } catch (error) {
     next(error);
@@ -22,11 +22,11 @@ PointRouter.post("/", async (req, res, next) => {
 PointRouter.get("/", async (req, res, next) => {
   try {
     const userId = req.currentUserId;
-    const miniGame = req.query.miniGame;
+    const route = req.query.route;
 
-    const point = await pointService.checkPoint({
+    const point = await PointService.checkPoint({
       userId,
-      miniGame,
+      route,
     });
     res.status(200).json(point);
   } catch (error) {

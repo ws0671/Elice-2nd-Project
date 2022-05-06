@@ -18,7 +18,6 @@ ReviewRouter.post("/", async (req, res, next) => {
 
     res.status(201).json(newReview);
   } catch (error) {
-    S;
     next(error);
   }
 });
