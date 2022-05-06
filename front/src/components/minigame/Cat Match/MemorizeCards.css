@@ -1,21 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+.CardContainer {
+    width: 100vw;
+    background-color: #1b1523;
+}
 
 .MemorizeCards {
     max-width: 860px;
-    margin: 40px auto;
+    margin: auto;
+    padding-top: 60px;
     height: 100vh;
-}
-
-div {
-    font-family: 'Nanum Gothic', sans-serif;
-    margin : 0;
     font-size: 1.5rem;
     text-align: center;
-    background-color: #1b1523;
     color : #fff
+
 }
 
-button {
+.CardTitle {
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.MemorizeCards button {
     background: none;
     border: 2px solid #fff;
     padding: 6px 12px;
@@ -26,10 +30,11 @@ button {
     font-size: 1em;
 }
 
-button:hover {
+.MemorizeCards button:hover {
     background: #c23866;
     color: #fff
 }
+
 .card-grid {
     margin-top: 40px;
     display: grid;
@@ -37,3 +42,6 @@ button:hover {
     grid-gap: 20px;
 }
 
+.Turns {
+    font-size: 2rem;
+}
