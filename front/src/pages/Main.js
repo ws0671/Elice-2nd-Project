@@ -16,6 +16,7 @@ import axios from "axios";
 import MainNews from "../components/main/MainNews";
 
 // 메인 bg-color:#673ab7
+
 function Main() {
   const opts = {
     width: "250",
@@ -147,4 +148,5 @@ function Main() {
     </Body>
   );
 }
+
 export default Main;

@@ -13,7 +13,7 @@ export const contentOne = {
     buttonLabel: '',
     imgStart: 'start',
     start: 'true',
-    img: '/images/prol_main1.webp'
+    img: '/images/chart_1.png'
 };
 
 export const contentTwo = {
@@ -32,7 +32,7 @@ export const contentTwo = {
     linkTo: '',
     imgStart: 'start',
     start: 'true',
-    img: '/images/prol_main2.svg'
+    img: '/images/chart_2.png'
 };
 
 export const contentThree = {
@@ -50,6 +50,6 @@ export const contentThree = {
     linkTo: '',
     imgStart: 'start',
     start: 'true',
-    img: '/images/prol_main3.jpg'
+    img: '/images/chart_32.png'
 };
 

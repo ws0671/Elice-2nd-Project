@@ -16,7 +16,8 @@ const googleUrl = () => {
     client_id: process.env.REACT_APP_GOOGLE_CLIENT,
     response_type: "code",
     scope: "email profile",
-    redirect_uri: "http://localhost:3000/auth/google/callback",
+    redirect_uri:
+      "http://elice-kdt-ai-4th-team06.elicecoding.com/auth/google/callback",
   };
   const params = new URLSearchParams(config).toString();
   const finalUrl = `${baseUrl}?${params}`;
@@ -27,7 +28,8 @@ const kakaoUrl = () => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   const config = {
     client_id: process.env.REACT_APP_KAKAO_CLIENT,
-    redirect_uri: "http://localhost:3000/auth/kakao/callback",
+    redirect_uri:
+      "http://elice-kdt-ai-4th-team06.elicecoding.com/auth/kakao/callback",
     response_type: "code",
   };
   const params = new URLSearchParams(config).toString();

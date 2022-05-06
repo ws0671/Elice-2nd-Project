@@ -151,6 +151,7 @@ const HeaderTag = styled.div`
     justify-content: space-evenly;
   }
   a.logoLink {
+    font-family: 'Orbitron', sans-serif;;
     text-decoration: none;
     color: #6c757d;
     font-size: 13px;

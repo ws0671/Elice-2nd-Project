@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { DispatchContext } from "../../App";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Swal from "sweetalert2";
 import * as Api from "../../api";
 import PacmanLoader from "react-spinners/PacmanLoader";
@@ -37,9 +36,7 @@ const Google = () => {
 
   const googleLogin = async (code) => {
     try {
-      const res = await axios.get(
-        `http://localhost:5001/auth/google?code=${code}`
-      );
+      const res = await Api.get2(`auth/google?code=${code}`);
       const user = res.data;
       if (user.register) {
         Swal.fire({

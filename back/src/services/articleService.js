@@ -72,6 +72,7 @@ const ArticleService = {
 
         return articleInfo;
       }
+
     } else {
       throw new Error(
         "게시글에 접근 권한이 없습니다. 포인트를 쌓아 등업해주세요."
@@ -82,6 +83,7 @@ const ArticleService = {
   updateArticle: async ({ articleId, author, category, updateData }) => {
     if (!SetUtil.validateCategory(updateData.category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
+
     }
 
     let article = await Article.findById({ articleId });
