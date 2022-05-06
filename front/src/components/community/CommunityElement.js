@@ -11,12 +11,12 @@ import tapioca from "../../images/tapioca.png";
 // 커뮤니티 게시판 해당 데이터 요소 컴포넌트
 const CommunityElement = ({ item, index, page }) => {
   // 작성일 변수
-  const createdAt = item.createdAt.split("T");
+  const createdAt = item?.createdAt.split("T");
   const navigate = useNavigate();
   const clickHandler = () => {
-    navigate(`/community/${item.articleId}`);
+    navigate(`/community/${item?.articleId}`);
   };
-  console.log(item);
+  console.log("왜죠", item);
 
   const gradeHandler = (grade) => {
     if (grade === 0) {
@@ -36,9 +36,9 @@ const CommunityElement = ({ item, index, page }) => {
       <td>{index + (page - 1) * 10}</td>
       <td onClick={clickHandler}>
         <span>
-          {item.categoryName !== "선택 안함" && `[${item.categoryName}]`}
+          {item.categoryName !== "선택 안함" && `[${item?.categoryName}]`}
         </span>{" "}
-        {item.title}
+        {item?.title}
       </td>
       <td
         style={{
@@ -48,16 +48,16 @@ const CommunityElement = ({ item, index, page }) => {
           alignItems: "center",
         }}
       >
-        {item.author.nickname}
+        {item?.author?.nickname}
 
         <img
-          src={gradeHandler(item.author.grade)}
+          src={gradeHandler(item?.author?.grade)}
           style={{ width: 20, height: 20, margin: "0 0 0 5px" }}
         />
       </td>
       <td>{createdAt[0]}</td>
-      <td>{item.hits}</td>
-      <td>{item.like}</td>
+      <td>{item?.hits}</td>
+      <td>{item?.like}</td>
     </Tr>
   );
 };

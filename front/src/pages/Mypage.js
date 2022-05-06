@@ -15,6 +15,7 @@ import ball from "../images/ball.png";
 import pearl from "../images/pearl.png";
 import rainbow from "../images/rainbow.png";
 import tapioca from "../images/tapioca.png";
+import "animate.css";
 
 const Mypage = () => {
   const dispatch = useContext(DispatchContext);
@@ -142,6 +143,40 @@ const Mypage = () => {
     }
   };
 
+  const myInfo = () => {
+    Swal.fire({
+      title: `<div>
+    나의 등급: ${gradeHandler(data.grade)[1]}
+  </div>
+  <div>나의 포인트: ${data.point} pt</div>
+</div>`,
+      imageUrl: gradeHandler(data.grade)[0],
+      imageHeight: 200,
+      imageAlt: gradeHandler(data.grade)[1],
+      showCloseButton: true,
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: "닉네임 수정",
+      denyButtonText: `회원 탈퇴`,
+      cancelButtonText: `닫기`,
+      reverseButtons: true,
+      allowOutsideClick: false,
+
+      showClass: {
+        popup: "animate__animated animate__fadeInDown",
+      },
+      hideClass: {
+        popup: "animate__animated animate__fadeOutUp",
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        MypageEditModal(editNickname, userContext.user.userId);
+      } else if (result.isDenied) {
+        withdrawlHandler();
+      }
+    });
+  };
+
   return (
     <>
       <Header></Header>
@@ -156,24 +191,9 @@ const Mypage = () => {
               나의 게임 성향과 관심 게임 정보를
               <br /> 한 눈에 담아보세요
             </div>
-            <Button
-              variant="secondary"
-              className="topButton"
-              onClick={() =>
-                MypageEditModal(editNickname, userContext.user.userId)
-              }
-            >
-              닉네임 수정
-            </Button>
-            <Button
-              className="topButton"
-              variant="danger"
-              onClick={withdrawlHandler}
-            >
-              회원 탈퇴
-            </Button>
-            {/* <div>나의 등급: <img src={gradeHandler(data.grade)[0]} alt=""></img></div> */}
+            <Button onClick={myInfo}>나의 정보</Button>
           </div>
+
           <div className="chart">
             {TagData && (
               <MypagePieChart
@@ -240,7 +260,7 @@ background-size: 100%;
     .first {
       margin : 0 30px;
     }
-    width: 90%;
+    width: 80%;
     margin-bottom: 80px;
     padding: 20px;
     display: flex;
@@ -257,7 +277,7 @@ background-size: 100%;
     letter-spacing: 0.4rem;
 
     .title {
-      font-size: 2.5em;
+      font-size: 35px;
       font-weight: bold;
     }
     .subtitle {
@@ -274,7 +294,7 @@ background-size: 100%;
   }
   .middle1 {
     text-align: basis;
-    width: 90%;
+    width: 80%;
     background: rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 32px #6869d0;
     backdrop-filter: blur(2.5px);
@@ -341,7 +361,7 @@ background-size: 100%;
   }
 
   .middle2 {
-    width: 90%;
+    width: 80%;
     margin-bottom: 80px;
     text-align: basis;
     // width: 80%;
