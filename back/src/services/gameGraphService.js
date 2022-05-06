@@ -75,4 +75,4 @@ const gameGraphService = {
   },
 };
 
-export { GameGraphService };
+export { gameGraphService };
