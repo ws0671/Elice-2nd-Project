@@ -6,18 +6,12 @@ const Article = {
     return createdNewArticle;
   },
 
-  findAllByCategory: async (
-    filter,
-    page,
-    numOfPageSkip = 10,
-    numOfPageLimit = 10
-  ) => {
-    const articleCount = await ArticleModel.countDocuments(filter)
-
+  findAllByCategory: async (filter, page, skip = 10, limit = 10) => {
+    const articleCount = await ArticleModel.countDocuments(filter);
     const articles = await ArticleModel.find(filter)
       .sort({ createdAt: -1 })
-      .skip((page - 1) * numOfPageSkip)
-      .limit(numOfPageLimit);
+      .skip((page - 1) * skip)
+      .limit(limit);
 
     return { articleCount, articles };
   },
@@ -40,6 +34,10 @@ const Article = {
     );
 
     return updateArticle;
+  },
+
+  updateLikes: async ({ filter, toUpdate }) => {
+    await ArticleModel.updateMany(filter, toUpdate);
   },
 
   delete: async ({ articleId }) => {

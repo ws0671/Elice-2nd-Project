@@ -21,12 +21,14 @@ const gameService = {
 
   getGames: async ({ page, numOfPageSkip, numOfPageLimit }) => {
     const games = await Game.findAll({ page, numOfPageSkip, numOfPageLimit });
-    return games;
+    const gameCounts = await Game.countGames({});
+    return { games, gameCounts };
   },
 
   getRankedList: async ({ colName, numOfLimit }) => {
     const games = await Game.sortByColumn({ colName, numOfLimit });
-    return games;
+    const gameCounts = await Game.countGames({});
+    return { games, gameCounts };
   },
 
   getSearchResult: async ({
@@ -46,7 +48,8 @@ const gameService = {
       sortOrder,
       numOfPageLimit,
     });
-    return games;
+    const gameCounts = await Game.countGames(filter);
+    return { games, gameCounts };
   },
 };
 

@@ -3,9 +3,9 @@ import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { userAuthService } from "../services/userService";
 
-const userAuthRouter = Router();
+const UserAuthRouter = Router();
 
-userAuthRouter.post("/register", async (req, res, next) => {
+UserAuthRouter.post("/register", async (req, res, next) => {
   try {
     if (is.emptyObject(req.body)) {
       throw new Error(
@@ -29,7 +29,7 @@ userAuthRouter.post("/register", async (req, res, next) => {
   }
 });
 
-userAuthRouter.post("/login", async (req, res, next) => {
+UserAuthRouter.post("/login", async (req, res, next) => {
   try {
     // req (request) 에서 데이터 가져오기
     const { email, password } = req.body;
@@ -43,7 +43,7 @@ userAuthRouter.post("/login", async (req, res, next) => {
   }
 });
 
-userAuthRouter.post("/emailVerify", async (req, res, next) => {
+UserAuthRouter.post("/emailVerify", async (req, res, next) => {
   try {
     const email = req.body.email;
 
@@ -55,22 +55,33 @@ userAuthRouter.post("/emailVerify", async (req, res, next) => {
   }
 });
 
-userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
+UserAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
   try {
     // jwt토큰에서 추출된 사용자 id를 가지고 db에서 사용자 정보를 찾음.
     const loginId = req.currentUserId;
     const userId = req.params.userId;
     const criteria = req.query.criteria ? req.query.criteria : undefined; // positiveRate or averagePlaytime
-    const page = Number(req.query.page);
-    console.log(page);
+    const page = req.query.page ? Number(req.query.page) : undefined;
+
     if (loginId === userId) {
       if (!criteria) {
-        // 기준 없으면 전체 myPage 정보 return
-        const currentUserInfo = await userAuthService.getUserInfo({
-          userId,
-        });
+        // 기준이 없고
+        if (!page) {
+          // page도 없으면 전체 myPage 정보 return
+          const currentUserInfo = await userAuthService.getUserInfo({
+            userId,
+          });
 
-        res.status(200).send(currentUserInfo);
+          res.status(200).send(currentUserInfo);
+        } else {
+          // page만 있으면 pagenation 한 전체 북마크 게임 정보 return
+          const bookmarksInfo = await userAuthService.getAllBookmarks({
+            userId,
+            page,
+          });
+
+          res.status(200).send(bookmarksInfo);
+        }
       } else {
         // 기준 있으면 정렬된 북마크 정보만 return
         const sortedBookmarksInfo = await userAuthService.getSortedBookmarks({
@@ -87,7 +98,7 @@ userAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
   }
 });
 
-userAuthRouter.put(
+UserAuthRouter.put(
   "/:userId/nickname",
   loginRequired,
   async (req, res, next) => {
@@ -114,7 +125,7 @@ userAuthRouter.put(
   }
 );
 
-userAuthRouter.put(
+UserAuthRouter.put(
   "/:userId/password",
   loginRequired,
   async (req, res, next) => {
@@ -138,7 +149,7 @@ userAuthRouter.put(
   }
 );
 
-userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
+UserAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
     const loginId = req.currentUserId;
     const userId = req.params.userId;
@@ -153,7 +164,7 @@ userAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
 });
 
 // 포인트 적립
-userAuthRouter.put(
+UserAuthRouter.put(
   "/:userId/addPoint",
   loginRequired,
   async (req, res, next) => {
@@ -178,7 +189,7 @@ userAuthRouter.put(
 );
 
 // 게임 북마크/북마크 취소
-userAuthRouter.put(
+UserAuthRouter.put(
   "/:userId/addBookmark",
   loginRequired,
   async (req, res, next) => {
@@ -203,7 +214,7 @@ userAuthRouter.put(
 );
 
 // 사용자별 북마크 리스트
-userAuthRouter.get(
+UserAuthRouter.get(
   "/:userId/bookmarks",
   loginRequired,
   async (req, res, next) => {
@@ -222,7 +233,7 @@ userAuthRouter.get(
 );
 
 // jwt 토큰 기능 확인용, 삭제해도 되는 라우터임.
-userAuthRouter.get("/afterlogin", loginRequired, (req, res, next) => {
+UserAuthRouter.get("/afterlogin", loginRequired, (req, res, next) => {
   res
     .status(200)
     .send(
@@ -230,4 +241,4 @@ userAuthRouter.get("/afterlogin", loginRequired, (req, res, next) => {
     );
 });
 
-export { userAuthRouter };
+export { UserAuthRouter };

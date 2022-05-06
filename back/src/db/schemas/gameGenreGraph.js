@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-const GameGraphSchema = new Schema(
+const GameGenreGraphSchema = new Schema(
   {
     gameId: {
       type: Number,
@@ -104,6 +104,6 @@ const GameGraphSchema = new Schema(
   }
 );
 
-const GameAgeGraphModel = model("GameAgeGraph", GameGraphSchema);
-const GameRatingGraphModel = model("GameRatingGraph", GameGraphSchema);
-export { GameAgeGraphModel, GameRatingGraphModel };
+const GameGenreGraphModel = model("GameGraph", GameGenreGraphSchema);
+
+export { GameGenreGraphModel };

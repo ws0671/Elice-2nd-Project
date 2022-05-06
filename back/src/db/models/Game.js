@@ -7,11 +7,15 @@ const Game = {
   },
 
   findAll: async ({ page, numOfPageSkip = 10, numOfPageLimit = 10 }) => {
-    const gameCount = await GameModel.countDocuments({});
     const games = await GameModel.find({})
       .skip((page - 1) * numOfPageSkip)
       .limit(numOfPageLimit);
-    return { gameCount, games };
+    return games;
+  },
+
+  countGames: async (filter) => {
+    const gameCounts = await GameModel.countDocuments({});
+    return gameCounts;
   },
 
   findById: async ({ gameId }) => {
@@ -19,11 +23,19 @@ const Game = {
     return game;
   },
 
-  findAllBookmarks: async ({ bookmarkList }) => {
+  findAllBookmarks: async ({
+    bookmarkList,
+    page,
+    numOfPageSkip = 4,
+    numOfPageLimit = 4,
+  }) => {
+    const bookmarkCount = bookmarkList.length;
     const bookmarkGames = await GameModel.find({
       gameId: { $in: bookmarkList },
-    });
-    return bookmarkGames;
+    })
+      .skip((page - 1) * numOfPageSkip)
+      .limit(numOfPageLimit);
+    return { bookmarkCount, bookmarkGames };
   },
 
   findSortedBookmarks: async ({
@@ -33,7 +45,6 @@ const Game = {
     numOfPageSkip = 4,
     numOfPageLimit = 4,
   }) => {
-    console.log(page);
     const bookmarkCount = bookmarkList.length;
     const bookmarkGames = await GameModel.find({
       gameId: { $in: bookmarkList },
@@ -45,11 +56,10 @@ const Game = {
   },
 
   sortByColumn: async ({ colName, numOfLimit = 10 }) => {
-    const gameCount = await GameModel.countDocuments({});
     const games = await GameModel.find({})
       .sort({ [colName]: -1 })
       .limit(numOfLimit);
-    return { gameCount, games };
+    return games;
   },
 
   searchSortByColumn: async ({
@@ -59,12 +69,11 @@ const Game = {
     page,
     numOfPageLimit = 10,
   }) => {
-    const gameCount = await GameModel.countDocuments(filter);
     const games = await GameModel.find(filter)
       .sort({ [colName]: [sortOrder] })
       .skip((page - 1) * numOfPageLimit)
       .limit(numOfPageLimit);
-    return { gameCount, games };
+    return games;
   },
 };
 

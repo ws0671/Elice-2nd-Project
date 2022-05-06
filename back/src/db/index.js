@@ -10,7 +10,11 @@ import { Comment } from "./models/Comment";
 import { Like } from "./models/Like";
 import { ReviewSchema } from "./schemas/review";
 import { Review } from "./models/Review";
-import { GameGraph } from "./models/gameGraph";
+import { GameGenreGraph } from "./models/GameGenreGraph";
+import { GameAgeGraph } from "./models/GameAgeGraph";
+import { GameRatingGraph } from "./models/GameRatingGraph";
+import { GameRecommend } from "./models/GameRecommend";
+import { GameRecommendCache } from "./models/GameRecommendCache";
 import { Point } from "./models/Point";
 
 const DB_URL =
@@ -87,7 +91,11 @@ export {
   ReviewModel,
   User,
   Game,
-  GameGraph,
+  GameGenreGraph,
+  GameAgeGraph,
+  GameRatingGraph,
+  GameRecommend,
+  GameRecommendCache,
   Article,
   Comment,
   Like,

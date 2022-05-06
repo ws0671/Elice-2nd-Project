@@ -19,17 +19,14 @@ PointRouter.post("/", async (req, res, next) => {
   }
 });
 
-PointRouter.get("/:miniGame", async (req, res, next) => {
+PointRouter.get("/", async (req, res, next) => {
   try {
     const userId = req.currentUserId;
-    const miniGame = req.params.miniGame;
+    const miniGame = req.query.miniGame;
 
     const point = await pointService.checkPoint({
       userId,
       miniGame,
-      year,
-      month,
-      day,
     });
     res.status(200).json(point);
   } catch (error) {
