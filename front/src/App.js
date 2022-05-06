@@ -30,6 +30,7 @@ import Roulette from "./components/minigame/Roulette/Roulette";
 import MemorizeCards from "./components/minigame/Cat Match/MemorizeCards";
 import SnakeBoard from "./components/minigame/Snake/SnakeBoard";
 import TeamInfo from "./pages/TeamInfo";
+import Footer from "./components/Footer";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -103,6 +104,7 @@ function App() {
         <Router>
           <Header />
           <GlobalStyle />
+
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
@@ -127,6 +129,7 @@ function App() {
             <Route path="/minigame/catMatch" element={<MemorizeCards />} />
             <Route path="/minigame/snake" element={<SnakeBoard />} />
           </Routes>
+          <Footer />
         </Router>
       </UserStateContext.Provider>
     </DispatchContext.Provider>
