@@ -17,6 +17,7 @@ import RecomQnA from "./components/recommend/RecomQnA";
 import RecomResult from "./components/recommend/RecomResult";
 import Prologue from "./pages/Prologue";
 import Mypage from "./pages/Mypage";
+import MiniGame from "./pages/MiniGame";
 import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
 import GameDetail from "./pages/GameDetail";
@@ -26,8 +27,8 @@ import Kakao from "./components/socialLogin/Kakao";
 import PacmanLoader from "react-spinners/PacmanLoader";
 import loadingbg from "./images/loadingbg.svg";
 import Roulette from "./components/minigame/Roulette/Roulette";
-import SnakeBoard from "./components/minigame/Snake/SnakeBoard";
 import MemorizeCards from "./components/minigame/Cat Match/MemorizeCards";
+import SnakeBoard from "./components/minigame/Snake/SnakeBoard";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -119,9 +120,10 @@ function App() {
             <Route path="/auth/github/callback" element={<Github />} />
             <Route path="/auth/google/callback" element={<Google />} />
             <Route path="/auth/kakao/callback" element={<Kakao />} />
+            <Route path="/minigame/2048" element={<MiniGame />} />
             <Route path="/minigame/roulette" element={<Roulette />} />
+            <Route path="/minigame/catMatch" element={<MemorizeCards />} />
             <Route path="/minigame/snake" element={<SnakeBoard />} />
-            <Route path="/minigame/card" element={<MemorizeCards />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
