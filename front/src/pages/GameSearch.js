@@ -41,10 +41,9 @@ const AGE_DATA = [
   { headerImage: "images/청소년이용불가.png", age: 18 },
 ];
 const PLATFORM_DATA = [
-  { headerImage: "images/xbox.jpg" },
-  { headerImage: "images/ps4.jpg" },
-  { headerImage: "images/ps5.jpg" },
-  { headerImage: "images/pcGame.png" },
+  { headerImage: "images/windows.png", platform: "windows" },
+  { headerImage: "images/mac.png", platform: "mac" },
+  { headerImage: "images/linux.webp", platform: "linux" },
 ];
 function GameSearch() {
   //없는 검색어 검색시 없는 검색이라고 나오도록 구현하기
@@ -76,8 +75,7 @@ function GameSearch() {
     setData(res.data);
     const count = Math.ceil(res.data.gameCounts / 12);
     setLastPage(count);
-    // res.data.gameCounts
-    //res.lastPage
+    console.log(res.data);
   };
 
   useEffect(() => {

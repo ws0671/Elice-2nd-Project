@@ -13,7 +13,7 @@ const GameSearchGenre = () => {
   const getData = async () => {
     const res = await Api.get(
       `game/platform/${page}`,
-      `?platform=windows&limit=12`
+      `?platform=${params.platform}&limit=12`
     );
     setData(res.data);
     const count = Math.ceil(res.data.gameCounts / 12);
@@ -26,7 +26,7 @@ const GameSearchGenre = () => {
   return (
     <>
       <div style={{ height: "10vh" }}></div>
-      <Title>{params.genre}</Title>
+      <Title>{params.platform}</Title>
 
       <Main>
         <Box>

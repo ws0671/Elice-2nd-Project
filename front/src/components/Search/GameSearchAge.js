@@ -19,7 +19,6 @@ const GameSearchGenre = () => {
     setData(res.data);
     const count = Math.ceil(res.data.gameCounts / 12);
     setLastPage(count);
-    console.log(params.age);
   };
   const getAge = () => {
     if (params.age === "0") {

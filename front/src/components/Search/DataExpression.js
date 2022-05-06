@@ -68,11 +68,10 @@ function DataExpression({ data, inputData, genre, mode, age, platForm }) {
       {mode === "플랫폼" &&
         platForm &&
         platForm.map((val, key) => (
-          <Link to={`/gamesearch/platform/${val}`}>
+          <Link to={`/gamesearch/platform/${val.platform}`} key={key}>
             <img
-              key={key}
               src={val.headerImage}
-              style={{ width: "300px", height: "300px", opacity: 1 }}
+              style={{ width: "400px", height: "350px" }}
               alt="플랫폼 이미지"
             />
           </Link>
@@ -80,9 +79,8 @@ function DataExpression({ data, inputData, genre, mode, age, platForm }) {
       {mode === "이용등급" &&
         age &&
         age.map((val, key) => (
-          <Link to={`/gamesearch/age/${val.age}`}>
+          <Link to={`/gamesearch/age/${val.age}`} key={key}>
             <img
-              key={key}
               src={val.headerImage}
               style={{ width: "300px", opacity: 1 }}
               alt="이용등급 이미지"
