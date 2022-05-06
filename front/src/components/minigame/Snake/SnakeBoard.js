@@ -11,6 +11,7 @@ import {
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
 import Swal from "sweetalert2";
+import "./snake.css";
 
 const SnakeBoard = () => {
   const canvasRef = useRef();
