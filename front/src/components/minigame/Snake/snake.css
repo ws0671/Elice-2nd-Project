@@ -1,10 +1,7 @@
-.SnakeTop {
-  background-color: #1b1523;
-  height: 120vh;
-}
 .SnakeContainer {
   width: 100vw;
-  height: 100vh;
+  height: 120vh;
+  background-color: #1b1523;
 
   padding-top: 80px;
   color: white;

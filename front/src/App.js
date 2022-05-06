@@ -29,6 +29,7 @@ import loadingbg from "./images/loadingbg.svg";
 import Roulette from "./components/minigame/Roulette/Roulette";
 import MemorizeCards from "./components/minigame/Cat Match/MemorizeCards";
 import SnakeBoard from "./components/minigame/Snake/SnakeBoard";
+import TeamInfo from "./pages/TeamInfo";
 
 export const UserStateContext = createContext(null);
 export const DispatchContext = createContext(null);
@@ -114,6 +115,7 @@ function App() {
             <Route path="/recommend/qna" element={<RecomQnA />} />
             <Route path="/recommend/result" element={<RecomResult />} />
             <Route path="/prologue" element={<Prologue />} />
+            <Route path="/teaminfo" element={<TeamInfo />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
             <Route path="/gamedetail/:id" element={<GameDetail />} />

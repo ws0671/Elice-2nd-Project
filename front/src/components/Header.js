@@ -37,7 +37,26 @@ const Header = () => {
       </div>
       <div className="headerRight">
         <div>
-          <Link to="/prologue">프롤로그</Link>
+          <Dropdown>
+            <Dropdown.Toggle
+              style={{ background: "none", border: "none" }}
+              size="sm"
+              id="dropdown-basic"
+            >
+              프롤로그
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu
+              style={{ background: "rgba(0, 0, 0, 0.8)", border: "none" }}
+            >
+              <Dropdown.Item id="dropdown-menu1" href="/prologue">
+                서비스 소개
+              </Dropdown.Item>
+              <Dropdown.Item id="dropdown-menu2" href="/teaminfo">
+                팀 소개
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
         {userContext.user && (
           <div>
@@ -56,7 +75,6 @@ const Header = () => {
               <Link to="/community">커뮤니티</Link>
             </div>
             <div>
-              {/* <Link to="/minigame/roulette">미니게임</Link> */}
               <Dropdown>
                 <Dropdown.Toggle
                   style={{ background: "none", border: "none" }}
@@ -152,5 +170,11 @@ const HeaderTag = styled.div`
   #dropdown-menu4:hover {
     // color: black;
     background: #1b1523;
+  }
+  #dropdown-basic {
+    font-size: 13px;
+  }
+  #dropdown-basic::after {
+    display: none;
   }
 `;
