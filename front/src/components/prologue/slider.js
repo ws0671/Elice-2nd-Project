@@ -6,7 +6,7 @@ import './slider.css';
 
 
 function SliderApp() {
-    const slider = React.useRef(null);
+    const slider = useRef(null);
 
     const settings = {
         dots: false,

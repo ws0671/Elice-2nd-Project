@@ -13,13 +13,9 @@ const ArticleService = {
       throw new Error("귀하는 해당 말머리를 선택할 수 없는 등급입니다.");
     }
 
-    const author = userId;
-    const nickname = user.nickname;
     const categoryName = SetUtil.convertCategory(category);
-
     const newArticle = {
-      author,
-      nickname,
+      author: user,
       category,
       categoryName,
       title,
@@ -43,8 +39,10 @@ const ArticleService = {
       filter = { category };
     }
 
+    const articleCount = await Article.countArticles(filter);
     const articles = await Article.findAllByCategory(filter, page, limit, skip);
-    return articles;
+
+    return { articleCount, articles };
   },
 
   getArticleInfo: async ({ articleId, userId }) => {
@@ -61,7 +59,7 @@ const ArticleService = {
       const likeOrNot = await Like.findByFilter({ articleId, userId });
       const like = Boolean(likeOrNot);
       const comments = await Comment.findAllByArticle({ articleId });
-      if (article.author === userId) {
+      if (article.author.userId === userId) {
         const articleInfo = { article, like, comments };
 
         return articleInfo;
@@ -74,6 +72,7 @@ const ArticleService = {
 
         return articleInfo;
       }
+
     } else {
       throw new Error(
         "게시글에 접근 권한이 없습니다. 포인트를 쌓아 등업해주세요."
@@ -84,6 +83,7 @@ const ArticleService = {
   updateArticle: async ({ articleId, author, category, updateData }) => {
     if (!SetUtil.validateCategory(updateData.category)) {
       throw new Error("잘못된 말머리를 선택하셨습니다.");
+
     }
 
     let article = await Article.findById({ articleId });

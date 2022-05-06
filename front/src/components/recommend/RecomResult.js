@@ -1,74 +1,67 @@
-import React, { useState, useContext } from "react"
-import { useNavigate } from "react-router-dom"
-import { Container, Col, Row, Form, Button, FormGroup } from "react-bootstrap"
+import React, { useState, useContext, useEffect } from "react"
+import { useLocation } from "react-router-dom"
+import { Button } from "react-bootstrap"
 import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { qnaList, infoList } from "./data_example"
-import select from './RecomQnA'
+import resultImg from '../../images/RecomBg_result_2.svg'
+import { QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle'
+import { useNavigate } from "react-router-dom"
+import { UserStateContext } from "../../App"
+import * as Api from "../../api";
 
 
 function RecomResult() {
-    const endPoint = 12
-    const calResult = () => {
-        let pointArray = [
-            { name: 'mouse', value: 0, key: 0 },
-            { name: 'cow', value: 0, key: 1 },
-            { name: 'tiger', value: 0, key: 2 },
-            { name: 'rabbit', value: 0, key: 3 },
-            { name: 'dragon', value: 0, key: 4 },
-            { name: 'snake', value: 0, key: 5 },
-            { name: 'horse', value: 0, key: 6 },
-            { name: 'sheep', value: 0, key: 7 },
-            { name: 'monkey', value: 0, key: 8 },
-            { name: 'chick', value: 0, key: 9 },
-            { name: 'dog', value: 0, key: 10 },
-            { name: 'pig', value: 0, key: 11 },
-        ]
+    const location = useLocation()
+    const navigate = useNavigate()
 
-        for (let i = 0; i < endPoint; i++) {
-            var target = qnaList[i].a[select[i]]
-            for (let j = 0; j < target.length; j++) {
-                for (let k = 0; k < pointArray.length; k++) {
-                    if (target.type[j] === pointArray[k].name) {
-                        pointArray[k].value += 1
-                    }
-                }
+    const [loading, setLoading] = useState(true)
+    const [recomItem, setRecomItem] = useState([])
+    const [clicked, setClicked] = useState(false)
+    const userContext = useContext(UserStateContext)
+    const userId = userContext.user.userId
 
-            }
+    //genre, answer 값 가져오기
+    useEffect(() => {
+        console.log(location);
+    }, [location]);
 
-        }
 
-        var resultArray = pointArray.sort(function (a, b) {
-            if (a.value > b.value) {
-                return -1
-            }
-            if (a.value < b.value) {
-                return 1
-            }
-            return 0
-        })
-
-        let resultWord = resultArray[0].key
-        return resultWord
+    const handleSubmit = async () => {
+        setClicked(true)
+        Api.get("gameRecommend/results", userId).then((res) => {
+            console.log(res.data)
+            setRecomItem(res.data)
+        });
 
     }
+    /*   console.log('recomItem', recomItem) */
 
+    const refresh = () => {
+        Api.delete("gameRecommend", userId)
+        navigate('/recommend')
+    }
 
     return (
-        <ResultBox>
-            <h1><Button>결과보기(지금 결과페이지임)</Button></h1>
-        </ResultBox>
+        <>
+            <img className="img-fluid" width="100%" src={resultImg} />
+            <ResultBox>
+                < h1 > <Button recomItem={recomItem} onClick={handleSubmit}>결과보기(지금 결과페이지임)</Button></h1 >
+                <Button onClick={refresh}>처음으로 돌아가기</Button>
+            </ResultBox>
+        </>
     )
 }
 
+
+
+
 export default RecomResult
 
-
-const ResultBox = styled.section`
+const ResultBox = styled.div`
     position: absolute;
     left: 50%;
     top: 50%;
-    width: 100%;
     text-align: center;
     transform: translate(-50%, -50%);
+    
 `

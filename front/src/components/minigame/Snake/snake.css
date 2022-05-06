@@ -1,0 +1,46 @@
+.SnakeContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: #1b1523;
+    padding-top: 80px;
+    color: white
+}
+
+.SnakeBoard {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.SnakeCanvas {
+    border: 1px solid white;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.bottom button {
+    background: none;
+    border: 2px solid #fff;
+    padding: 0 15px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.5em;
+}
+
+.bottom button:hover {
+    background: #c23866;
+    color: #fff
+}
+
+.bottom p {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 2em;
+    margin: auto 0;
+}

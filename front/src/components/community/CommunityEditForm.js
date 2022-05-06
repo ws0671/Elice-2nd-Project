@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Container } from "../styles/Community/CommunityAddFormStyle";
 import * as Api from "../../api";
 import { useParams } from "react-router-dom";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 const CommunityEditForm = ({ isEditing }) => {
   // 해당 글 내용 데이터 상태값
@@ -15,6 +17,12 @@ const CommunityEditForm = ({ isEditing }) => {
       setContent(res.data.article);
     });
   }, []);
+
+  const bodyChangeHandler = (data) => {
+    setContent((prev) => ({ ...prev, body: data }));
+    // if (content.body === "") setError((prev) => ({ ...prev, body: true }));
+    // else setError((prev) => ({ ...prev, body: false }));
+  };
 
   // 인풋박스 변경시 적용되는 함수
   const changeHandler = (e) => {
@@ -92,13 +100,21 @@ const CommunityEditForm = ({ isEditing }) => {
           ></input>
         </fieldset>
         <fieldset className="formFieldset">
-          <textarea
+          {/* <textarea
             className="text-area"
             placeholder="내용을 입력해주세요"
             value={content.body}
             name="body"
             onChange={changeHandler}
-          ></textarea>
+          ></textarea> */}
+          <CKEditor
+            editor={ClassicEditor}
+            data={content.body}
+            onChange={(event, editor) => {
+              const data = editor.getData();
+              bodyChangeHandler(data);
+            }}
+          />
         </fieldset>
         <fieldset className="formFieldset">
           <div>

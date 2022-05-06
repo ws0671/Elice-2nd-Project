@@ -13,6 +13,7 @@ import YouTube from "react-youtube";
 import { Container, Row, Col } from "react-bootstrap";
 
 // 메인 bg-color:#673ab7
+
 function Main() {
   const opts = {
     width: "250",
@@ -202,4 +203,5 @@ function Main() {
     </Body>
   );
 }
+
 export default Main;

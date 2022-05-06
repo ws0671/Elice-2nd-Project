@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
   min-height: 100vh;
   min-width: 60vh;
@@ -88,5 +88,8 @@ export const Container = styled.div`
   }
   input#tag {
     margin-bottom: 5px;
+  }
+  .ck.ck-editor__editable:not(.ck-editor__nested-editable) {
+    min-height: 250px;
   }
 `;

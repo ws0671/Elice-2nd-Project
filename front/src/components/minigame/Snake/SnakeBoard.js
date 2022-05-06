@@ -11,6 +11,7 @@ import {
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
 import Swal from "sweetalert2";
+import "./snake.css";
 
 const SnakeBoard = () => {
   const canvasRef = useRef();
@@ -25,9 +26,12 @@ const SnakeBoard = () => {
 
   useInterval(() => gameLoop(), speed);
 
-  useEffect(async () => {
-    const today = await Api.get2("point?route=SnakeGame");
-    setPoint(today.data.point);
+  useEffect(() => {
+    const checkPoint = async () => {
+      const today = await Api.get2("point?route=SnakeGame");
+      setPoint(today.data.point);
+    };
+    checkPoint();
   }, []);
 
   const endGame = async () => {
@@ -48,6 +52,7 @@ const SnakeBoard = () => {
         route: "SnakeGame",
         point: 100,
       });
+      setPoint(100);
     } else {
       Swal.fire({
         position: "center",
@@ -122,16 +127,23 @@ const SnakeBoard = () => {
   }, [snake, apple, gameOver]);
 
   return (
-    <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}>
-      <canvas
-        style={{ border: "1px solid white" }}
-        ref={canvasRef}
-        width={`${CanvasSize[0]}px`}
-        height={`${CanvasSize[1]}px`}
-      />
-      <h1>SCORE : {score}</h1>
-      <div>
-        <button onClick={startGame}>START</button>
+    <div
+      role="button"
+      tabIndex="0"
+      onKeyDown={(e) => moveSnake(e)}
+      className="SnakeContainer"
+    >
+      <div className="SnakeBoard">
+        <canvas
+          ref={canvasRef}
+          width={`${CanvasSize[0]}px`}
+          height={`${CanvasSize[1]}px`}
+          className="SnakeCanvas"
+        />
+        <div className="bottom">
+          <p>SCORE : {score}</p>
+          <button onClick={startGame}>START</button>
+        </div>
       </div>
     </div>
   );

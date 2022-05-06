@@ -4,8 +4,7 @@ export const PrologueStyle = styled.div`
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Montserrat', sans-serif;
-`;
+`
 
 export const Container = styled.div`
     width: 100%;

@@ -1,27 +1,33 @@
-import React, { useEffect, useRef, useState } from "react"
-import ReactDOM from 'react-dom'
-import { useNavigate } from 'react-router-dom';
-import { Button, ProgressBar } from "react-bootstrap"
-import styled, { keyframes } from "styled-components"
+import React, { useEffect, useRef, useState, useContext } from "react"
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { qnaList } from "./data_example"
+import { qnaList } from "./RecomData"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { BodyStyle, QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle'
+import qnaImg from '../../images/RecomBg_quiz_3.svg'
+import { UserStateContext } from "../../App"
+import * as Api from "../../api";
+
 
 function RecomQuestion() {
 
+
     const [qIdx, setQIdx] = useState(0) // 질문 인덱스
     const [question, setQuestion] = useState(qnaList[qIdx].q) // 질문 내용
-    const [loading, setLoading] = useState(true)
     const [clicked, setClicked] = useState(null) //클릭된 버튼 표시
 
     const statusRef = useRef(null)
     const navigate = useNavigate()
+    const location = useLocation()
+    const genre = location.state.genre
+    const userContext = useContext(UserStateContext)
 
     const [firstP, setFirstP] = useState(false)
     const [lastP, setLastP] = useState(false) // 첫페이지인지 확인
     const endPoint = Object.keys(qnaList).length; // 총 슬라이드(총 질문 개수)
 
     const [select, setSelect] = useState({}) // 선택사항 1번, 2번, 3번 저장, 나중에 1번, 2번, 3번의 type 개수를 저장해서 결과값 계산
+    const answer = Object.values(select)// 보내기 용 select value값만 저장
 
 
     const PrevQnA = () => {
@@ -41,17 +47,27 @@ function RecomQuestion() {
     }
     /* console.log('함수 밖 select', select) */
 
+
+    useEffect(() => {
+        console.log(location);
+        console.log(genre);
+    }, [location]);
+
+
+
+
     const Answers = () => {
 
         return (
             qnaList[qIdx].a.map((item) => {
                 return (
                     <>
-                        <AnswerButton checked={select.qIdx === item.id} clicked={clicked === item} key={item.id} onClick={
+                        <AnswerButton clicked={clicked === item || select[qIdx] === item.id} key={item.id} onClick={
                             () => {
                                 setClicked(item)
                                 selectedButton(item.answer)
                             }}>{item.answer}</AnswerButton><br />
+
 
                     </>
                 )
@@ -59,19 +75,39 @@ function RecomQuestion() {
         )
     }
 
+    console.log('select', select)
+    /*     console.log('select', select) */
     const NextQnA = () => {
         setQIdx(qIdx + 1)
         setQuestion(qnaList[qIdx + 1].q)
 
-        statusRef.current.style.width = (100 / endPoint + 1) * (qIdx + 1) + '%';
+        statusRef.current.style.width = (100 / endPoint) * (qIdx + 1) + '%';
     }
 
     /*console.log(qnaList[0].a[1].type)*/
 
-    const goResult = () => {
-        setLoading(true)
-        navigate('/recommend/result')
+
+    const goResult = async (e) => {
+
+        answer.splice(4, 1)
+        const userId = userContext.user.userId
+        navigate('/recommend/result');
+
+        e.preventDefault();
+
+        try {
+            await Api.post("gameRecommend", {
+                userId,
+                genre,
+                answer,
+            })
+
+        } catch (err) {
+            alert("결과를 보내는 데 실패했습니다.\n", err);
+        }
+
     }
+
 
     //이전, 다음 버튼 감추기
     useEffect(() => {
@@ -80,30 +116,44 @@ function RecomQuestion() {
 
     useEffect(() => {
         qIdx === endPoint - 1 ? setLastP(true) : setLastP(false)
+
     }, [qIdx])
+
 
     //진행바 초기화
     useEffect(() => {
         statusRef.current.style.width = 0 + '%';
     }, [])
 
+    /*  const handleSubmit = async (e) => {
+         e.preventDefault();
+ 
+         try {
+             const res = await Api.post("gameRecommend", {
+                 genre,
+                 answer,
+             });
+ 
+             // 유저 정보는 response의 data임.
+             const user = res.data;
+ 
+             // JWT 토큰은 유저 정보의 token임.
+             const jwtToken = user.token;
+             // sessionStorage에 "userToken"이라는 키로 JWT 토큰과 닉네임을 저장함.
+ 
+             sessionStorage.setItem("userToken", jwtToken);
+             sessionStorage.setItem("user", JSON.stringify(user));
+ 
+         } catch (err) {
+             alert("결과를 보내는 데 실패했습니다.\n", err);
+         }
+     };
+  */
 
-    // 클릭된 버튼 Localstorage에 저장
-    useEffect(() => {
-        const clicked_Data = window.localStorage.getItem('CLICKED_ANSWER')
-        setClicked(JSON.parse(clicked_Data))
-    }, [])
-
-    useEffect(() => {
-        window.localStorage.setItem('CLICKED_ANSWER', JSON.stringify(clicked))
-
-    }, [clicked])
 
     return (
         <>
-
-
-            <BodyStyle>
+            <BodyStyle imgUrl={qnaImg}>
                 <QnaBox>
                     <div className="qBox">
                         <h1>{question}</h1>
@@ -125,83 +175,5 @@ function RecomQuestion() {
     )
 
 }
-
-
-
-const BodyStyle = styled.div`
-    width: 100vw;
-    height: 100vh;
-    font-family: "Roboto", sans-serif;
-    background-color: #f8fafb;
-`
-
-
-const QnaBox = styled.section`
-    position: relative;
-    left: 50%;
-    top: 50%;
-    width: 1000px;
-    text-align: center;
-    transform: translate(-50%, -50%);
-
-
-    .LeftButton {
-        position: absolute;
-        z-index: 1;
-        left: 3rem;
-        top: 7rem;
-    }
-
-    .RightButton {
-        position: absolute;
-        z-index: 1;
-        right: 3rem;
-        top: 7rem;
-    }
-
-`
-
-const AnswerButton = styled.button`
-    margin: 10px;
-    outline: 0;
-    font-size: 16px;
-    border-radius:25px;
-	border:2px solid #6c63ff;
-	display:inline-block;
-	cursor: pointer;
-	color:#6c63ff;
-	font-family:Arial;
-	font-size:14px;
-	padding:10px 40px;
-	text-decoration:none;
-
-    opacity: 0.5;
-    ${({ clicked }) => clicked && `opacity: 1; background-color: black`};
-
-    &:hover {
-    color: white;
-        background-color:#bab1ba;
-
-        &:active {
-            position:relative;
-            top:1px;
-        }
-    }
-`
-
-const Status = styled.div`
-    border: 2px solid #FFF;
-    height: 30px;
-    width: 80%;
-    background-color: #FFF;
-    border-radius: 20px;
-`
-
-const StatusBar = styled.div`
-    height: 100%;
-    background-image: linear-gradient(to right, #ef32d9, #89fffd);
-    border-radius: 20px;
-`
-
 
 export default RecomQuestion

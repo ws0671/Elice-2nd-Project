@@ -70,46 +70,50 @@ const MemorizeCards = () => {
     shuffleCards();
   }, []);
 
-  useEffect(async () => {
-    if (turns !== 12 && success === 6) {
-      const today = await Api.get2("point?route=CatMatch");
-      if (!today.data.point) {
-        alert("축하합니다!! 100포인트를 얻으셨습니다.");
-        const point = 100;
-        await Api.put(`user/${userContext.user.userId}/addPoint`, {
-          point: point,
-        });
-        await Api.post("point", {
-          route: "CatMatch",
-          point: point,
-        });
-      } else {
-        alert("성공하셨습니다!!");
+  useEffect(() => {
+    const Message = async () => {
+      if (turns !== 12 && success === 6) {
+        const today = await Api.get2("point?route=CatMatch");
+        if (!today.data.point) {
+          alert("축하합니다!! 100포인트를 얻으셨습니다.");
+          const point = 100;
+          await Api.put(`user/${userContext.user.userId}/addPoint`, {
+            point: point,
+          });
+          await Api.post("point", {
+            route: "CatMatch",
+            point: point,
+          });
+        } else {
+          alert("성공하셨습니다!!");
+        }
+        shuffleCards();
+      } else if (turns === 0) {
+        alert("GAME OVER");
+        shuffleCards();
       }
-      shuffleCards();
-    } else if (turns === 0) {
-      alert("GAME OVER");
-      shuffleCards();
-    }
+    };
+    Message();
   }, [turns]);
 
   return (
-    <div className="MemorizeCards">
-      <h1>CAT MATCH</h1>
-      <button onClick={shuffleCards}>NEW GAME</button>
-
-      <div className="card-grid">
-        {cards.map((card) => (
-          <SingleCard
-            key={card.id}
-            card={card}
-            handleChoice={handleChoice}
-            flipped={card === choiceOne || card === choiceTwo || card.matched}
-            disabled={disabled}
-          />
-        ))}
+    <div className="CardContainer">
+      <div className="MemorizeCards">
+        <p className="CardTitle">CAT MATCH</p>
+        <button onClick={shuffleCards}>NEW GAME</button>
+        <div className="card-grid">
+          {cards.map((card) => (
+            <SingleCard
+              key={card.id}
+              card={card}
+              handleChoice={handleChoice}
+              flipped={card === choiceOne || card === choiceTwo || card.matched}
+              disabled={disabled}
+            />
+          ))}
+        </div>
+        <p className="Turns">Turns: {turns}</p>
       </div>
-      <p>Turns: {turns}</p>
     </div>
   );
 };
