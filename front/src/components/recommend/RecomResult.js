@@ -5,6 +5,8 @@ import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import resultImg from '../../images/RecomBg_result_2.svg'
 import { QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle'
+import { post as Post } from "../../api";
+
 function RecomResult() {
     const location = useLocation()
 
@@ -14,9 +16,7 @@ function RecomResult() {
     }, [location]);
 
     const answers = [...location.state.answer]
-
-    const finalAnswers = answers.splice(4, 1)
-    console.log(finalAnswers)
+    answers.splice(4, 1)
 
     return (
         <>
