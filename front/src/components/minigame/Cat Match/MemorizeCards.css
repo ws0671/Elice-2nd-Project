@@ -11,6 +11,10 @@
   font-size: 1.5rem;
   text-align: center;
   color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
 }
 
 .CardTitle {
@@ -35,6 +39,8 @@
 }
 
 .card-grid {
+  width: 70vh;
+  height: 60vh;
   margin-top: 40px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

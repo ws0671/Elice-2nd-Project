@@ -75,8 +75,11 @@ const Header = () => {
                   <Dropdown.Item id="dropdown-menu2" href="/minigame/snake">
                     Snake Game
                   </Dropdown.Item>
-                  <Dropdown.Item id="dropdown-menu3" href="/minigame/card">
+                  <Dropdown.Item id="dropdown-menu3" href="/minigame/catMatch">
                     카드 맞추기
+                  </Dropdown.Item>
+                  <Dropdown.Item id="dropdown-menu4" href="/minigame/2048">
+                    2048
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -145,7 +148,8 @@ const HeaderTag = styled.div`
 
   #dropdown-menu1:hover,
   #dropdown-menu2:hover,
-  #dropdown-menu3:hover {
+  #dropdown-menu3:hover,
+  #dropdown-menu4:hover {
     // color: black;
     background: #1b1523;
   }
