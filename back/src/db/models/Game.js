@@ -62,6 +62,40 @@ const Game = {
     return games;
   },
 
+  findByGenre: async ({ gameGenre, page, numOfPageLimit = 10 }) => {
+    const games = await GameModel.find({
+      genres: { $regex: `^${gameGenre}`, $options: "i" },
+    })
+      .skip((page - 1) * numOfPageLimit)
+      .limit(numOfPageLimit)
+      .sort({ overallReview: -1, positiveRate: -1 });
+    return games;
+  },
+
+  findByPlatform: async ({ platform, page, numOfPageLimit = 10 }) => {
+    const games = await GameModel.find({
+      platforms: { $regex: `^${platform}`, $options: "i" },
+    })
+      .skip((page - 1) * numOfPageLimit)
+      .limit(numOfPageLimit)
+      .sort({ overallReview: -1, positiveRate: -1 });
+    console.log(games);
+    return games;
+  },
+
+  findByAge: async ({ age, page, numOfPageLimit = 10 }) => {
+    if (age == 0) {
+      age = "전체";
+    }
+    const games = await GameModel.find({
+      requiredAge: { $regex: `^${age}`, $options: "i" },
+    })
+      .skip((page - 1) * numOfPageLimit)
+      .limit(numOfPageLimit)
+      .sort({ overallReview: -1, positiveRate: -1 });
+    return games;
+  },
+
   searchSortByColumn: async ({
     filter,
     colName,
