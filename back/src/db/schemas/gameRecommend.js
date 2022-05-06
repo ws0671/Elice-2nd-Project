@@ -11,7 +11,7 @@ const GameRecommendSchema = new Schema(
       required: true,
     },
     releaseDate: {
-      type: Date,
+      type: String,
       required: true,
     },
     developer: {
@@ -81,7 +81,7 @@ const GameRecommendSchema = new Schema(
     tag: {
       type: String,
       required: true,
-    }
+    },
   },
   {
     timestamps: true,

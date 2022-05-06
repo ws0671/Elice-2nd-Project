@@ -10,6 +10,10 @@ GameRecommendRouter.use(loginRequired);
 GameRecommendRouter.get("/results/:userId", async (req, res, next) => {
   const userId = req.params.userId;
   const data = await gameRecommendCacheService.getRecommendData({ userId });
+  console.log("data is", data);
+  //find gameRecommendData with 3 genres
+  //filter by tags
+  //get random 5 ->
   res.status(200).send(data);
 });
 

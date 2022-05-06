@@ -6,7 +6,7 @@ const GameRecommend = {
     return createdNewGame;
   },
 
-  findByGenre: async ({ gameGenre }) => {
+  findByGenreAndTag: async ({ gameGenre, tag }) => {
     const game = await GameRecommendModel.find({
       genres: { $regex: `^${gameGenre}`, $options: "i" },
     }).sort({
@@ -25,6 +25,8 @@ const GameRecommend = {
     });
     return game;
   },
+
+  //
 };
 
 export { GameRecommend };
