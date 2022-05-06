@@ -102,7 +102,6 @@ function App() {
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />
-            <Route path="/minigame" element={<MiniGame />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/topchart" element={<TopChart />} />
@@ -118,6 +117,10 @@ function App() {
             <Route path="/auth/github/callback" element={<Github />} />
             <Route path="/auth/google/callback" element={<Google />} />
             <Route path="/auth/kakao/callback" element={<Kakao />} />
+            <Route path="/minigame/2048" element={<MiniGame />} />
+            <Route path="/minigame/roulette" element={<MiniGame />} />
+            <Route path="/minigame/catMatch" element={<MiniGame />} />
+            <Route path="/minigame/snake" element={<MiniGame />} />
           </Routes>
         </Router>
       </UserStateContext.Provider>
