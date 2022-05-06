@@ -19,7 +19,7 @@ const MiniGame = () => {
 
   useLayoutEffect(() => {
     const checkToday = async () => {
-      const today = await Api.get("point?miniGame=2048");
+      const today = await Api.get("point?route=2048");
       // console.log(today.data.point);
       setToday(today.data.point);
       setChecked(true);

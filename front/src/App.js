@@ -17,6 +17,7 @@ import RecomQnA from "./components/recommend/RecomQnA";
 import RecomResult from "./components/recommend/RecomResult";
 import Prologue from "./pages/Prologue";
 import Mypage from "./pages/Mypage";
+import MiniGame from "./pages/MiniGame";
 import TopChart from "./pages/TopChart";
 import CommunityAddForm from "./components/community/CommunityAddForm";
 import GameDetail from "./pages/GameDetail";
