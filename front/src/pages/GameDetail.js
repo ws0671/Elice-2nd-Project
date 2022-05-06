@@ -20,7 +20,7 @@ const GameDetail = () => {
       setData(res.data);
       setGenre(res.data.game.steamspyTags);
       setOs(res.data.game.platforms);
-      console.log(res.data);
+      setBookmark(res.data.bookmarkOrNot);
     } else {
       const res = await Api.get(`game/${params.id}/guest`);
       setData(res.data);
@@ -56,7 +56,7 @@ const GameDetail = () => {
   // };
   useEffect(() => {
     handleData();
-  }, []);
+  }, [bookmark]);
 
   return (
     <>
@@ -66,7 +66,7 @@ const GameDetail = () => {
             <div className="information">
               {userContext.user && (
                 <div className="bookmark">
-                  {data.bookmarkOrNot ? (
+                  {bookmark ? (
                     <FaBookmark size="30" onClick={handleBookmark} />
                   ) : (
                     <FaRegBookmark size="30" onClick={handleBookmark} />
