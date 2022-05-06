@@ -1,4 +1,4 @@
-import { GameAgeGraphModel } from "../schemas/gameAgeGraph";
+import { GameAgeGraphModel } from "../schemas/gameGraph";
 
 const GameAgeGraph = {
   create: async ({ newGame }) => {
