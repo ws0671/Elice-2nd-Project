@@ -126,16 +126,23 @@ const SnakeBoard = () => {
   }, [snake, apple, gameOver]);
 
   return (
-    <div role="button" tabIndex="0" onKeyDown={(e) => moveSnake(e)}>
-      <canvas
-        style={{ border: "1px solid white" }}
-        ref={canvasRef}
-        width={`${CanvasSize[0]}px`}
-        height={`${CanvasSize[1]}px`}
-      />
-      <h1>SCORE : {score}</h1>
-      <div>
-        <button onClick={startGame}>START</button>
+    <div
+      role="button"
+      tabIndex="0"
+      onKeyDown={(e) => moveSnake(e)}
+      className="SnakeContainer"
+    >
+      <div className="SnakeBoard">
+        <canvas
+          ref={canvasRef}
+          width={`${CanvasSize[0]}px`}
+          height={`${CanvasSize[1]}px`}
+          className="SnakeCanvas"
+        />
+        <div className="bottom">
+          <p>SCORE : {score}</p>
+          <button onClick={startGame}>START</button>
+        </div>
       </div>
     </div>
   );
