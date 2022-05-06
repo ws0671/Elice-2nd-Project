@@ -41,7 +41,7 @@ const MiniGame = () => {
           timer: 5000,
         });
       }
-    } else if (!today && score >= 50) {
+    } else if (!today && score >= 1000) {
       // 오늘 얻은 포인트가 없으면
       setToday(100);
       setHasPrinted(true);
