@@ -109,8 +109,8 @@ function App() {
       <UserStateContext.Provider value={userState}>
         <Router>
           <Header />
-          <GlobalStyle />
           <ScrollToTop />
+          <GlobalStyle />
           <Routes>
             <Route path="/" element={<Main />} />
             <Route path="/gamesearch" element={<GameSearch />} />

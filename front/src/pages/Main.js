@@ -15,8 +15,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import * as Api from "../api";
 import axios from "axios";
 import MainNews from "../components/main/MainNews";
-import { Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { FaBorderNone } from "react-icons/fa";
 
 // 메인 bg-color:#673ab7
 
@@ -60,34 +61,42 @@ function Main() {
           </DivBold>
           <FlexDiv1 className="mb-5">
             <div>
-              <div>
+              <Link to="/topchart">
+                <div class="LinkWrapper">
+                  <ImageWrapper>
+                    <Image alt="평점 TOP 10" src="images/score.svg" />
+                  </ImageWrapper>
+                  <Div className="mt-3">평점 TOP 10</Div>
+                </div>
+              </Link>
+            </div>
+            <Link to="/topchart">
+              <div class="LinkWrapper">
                 <ImageWrapper>
-                  <Image alt="평점 TOP 10" src="images/score.svg" />
+                  <Image alt="장르별 TOP 10" src="images/trophy_icon.svg" />
                 </ImageWrapper>
-                <Div className="mt-3">평점 TOP 10</Div>
+                <Div className="mt-3">장르별 TOP 10</Div>
               </div>
+            </Link>
+            <div>
+              <Link to="/topchart">
+                <div class="LinkWrapper">
+                  <ImageWrapper>
+                    <Image alt="이용등급별 TOP 10" src="images/layer.svg" />
+                  </ImageWrapper>
+                  <Div className="mt-3">이용등급별 TOP 10</Div>
+                </div>
+              </Link>
             </div>
             <div>
-              <ImageWrapper>
-                <Image alt="장르별 TOP 10" src="images/trophy_icon.svg" />
-              </ImageWrapper>
-              <Div className="mt-3">장르별 TOP 10</Div>
-            </div>
-            <div>
-              <div>
-                <ImageWrapper>
-                  <Image alt="이용등급별 TOP 10" src="images/layer.svg" />
-                </ImageWrapper>
-                <Div className="mt-3">이용등급별 TOP 10</Div>
-              </div>
-            </div>
-            <div>
-              <div>
-                <ImageWrapper>
-                  <Image alt="똥겜 TOP 10" src="images/frown.svg" />
-                </ImageWrapper>
-                <Div className="mt-3">똥겜 TOP 10</Div>
-              </div>
+              <Link to="/topchart">
+                <div class="LinkWrapper">
+                  <ImageWrapper>
+                    <Image alt="똥겜 TOP 10" src="images/frown.svg" />
+                  </ImageWrapper>
+                  <Div className="mt-3">똥겜 TOP 10</Div>
+                </div>
+              </Link>
             </div>
           </FlexDiv1>
         </div>
