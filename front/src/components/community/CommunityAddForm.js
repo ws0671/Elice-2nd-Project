@@ -125,6 +125,19 @@ const CommunityAddForm = () => {
             <CKEditor
               editor={ClassicEditor}
               data={content.body}
+              config={{
+                placeholder: "내용을 입력하세요.",
+                toolbar: [
+                  "heading",
+                  "|",
+                  "bold",
+                  "italic",
+                  "|",
+                  "link",
+                  "bulletedList",
+                  "numberedList",
+                ],
+              }}
               onChange={(event, editor) => {
                 const data = editor.getData();
                 bodyChangeHandler(data);

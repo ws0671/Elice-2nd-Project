@@ -9,14 +9,14 @@ import { Accordion } from "react-bootstrap";
 const MainNews = ({ firstGameNews, lastGameNews }) => {
   return (
     <First>
-      <Accordion defaultActiveKey="0" flush>
+      <Accordion flush>
         <Accordion.Item eventKey="0">
           <Accordion.Header style={{ backgroundColor: "grey !important" }}>
             <News className="container">
               {firstGameNews.map((item) => (
                 <div className="card-wrapper">
                   <div className="card-image">
-                    <a href={item.url}>
+                    <a href={item.url} target="_blank">
                       <img src={item.thumbnail} alt="gameNews image" />
                     </a>
                   </div>

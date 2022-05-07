@@ -6,15 +6,15 @@ const ReviewService = {
     if (review.length < 20) {
       throw new Error("리뷰는 20자 이상 적어야합니다.");
     }
+    let writer = await User.findById({ userId });
 
-    const newReview = { userId, gameId, review };
+    const newReview = { writer, gameId, review };
 
     const createdNewReview = await Review.create({ newReview });
 
-    let user = await User.findById({ userId });
-    const { toUpdate, isUpgraded } = SetUtil.setPointAndGrade(user, 250);
+    const { toUpdate, isUpgraded } = SetUtil.setPointAndGrade(writer, 250);
 
-    user = await User.update({ userId, toUpdate });
+    writer = await User.update({ userId, toUpdate });
 
     return createdNewReview;
   },
@@ -28,7 +28,7 @@ const ReviewService = {
 
     if (!review) {
       throw new Error("존재하지 않는 리뷰입니다.");
-    } else if (review.userId !== userId) {
+    } else if (review.writer.userId !== userId) {
       throw new Error("수정 권한이 없는 리뷰입니다.");
     }
 
@@ -42,7 +42,7 @@ const ReviewService = {
 
     if (!review) {
       throw new Error("존재하지 않는 리뷰입니다.");
-    } else if (review.userId !== userId) {
+    } else if (review.writer.userId !== userId) {
       throw new Error("삭제 권한이 없는 리뷰입니다.");
     }
 

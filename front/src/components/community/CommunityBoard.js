@@ -8,6 +8,7 @@ import {
   Table,
   Button,
 } from "../styles/Community/CommunityBoardStyle";
+import Swal from "sweetalert2";
 
 // 커뮤니티 게시판 컴포넌트
 const CommunityBoard = () => {
@@ -33,7 +34,7 @@ const CommunityBoard = () => {
         } else setShow("success");
       })
       .catch((err) => {
-        alert("로그인을 해주세요!");
+        Swal.fire(`로그인을 해주세요!`);
         // navigate("/login");
       });
   }, [page, query]);
