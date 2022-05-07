@@ -51,7 +51,6 @@ function RecomQuestion() {
       }
     }
   };
-  /* console.log('함수 밖 select', select) */
 
   useEffect(() => {
     console.log(location);
@@ -59,16 +58,12 @@ function RecomQuestion() {
   }, [location]);
 
 
-  console.log("select", select);
-  /*     console.log('select', select) */
   const NextQnA = () => {
     setQIdx(qIdx + 1);
     setQuestion(qnaList[qIdx + 1].q);
 
     statusRef.current.style.width = (100 / endPoint) * (qIdx + 1) + "%";
   };
-
-  /*console.log(qnaList[0].a[1].type)*/
 
   const isResultButtonValid = answer.length === 13;
 

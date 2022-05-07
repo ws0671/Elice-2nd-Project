@@ -4,7 +4,7 @@ import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as Api from "../../api";
 import { UserStateContext } from "../../App"
-import { ButtonWrapper, Button } from "./ResultDetailStyle"
+import { ButtonWrapper, Button, ChartDescription } from "./ResultDetailStyle"
 import { BodyStyle, ChartWrapper, QnaBox, AnswerButton } from "./RecomStyle";
 import RecomSlider from "./RecomSlider";
 import RecomChart from "./RecomChart";
@@ -66,6 +66,7 @@ function RecomResultDetail() {
       <BodyStyle>
         <RecomSlider gameItem={gameItem} getCurrentIdx={getCurrentIdx} />
         <ChartWrapper>
+          <ChartDescription >추천 받은 게임의 카테고리 분포도</ChartDescription>
           <RecomChart category={category} />
         </ChartWrapper>
         <ButtonWrapper>
