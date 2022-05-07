@@ -125,7 +125,7 @@ function Main() {
                     style={{ padding: "10px 0" }}
                   >
                     <YouTube videoId={item.videoId} opts={opts} />
-                    <div className="mt-3">{item.title}</div>
+                    <div style={{ width: 280 }}>{item.title}</div>
                   </Row>
                 </Col>
               ))}
@@ -134,6 +134,7 @@ function Main() {
           <div></div>
         </div>
       </div>
+      <div style={{ height: 200 }}></div>
     </Body>
   );
 }
