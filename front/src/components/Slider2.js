@@ -9,7 +9,6 @@ const TOTAL_SLIDES = 1;
 export default function Slider4() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [data, setData] = useState();
-  const [mode, setMode] = useState("Indie");
   const slideRef = useRef(null);
 
   const nextSlide = () => {
@@ -26,28 +25,13 @@ export default function Slider4() {
       setCurrentSlide(currentSlide - 1);
     }
   };
-  const genreGameIndie = async () => {
-    setMode("Indie");
-    const res = await Api.get(`gameGraph/bestGenre/${mode}`);
-    setData(res.data);
-  };
-  const genreGameAdventure = async () => {
-    setMode("Adventure");
-    const res = await Api.get(`gameGraph/bestGenre/${mode}`);
-    setData(res.data);
-  };
-  const genreGameCasual = async () => {
-    setMode("Casual");
-    const res = await Api.get(`gameGraph/bestGenre/${mode}`);
-    setData(res.data);
-  };
-  const genreGameStrategy = async () => {
-    setMode("Strategy");
-    const res = await Api.get(`gameGraph/bestGenre/${mode}`);
+
+  const setGame = async (type) => {
+    const res = await Api.get(`gameGraph/bestGenre/${type}`);
     setData(res.data);
   };
   useEffect(() => {
-    genreGameIndie();
+    setGame("Indie");
   }, []);
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
@@ -55,10 +39,10 @@ export default function Slider4() {
   }, [currentSlide]);
   return (
     <Container>
-      <button onClick={genreGameIndie}>인디</button>
-      <button onClick={genreGameAdventure}>모험</button>
-      <button onClick={genreGameCasual}>캐주얼</button>
-      <button onClick={genreGameStrategy}>전략</button>
+      <button onClick={() => setGame("Indie")}>인디</button>
+      <button onClick={() => setGame("Adventure")}>모험</button>
+      <button onClick={() => setGame("Casual")}>캐주얼</button>
+      <button onClick={() => setGame("Strategy")}>전략</button>
       <SliderContainer ref={slideRef}>
         {data && <GenreGame data={data}></GenreGame>}
       </SliderContainer>

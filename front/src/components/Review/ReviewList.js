@@ -1,5 +1,6 @@
 import ReviewElement from "./ReviewElement";
 const ReviewList = ({ example, removeHandler, editHandler }) => {
+  console.log({ example });
   return (
     <div className="area">
       {example.map((item) => (

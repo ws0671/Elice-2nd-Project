@@ -24,6 +24,7 @@ const GameDetail = () => {
   // 커뮤니티 댓글 리스트 상태값
   const [example, setExample] = useState([]);
 
+  // 가져온 data 및 state를 다루는 함수입니다
   const handleData = async () => {
     if (userContext.user) {
       const res = await Api.get(`game/${params.id}`);
@@ -37,8 +38,10 @@ const GameDetail = () => {
       setData(res.data);
       setGenre(res.data.game.steamspyTags);
       setOs(res.data.game.platforms);
+      setExample(res.data.reviews);
     }
   };
+  // 북마크를 다루는 함수입니다
   const handleBookmark = () => {
     if (!bookmark) {
       setBookmark((prev) => !prev);
@@ -157,7 +160,8 @@ const GameDetail = () => {
           </ScreenShot>
         )}
         <Footer></Footer>
-        <div className="detail comment">
+
+        <div className="detail review">
           <div className="head">리뷰</div>
           <div className="area">
             <ReviewList
@@ -165,7 +169,7 @@ const GameDetail = () => {
               removeHandler={removeHandler}
               editHandler={editHandler}
             />
-            <ReviewAddForm clickHandler={clickHandler} />
+            {userContext.user && <ReviewAddForm clickHandler={clickHandler} />}
           </div>
         </div>
       </Main>

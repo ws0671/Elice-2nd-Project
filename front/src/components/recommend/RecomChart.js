@@ -1,14 +1,28 @@
-import React, { PureComponent } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Radar,
   RadarChart,
   PolarGrid,
   PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
 } from "recharts";
 
-const RecommendChart = ({ result }) => {
+const RecommendChart = ({ gameItem }) => {
+
+  const [category, setCategory] = useState()
+
+
+  useEffect(() => {
+    let tempCategory = []
+    const tempData = gameItem.map(item => { return (item.categories) })
+    for (let i = 0; i <= tempData.length; i++) {
+      tempCategory.push(tempData[i])
+      console.log(tempCategory)
+    }
+  }, [])
+
+
+
+
   const data = [
     {
       subject: "Math",
@@ -18,8 +32,8 @@ const RecommendChart = ({ result }) => {
     },
     {
       subject: "Chinese",
-      A: 98,
-      B: 130,
+      A: 100,
+      B: 100,
       fullMark: 150,
     },
     {

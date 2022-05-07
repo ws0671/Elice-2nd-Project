@@ -56,25 +56,6 @@ function RecomQuestion() {
     console.log(genre);
   }, [location]);
 
-  const Answers = () => {
-    return qnaList[qIdx].a.map((item) => {
-      return (
-        <>
-          <AnswerButton
-            clicked={clicked === item || select[qIdx] === item.id}
-            key={item.id}
-            onClick={() => {
-              setClicked(item);
-              selectedButton(item.answer);
-            }}
-          >
-            {item.answer}
-          </AnswerButton>
-          <br />
-        </>
-      );
-    });
-  };
 
   console.log("select", select);
   /*     console.log('select', select) */
@@ -119,30 +100,43 @@ function RecomQuestion() {
     statusRef.current.style.width = 0 + "%";
   }, []);
 
-  /*  const handleSubmit = async (e) => {
-         e.preventDefault();
- 
-         try {
-             const res = await Api.post("gameRecommend", {
-                 genre,
-                 answer,
-             });
- 
-             // 유저 정보는 response의 data임.
-             const user = res.data;
- 
-             // JWT 토큰은 유저 정보의 token임.
-             const jwtToken = user.token;
-             // sessionStorage에 "userToken"이라는 키로 JWT 토큰과 닉네임을 저장함.
- 
-             sessionStorage.setItem("userToken", jwtToken);
-             sessionStorage.setItem("user", JSON.stringify(user));
- 
-         } catch (err) {
-             alert("결과를 보내는 데 실패했습니다.\n", err);
-         }
-     };
-  */
+
+  const Answers = () => {
+
+    return (
+      qnaList[qIdx].a.map((item) => {
+        return (
+          <>
+            <AnswerButton clicked={clicked === item || select[qIdx] === item.id} key={item.id} onClick={
+              () => {
+                setClicked(item)
+                selectedButton(item.answer)
+              }}>{item.answer}</AnswerButton><br />
+
+
+          </>
+        )
+      })
+    )
+  }
+
+
+
+  //이전, 다음 버튼 감추기
+  useEffect(() => {
+    qIdx === 0 ? setFirstP(true) : setFirstP(false)
+  }, [qIdx])
+
+  useEffect(() => {
+    qIdx === endPoint - 1 ? setLastP(true) : setLastP(false)
+
+  }, [qIdx])
+
+
+  //진행바 초기화
+  useEffect(() => {
+    statusRef.current.style.width = 0 + '%';
+  }, [])
 
   return (
     <>
@@ -152,35 +146,20 @@ function RecomQuestion() {
             <h1>{question}</h1>
           </div>
           <div className="aBox">
-            <p className="mt-4">
-              {" "}
-              <Answers />
-            </p>
+            <p className="mt-4"> <Answers /></p>
           </div>
-          {firstP || (
-            <FaChevronLeft className="LeftButton" size={70} onClick={PrevQnA} />
-          )}
-          {lastP || (
-            <FaChevronRight
-              className="RightButton"
-              size={70}
-              onClick={NextQnA}
-            />
-          )}
-          {lastP && (
-            <FaChevronRight
-              className="RightButton"
-              size={70}
-              onClick={goResult}
-            />
-          )}
+          {firstP || <FaChevronLeft className="LeftButton" size={70} onClick={PrevQnA} />}
+          {lastP || < FaChevronRight className="RightButton" size={70} onClick={NextQnA} />}
+          {lastP && < FaChevronRight className="RightButton" size={70} onClick={goResult} />}
           <Status className="mx-auto mt-5">
             <StatusBar ref={statusRef} />
           </Status>
         </QnaBox>
       </BodyStyle>
-    </>
-  );
-}
 
+
+    </>
+  )
+
+}
 export default RecomQuestion;

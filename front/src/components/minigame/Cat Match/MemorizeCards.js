@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import "./MemorizeCards.css";
 import SingleCard from "./SingleCard";
 import * as Api from "../../../api";
@@ -21,7 +21,34 @@ const MemorizeCards = () => {
   const [choiceOne, setChoiceOne] = useState(null);
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
+  const [point, setPoint] = useState();
   const userContext = useContext(UserStateContext);
+
+  const checkPoint = async () => {
+    const today = await Api.get2("point?route=CatMatch");
+    setPoint(today.data.point);
+    if (today.data.point) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `이미 100 포인트를 획득하셨습니다 :)`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  };
+
+  useLayoutEffect(() => {
+    Swal.fire({
+      position: "center",
+      title: "Rules Of Card Match",
+      icon: "info",
+      html: "<p>🐈💖🐈🧡🐈💛🐈💚🐈💙🐈💜🐈🤍🐈🖤🐈</br>카드를 뒤집어서 귀여운 고양이의 짝을 맞춰주세요</br>카드를 클릭하면 뒤집을 수 있답니다 ヾ(≧▽≦*)o<br>(っ °Д °;)っ 12번 안에 clear하지 못 하면 게임오버예요!!</br></br>※포인트를 받을 수 있는 건 하루에 한 번 뿐입니다.※</p>",
+      showConfirmButton: true,
+    }).then((res) => {
+      checkPoint();
+    });
+  }, []);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -74,8 +101,7 @@ const MemorizeCards = () => {
   useEffect(() => {
     const Message = async () => {
       if (turns !== 12 && success === 6) {
-        const today = await Api.get2("point?route=CatMatch");
-        if (!today.data.point) {
+        if (!point) {
           Swal.fire({
             position: "center",
             icon: "success",
@@ -92,6 +118,7 @@ const MemorizeCards = () => {
             route: "CatMatch",
             point: point,
           });
+          setPoint(100);
         } else {
           Swal.fire({
             position: "center",
