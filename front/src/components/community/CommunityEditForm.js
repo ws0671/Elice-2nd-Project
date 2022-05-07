@@ -110,6 +110,19 @@ const CommunityEditForm = ({ isEditing }) => {
           ></textarea> */}
           <CKEditor
             editor={ClassicEditor}
+            config={{
+              placeholder: "내용을 입력하세요.",
+              toolbar: [
+                "heading",
+                "|",
+                "bold",
+                "italic",
+                "|",
+                "link",
+                "bulletedList",
+                "numberedList",
+              ],
+            }}
             data={content.body}
             onChange={(event, editor) => {
               const data = editor.getData();
