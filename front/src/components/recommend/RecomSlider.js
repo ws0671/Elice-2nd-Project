@@ -1,15 +1,48 @@
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import styled, { keyframes } from "styled-components"
 
 const RecomSlider = ({ gameItem }) => {
     const [currentSlide, setCurrentSlide] = useState(0)
+    const slideLength = 5;
+
+    const autoScroll = true;
+    let slideInterval
+    let intervalTime = 5000;
+
+
+    const prevSlide = () => {
+        setCurrentSlide(currentSlide === 0 ? slideLength - 1 : currentSlide - 1)
+
+    }
+
+    const nextSlide = () => {
+        setCurrentSlide(currentSlide === slideLength - 1 ? 0 : currentSlide + 1)
+
+    }
+
+    function auto() {
+        slideInterval = setInterval(nextSlide, intervalTime)
+    }
+
+
+    useEffect(() => {
+        setCurrentSlide(0)
+    }, [])
+
+    useEffect(() => {
+        if (autoScroll) {
+            auto()
+        }
+    }, [currentSlide])
+
+
 
     return (
         <BodyStyle>
             <Slider>
-                <AiOutlineArrowLeft className="Arrow Prev" />
-                <AiOutlineArrowRight className="Arrow Next" />
+                <AiOutlineArrowLeft className="Arrow Prev" onClick={prevSlide} />
+                <AiOutlineArrowRight className="Arrow Next" onClick={nextSlide} />
                 {gameItem.map((items, index) => {
                     return (
                         <CurrentSlide className={index === currentSlide ? "current" : "slide"} key={index}>
