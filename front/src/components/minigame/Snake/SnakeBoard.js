@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, useContext } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+  useLayoutEffect,
+} from "react";
 import useInterval from "./useInterval";
 import {
   CanvasSize,
