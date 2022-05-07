@@ -16,8 +16,8 @@ const Review = {
     return reviews;
   },
 
-  findAllByUser: async ({ userId }) => {
-    const reviews = await ReviewModel.find({ userId });
+  findAllByUser: async ({ writer }) => {
+    const reviews = await ReviewModel.find({ writer });
     return reviews;
   },
 
