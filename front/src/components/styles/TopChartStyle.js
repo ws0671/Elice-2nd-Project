@@ -11,5 +11,8 @@ export const Main = styled.main`
   }
   h3 {
     font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 35px;
   }
 `;
