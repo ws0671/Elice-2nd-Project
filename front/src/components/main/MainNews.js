@@ -25,7 +25,12 @@ const MainNews = ({ firstGameNews, lastGameNews }) => {
               ))}
             </News>
           </Accordion.Header>
-          <Accordion.Body style={{ height: "100vh", background: "#673AB7" }}>
+          <Accordion.Body
+            style={{
+              height: "100vh",
+              background: "rgba(54, 52, 137, 0.1)",
+            }}
+          >
             <News className="container">
               {lastGameNews.map((item) => (
                 <div className="card-wrapper">
@@ -46,14 +51,21 @@ const MainNews = ({ firstGameNews, lastGameNews }) => {
 };
 
 const First = styled.div`
+  .accordion-item {
+    border-radius: 10px !important;
+    background-color: rgba(54, 52, 137, 0.1) !important;
+  }
   .accordion-button {
-    background-color: #673ab7 !important;
+    background-color: rgba(54, 52, 137, 0) !important;
+    border-radius: 10px !important;
+    color: white;
   }
   .accordion-button:focus {
     box-shadow: none;
   }
   .accordion-button:not(.collapsed) {
-    color: #212529;
+    color: white;
+    border-radius: 10px !important;
   }
   .container {
     margin-top: 20px;

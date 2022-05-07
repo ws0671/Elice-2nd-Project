@@ -64,6 +64,32 @@ export const Body = styled.div`
     #c62368 95.84%
   );
   background-blend-mode: multiply;
+  .main {
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+  }
+  .popularChart {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px #6869d0;
+    backdrop-filter: blur(2.5px);
+    border-radius: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.4rem;
+    padding: 10px;
+    width: 90%;
+    margin: 20px 0;
+  }
+  .youtube {
+    height: 90vh;
+  }
+  .centeral {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 `;
 export const DivBold = styled.div`
   color: white;

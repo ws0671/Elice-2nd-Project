@@ -1,27 +1,29 @@
-import React from "react"
-import PrologueMain from "../components/prologue/MainBanner/PrologueMain"
-import PrologueStyle from "../components/prologue/PrologueStyle"
-import { Content } from "../components/prologue/Contents/Contents"
-import { contentOne, contentTwo, contentThree } from "../components/prologue/Contents/ContentsData"
-import FirstContent from "../components/prologue/Contents/FirstContent.js"
-import LastContent from "../components/prologue/Contents/LastContent"
+import React from "react";
+import PrologueMain from "../components/prologue/MainBanner/PrologueMain";
+import PrologueStyle from "../components/prologue/PrologueStyle";
+import { Content } from "../components/prologue/Contents/Contents";
+import {
+  contentOne,
+  contentTwo,
+  contentThree,
+} from "../components/prologue/Contents/ContentsData";
+import FirstContent from "../components/prologue/Contents/FirstContent.js";
+import LastContent from "../components/prologue/Contents/LastContent";
 
 function Prologue() {
-
-
-    return (
-        <PrologueStyle>
-            <PrologueMain />
-            <FirstContent />
-            <Content {...contentOne} />
-            <Content {...contentTwo} />
-            <Content {...contentThree} />
-            <LastContent />
-        </PrologueStyle>
-    )
+  return (
+    <PrologueStyle>
+      <PrologueMain />
+      <FirstContent />
+      <Content {...contentOne} />
+      <Content {...contentTwo} />
+      <Content {...contentThree} />
+      <LastContent />
+    </PrologueStyle>
+  );
 }
 
-export default Prologue
+export default Prologue;
 
 /* 
 const SliderBox = styled.div`

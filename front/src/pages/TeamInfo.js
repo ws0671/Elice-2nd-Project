@@ -6,6 +6,7 @@ import third from "../images/third.png";
 import fourth from "../images/fourth.png";
 import fifth from "../images/fifth.png";
 import sixth from "../images/sixth.png";
+import team from "../images/team.png";
 const TeamInfo = () => {
   const data = [
     {
@@ -61,7 +62,7 @@ const TeamInfo = () => {
     }
   };
   return (
-    <Div>
+    <Div imgUrl={team}>
       <div style={{ height: 50 }}></div>
       <div className="teamTitle"> 저희 6팀을 소개합니다.</div>
       <div className="teamCard">
@@ -96,6 +97,8 @@ const TeamInfo = () => {
 };
 
 const Div = styled.div`
+  background: ${(props) => `url(${props.imgUrl})`};
+  background-size: 150%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -104,6 +107,7 @@ const Div = styled.div`
     margin: 30px 0;
     font-size: 2.5em;
     font-weight: bold;
+    color: white;
   }
   .teamCard {
     height: 100vh;

@@ -11,11 +11,12 @@ import {
   NewsImg,
 } from "../components/styles/MainStyle";
 import YouTube from "react-youtube";
-import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import * as Api from "../api";
 import axios from "axios";
 import MainNews from "../components/main/MainNews";
 import { Navigate } from "react-router-dom";
+import styled from "styled-components";
 
 // 메인 bg-color:#673ab7
 
@@ -90,72 +91,73 @@ function Main() {
             </div>
           </FlexDiv1>
         </div>
-        <div className="notification">
-          <DivBold style={{ marginLeft: 56 }}>
+        <div className="popularChart">
+          <DivBold style={{ marginLeft: 56, paddingTop: 40 }}>
             <h3 style={{ marginBottom: 20 }}>주목할만한 소식</h3>
-            <ButtonGroup>
-              <Button onClick={() => setQuery("O")}>온라인</Button>
-              <Button onClick={() => setQuery("P")}>PC</Button>
-              <Button onClick={() => setQuery("V")}>비디오</Button>
-              <Button onClick={() => setQuery("W")}>웹게임</Button>
-              <Button onClick={() => setQuery("M")}>모바일</Button>
-            </ButtonGroup>
+
+            <Button onClick={() => setQuery("O")}>온라인</Button>
+            <Button onClick={() => setQuery("P")}>PC</Button>
+            <Button onClick={() => setQuery("V")}>비디오</Button>
+            <Button onClick={() => setQuery("W")}>웹게임</Button>
+            <Button onClick={() => setQuery("M")}>모바일</Button>
           </DivBold>
 
           <MainNews firstGameNews={firstGameNews} lastGameNews={lastGameNews} />
         </div>
+        <div className="popularChart youtube">
+          <Row className="mb-3" style={{ marginTop: 40, marginLeft: 40 }}>
+            <h3>유튜브 인기 동영상</h3>
+          </Row>
+          <div className="centeral">
+            <div
+              style={{
+                margin: 20,
+                display: "flex",
+                flexDirection: "row",
+                flexWrap: "wrap",
+                width: "80%",
+              }}
+            >
+              {video.map((item) => (
+                <Col>
+                  <Row
+                    // className="justify-content-center"
+                    style={{ padding: "10px 0" }}
+                  >
+                    <YouTube videoId={item.videoId} opts={opts} />
+                    <div className="mt-3">{item.title}</div>
+                  </Row>
+                </Col>
+              ))}
+            </div>
+          </div>
+          <div></div>
+        </div>
       </div>
-      <br />
-      <br />
-      <Container>
-        <Row className="mb-3">
-          <h3>유튜브 인기 동영상</h3>
-        </Row>
-        <Row>
-          {video.map((item) => (
-            <Col>
-              <Row className="justify-content-center">
-                <YouTube videoId={item.videoId} opts={opts} />
-                <div className="mt-3">{item.title}</div>
-              </Row>
-            </Col>
-          ))}
-        </Row>
-      </Container>
-      <div style={{ width: "100%", height: "80vh" }}></div>
-      <Div className="footer" style={{ backgroundColor: "#6C63FF" }}>
-        <div>
-          <img
-            style={{ width: "500px" }}
-            alt="모니터"
-            src="/images/monitor.svg"
-          />
-        </div>
-        <div>
-          <button
-            onClick={() => {
-              navigate("/recommend");
-            }}
-            variant="primary"
-          >
-            게임 찾으러 GO!
-          </button>
-        </div>
-        <div>
-          <img
-            style={{ width: "150px" }}
-            alt="조이스틱"
-            src="/images/joystick.svg"
-          />
-          <img
-            style={{ width: "100px" }}
-            alt="게임보이"
-            src="/images/gameboy.svg"
-          />
-        </div>
-      </Div>
     </Body>
   );
 }
+
+const Button = styled.button`
+  color: #009394;
+  border: 3px solid #009394;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 15px;
+  font-family: tahoma;
+  letter-spacing: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  filter: drop-shadow(0 0 15px #006270) drop-shadow(0 0 50px #00e0c7)
+    contrast(2) brightness(2);
+  transition: 0.5s;
+  background: transparent;
+
+  &:hover {
+    color: #313b64;
+    background-color: #00e0c7;
+    filter: drop-shadow(0 0 20px #00e0c7) contrast(2) brightness(2);
+  }
+`;
 
 export default Main;
