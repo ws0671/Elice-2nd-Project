@@ -16,12 +16,12 @@ const MiniGame = () => {
   const [hasPrinted, setHasPrinted] = useState(false);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useLocalStorageNumber("bestScore", 0);
-  const [scrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
-  const [scrollActive, setScrollActive] = useState(false);
 
+  const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
+  const [ScrollActive, setScrollActive] = useState(false);
   function handleScroll() {
     console.log(window.pageYOffset);
-    if (scrollY > 0) {
+    if (ScrollY > 299) {
       setScrollY(window.pageYOffset);
       setScrollActive(true);
     } else {
