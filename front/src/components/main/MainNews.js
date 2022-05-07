@@ -30,7 +30,7 @@ const MainNews = ({ firstGameNews, lastGameNews }) => {
               {lastGameNews.map((item) => (
                 <div className="card-wrapper">
                   <div className="card-image">
-                    <a href={item.url}>
+                    <a href={item.url} target="_blank">
                       <img src={item.thumbnail} alt="gameNews image" />
                     </a>
                   </div>
