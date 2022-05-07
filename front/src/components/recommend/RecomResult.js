@@ -54,10 +54,11 @@ function RecomResult() {
     </>
   )
 
+}
 
-  export default RecomResult;
+export default RecomResult;
 
-  const ResultBox = styled.div`
+const ResultBox = styled.div`
   position: absolute;
   left: 50%;
   top: 50%;
