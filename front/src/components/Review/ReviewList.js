@@ -11,6 +11,7 @@ const ReviewList = ({ example, removeHandler, editHandler }) => {
           editHandler={editHandler}
         />
       ))}
+      {/* {example.map((item) => console.log(item))} */}
     </div>
   );
 };
