@@ -4,20 +4,23 @@ import styled, { keyframes } from "styled-components"
 
 const RecomSlider = ({ gameItem }) => {
     const [currentSlide, setCurrentSlide] = useState(0)
+    const [currentNum, setCurrentNum] = useState(1)
     const slideLength = 5;
 
-    const autoScroll = true;
+    const autoScroll = false;
     let slideInterval
     let intervalTime = 5000;
 
 
     const prevSlide = () => {
         setCurrentSlide(currentSlide === 0 ? slideLength - 1 : currentSlide - 1)
+        setCurrentNum(currentNum === 1 ? 5 : currentNum - 1)
 
     }
 
     const nextSlide = () => {
         setCurrentSlide(currentSlide === slideLength - 1 ? 0 : currentSlide + 1)
+        setCurrentNum(currentNum === 5 ? 1 : currentNum + 1)
 
     }
 
@@ -28,6 +31,7 @@ const RecomSlider = ({ gameItem }) => {
 
     useEffect(() => {
         setCurrentSlide(0)
+        setCurrentNum(1)
     }, [])
 
     useEffect(() => {
@@ -51,7 +55,7 @@ const RecomSlider = ({ gameItem }) => {
                                 <>
                                     <Background src={items.background} alt='game_background' />
                                     <Content className="Content">
-                                        <h5>당신에게 추천드리는 게임은...</h5>
+                                        <h5>당신에게 추천드리는 게임은... ({currentNum}/5)</h5>
                                         <HeaderImg src={items.headerImage} />
                                         <Heading>
                                             {items.name}
@@ -178,7 +182,7 @@ const CurrentSlide = styled.div`
 const slideUp = keyframes`
     0% { 
         visibility: visible;
-        top: 11rem;
+        top: 4rem;
     }
 
     100% { 
