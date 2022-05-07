@@ -9,13 +9,17 @@ export const Container = styled.div`
     border: none;
     display: inline-block;
     padding: 15px 30px;
-    border-radius: 25px;
+    border-radius: 10px;
     font-family: "paybooc-Light", sans-serif;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 600;
     transition: 0.25s;
+<<<<<<< HEAD
     font-size: 50px;
+=======
+    
+>>>>>>> ec35055809523e2c5fbee6657e0ed4c443c69d19
   }
 
   .w-btn-gra3 {
@@ -60,17 +64,7 @@ export const Container = styled.div`
       background-position: 0% 50%;
     }
   }
-  <button
-    class="w-btn w-btn-gra3 w-btn-gra-anim"
-    type="button"
-    > P
-    </button
-    > [4기]
-    이은여울
-    —
-    오늘
-    오전
-    3:38
+ 
     .w-btn-outline {
     font-size: 15px;
     position: relative;

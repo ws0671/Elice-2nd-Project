@@ -128,11 +128,11 @@ const Slider = styled.div`
             color: #777;
     }
     .Next{
-        right: 2rem;
+        left: 48rem;
     }
 
     .Prev{
-        left: 2rem;
+        left: 5rem;
     }
 
     hr{
