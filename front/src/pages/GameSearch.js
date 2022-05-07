@@ -85,6 +85,13 @@ function GameSearch() {
     setData(res.data);
   };
 
+  const getSearchData = async () => {
+    const res = await Api.get(
+      `game/search/${searchWord}?page=${page}&colName=releaseDate&sortOrder=-1&limit=12`
+    );
+    setData(res.data);
+  };
+
   useEffect(() => {
     getData();
   }, [page, limit, inputData]);
@@ -106,6 +113,7 @@ function GameSearch() {
   // input태그를 제출하는 함수입니다.
   const handleSubmit = async (e) => {
     e.preventDefault();
+    getSearchData();
     setInputData(searchWord);
   };
   //input태그의 onChange이벤트의 처리를 하는 함수입니다.
@@ -156,6 +164,7 @@ function GameSearch() {
   // 페이지네이션 클릭시 이벤트함수입니다
   const handlePageClick = async (data) => {
     let currentPage = data.selected + 1;
+    setPage(currentPage);
     await getCurrentData(currentPage);
   };
   return (
