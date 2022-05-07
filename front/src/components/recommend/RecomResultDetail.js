@@ -3,16 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as Api from "../../api";
-import { UserStateContext } from "../../App";
-import {
-  Wrapper,
-  MainImg,
-  RemainderWrapper,
-  Remainders,
-  ButtonWrapper,
-  Button,
-} from "./ResultDetailStyle";
-import { BodyStyle, QnaBox, AnswerButton } from "./RecomStyle";
+import { UserStateContext } from "../../App"
+import { ButtonWrapper, Button } from "./ResultDetailStyle"
+import { BodyStyle, ChartWrapper, QnaBox, AnswerButton } from "./RecomStyle";
 import RecomSlider from "./RecomSlider";
 import RecomChart from "./RecomChart";
 
@@ -67,6 +60,7 @@ function RecomResultDetail() {
     );
   }, []);
 
+
   return (
     <div>
       <BodyStyle>
@@ -81,3 +75,4 @@ function RecomResultDetail() {
 }
 
 export default RecomResultDetail;
+

@@ -8,6 +8,7 @@ import {
 } from "recharts";
 
 const RecommendChart = ({ category }) => {
+
   return (
     <RadarChart outerRadius="80%" height={500} width={500} data={category}>
       <PolarGrid />

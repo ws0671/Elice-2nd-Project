@@ -53,5 +53,8 @@ export const Button = styled.button`
   margin-top: 20px;
   background: aliceblue;
   display: inline-block;
+  position: absolute;
+  top: 38rem;
+  left: 78rem;
 
 `;
