@@ -161,5 +161,5 @@ function RecomQuestion() {
     </>
   )
 
-
-  export default RecomQuestion;
+}
+export default RecomQuestion;
