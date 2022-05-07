@@ -15,6 +15,7 @@ import ball from "../images/ball.png";
 import pearl from "../images/pearl.png";
 import rainbow from "../images/rainbow.png";
 import tapioca from "../images/tapioca.png";
+import myPageBg from "../images/myPage_3.png"
 import "animate.css";
 
 const Mypage = () => {
@@ -176,7 +177,7 @@ const Mypage = () => {
   return (
     <>
       <Header></Header>
-      <Main imgUrl="images/controller.jpg">
+      <Main imgUrl={myPageBg}>
         <div className="top">
           <div className="first">
             <div className="title">
@@ -187,7 +188,7 @@ const Mypage = () => {
               나의 게임 성향과 관심 게임 정보를
               <br /> 한 눈에 담아보세요
             </div>
-            <Button onClick={myInfo}>나의 정보</Button>
+            <Button style={{ marginTop: '15px' }} onClick={myInfo}>나의 정보</Button>
           </div>
 
           <div className="chart">
@@ -237,16 +238,11 @@ const Header = styled.div`
   height: 50px;
 `;
 const Main = styled.div`
-background-size: 100%;
-  background-image: linear-gradient(
-      to right,
-      rgba(20, 20, 20, 0.1) 10%,
-      rgba(20, 20, 20, 0.7) 70%,
-      rgba(20, 20, 20, 1)
-    ),
-    ${(props) => `url(${props.imgUrl})`};
+  background-size: 100%;
+  background-image:
+   ${(props) => `url(${props.imgUrl})`};
   min-height: 100vh;
-  padding 10% 0;
+  padding: 15% 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -296,7 +292,7 @@ background-size: 100%;
     backdrop-filter: blur(2.5px);
     border-radius: 10px;
     text-transform: uppercase;
-    letter-spacing: 0.4rem;
+    letter-spacing: 0.2rem;
     padding: 20px;
     margin-bottom: 80px;
 
@@ -338,7 +334,7 @@ background-size: 100%;
 
     .gameBookmarks {
       height: 30vh;
-
+      
       display: flex;
       flex-direction: row;
       // justify-content: space-around;
@@ -372,12 +368,14 @@ background-size: 100%;
   }
 
   .topic {
-    margin-top: 20px;
+    margin-top: 5px;
+    margin-left: 20px;
     font-size: 2em;
     font-weight: bold;
   }
   .common {
-    padding: 20px 0;
+    margin-left: 20px;
+    padding: 10px 0;
   }
   .chart {
     display: flex;
