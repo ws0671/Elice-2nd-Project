@@ -7,6 +7,7 @@ import styled from "styled-components";
 import genreImg from "../../images/RecomBg_genre_3.svg";
 import * as Api from "../../api";
 import { UserStateContext } from "../../App";
+import Swal from "sweetalert2";
 
 function RecomGenre() {
   const navigate = useNavigate();
@@ -42,7 +43,7 @@ function RecomGenre() {
 
   const goSecondPage = () => {
     if (!isNumberValid) {
-      alert("3가지를 골라주세요!");
+      Swal.fire("3가지를 골라주세요!");
     } else {
       navigate("/recommend/qna/2", {
         state: {
