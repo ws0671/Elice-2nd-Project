@@ -14,7 +14,16 @@ export const Container = styled.div`
 
 `;
 
-export const MainImg = styled.div`
+export const Wrapper = styled.section`
+  position: relative;
+  left: 50%;
+  top: 40%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+`;
+
+
+export const MainImg = styled.img`
   width: 400px;
   height: 200px;
   background: red;

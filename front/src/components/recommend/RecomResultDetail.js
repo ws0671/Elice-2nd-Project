@@ -4,8 +4,10 @@ import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import * as Api from "../../api";
 import { UserStateContext } from "../../App"
-import { Container, MainImg, RemainderWrapper, Remainders, ButtonWrapper, Button } from "./ResultDetailStyle"
-
+import { Wrapper, MainImg, RemainderWrapper, Remainders, ButtonWrapper, Button } from "./ResultDetailStyle"
+import { BodyStyle, QnaBox, AnswerButton } from "./RecomStyle";
+import RecommendChart from "./RecommendChart";
+import RecomSlider from "./RecomSlider";
 
 function RecomResultDetail() {
     const location = useLocation()
@@ -13,33 +15,38 @@ function RecomResultDetail() {
     const userContext = useContext(UserStateContext)
     const userId = userContext.user.userId
 
+    const [gameItem, setGameItem] = useState([])
 
     const refresh = () => {
         Api.delete("gameRecommend", userId)
         navigate('/recommend')
     }
 
-    console.log(location.state.recomitem)
+    useEffect(() => {
+        setGameItem(location.state.recomItem)
+
+    }, [])
+
+    console.log('GameItem', gameItem)
+
+
+
 
     return (
         <div>
-            <Container>
-                <h3>당신에게 추천드리는 게임은...</h3>
-                <h2></h2>
+            <BodyStyle>
+                {/*   < Wrapper> */}
                 <div className="gameMainImg">
-                    <MainImg className="firstImg"></MainImg>
+                    <RecomSlider gameItem={gameItem} />
                 </div>
                 <RemainderWrapper>
-                    <Remainders>1</Remainders>
-                    <Remainders>2</Remainders>
-                    <br />
-                    <Remainders>3</Remainders>
-                    <Remainders>4</Remainders>
+
                 </RemainderWrapper>
                 <ButtonWrapper>
                     <Button onClick={refresh}>처음부터 다시!</Button>
                 </ButtonWrapper>
-            </Container>
+                {/*   </Wrapper> */}
+            </BodyStyle>
         </div>
     )
 

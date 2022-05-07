@@ -8,7 +8,7 @@ import { QnaBox, AnswerButton, Status, StatusBar } from "./RecomStyle";
 import { useNavigate } from "react-router-dom";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import RecommendChart from "./RecommendChart";
+
 
 function RecomResult() {
   const location = useLocation();
@@ -29,7 +29,7 @@ function RecomResult() {
     setLoading(true)
     navigate('/recommend/result/detail', {
       state: {
-        recomitem: recomitem,
+        recomItem: recomItem,
       },
     })
 

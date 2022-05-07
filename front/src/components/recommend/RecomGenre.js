@@ -93,7 +93,7 @@ function RecomGenre() {
 
 export default RecomGenre;
 
-const Title = styled.h1`
+const Title = styled.h2`
   margin-bottom: 15px;
   color: white;
 `;
