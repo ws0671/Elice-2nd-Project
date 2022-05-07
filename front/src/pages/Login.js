@@ -170,7 +170,8 @@ function LoginForm() {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: `축하합니다! 100포인트를 얻으셨습니다!!`,
+          title: `축하합니다! 출석체크로 100포인트를 얻으셨습니다!!`,
+          text: "즐거운 하루 보내세요😊",
           showConfirmButton: false,
           timer: 1500,
         });

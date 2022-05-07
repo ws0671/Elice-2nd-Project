@@ -19,7 +19,8 @@ const Roulette = () => {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: `이미 ${today.data.point}포인트를 획득하셨습니다.\n내일 다시 도전해주세요 :)`,
+        title: "Notice",
+        html: `오늘은 이미 ${today.data.point}포인트를 획득하셨습니다.<br />내일 다시 시도해주세요 😄`,
         showConfirmButton: false,
       });
     }
@@ -48,7 +49,8 @@ const Roulette = () => {
       Swal.fire({
         position: "center",
         icon: "warning",
-        title: `이미 ${point}포인트를 획득하셨습니다.\n내일 다시 도전해주세요 :)`,
+        title: "Notice",
+        html: `오늘은 이미 ${point}포인트를 획득하셨습니다.<br />내일 다시 시도해주세요 😄`,
         showConfirmButton: false,
         timer: 1500,
       });
@@ -73,7 +75,7 @@ const Roulette = () => {
           position: "center",
           icon: "success",
           title: `축하합니다!`,
-          text: `${point}포인트를 얻으셨습니다!!`,
+          text: `${point}포인트를 얻으셨습니다!! 🎉`,
           showConfirmButton: false,
           timer: 2000,
         });

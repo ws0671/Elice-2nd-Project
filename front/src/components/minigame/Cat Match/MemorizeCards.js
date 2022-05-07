@@ -31,7 +31,8 @@ const MemorizeCards = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: `이미 100 포인트를 획득하셨습니다 :)`,
+        title: "Notice",
+        html: "오늘은 이미 100포인트를 얻으셨습니다.<br />게임은 무한으로 즐겨주세요😁",
         showConfirmButton: false,
         timer: 2000,
       });
@@ -105,8 +106,8 @@ const MemorizeCards = () => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: `축하합니다`,
-            text: `100 포인트를 획득하셨습니다 :)`,
+            title: "Success",
+            html: "축하합니다!! 100포인트를 얻으셨습니다🎉",
             showConfirmButton: false,
             timer: 2000,
           });
@@ -123,7 +124,7 @@ const MemorizeCards = () => {
           Swal.fire({
             position: "center",
             icon: "success",
-            text: `성공하셨습니다 :)`,
+            text: `성공하셨습니다 🤩`,
             showConfirmButton: false,
             timer: 2000,
           });

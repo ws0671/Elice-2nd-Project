@@ -70,7 +70,8 @@ const GameDetail = () => {
           Swal.fire({
             position: "center",
             icon: "success",
-            title: `축하합니다! 250포인트를 얻으셨습니다!!`,
+            title: "축하합니다!",
+            text: "250포인트를 얻으셨습니다!! 🎉",
             showConfirmButton: false,
             timer: 1500,
           })

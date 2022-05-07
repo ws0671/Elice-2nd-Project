@@ -39,7 +39,8 @@ const SnakeBoard = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: `이미 100 포인트를 획득하셨습니다 :)`,
+        title: "Notice",
+        html: "오늘은 이미 100포인트를 얻으셨습니다.<br />게임은 무한으로 즐겨주세요😁",
         showConfirmButton: false,
         timer: 2000,
       });
