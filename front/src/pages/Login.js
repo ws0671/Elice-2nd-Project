@@ -21,6 +21,7 @@ import {
 } from "../components/socialLogin/SocialLoginUrl";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { FlexDiv1 } from "../components/styles/MainStyle";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -221,9 +222,25 @@ function LoginForm() {
           <LoginButton content="register" onClick={() => navigate("/register")}>
             REGISTER
           </LoginButton>
-          <a href={githuburl}>GITHUB</a>
-          <a href={googleurl}>GOOGLE</a>
-          <a href={kakaourl}>KAKAO</a>
+          <FlexDiv1 style={{ justifyContent: "space-between" }}>
+            <a href={githuburl}>
+              <img
+                src={`/img/깃헙 동그라미.png`}
+                width="50px"
+                style={{ marginRight: "30px" }}
+              />
+            </a>
+            <a href={googleurl}>
+              <img
+                src={`/img/구글 동그라미.png`}
+                width="50px"
+                style={{ marginRight: "30px" }}
+              />
+            </a>
+            <a href={kakaourl}>
+              <img src={`/img/카카오 동그라미.png`} width="50px" />
+            </a>
+          </FlexDiv1>
         </MainContainer>
       </BodyContainer>
     </BodyWrapper>

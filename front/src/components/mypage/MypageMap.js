@@ -1,6 +1,7 @@
 /*global kakao*/
 import "../styles/Mypage/MypageMap.css";
 import React, { useEffect } from "react";
+import Swal from "sweetalert2";
 
 // const componentDidMount = () => {
 //   let _script = document.createElement("script");

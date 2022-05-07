@@ -141,7 +141,7 @@ const UserAuthService = {
     }
     const bookmarkList = user.bookmarks;
     const bookmarks = await Game.findAllBookmarks({ bookmarkList, page: 1 });
-    const reviews = await Review.findAllByUser({ userId });
+    const reviews = await Review.findAllByUser({ writer: user });
 
     return { user, bookmarks, reviews };
   },

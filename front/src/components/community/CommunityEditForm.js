@@ -4,6 +4,7 @@ import * as Api from "../../api";
 import { useParams } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import Swal from "sweetalert2";
 
 const CommunityEditForm = ({ isEditing }) => {
   // 해당 글 내용 데이터 상태값
@@ -34,11 +35,11 @@ const CommunityEditForm = ({ isEditing }) => {
     if (content.title && content.body && content.category) {
       const newContent = content;
       Api.put(`article/${params.id}`, newContent).then((res) => {
-        alert("성공했습니다.");
+        Swal.fire("성공했습니다.");
         isEditing();
       });
     } else {
-      alert("실패했습니다. 다시 한 번 확인해주세요.");
+      Swal.fire("실패했습니다. 다시 한 번 확인해주세요.");
     }
   };
 
@@ -109,6 +110,19 @@ const CommunityEditForm = ({ isEditing }) => {
           ></textarea> */}
           <CKEditor
             editor={ClassicEditor}
+            config={{
+              placeholder: "내용을 입력하세요.",
+              toolbar: [
+                "heading",
+                "|",
+                "bold",
+                "italic",
+                "|",
+                "link",
+                "bulletedList",
+                "numberedList",
+              ],
+            }}
             data={content.body}
             onChange={(event, editor) => {
               const data = editor.getData();

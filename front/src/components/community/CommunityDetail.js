@@ -66,7 +66,7 @@ const CommunityDetail = () => {
     const newComment = { comment, articleId: detail.articleId };
     Api.post("comment", newComment).then((res) => {
       copied.push(res.data);
-      alert("댓글 등록이 완료되었습니다!");
+      Swal.fire("댓글 등록이 완료되었습니다!");
       setExample(copied);
     });
   };
@@ -75,7 +75,7 @@ const CommunityDetail = () => {
   const editHandler = (item, comment) => {
     const edit = { ...item, comment };
     Api.put(`comment/${item.commentId}`, edit).then((res) =>
-      alert("댓글이 수정되었습니다.")
+      Swal.fire("댓글이 수정되었습니다.")
     );
     const copied = example.map((v) => {
       if (
@@ -95,7 +95,7 @@ const CommunityDetail = () => {
   const removeHandler = (item) => {
     const deleted = { ...item, isDeleted: true };
     Api.put(`comment/${item.commentId}/delete`, deleted).then((res) =>
-      alert("댓글이 삭제되었습니다.")
+      Swal.fire("댓글이 삭제되었습니다.")
     );
     const copied = example.map((v) => {
       if (
@@ -150,7 +150,7 @@ const CommunityDetail = () => {
                     </button>
                     <button
                       onClick={() => {
-                        alert("해당 내용을 삭제합니다.");
+                        Swal.fire("해당 내용을 삭제합니다.");
                         Api.delete("article", params.id).then((res) => {
                           navigate("/community");
                         });
@@ -171,6 +171,11 @@ const CommunityDetail = () => {
                 </div>
               </div>
               <div className="detail body">{ReactHtmlParser(detail.body)}</div>
+              <div className="detail etc">
+                {detail.tags.map((item) => (
+                  <span># {item}</span>
+                ))}
+              </div>
               <div className="detail etc">
                 <img
                   src={!isLiked ? "/images/unlike.png" : "/images/like.png"}

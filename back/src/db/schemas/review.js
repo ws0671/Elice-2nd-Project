@@ -6,8 +6,9 @@ const ReviewSchema = new Schema(
       type: Number,
       required: true,
     },
-    userId: {
-      type: String,
+    writer: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     gameId: {
