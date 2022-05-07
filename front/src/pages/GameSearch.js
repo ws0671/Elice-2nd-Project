@@ -4,7 +4,7 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import DataExpression from "../components/Search/DataExpression";
 import * as Api from "../api";
 import SearchPagination from "../components/Search/SearchPagination";
-
+import ReactPaginate from "react-paginate";
 import {
   H1,
   SearchBarContainer,
@@ -77,6 +77,14 @@ function GameSearch() {
     setLastPage(count);
   };
 
+  const getCurrentData = async (currentPage) => {
+    const res = await Api.get(
+      `game/list/${currentPage}`,
+      `?page=${limit}&limit=${limit}`
+    );
+    setData(res.data);
+  };
+
   useEffect(() => {
     getData();
   }, [page, limit, inputData]);
@@ -144,6 +152,11 @@ function GameSearch() {
   const handleDropEntrance = (e) => {
     e.preventDefault();
     setShow(e.target.textContent);
+  };
+  // 페이지네이션 클릭시 이벤트함수입니다
+  const handlePageClick = async (data) => {
+    let currentPage = data.selected + 1;
+    await getCurrentData(currentPage);
   };
   return (
     <>
@@ -291,7 +304,7 @@ function GameSearch() {
             </div>
           </div>
         </Dropdown> */}
-      )}
+      {/* )} */}
       <Main>
         <ImgDiv className="mt-4">
           {/* 검색 결과 없는 것 처리 구현해야함. */}
@@ -305,15 +318,34 @@ function GameSearch() {
           ></DataExpression>
         </ImgDiv>
       </Main>
-      <Footer>
+      <Footer className="mt-5">
         {mode === "전체 목록" && (
-          <SearchPagination
-            page={page}
-            lastPage={lastPage}
-            limit={limit}
-            setPage={setPage}
-            setLimit={setLimit}
-          ></SearchPagination>
+          // <SearchPagination
+          //   page={page}
+          //   lastPage={lastPage}
+          //   limit={limit}
+          //   setPage={setPage}
+          //   setLimit={setLimit}
+          // ></SearchPagination>
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            pageCount={lastPage}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
+          />
         )}
       </Footer>
     </>
