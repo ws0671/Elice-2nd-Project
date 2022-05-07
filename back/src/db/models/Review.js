@@ -7,7 +7,7 @@ const Review = {
   },
 
   findById: async ({ reviewId }) => {
-    const review = await ReviewModel.findOne({ reviewId });
+    const review = await ReviewModel.findOne({ reviewId }).populate("writer");
     return review;
   },
 
