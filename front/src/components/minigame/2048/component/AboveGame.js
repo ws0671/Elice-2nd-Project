@@ -1,4 +1,4 @@
-import "../index.css";
+import "../2048.css";
 import React from "react";
 
 export default function AboveGame() {

@@ -1,5 +1,5 @@
 import { Comment, User } from "../db";
-import { SetUtil } from "../common/setUtil";
+import { SetUtil } from "../common/SetUtil";
 
 const CommentService = {
   addComment: async ({ userId, articleId, comment }) => {
