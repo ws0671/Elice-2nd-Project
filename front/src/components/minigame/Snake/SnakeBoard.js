@@ -32,20 +32,21 @@ const SnakeBoard = () => {
 
   useInterval(() => gameLoop(), speed);
 
+  const checkPoint = async () => {
+    const today = await Api.get2("point?route=SnakeGame");
+    setPoint(today.data.point);
+    if (today.data.point) {
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: `이미 100 포인트를 획득하셨습니다 :)`,
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    }
+  };
+
   useLayoutEffect(() => {
-    const checkPoint = async () => {
-      const today = await Api.get2("point?route=SnakeGame");
-      setPoint(today.data.point);
-      if (today.data.point) {
-        Swal.fire({
-          position: "center",
-          icon: "success",
-          title: `이미 100 포인트를 획득하셨습니다 :)`,
-          showConfirmButton: false,
-          timer: 2000,
-        });
-      }
-    };
     Swal.fire({
       position: "center",
       title: "Rules Of Snake Game",
