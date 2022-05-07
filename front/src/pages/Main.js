@@ -122,7 +122,7 @@ function Main() {
           ))}
         </Row>
       </Container>
-      <div style={{ width: "100%", height: "20vh" }}></div>
+      <div style={{ width: "100%", height: "80vh" }}></div>
       <Div className="footer" style={{ backgroundColor: "#6C63FF" }}>
         <div>
           <img

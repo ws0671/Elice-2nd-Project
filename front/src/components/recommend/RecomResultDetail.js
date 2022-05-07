@@ -1,26 +1,52 @@
 import React, { useState, useContext, useEffect } from "react"
-import { useLocation } from "react-router-dom"
-import { Button } from "react-bootstrap"
+import { useNavigate, useLocation } from "react-router-dom"
 import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
-import resultImg from '../../images/RecomBg_result_2.svg'
-import { QnaBox, AnswerButton, Status, StatusBar } from './RecomStyle'
-import { useNavigate } from "react-router-dom"
-import { UserStateContext } from "../../App"
 import * as Api from "../../api";
+import { UserStateContext } from "../../App"
+import { Wrapper, MainImg, RemainderWrapper, Remainders, ButtonWrapper, Button } from "./ResultDetailStyle"
+import { BodyStyle, QnaBox, AnswerButton } from "./RecomStyle";
+import RecomSlider from "./RecomSlider";
+import RecomChart from './RecomChart'
+
+function RecomResultDetail() {
+    const location = useLocation()
+    const navigate = useNavigate()
+    const userContext = useContext(UserStateContext)
+    const userId = userContext.user.userId
 
 
-function RecomResultDetail({ recomItem }) {
-    console.log('recomItem', recomItem)
+    const [currentIdx, setCurrentIdx] = useState(0)
+    const [gameItem, setGameItem] = useState([])
+
+    const getCurrentIdx = (currentIdx) => {
+        setCurrentIdx(currentIdx)
+
+    }
+
+
+    const refresh = () => {
+        Api.delete("gameRecommend", userId)
+        navigate('/recommend')
+    }
+
+    useEffect(() => {
+        setGameItem(location.state.recomItem)
+
+    }, [])
+
+
 
     return (
-        <>
-
-
-        </>
-
-
-
+        <div>
+            <BodyStyle>
+                <RecomSlider gameItem={gameItem} getCurrentIdx={getCurrentIdx} />
+                <RecomChart gameItem={gameItem} />
+                <ButtonWrapper>
+                    <Button onClick={refresh}>처음부터 다시!</Button>
+                </ButtonWrapper>
+            </BodyStyle>
+        </div>
     )
 
 

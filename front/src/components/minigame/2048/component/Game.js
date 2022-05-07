@@ -1,4 +1,4 @@
-import "../index.css";
+import "../2048.css";
 import React, { useState } from "react";
 import times from "lodash/times";
 import useMoveTile from "../hook/useMoveTile";

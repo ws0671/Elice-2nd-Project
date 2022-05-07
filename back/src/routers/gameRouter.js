@@ -1,3 +1,4 @@
+import { redisClient, DEFAULT_EXPIRATION } from "../db";
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
 import { GameService } from "../services/gameService";
@@ -11,12 +12,29 @@ GameRouter.get("/list/:page", async (req, res, next) => {
     const numOfPageLimit = req.query.limit
       ? Number(req.query.limit)
       : undefined;
-    const gameList = await GameService.getGames({
-      page,
-      numOfPageSkip,
-      numOfPageLimit,
-    });
-    res.status(200).json(gameList);
+
+    // redis 서버에서 캐시 확인
+    const cache = await redisClient.GET(
+      `game/list/${page}&${numOfPageSkip}&${numOfPageLimit}`
+    );
+    if (cache) {
+      // 캐시가 있으면
+      res.status(200).json(JSON.parse(cache));
+    } else {
+      // 캐시가 없으면
+      const gameList = await GameService.getGames({
+        page,
+        numOfPageSkip,
+        numOfPageLimit,
+      });
+
+      await redisClient.SETEX(
+        `game/list/${page}`,
+        DEFAULT_EXPIRATION,
+        JSON.stringify(gameList)
+      );
+      res.status(200).json(gameList);
+    }
   } catch (error) {
     next(error);
   }
@@ -107,12 +125,26 @@ GameRouter.get("/rankedList/:colName", async (req, res, next) => {
   try {
     const colName = req.params.colName;
     const numOfLimit = req.query.limit ? Number(req.query.limit) : undefined;
-    const rankedList = await GameService.getRankedList({
-      colName,
-      numOfLimit,
-    });
 
-    res.status(200).send(rankedList);
+    // redis 서버에서 캐시 확인
+    const cache = await redisClient.GET(`rankedList/${colName}`);
+    if (cache) {
+      // 캐시가 있으면
+      res.status(200).json(JSON.parse(cache));
+    } else {
+      // 캐시가 없으면
+      const rankedList = await GameService.getRankedList({
+        colName,
+        numOfLimit,
+      });
+
+      await redisClient.SETEX(
+        `rankedList/${colName}&${numOfLimit}`,
+        DEFAULT_EXPIRATION,
+        JSON.stringify(rankedList)
+      );
+      res.status(200).json(rankedList);
+    }
   } catch (error) {
     next(error);
   }
@@ -127,15 +159,31 @@ GameRouter.get("/search/:key", async (req, res, next) => {
       ? Number(req.query.limit)
       : undefined;
     const sortOrder = req.query.sortOrder ? Number(req.query.sortOrder) : 1;
-    const gameSearchResult = await GameService.getSearchResult({
-      key,
-      colName,
-      sortOrder,
-      page,
-      numOfPageLimit,
-    });
 
-    res.status(200).json(gameSearchResult);
+    // redis 서버에서 캐시 확인
+    const cache = await redisClient.GET(
+      `search/${key}?${page}&${colName}&${numOfPageLimit}&${sortOrder}`
+    );
+    if (cache) {
+      // 캐시가 있으면
+      res.status(200).json(JSON.parse(cache));
+    } else {
+      // 캐시가 없으면
+      const gameSearchResult = await GameService.getSearchResult({
+        key,
+        colName,
+        sortOrder,
+        page,
+        numOfPageLimit,
+      });
+
+      await redisClient.SETEX(
+        `search/${key}?${page}&${colName}&${sortOrder}`,
+        DEFAULT_EXPIRATION,
+        JSON.stringify(gameSearchResult)
+      );
+      res.status(200).json(gameSearchResult);
+    }
   } catch (error) {
     next(error);
   }

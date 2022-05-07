@@ -17,6 +17,10 @@ const MiniGame = () => {
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useLocalStorageNumber("bestScore", 0);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+  });
+
   useLayoutEffect(() => {
     const checkToday = async () => {
       const today = await Api.get2("point?route=2048");
@@ -69,15 +73,17 @@ const MiniGame = () => {
 
   return (
     <>
-      <div className="container" id="game2048">
-        <div style={{ height: "80px" }} />
-        <Header score={score} bestScore={bestScore} />
+      <div className="container2048" id="container2048">
+        <div id="game2048">
+          <div style={{ height: "80px" }} />
+          <Header score={score} bestScore={bestScore} />
+          <br />
+          <AboveGame />
+        </div>
         <br />
-        <AboveGame />
+        <br />
+        <Game setScore={setScore} />
       </div>
-      <br />
-      <br />
-      <Game setScore={setScore} />
     </>
   );
 };
