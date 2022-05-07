@@ -14,6 +14,7 @@ import {
   ScreenShot,
   Footer,
 } from "../components/styles/GameDetailStyle";
+import Swal from "sweetalert2";
 const GameDetail = () => {
   const [data, setData] = useState(null);
   const [genre, setGenre] = useState();
@@ -64,7 +65,7 @@ const GameDetail = () => {
     };
     Api.post("review", newReview).then((res) => {
       copied.push(res.data);
-      alert("리뷰 등록이 완료되었습니다!");
+      Swal.fire("리뷰 등록이 완료되었습니다!");
       setExample(copied);
     });
   };
@@ -73,7 +74,7 @@ const GameDetail = () => {
   const editHandler = (item, review) => {
     const edit = { ...item, review };
     Api.put(`review/${item.reviewId}`, edit).then((res) =>
-      alert("리뷰가 수정되었습니다.")
+      Swal.fire("리뷰가 수정되었습니다.")
     );
     const copied = example.map((v) => {
       if (
@@ -92,7 +93,7 @@ const GameDetail = () => {
   const removeHandler = (item) => {
     const deleted = { ...item, isDeleted: true };
     Api.delete(`review/${item.reviewId}`).then((res) =>
-      alert("리뷰가 삭제되었습니다.")
+      Swal.fire("리뷰가 삭제되었습니다.")
     );
     const copied = example.map((v) => {
       if (
