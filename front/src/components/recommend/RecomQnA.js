@@ -125,32 +125,6 @@ function RecomQuestion() {
         statusRef.current.style.width = 0 + '%';
     }, [])
 
-    /*  const handleSubmit = async (e) => {
-         e.preventDefault();
- 
-         try {
-             const res = await Api.post("gameRecommend", {
-                 genre,
-                 answer,
-             });
- 
-             // 유저 정보는 response의 data임.
-             const user = res.data;
- 
-             // JWT 토큰은 유저 정보의 token임.
-             const jwtToken = user.token;
-             // sessionStorage에 "userToken"이라는 키로 JWT 토큰과 닉네임을 저장함.
- 
-             sessionStorage.setItem("userToken", jwtToken);
-             sessionStorage.setItem("user", JSON.stringify(user));
- 
-         } catch (err) {
-             alert("결과를 보내는 데 실패했습니다.\n", err);
-         }
-     };
-  */
-
-
     return (
         <>
             <BodyStyle imgUrl={qnaImg}>

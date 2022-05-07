@@ -117,7 +117,7 @@ transform: translate(-50%, -50%);
 .RightButton{
     position: absolute;
     right: -7rem;
-    top: 10rem;
+    top: 13rem;
     color: white;
     cursor: pointer;
 }

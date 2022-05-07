@@ -16,6 +16,7 @@ import Recommend from "./pages/Recommend";
 import RecomGenre from "./components/recommend/RecomGenre";
 import RecomQnA from "./components/recommend/RecomQnA";
 import RecomResult from "./components/recommend/RecomResult"
+import RecomResultDetail from "./components/recommend/RecomResultDetail"
 import Prologue from "./pages/Prologue"
 import Mypage from "./pages/Mypage";
 import TopChart from "./pages/TopChart";
@@ -85,6 +86,7 @@ function App() {
             <Route path="/recommend/qna/1" element={<RecomGenre />} />
             <Route path="/recommend/qna/2" element={<RecomQnA />} />
             <Route path="/recommend/result" element={<RecomResult />} />
+            <Route path="/recommend/result/detail" element={< RecomResultDetail />} />
             <Route path="/prologue" element={<Prologue />} />
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/community/create" element={<CommunityAddForm />} />
