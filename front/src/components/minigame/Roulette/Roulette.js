@@ -56,9 +56,10 @@ const Roulette = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: `축하합니다! ${point}포인트를 얻으셨습니다!!`,
+          title: `축하합니다!`,
+          text: `${point}포인트를 얻으셨습니다!!`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2000,
         });
       };
       addPoint();
