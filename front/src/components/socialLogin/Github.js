@@ -77,7 +77,13 @@ const Github = () => {
         navigate("/", { replace: true });
       }
     } catch (err) {
-      alert("로그인 실패");
+      Swal.fire({
+        icon: "error",
+        title: "로그인 실패",
+        text: err.response.data,
+        showConfirmButton: false,
+        timer: 3000,
+      });
       navigate("/", { replace: true });
     }
   };
