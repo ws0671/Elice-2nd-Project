@@ -29,7 +29,7 @@ const Review = {
       filter,
       update,
       option
-    );
+    ).populate("writer");
 
     return updateReview;
   },
