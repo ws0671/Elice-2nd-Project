@@ -56,6 +56,7 @@ const CommunityBoard = () => {
             <tr>
               <th className="dropdown">
                 말머리
+                <span class="material-symbols-outlined">arrow_drop_down</span>
                 <ul className="dropdown-content">
                   <li onClick={() => setQuery("")}>전체</li>
                   <li onClick={() => setQuery(`&category=default`)}>자유</li>
@@ -75,7 +76,7 @@ const CommunityBoard = () => {
               <th>작성자</th>
               <th>작성일</th>
               <th>조회 수</th>
-              <th className="dropdown">좋아요</th>
+              <th>좋아요</th>
             </tr>
           </thead>
           <CommunityList info={info} page={page} />
