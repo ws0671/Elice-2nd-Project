@@ -16,7 +16,7 @@ function RecomMainPage() {
           <img className="img-fluid" width="100%" height="100%" src={startImg} />
           <figcaption>
             <h1 className="display-2 mt-lg-5 mb-lg-3">Welcome!</h1>
-            <p style={{ marginBottom: '1.5rem' }}>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <p style={{ marginBottom: '1.5rem' }}>당신에게 어울리는 게임을 찾아드립니다!</p>
             <Sbutton onClick={() => navigate("/recommend/qna/1")}>시작</Sbutton>
           </figcaption>
         </figure>

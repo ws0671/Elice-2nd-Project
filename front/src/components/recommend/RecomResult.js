@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 
-
 function RecomResult() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,36 +22,30 @@ function RecomResult() {
     console.log(location);
   }, [location]);
 
-
   const handleSubmit = () => {
-    setLoading(true)
-    navigate('/recommend/result/detail', {
+    setLoading(true);
+    navigate("/recommend/result/detail", {
       state: {
         recomItem: recomItem,
       },
-    })
-
-  }
+    });
+  };
 
   useEffect(() => {
-    Api.get("gameRecommend/results", userId)
-      .then((res) => {
-        /*  console.log(res.data) */
-        setRecomItem(res.data)
-      })
-  }, [])
-
-  console.log(recomItem)
+    Api.get("gameRecommend/results", userId).then((res) => {
+      /*  console.log(res.data) */
+      setRecomItem(res.data);
+    });
+  }, []);
 
   return (
     <>
       <img className="img-fluid" width="100%" src={resultImg} />
       <ResultBox>
-        < h1 > <Button onClick={handleSubmit}>결과보기(지금 결과페이지임)</Button></h1 >
+        < h1 > <Button onClick={handleSubmit}>결과보기</Button></h1 >
       </ResultBox>
     </>
-  )
-
+  );
 }
 
 export default RecomResult;
