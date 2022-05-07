@@ -8,7 +8,12 @@ import { FaBookmark } from "react-icons/fa";
 import { UserStateContext } from "../App";
 import ReviewAddForm from "../components/Review/ReviewAddForm";
 import ReviewList from "../components/Review/ReviewList";
-
+import {
+  Main,
+  FlexBody,
+  ScreenShot,
+  Footer,
+} from "../components/styles/GameDetailStyle";
 const GameDetail = () => {
   const [data, setData] = useState(null);
   const [genre, setGenre] = useState();
@@ -19,6 +24,7 @@ const GameDetail = () => {
   // 커뮤니티 댓글 리스트 상태값
   const [example, setExample] = useState([]);
 
+  // 가져온 data 및 state를 다루는 함수입니다
   const handleData = async () => {
     if (userContext.user) {
       const res = await Api.get(`game/${params.id}`);
@@ -32,8 +38,10 @@ const GameDetail = () => {
       setData(res.data);
       setGenre(res.data.game.steamspyTags);
       setOs(res.data.game.platforms);
+      setExample(res.data.reviews);
     }
   };
+  // 북마크를 다루는 함수입니다
   const handleBookmark = () => {
     if (!bookmark) {
       setBookmark((prev) => !prev);
@@ -152,7 +160,8 @@ const GameDetail = () => {
           </ScreenShot>
         )}
         <Footer></Footer>
-        <div className="detail comment">
+
+        <div className="detail review">
           <div className="head">리뷰</div>
           <div className="area">
             <ReviewList
@@ -160,54 +169,12 @@ const GameDetail = () => {
               removeHandler={removeHandler}
               editHandler={editHandler}
             />
-            <ReviewAddForm clickHandler={clickHandler} />
+            {userContext.user && <ReviewAddForm clickHandler={clickHandler} />}
           </div>
         </div>
       </Main>
     </>
   );
 };
-const FlexBody = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50vh;
-  h1 {
-    font-weight: bold;
-  }
-  span {
-    margin-left: 5px;
-    font-size: 20px;
-  }
-  img {
-    margin-left: 40px;
-    width: 400px;
-    height: 300px;
-  }
-  .information {
-    position: relative;
-  }
-  .bookmark {
-    cursor: pointer;
-    left: -5vh;
-    position: absolute;
-  }
-`;
-const ScreenShot = styled.div`
-  display: flex;
-  justify-content: center;
-  img {
-    width: 400px;
-  }
-`;
-const Footer = styled.footer`
-  height: 20vh;
-`;
-const Main = styled.div`
-  padding: 0 200px;
-  .screenShot {
-    margin-left: 55px;
-    font-weight: bold;
-  }
-`;
+
 export default GameDetail;

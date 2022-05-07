@@ -8,13 +8,18 @@ import { MainImage, Main } from "../components/styles/TopChartStyle";
 function TopChart() {
   return (
     <body>
-      <MainImage className="image">
+      {/* <MainImage className="image">
         <img
           style={{ width: "100%" }}
           alt="메인 이미지"
           src="/images/medals.png"
         />
-      </MainImage>
+      </MainImage> */}
+      <div className="video">
+        <video width="100%" muted autoPlay loop>
+          <source src="/videos/trophy2.mp4" type="video/mp4" />
+        </video>
+      </div>
       <Main>
         <div className="toptenContainer">
           <h3>평점 TOP 10</h3>

@@ -25,11 +25,14 @@ const Mypage = () => {
   const [total, setTotal] = useState(0);
   const userContext = useContext(UserStateContext);
   const [data, setData] = useState({});
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     Api.get("user", `${userContext.user.userId}/myPage`)
       .then((res) => {
         setData(res.data.user);
+        console.log(res.data.reviews);
+        setReviews(res.data.reviews);
         setEditNickname(res.data.user.nickname);
         setUserData(
           res.data.bookmarks.bookmarkGames.map((data) => ({
@@ -220,9 +223,9 @@ const Mypage = () => {
         <div className="middle2">
           <div className="topic common">내가 쓴 리뷰</div>
           <div className="common">
-            <MypageReview />
-            <MypageReview />
-            <MypageReview />
+            {reviews.map((item) => (
+              <MypageReview item={item} />
+            ))}
           </div>
         </div>
       </Main>

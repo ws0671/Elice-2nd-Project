@@ -54,7 +54,16 @@ export const FlexDiv2 = styled.div`
 `;
 
 export const Body = styled.div`
-  background-color: #673ab7;
+  background: linear-gradient(
+    180deg,
+    #060311 10.29%,
+    #080021 24.48%,
+    #3737a5 44.27%,
+    #722d9b 61.46%,
+    #b31a7b 78.13%,
+    #c62368 95.84%
+  );
+  background-blend-mode: multiply;
 `;
 export const DivBold = styled.div`
   color: white;

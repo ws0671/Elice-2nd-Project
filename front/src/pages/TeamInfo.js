@@ -1,41 +1,48 @@
 import { Card, Badge } from "react-bootstrap";
 import styled from "styled-components";
+import first from "../images/first.png";
+import second from "../images/second.png";
+import third from "../images/third.png";
+import fourth from "../images/fourth.png";
+import fifth from "../images/fifth.png";
+import sixth from "../images/sixth.png";
 const TeamInfo = () => {
   const data = [
     {
       name: "이영민",
       position: ["프론트엔드", "팀장"],
-      image: "",
+      image: first,
       body: "",
     },
     {
       name: "강주희",
       position: ["프론트엔드"],
-      image: "",
-      body: "",
+      image: second,
+      body: `많은 소통과 공식 문서의 중요성을 깊이 느끼게 되는 프로젝트였습니다ㅎㅎ 
+      디자인은 아직까지 참 많이 어려운 것 같습니다😂`,
     },
     {
       name: "이은여울",
       position: ["프론트엔드"],
-      image: "",
-      body: "",
+      image: third,
+      body: ``,
     },
     {
       name: "김신웅",
       position: ["백엔드", "데이터분석"],
-      image: "",
-      body: "",
+      image: fourth,
+      body: ``,
     },
     {
       name: "노송희",
       position: ["백엔드"],
-      image: "",
+      image: fifth,
       body: "",
     },
     {
       name: "신도희",
       position: ["백엔드", "발표"],
-      image: "",
+      image: sixth,
       body: "",
     },
   ];
@@ -66,6 +73,7 @@ const TeamInfo = () => {
                 src={item.image}
                 alt="프로필"
                 className="cardImage"
+                style={{ width: 250 }}
               />
               <Card.Title>{item.name}</Card.Title>
               {/* <Card.Subtitle> */}
