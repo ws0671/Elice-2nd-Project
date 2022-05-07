@@ -1,6 +1,7 @@
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
 import { useEffect, useState } from 'react'
 import styled, { keyframes } from "styled-components"
+import { Link } from 'react-router-dom'
 
 
 const RecomSlider = ({ gameItem, getCurrentIdx }) => {
@@ -56,7 +57,11 @@ const RecomSlider = ({ gameItem, getCurrentIdx }) => {
                                     <Background src={items.background} alt='game_background' />
                                     <Content className="Content">
                                         <h5>당신에게 추천드리는 게임은... ({currentNum}/5)</h5>
-                                        <HeaderImg src={items.headerImage} />
+                                        <Link
+                                            key={index}
+                                            to={`/gamedetail/${items["gameId"]}`}
+                                        >
+                                            <HeaderImg src={items.headerImage} /></Link>
                                         <Heading>
                                             {items.name}
                                         </Heading>
