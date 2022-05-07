@@ -12,19 +12,20 @@ const Roulette = () => {
   const [point, setPoint] = useState();
   const userContext = useContext(UserStateContext);
 
+  const checkPoint = async () => {
+    const today = await Api.get2("point?route=Roulette");
+    if (today.data.point) {
+      setPoint(today.data.point);
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: `이미 ${today.data.point}포인트를 획득하셨습니다.\n내일 다시 도전해주세요 :)`,
+        showConfirmButton: false,
+      });
+    }
+  };
+
   useLayoutEffect(() => {
-    const checkPoint = async () => {
-      const today = await Api.get2("point?route=Roulette");
-      if (today.data.point) {
-        setPoint(today.data.point);
-        Swal.fire({
-          position: "center",
-          icon: "warning",
-          title: `이미 ${today.data.point}포인트를 획득하셨습니다.\n내일 다시 도전해주세요 :)`,
-          showConfirmButton: false,
-        });
-      }
-    };
     Swal.fire({
       position: "center",
       title: "Rules Of Roulette",
