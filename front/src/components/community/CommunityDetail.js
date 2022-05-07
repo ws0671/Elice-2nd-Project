@@ -32,7 +32,6 @@ const CommunityDetail = () => {
 
   // 수정 삭제 권한 유저인지 확인용 변수
   const isUser = detail?.author?.userId == userContext.user.userId;
-  console.log(userContext);
   const params = useParams();
   // 수정폼 컴포넌트 전달용 함수
   const isEditing = () => setIsEdit((prev) => !prev);
@@ -45,7 +44,6 @@ const CommunityDetail = () => {
     Api.get("article", params.id)
       .then((res) => {
         setDetail(res.data.article);
-        console.log("detail", res.data);
         setIsLiked(res.data.like);
         setExample(res.data.comments);
         setShow("success");
@@ -68,7 +66,7 @@ const CommunityDetail = () => {
     const newComment = { comment, articleId: detail.articleId };
     Api.post("comment", newComment).then((res) => {
       copied.push(res.data);
-      alert("댓글 등록이 완료되었습니다!");
+      Swal.fire("댓글 등록이 완료되었습니다!");
       setExample(copied);
     });
   };
@@ -77,7 +75,7 @@ const CommunityDetail = () => {
   const editHandler = (item, comment) => {
     const edit = { ...item, comment };
     Api.put(`comment/${item.commentId}`, edit).then((res) =>
-      alert("댓글이 수정되었습니다.")
+      Swal.fire("댓글이 수정되었습니다.")
     );
     const copied = example.map((v) => {
       if (
@@ -97,7 +95,7 @@ const CommunityDetail = () => {
   const removeHandler = (item) => {
     const deleted = { ...item, isDeleted: true };
     Api.put(`comment/${item.commentId}/delete`, deleted).then((res) =>
-      alert("댓글이 삭제되었습니다.")
+      Swal.fire("댓글이 삭제되었습니다.")
     );
     const copied = example.map((v) => {
       if (
@@ -126,7 +124,7 @@ const CommunityDetail = () => {
         setIsLiked((prev) => !prev);
         setDetail({ ...copied, like: copied.like + 1 });
         const putData = { author: detail.author, articleId: detail.articleId };
-        Api.post(`like`, putData).then((res) => console.log(res.data));
+        Api.post(`like`, putData);
       }
     }
   };
@@ -152,7 +150,7 @@ const CommunityDetail = () => {
                     </button>
                     <button
                       onClick={() => {
-                        alert("해당 내용을 삭제합니다.");
+                        Swal.fire("해당 내용을 삭제합니다.");
                         Api.delete("article", params.id).then((res) => {
                           navigate("/community");
                         });
@@ -173,6 +171,11 @@ const CommunityDetail = () => {
                 </div>
               </div>
               <div className="detail body">{ReactHtmlParser(detail.body)}</div>
+              <div className="detail etc">
+                {detail.tags.map((item) => (
+                  <span># {item}</span>
+                ))}
+              </div>
               <div className="detail etc">
                 <img
                   src={!isLiked ? "/images/unlike.png" : "/images/like.png"}

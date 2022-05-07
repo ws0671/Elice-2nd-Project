@@ -4,6 +4,18 @@ import { UserStateContext } from "../../App";
 import * as Api from "../../api";
 import styled from "styled-components";
 import MypageBookmarkElement from "./MypageBookmarkElement";
+import {
+  H1,
+  SearchBarContainer,
+  // Button,
+  Form,
+  Input,
+  DropDownBtn,
+  Dropdown,
+  Main,
+  ImgDiv,
+  Footer,
+} from "../styles/GameSearchStyle";
 
 const MypageBookmark = () => {
   const [tabClick, setTabClick] = useState("ALL");
@@ -20,7 +32,6 @@ const MypageBookmark = () => {
       "user",
       `${userContext.user.userId}/myPage?criteria=positiveRate&page=${page}`
     ).then((res) => {
-      console.log("인기순", res.data);
       setPopularData(res.data.bookmarkGames);
       setTotal(res.data.bookmarkCount);
     });
@@ -29,13 +40,11 @@ const MypageBookmark = () => {
       "user",
       `${userContext.user.userId}/myPage?criteria=averagePlaytime&page=${page}`
     ).then((res) => {
-      console.log("플레이타임순", res.data);
       setTimeData(res.data.bookmarkGames);
     });
 
     Api.get("user", `${userContext.user.userId}/myPage?page=${page}`).then(
       (res) => {
-        console.log("전체순", res.data);
         setTotalData(res.data.bookmarkGames);
       }
     );
@@ -58,18 +67,26 @@ const MypageBookmark = () => {
         <button onClick={clickHandler}>플레이타임순</button>
       </div>
       <div className="gameBookmarks">
-        {tabClick === "ALL" &&
-          totalData.map((data, index) => (
-            <MypageBookmarkElement key={index} data={data} index={index} />
-          ))}
-        {tabClick === "인기순" &&
-          popularData.map((data, index) => (
-            <MypageBookmarkElement key={index} data={data} index={index} />
-          ))}
-        {tabClick === "플레이타임순" &&
-          timeData.map((data, index) => (
-            <MypageBookmarkElement key={index} data={data} index={index} />
-          ))}
+        <Main>
+          {tabClick === "ALL" &&
+            totalData.map((data, index) => (
+              <ImgDiv className="mt-4">
+                <MypageBookmarkElement key={index} data={data} index={index} />
+              </ImgDiv>
+            ))}
+          {tabClick === "인기순" &&
+            popularData.map((data, index) => (
+              <ImgDiv className="mt-4">
+                <MypageBookmarkElement key={index} data={data} index={index} />
+              </ImgDiv>
+            ))}
+          {tabClick === "플레이타임순" &&
+            timeData.map((data, index) => (
+              <ImgDiv className="mt-4">
+                <MypageBookmarkElement key={index} data={data} index={index} />
+              </ImgDiv>
+            ))}
+        </Main>
       </div>
       <Nav>
         <Button onClick={() => setPage(page - 1)} disabled={page === 1}>

@@ -8,6 +8,7 @@ import {
   Table,
   Button,
 } from "../styles/Community/CommunityBoardStyle";
+import Swal from "sweetalert2";
 
 // 커뮤니티 게시판 컴포넌트
 const CommunityBoard = () => {
@@ -28,14 +29,12 @@ const CommunityBoard = () => {
       .then((res) => {
         setInfo(res?.data?.articles);
         setTotal(res?.data?.articleCount);
-        console.log(res?.data);
         if (res.data?.articles.length === 0) {
           setShow("blank");
         } else setShow("success");
       })
       .catch((err) => {
-        console.log(err);
-        alert("로그인을 해주세요!");
+        Swal.fire(`로그인을 해주세요!`);
         // navigate("/login");
       });
   }, [page, query]);
@@ -56,6 +55,7 @@ const CommunityBoard = () => {
             <tr>
               <th className="dropdown">
                 말머리
+                <span class="material-symbols-outlined">arrow_drop_down</span>
                 <ul className="dropdown-content">
                   <li onClick={() => setQuery("")}>전체</li>
                   <li onClick={() => setQuery(`&category=default`)}>자유</li>
@@ -75,7 +75,7 @@ const CommunityBoard = () => {
               <th>작성자</th>
               <th>작성일</th>
               <th>조회 수</th>
-              <th className="dropdown">좋아요</th>
+              <th>좋아요</th>
             </tr>
           </thead>
           <CommunityList info={info} page={page} />

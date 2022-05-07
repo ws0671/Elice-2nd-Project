@@ -1,6 +1,7 @@
 /*global kakao*/
 import "../styles/Mypage/MypageMap.css";
 import React, { useEffect } from "react";
+import Swal from "sweetalert2";
 
 const getCurrentCoordinate = async () => {
   return new Promise((res, rej) => {
@@ -59,7 +60,6 @@ const MypageMap = () => {
     async function searchPlaces() {
       var keyword = "피씨방";
       const test = await getCurrentCoordinate();
-      console.log(test);
       var options = {
         location: test,
         radius: 10000,
@@ -79,10 +79,10 @@ const MypageMap = () => {
         // 페이지 번호를 표출합니다
         displayPagination(pagination);
       } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        alert("검색 결과가 존재하지 않습니다.");
+        Swal.fire("검색 결과가 존재하지 않습니다.");
         return;
       } else if (status === kakao.maps.services.Status.ERROR) {
-        alert("검색 결과 중 오류가 발생했습니다.");
+        Swal.fire("검색 결과 중 오류가 발생했습니다.");
         return;
       }
     }

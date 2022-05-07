@@ -61,6 +61,27 @@ const SetUtil = {
     }
   },
 
+  validatePermissionInWriting: (grade, category) => {
+    const categoryPermission = {
+      // "notice"랑 "default"는 권한이 필요 없음
+      humor: 0,
+      partyRecruitment: 1,
+      postscript: 2,
+      suggestions: 3,
+      honeytip: 4,
+      notice: 5,
+    };
+
+    // 확인 가능한지를 true, false로 반환
+    if (category == "default") {
+      return true;
+    } else if (grade >= categoryPermission[category]) {
+      return true;
+    } else {
+      return false;
+    }
+  },
+
   setPointAndGrade: (user, point) => {
     let result = {};
     result.isUpgraded = true;

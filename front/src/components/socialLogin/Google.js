@@ -42,9 +42,9 @@ const Google = () => {
         Swal.fire({
           position: "center",
           icon: "success",
-          title: "회원가입되었습니다. 로그인해주세요 :)",
+          title: `회원가입되었습니다.\n로그인해주세요 :)`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2000,
         });
         navigate("/login", { replace: true });
       } else {
@@ -57,27 +57,43 @@ const Google = () => {
           type: "LOGIN_SUCCESS",
           payload: user,
         });
+        Swal.fire({
+          icon: "success",
+          title: `환영합니다, ${user.nickname}님!`,
+          showConfirmButton: false,
+          timer: 1500,
+          width: 600,
+          background: "rgba(0, 0, 0, 0.8)",
+          color: "white",
+        });
 
         const today = await Api.get2(`point?route=Login`);
         if (!today.data.point) {
           Api.put(`user/${user.userId}/addPoint`, { point: 100 });
           Api.post("point", {
-            route: "Loing",
+            route: "Login",
             point: 100,
           });
           Swal.fire({
             position: "center",
             icon: "success",
-            title: "축하합니다! 100포인트를 얻으셨습니다!",
+            title: `축하합니다!`,
+            text: `100포인트를 얻으셨습니다!!`,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
           });
         }
 
         navigate("/", { replace: true });
       }
     } catch (err) {
-      alert("로그인 실패");
+      Swal.fire({
+        icon: "error",
+        title: "로그인 실패",
+        text: err.response.data,
+        showConfirmButton: false,
+        timer: 3000,
+      });
       navigate("/", { replace: true });
     }
   };

@@ -21,6 +21,7 @@ import {
 } from "../components/socialLogin/SocialLoginUrl";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { FlexDiv1 } from "../components/styles/MainStyle";
 
 function LoginForm() {
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ function LoginForm() {
   const githuburl = githubUrl();
   const googleurl = googleUrl();
   const kakaourl = kakaoUrl();
-  console.log("카카오 함수에서 만든 URL :", kakaourl);
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
@@ -77,10 +77,8 @@ function LoginForm() {
           .then((res) => {
             // setAnswerCode(res.data.code);
             // real = res.data.code;
-            // console.log(res.data.code);
             (async () => {
               answerCode = res.data.code;
-              console.log(res.data.code);
               await Swal.fire(
                 `${email}로 인증코드를 발송했습니다. 확인해주세요`
               );
@@ -181,7 +179,6 @@ function LoginForm() {
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
       Swal.fire({
         icon: "error",
         title: `${err.response.data}`,
@@ -192,7 +189,6 @@ function LoginForm() {
         color: "white",
       });
     }
-    console.log(email);
   };
 
   return (
@@ -226,9 +222,25 @@ function LoginForm() {
           <LoginButton content="register" onClick={() => navigate("/register")}>
             REGISTER
           </LoginButton>
-          <a href={githuburl}>GITHUB</a>
-          <a href={googleurl}>GOOGLE</a>
-          <a href={kakaourl}>KAKAO</a>
+          <FlexDiv1 style={{ justifyContent: "space-between" }}>
+            <a href={githuburl}>
+              <img
+                src={`/img/깃헙 동그라미.png`}
+                width="50px"
+                style={{ marginRight: "30px" }}
+              />
+            </a>
+            <a href={googleurl}>
+              <img
+                src={`/img/구글 동그라미.png`}
+                width="50px"
+                style={{ marginRight: "30px" }}
+              />
+            </a>
+            <a href={kakaourl}>
+              <img src={`/img/카카오 동그라미.png`} width="50px" />
+            </a>
+          </FlexDiv1>
         </MainContainer>
       </BodyContainer>
     </BodyWrapper>

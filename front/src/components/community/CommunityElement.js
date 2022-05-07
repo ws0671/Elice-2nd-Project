@@ -16,7 +16,6 @@ const CommunityElement = ({ item, index, page }) => {
   const clickHandler = () => {
     navigate(`/community/${item?.articleId}`);
   };
-  console.log("왜죠", item);
 
   const gradeHandler = (grade) => {
     if (grade === 0) {

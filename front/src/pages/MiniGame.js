@@ -19,8 +19,7 @@ const MiniGame = () => {
 
   useLayoutEffect(() => {
     const checkToday = async () => {
-      const today = await Api.get("point?route=2048");
-      // console.log(today.data.point);
+      const today = await Api.get2("point?route=2048");
       setToday(today.data.point);
       setChecked(true);
     };
@@ -45,7 +44,7 @@ const MiniGame = () => {
       // 오늘 얻은 포인트가 없으면
       setToday(100);
       setHasPrinted(true);
-      const record = { miniGame: 2048, point: 100 };
+      const record = { route: 2048, point: 100 };
       const point = { point: 100 };
       // 2048 게임 기록 추가하기
       Api.post("point", record);

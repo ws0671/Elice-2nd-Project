@@ -27,12 +27,10 @@ const Mypage = () => {
   const [data, setData] = useState({});
 
   useEffect(() => {
-    console.log(userContext.user.userId);
     Api.get("user", `${userContext.user.userId}/myPage`)
       .then((res) => {
         setData(res.data.user);
         setEditNickname(res.data.user.nickname);
-        console.log("마이페이지", res.data);
         setUserData(
           res.data.bookmarks.bookmarkGames.map((data) => ({
             name: data.name,
@@ -45,14 +43,11 @@ const Mypage = () => {
         );
       })
       .catch((err) => {
-        console.log(err);
-        alert("해당 페이지를 불러오지 못했습니다.");
+        Swal.fire("해당 페이지를 불러오지 못했습니다.");
       });
   }, []);
 
   const [userData, setUserData] = useState([]);
-
-  console.log(data);
 
   const making = (v) => {
     let realTagData = [];
@@ -64,11 +59,9 @@ const Mypage = () => {
         }
       }
     }
-    console.log(realTagData);
     realTagData.forEach((x) => {
       result[x] = (result[x] || 0) + 1;
     });
-    console.log(result);
 
     setTotal(
       Object.values(result).reduce(function add(sum, currValue) {
