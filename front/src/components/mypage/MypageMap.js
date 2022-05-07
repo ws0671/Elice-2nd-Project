@@ -59,7 +59,6 @@ const MypageMap = () => {
     async function searchPlaces() {
       var keyword = "피씨방";
       const test = await getCurrentCoordinate();
-      console.log(test);
       var options = {
         location: test,
         radius: 10000,

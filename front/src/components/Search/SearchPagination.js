@@ -17,7 +17,6 @@ const SearchPagination = ({ page, lastPage, limit, setPage, setLimit }) => {
     }
     return pagination;
   }, [lastPage, page]);
-  console.log(lastPage);
   return (
     <Row className="justify-content-center mt-3 me-0">
       <Col md={5}>

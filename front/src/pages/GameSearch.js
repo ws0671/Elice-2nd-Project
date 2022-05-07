@@ -75,7 +75,6 @@ function GameSearch() {
     setData(res.data);
     const count = Math.ceil(res.data.gameCounts / 12);
     setLastPage(count);
-    console.log(res.data);
   };
 
   useEffect(() => {

@@ -62,7 +62,7 @@ const Google = () => {
         if (!today.data.point) {
           Api.put(`user/${user.userId}/addPoint`, { point: 100 });
           Api.post("point", {
-            route: "Loing",
+            route: "Login",
             point: 100,
           });
           Swal.fire({

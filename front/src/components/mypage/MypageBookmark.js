@@ -32,7 +32,6 @@ const MypageBookmark = () => {
       "user",
       `${userContext.user.userId}/myPage?criteria=positiveRate&page=${page}`
     ).then((res) => {
-      console.log("인기순", res.data);
       setPopularData(res.data.bookmarkGames);
       setTotal(res.data.bookmarkCount);
     });
@@ -41,13 +40,11 @@ const MypageBookmark = () => {
       "user",
       `${userContext.user.userId}/myPage?criteria=averagePlaytime&page=${page}`
     ).then((res) => {
-      console.log("플레이타임순", res.data);
       setTimeData(res.data.bookmarkGames);
     });
 
     Api.get("user", `${userContext.user.userId}/myPage?page=${page}`).then(
       (res) => {
-        console.log("전체순", res.data);
         setTotalData(res.data.bookmarkGames);
       }
     );
