@@ -54,17 +54,29 @@ const GameService = {
 
   getAgeList: async ({ age, page, numOfPageLimit }) => {
     const games = await Game.findByAge({ age, page, numOfPageLimit });
-    return { games };
+    if (age == 0) {
+      age = "전체";
+    }
+    const gameCounts = await Game.countGames({
+      requiredAge: { $regex: `^${age}`, $options: "i" },
+    });
+    return { games, gameCounts };
   },
 
   getGenreList: async ({ gameGenre, page, numOfPageLimit }) => {
     const games = await Game.findByGenre({ gameGenre, page, numOfPageLimit });
-    return { games };
+    const gameCounts = await Game.countGames({
+      genres: { $regex: `^${gameGenre}`, $options: "i" },
+    });
+    return { games, gameCounts };
   },
 
   getPlatformList: async ({ platform, page, numOfPageLimit }) => {
     const games = await Game.findByPlatform({ platform, page, numOfPageLimit });
-    return { games };
+    const gameCounts = await Game.countGames({
+      platforms: { $regex: `^${platform}`, $options: "i" },
+    });
+    return { games, gameCounts };
   },
 };
 

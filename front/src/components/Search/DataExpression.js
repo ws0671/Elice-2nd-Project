@@ -32,7 +32,7 @@ function DataExpression({ data, inputData, genre, mode, age, platForm }) {
                   <h5>{val.name}</h5>
                   <div>{val.developer[0]}</div>
                   <div>{val.releaseDate.split("T")[0]}</div>
-                  <div>{val.price} \</div>
+                  <div>{val.price} ￦</div>
                   <div>{val.positiveRate}점</div>
                 </div>
               </Link>
