@@ -25,7 +25,6 @@ const CommunityAddForm = () => {
   // 인풋 변경 시 사용되는 함수
   const changeHandler = (e) => {
     setContent((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    console.log(content);
     errorHandler(e.target.name);
   };
 

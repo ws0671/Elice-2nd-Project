@@ -44,8 +44,6 @@ const MypagePieChart = ({ chartData, total }) => {
   };
 
   const CustomTooltip = ({ payload }) => {
-    console.log(payload);
-
     return (
       <div>
         <div className="ant-popover-arrow" />

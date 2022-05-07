@@ -23,7 +23,6 @@ UserAuthRouter.post(
       const { nickname, email, password } = req.body;
       // 특수문자 포함 검사
       const REGEX = /^(?=.*[!@#\$%\^&\*]).{8,}$/;
-      console.log(REGEX.test(password));
       if (REGEX.test(password)) {
         // 위 데이터를 유저 db에 추가하기
         const newUser = await UserAuthService.addUser({
@@ -180,7 +179,6 @@ UserAuthRouter.put(
 UserAuthRouter.put("/missingPassword", async (req, res, next) => {
   try {
     const { email, verified, password } = req.body;
-    console.log(email, verified, password);
     const updateData = { password };
 
     if (!verified) {

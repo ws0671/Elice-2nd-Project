@@ -36,10 +36,8 @@ const Kakao = () => {
 
   const kakaoLogin = async (code) => {
     try {
-      console.log("code가 잘 넘어가니? :", code);
       const res = await Api.get2(`auth/kakao?code=${code}`);
       const user = res.data;
-      console.log("답장 옴? :", user);
       if (user.register) {
         Swal.fire({
           position: "center",
@@ -84,7 +82,6 @@ const Kakao = () => {
   };
 
   let code = new URL(window.location.href).searchParams.get("code");
-  console.log("redirect 에서 코드 뽑아오기 :", code);
 
   useEffect(() => {
     dispatch(kakaoLogin(code));
