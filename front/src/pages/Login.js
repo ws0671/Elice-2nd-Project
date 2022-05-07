@@ -29,7 +29,6 @@ function LoginForm() {
   const githuburl = githubUrl();
   const googleurl = googleUrl();
   const kakaourl = kakaoUrl();
-  console.log("카카오 함수에서 만든 URL :", kakaourl);
 
   //useState로 email 상태를 생성함.
   const [email, setEmail] = useState("");
@@ -77,10 +76,8 @@ function LoginForm() {
           .then((res) => {
             // setAnswerCode(res.data.code);
             // real = res.data.code;
-            // console.log(res.data.code);
             (async () => {
               answerCode = res.data.code;
-              console.log(res.data.code);
               await Swal.fire(
                 `${email}로 인증코드를 발송했습니다. 확인해주세요`
               );
@@ -181,7 +178,6 @@ function LoginForm() {
       // 기본 페이지로 이동함.
       navigate("/", { replace: true });
     } catch (err) {
-      console.log("로그인에 실패하였습니다.\n", err);
       Swal.fire({
         icon: "error",
         title: `${err.response.data}`,
@@ -192,7 +188,6 @@ function LoginForm() {
         color: "white",
       });
     }
-    console.log(email);
   };
 
   return (
