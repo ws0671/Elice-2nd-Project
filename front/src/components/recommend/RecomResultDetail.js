@@ -41,7 +41,7 @@ function RecomResultDetail() {
         <div>
             <BodyStyle>
                 <RecomSlider gameItem={gameItem} getCurrentIdx={getCurrentIdx} />
-                <RecomChart gameItem={gameItem} />
+                <RecomChart className="recomChart" gameItem={gameItem} />
                 <ButtonWrapper>
                     <Button onClick={refresh}>처음부터 다시!</Button>
                 </ButtonWrapper>
@@ -53,3 +53,5 @@ function RecomResultDetail() {
 }
 
 export default RecomResultDetail
+
+

@@ -12,14 +12,22 @@ const RecommendChart = ({ gameItem }) => {
 
 
   useEffect(() => {
-    let tempCategory = []
-    const tempData = gameItem.map(item => { return (item.categories) })
-    for (let i = 0; i <= tempData.length; i++) {
-      tempCategory.push(tempData[i])
-      console.log(tempCategory)
-    }
-  }, [])
+    setCategory(gameItem.map(item => { return (item.categories) }))
+    let realCategoryData = []
+    const result = {}
+    if (data) {
+      for (var i in data) {
+        for (var j in data[i]) {
+          realCategoryData.push(data[i][j])
 
+        }
+      }
+    }
+    realCategoryData.forEach((x) => {
+      result[x] = (result[x] || 0) + 1
+      console.log(result)
+    })
+  }, [])
 
 
 
