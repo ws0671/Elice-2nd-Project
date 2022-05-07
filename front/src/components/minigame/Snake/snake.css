@@ -1,9 +1,8 @@
 .SnakeContainer {
   width: 100vw;
-  height: 120vh;
+  height: 100vh;
   background-color: #1b1523;
 
-  padding-top: 80px;
   color: white;
   display: flex;
   flex-direction: column;
@@ -11,6 +10,7 @@
   justify-content: center;
 }
 .SnakeTitle {
+  padding-top: 25px;
   padding-bottom: 20px;
   font-weight: bold;
   font-size: 3em;
@@ -24,8 +24,8 @@
 
 .SnakeCanvas {
   border: 1px solid white;
-  height: 70vh;
-  width: 45vw;
+  height: 74vh;
+  width: 40vw;
 }
 
 .bottom {
