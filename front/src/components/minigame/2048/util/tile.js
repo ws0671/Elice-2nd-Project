@@ -24,7 +24,6 @@ const makeTile = (tileList) => {
   while (!tile || (tileList && checkCollision(tileList, tile))) {
     // 타일을 더이상 추가할 공간이 없을 때
     if (count > 100) {
-      // console.log(tile);
       return false;
     }
     tile = {

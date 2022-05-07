@@ -32,7 +32,6 @@ const CommunityDetail = () => {
 
   // 수정 삭제 권한 유저인지 확인용 변수
   const isUser = detail?.author?.userId == userContext.user.userId;
-  console.log(userContext);
   const params = useParams();
   // 수정폼 컴포넌트 전달용 함수
   const isEditing = () => setIsEdit((prev) => !prev);
@@ -45,7 +44,6 @@ const CommunityDetail = () => {
     Api.get("article", params.id)
       .then((res) => {
         setDetail(res.data.article);
-        console.log("detail", res.data);
         setIsLiked(res.data.like);
         setExample(res.data.comments);
         setShow("success");
@@ -126,7 +124,7 @@ const CommunityDetail = () => {
         setIsLiked((prev) => !prev);
         setDetail({ ...copied, like: copied.like + 1 });
         const putData = { author: detail.author, articleId: detail.articleId };
-        Api.post(`like`, putData).then((res) => console.log(res.data));
+        Api.post(`like`, putData);
       }
     }
   };

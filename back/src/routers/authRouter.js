@@ -30,7 +30,6 @@ AuthRouter.get("/google", async (req, res, next) => {
 AuthRouter.get("/kakao", async (req, res, next) => {
   try {
     const code = req.query.code;
-    console.log("code가 백에 잘 넘어왔니? :", code);
     const user = await KakaoService.getToken({ code });
 
     res.status(201).json(user);

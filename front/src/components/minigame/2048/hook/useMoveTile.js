@@ -30,7 +30,6 @@ const useMoveTile = ({ tileList, setTileList, setScore }) => {
       const canNotMove = moveAndAdd({ x: 0, y: -1 });
       if (canNotMove) {
         state["moveUp"] = false;
-        console.log(state);
       }
       if (Object.keys(state).length == 4) {
         Swal.fire({
