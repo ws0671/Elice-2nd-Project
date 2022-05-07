@@ -39,6 +39,57 @@ GameRouter.get("/list/:page", async (req, res, next) => {
     next(error);
   }
 });
+GameRouter.get("/genre/:page", async (req, res, next) => {
+  try {
+    const page = Number(req.params.page);
+    const gameGenre = req.query.genre;
+    const numOfPageLimit = req.query.limit
+      ? Number(req.query.limit)
+      : undefined;
+    const gameList = await GameService.getGenreList({
+      gameGenre,
+      page,
+      numOfPageLimit,
+    });
+    res.status(200).json(gameList);
+  } catch (error) {
+    next(error);
+  }
+});
+GameRouter.get("/age/:page", async (req, res, next) => {
+  try {
+    const page = Number(req.params.page);
+    const age = req.query.age;
+    const numOfPageLimit = req.query.limit
+      ? Number(req.query.limit)
+      : undefined;
+    const gameList = await GameService.getAgeList({
+      age,
+      page,
+      numOfPageLimit,
+    });
+    res.status(200).json(gameList);
+  } catch (error) {
+    next(error);
+  }
+});
+GameRouter.get("/platform/:page", async (req, res, next) => {
+  try {
+    const page = Number(req.params.page);
+    const platform = req.query.platform;
+    const numOfPageLimit = req.query.limit
+      ? Number(req.query.limit)
+      : undefined;
+    const gameList = await GameService.getPlatformList({
+      platform,
+      page,
+      numOfPageLimit,
+    });
+    res.status(200).json(gameList);
+  } catch (error) {
+    next(error);
+  }
+});
 // 로그인 안 한 사용자, 북마크 정보 없음
 GameRouter.get("/:gameId/guest", async (req, res, next) => {
   try {

@@ -6,7 +6,7 @@ const OutsideApiRouter = Router();
 
 OutsideApiRouter.get("/gameNews", async (req, res, next) => {
   try {
-    const category = req.body.category;
+    const category = req.query.category;
 
     // redis 서버에서 캐시 확인
     const cache = await redisClient.GET(`gameNews`);
@@ -31,15 +31,13 @@ OutsideApiRouter.get("/gameNews", async (req, res, next) => {
 
 OutsideApiRouter.get("/youtubeVideos", async (req, res, next) => {
   try {
-    const keyword = req.body.keyword;
-
     // redis 서버에서 캐시 확인
     const cache = await redisClient.GET(`youtubeVideos`);
     if (cache) {
       // 캐시가 있으면
       res.status(200).json(JSON.parse(cache));
     } else {
-      const youtubeDatas = await OutsideApi.getYoutubeDatas(keyword);
+      const youtubeDatas = await OutsideApi.getYoutubeDatas();
       const searchedVideos = await OutsideApi.getSearchedVideos(youtubeDatas);
 
       await redisClient.SETEX(
