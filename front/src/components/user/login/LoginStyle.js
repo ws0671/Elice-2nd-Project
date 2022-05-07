@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const BodyWrapper = styled.div`
+  min-height: 100vh;
   * {
     margin: 0;
     padding: 0;
