@@ -69,6 +69,7 @@ const SetUtil = {
       postscript: 2,
       suggestions: 3,
       honeytip: 4,
+      notice: 5,
     };
 
     // 확인 가능한지를 true, false로 반환
