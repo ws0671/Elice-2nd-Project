@@ -97,22 +97,23 @@ const MemorizeCards = () => {
   }, [turns]);
 
   return (
-    <div className="MemorizeCards">
-      <h1>CAT MATCH</h1>
-      <button onClick={shuffleCards}>NEW GAME</button>
-
-      <div className="card-grid">
-        {cards.map((card) => (
-          <SingleCard
-            key={card.id}
-            card={card}
-            handleChoice={handleChoice}
-            flipped={card === choiceOne || card === choiceTwo || card.matched}
-            disabled={disabled}
-          />
-        ))}
+    <div className="CardContainer">
+      <div className="MemorizeCards">
+        <p className="CardTitle">CAT MATCH</p>
+        <button onClick={shuffleCards}>NEW GAME</button>
+        <div className="card-grid">
+          {cards.map((card) => (
+            <SingleCard
+              key={card.id}
+              card={card}
+              handleChoice={handleChoice}
+              flipped={card === choiceOne || card === choiceTwo || card.matched}
+              disabled={disabled}
+            />
+          ))}
+        </div>
+        <p className="Turns">Turns: {turns}</p>
       </div>
-      <p>Turns: {turns}</p>
     </div>
   );
 };

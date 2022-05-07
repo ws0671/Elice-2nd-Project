@@ -3,8 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { UserStateContext, DispatchContext } from "../App";
-import logo from "../images/logo.png";
+import logo from "../images/headerLogo.png";
 import Swal from "sweetalert2";
+import { Dropdown } from "react-bootstrap";
 const Header = () => {
   const userContext = useContext(UserStateContext);
   const dispatch = useContext(DispatchContext);
@@ -30,17 +31,38 @@ const Header = () => {
           <img
             src={logo}
             alt="Game Pearl"
-            style={{ width: "170px", height: "60px" }}
+            style={{ width: "180px", height: "45px" }}
           />
         </Link>
       </div>
       <div className="headerRight">
         <div>
-          <Link to="/prologue">프롤로그</Link>
+          <Dropdown>
+            <Dropdown.Toggle
+              style={{ background: "none", border: "none" }}
+              size="sm"
+              id="dropdown-basic"
+            >
+              프롤로그
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu
+              style={{ background: "rgba(0, 0, 0, 0.8)", border: "none" }}
+            >
+              <Dropdown.Item id="dropdown-menu1" href="/prologue">
+                서비스 소개
+              </Dropdown.Item>
+              <Dropdown.Item id="dropdown-menu2" href="/teaminfo">
+                팀 소개
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
-        <div>
-          <Link to="/recommend">게임 추천</Link>
-        </div>
+        {userContext.user && (
+          <div>
+            <Link to="/recommend">게임 추천</Link>
+          </div>
+        )}
         <div>
           <Link to="/gamesearch">게임 검색</Link>
         </div>
@@ -51,6 +73,34 @@ const Header = () => {
           <>
             <div>
               <Link to="/community">커뮤니티</Link>
+            </div>
+            <div>
+              <Dropdown>
+                <Dropdown.Toggle
+                  style={{ background: "none", border: "none" }}
+                  size="sm"
+                  id="dropdown-basic"
+                >
+                  미니게임
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu
+                  style={{ background: "rgba(0, 0, 0, 0.8)", border: "none" }}
+                >
+                  <Dropdown.Item id="dropdown-menu1" href="/minigame/roulette">
+                    룰렛 돌리기
+                  </Dropdown.Item>
+                  <Dropdown.Item id="dropdown-menu2" href="/minigame/snake">
+                    Snake Game
+                  </Dropdown.Item>
+                  <Dropdown.Item id="dropdown-menu3" href="/minigame/catMatch">
+                    카드 맞추기
+                  </Dropdown.Item>
+                  <Dropdown.Item id="dropdown-menu4" href="/minigame/2048">
+                    2048
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
             <div>
               <Link to="/mypage">마이 페이지</Link>
@@ -101,6 +151,7 @@ const HeaderTag = styled.div`
     justify-content: space-evenly;
   }
   a.logoLink {
+    font-family: 'Orbitron', sans-serif;;
     text-decoration: none;
     color: #6c757d;
     font-size: 13px;
@@ -112,5 +163,19 @@ const HeaderTag = styled.div`
   }
   a:hover {
     color: rgba(255, 255, 255);
+  }
+
+  #dropdown-menu1:hover,
+  #dropdown-menu2:hover,
+  #dropdown-menu3:hover,
+  #dropdown-menu4:hover {
+    // color: black;
+    background: #1b1523;
+  }
+  #dropdown-basic {
+    font-size: 13px;
+  }
+  #dropdown-basic::after {
+    display: none;
   }
 `;

@@ -3,12 +3,15 @@ import { Custom } from "../styles/Mypage/MypageChart";
 
 const MypagePieChart = ({ chartData, total }) => {
   const COLORS = [
-    "#0088FE",
-    "#00C49F",
-    "#FFBB28",
-    "#FF8042",
-    "#8884d8",
-    "#82ca9d",
+    "#F72585",
+    "#B5179E",
+    "#7209B7",
+    "#3A0CA3",
+    "#3F37C9",
+    "#4361EE",
+    "#4895EF",
+    "#560BAD",
+    "#480CA8",
   ];
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
