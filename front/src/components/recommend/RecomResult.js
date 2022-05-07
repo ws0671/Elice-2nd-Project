@@ -42,13 +42,13 @@ function RecomResult() {
       })
   }, [])
 
-  console.log(recomItem)
+
 
   return (
     <>
       <img className="img-fluid" width="100%" src={resultImg} />
       <ResultBox>
-        < h1 > <Button onClick={handleSubmit}>결과보기(지금 결과페이지임)</Button></h1 >
+        < h1 > <Button onClick={handleSubmit}>결과보기</Button></h1 >
       </ResultBox>
     </>
   )

@@ -4,8 +4,8 @@ import styled from "styled-components"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import * as Api from "../../api";
 import { UserStateContext } from "../../App"
-import { Wrapper, MainImg, RemainderWrapper, Remainders, ButtonWrapper, Button } from "./ResultDetailStyle"
-import { BodyStyle, QnaBox, AnswerButton } from "./RecomStyle";
+import { ButtonWrapper, Button } from "./ResultDetailStyle"
+import { BodyStyle, ChartWrapper, QnaBox, AnswerButton } from "./RecomStyle";
 import RecomSlider from "./RecomSlider";
 import RecomChart from './RecomChart'
 
@@ -41,7 +41,9 @@ function RecomResultDetail() {
         <div>
             <BodyStyle>
                 <RecomSlider gameItem={gameItem} getCurrentIdx={getCurrentIdx} />
-                <RecomChart className="recomChart" gameItem={gameItem} />
+                <ChartWrapper>
+                    <RecomChart className="recomChart" gameItem={gameItem} />
+                </ChartWrapper>
                 <ButtonWrapper>
                     <Button onClick={refresh}>처음부터 다시!</Button>
                 </ButtonWrapper>
