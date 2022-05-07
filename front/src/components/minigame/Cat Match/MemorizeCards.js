@@ -82,7 +82,7 @@ const MemorizeCards = () => {
             title: `축하합니다`,
             text: `100 포인트를 획득하셨습니다 :)`,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
           });
           const point = 100;
           await Api.put(`user/${userContext.user.userId}/addPoint`, {
@@ -98,7 +98,7 @@ const MemorizeCards = () => {
             icon: "success",
             text: `성공하셨습니다 :)`,
             showConfirmButton: false,
-            timer: 1500,
+            timer: 2000,
           });
         }
         shuffleCards();
@@ -108,7 +108,7 @@ const MemorizeCards = () => {
           icon: "warning",
           title: `GAME OVER`,
           showConfirmButton: false,
-          timer: 1500,
+          timer: 2000,
         });
 
         shuffleCards();
