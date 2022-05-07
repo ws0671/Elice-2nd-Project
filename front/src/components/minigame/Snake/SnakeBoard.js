@@ -41,9 +41,10 @@ const SnakeBoard = () => {
       Swal.fire({
         position: "center",
         icon: "success",
-        title: "축하합니다! 100포인트를 얻으셨습니다!!",
+        title: "축하합니다!!",
+        text: "100포인트를 얻으셨습니다 :)",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
       });
       await Api.put(`user/${userContext.user.userId}/addPoint`, {
         point: 100,
@@ -59,7 +60,7 @@ const SnakeBoard = () => {
         icon: "warning",
         title: "GAME OVER!",
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
       });
     }
   };
