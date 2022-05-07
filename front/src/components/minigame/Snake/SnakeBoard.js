@@ -56,10 +56,9 @@ const SnakeBoard = () => {
       벽에 머리를 부딪히거나 자기 몸을 깨물면 죽어버립니다😥</br>
       뱀이 많은 사과를 먹을 수 있게 도와주세요 :)</br>
       </br>
-      주의!! 가던 방향의 반대 키를 누르면 즉시 게임오버됩니다.</p>`,
+      ※가던 방향의 반대 키를 누르면 즉시 게임오버됩니다.※</p>`,
       height: "100px",
       showConfirmButton: true,
-      timer: 5000,
     }).then((res) => {
       checkPoint();
     });
@@ -68,7 +67,7 @@ const SnakeBoard = () => {
   const endGame = async () => {
     setSpeed(null);
     setGameOver(true);
-    if (!point && score >= 200) {
+    if (!point && score >= 150) {
       Swal.fire({
         position: "center",
         icon: "success",

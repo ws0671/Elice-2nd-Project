@@ -33,7 +33,6 @@ const Roulette = () => {
       html: "<p>오늘 하루의 운을 시험해보세요(❁´◡`❁)</br>최대 1000점까지 단숨에 얻을 수 있습니다 : )</br>순간의 짜릿함을 느껴보세요!!!</br>🎉✨🎉╰(*°▽°*)╯🎉✨🎉</br></br> ※룰렛은 하루에 한 번만 돌릴 수 있습니다※</p>",
       height: "100px",
       showConfirmButton: true,
-      timer: 5000,
     }).then(() => {
       checkPoint();
     });
