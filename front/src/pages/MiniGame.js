@@ -28,6 +28,16 @@ const MiniGame = () => {
       setChecked(true);
     };
     checkToday();
+    if (!checked && today) {
+      Swal.fire({
+        position: "center",
+        icon: "info",
+        title: "Rules of 2048 Game",
+        html: "<p style = 'text-align:left;'>🔹 키보드 방향키를 이용해 조작해주세요.<br />🔹 타일이 움직일 때마다 2와 4중에 새로운 타일이 생겨납니다.<br />🔹 같은 숫자의 타일끼리 합쳐주면 합한 숫자로 뿅!<br />🔹 모든 칸이 다 차고 더이상 움직일 타일이 없으면 게임이 <br />&nbsp&nbsp&nbsp&nbsp종료됩니다.</p>",
+        showConfirmButton: true,
+        timer: 5000,
+      });
+    }
   }, []);
 
   useEffect(() => {
