@@ -57,6 +57,15 @@ const Github = () => {
           type: "LOGIN_SUCCESS",
           payload: user,
         });
+        Swal.fire({
+          icon: "success",
+          title: `환영합니다, ${user.nickname}님!`,
+          showConfirmButton: false,
+          timer: 1500,
+          width: 600,
+          background: "rgba(0, 0, 0, 0.8)",
+          color: "white",
+        });
 
         const today = await Api.get2(`point?route=Login`);
         if (!today.data.point) {
