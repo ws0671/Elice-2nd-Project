@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { githubUrl, googleUrl, kakaoUrl } from "../socialLogin/SocialLoginUrl";
+import { FlexDiv1 } from "../styles/MainStyle";
 
 // 사용하는 함수만 import 하도록
 import { post as Post } from "../../api";
@@ -9,6 +11,9 @@ import Swal from "sweetalert2";
 // 회원가입 폼 컴포넌트
 const RegisterForm = () => {
   const navigate = useNavigate();
+  const githuburl = githubUrl();
+  const googleurl = googleUrl();
+  const kakaourl = kakaoUrl();
 
   // 회원가입 정보 상태값
   const [info, setInfo] = useState({
@@ -219,6 +224,17 @@ const RegisterForm = () => {
           가입하기
         </button>
       </div>
+      <FlexDiv1 style={{ marginTop: "20px" }}>
+        <a href={githuburl}>
+          <img src={`/img/깃헙 동그라미.png`} style={{ width: "50px" }} />
+        </a>
+        <a href={googleurl}>
+          <img src={`/img/구글 동그라미.png`} style={{ width: "50px" }} />
+        </a>
+        <a href={kakaourl}>
+          <img src={`/img/카카오 동그라미.png`} style={{ width: "50px" }} />
+        </a>
+      </FlexDiv1>
     </Form>
   );
 };

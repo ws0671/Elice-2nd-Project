@@ -7,11 +7,31 @@ background-image: ${(props) => `url(${props.imgUrl})`};
 width: 100vw;
 height: 100vh;
 font-family: "Roboto", sans-serif;
+display: flex;
+justify-content: flex-end;
+align-items: center;
+
+
+
+`
+
+export const ChartWrapper = styled.div`
+    width: 600px;
+    height: 600px;
+    position: absolute;
+    right: 12rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+
 `
 
 
+
 export const QnaBox = styled.section`
-position: relative;
+position: absolute;
 left: 50%;
 top: 50%;
 width: 1000px;

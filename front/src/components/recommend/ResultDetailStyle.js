@@ -53,5 +53,15 @@ export const Button = styled.button`
   margin-top: 20px;
   background: aliceblue;
   display: inline-block;
+  position: absolute;
+  top: 38rem;
+  right:8rem;
 
 `;
+
+
+export const ChartDescription = styled.h3`
+  color: white;
+  
+
+`

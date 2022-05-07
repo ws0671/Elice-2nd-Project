@@ -4,9 +4,9 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import DataExpression from "../components/Search/DataExpression";
 import * as Api from "../api";
 import SearchPagination from "../components/Search/SearchPagination";
-
+import ReactPaginate from "react-paginate";
 import {
-  H1,
+  MainImage,
   SearchBarContainer,
   Button,
   Form,
@@ -77,6 +77,21 @@ function GameSearch() {
     setLastPage(count);
   };
 
+  const getCurrentData = async (currentPage) => {
+    const res = await Api.get(
+      `game/list/${currentPage}`,
+      `?page=${limit}&limit=${limit}`
+    );
+    setData(res.data);
+  };
+
+  const getSearchData = async () => {
+    const res = await Api.get(
+      `game/search/${searchWord}?page=${page}&colName=releaseDate&sortOrder=-1&limit=12`
+    );
+    setData(res.data);
+  };
+
   useEffect(() => {
     getData();
   }, [page, limit, inputData]);
@@ -98,6 +113,7 @@ function GameSearch() {
   // input태그를 제출하는 함수입니다.
   const handleSubmit = async (e) => {
     e.preventDefault();
+    getSearchData();
     setInputData(searchWord);
   };
   //input태그의 onChange이벤트의 처리를 하는 함수입니다.
@@ -145,15 +161,22 @@ function GameSearch() {
     e.preventDefault();
     setShow(e.target.textContent);
   };
+  // 페이지네이션 클릭시 이벤트함수입니다
+  const handlePageClick = async (data) => {
+    let currentPage = data.selected + 1;
+    setPage(currentPage);
+    await getCurrentData(currentPage);
+  };
   return (
     <>
-      <div className="video">
+      <MainImage className="video">
         <video width="100%" muted autoPlay loop>
           <source src="/videos/playStation.mp4" type="video/mp4" />
         </video>
-      </div>
-      <H1 className="mt-5">게임 검색</H1>
-      <SearchBarContainer>
+        <h1>게임 검색</h1>
+      </MainImage>
+
+      <SearchBarContainer className="mt-5">
         <div className="searchBar">
           {types.map((type, key) => (
             <Button
@@ -291,7 +314,7 @@ function GameSearch() {
             </div>
           </div>
         </Dropdown> */}
-      )}
+      {/* )} */}
       <Main>
         <ImgDiv className="mt-4">
           {/* 검색 결과 없는 것 처리 구현해야함. */}
@@ -305,15 +328,34 @@ function GameSearch() {
           ></DataExpression>
         </ImgDiv>
       </Main>
-      <Footer>
+      <Footer className="mt-5">
         {mode === "전체 목록" && (
-          <SearchPagination
-            page={page}
-            lastPage={lastPage}
-            limit={limit}
-            setPage={setPage}
-            setLimit={setLimit}
-          ></SearchPagination>
+          // <SearchPagination
+          //   page={page}
+          //   lastPage={lastPage}
+          //   limit={limit}
+          //   setPage={setPage}
+          //   setLimit={setLimit}
+          // ></SearchPagination>
+          <ReactPaginate
+            previousLabel={"previous"}
+            nextLabel={"next"}
+            breakLabel={"..."}
+            pageCount={lastPage}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={"pagination justify-content-center"}
+            pageClassName={"page-item"}
+            pageLinkClassName={"page-link"}
+            previousClassName={"page-item"}
+            previousLinkClassName={"page-link"}
+            nextClassName={"page-item"}
+            nextLinkClassName={"page-link"}
+            breakClassName={"page-item"}
+            breakLinkClassName={"page-link"}
+            activeClassName={"active"}
+          />
         )}
       </Footer>
     </>

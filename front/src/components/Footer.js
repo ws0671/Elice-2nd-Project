@@ -10,7 +10,9 @@ const Footer = () => {
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        marginTop: "50px",
+        paddingTop: "50px",
+        background:
+          "linear-gradient(180deg, rgba(198, 35, 104, 0.91) 25.92%, rgba(196, 196, 196, 0) 100%)",
       }}
     >
       <img src={logo} alt="logo" width="100px" />

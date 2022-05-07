@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import * as Api from "../../api";
 import styled from "styled-components";
 import SearchPagination from "./SearchPagination";
+import ReactPaginate from "react-paginate";
 const GameSearchGenre = () => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState();
@@ -19,9 +20,22 @@ const GameSearchGenre = () => {
     const count = Math.ceil(res.data.gameCounts / 12);
     setLastPage(count);
   };
+
+  const getCurrentData = async (currentPage) => {
+    const res = await Api.get(
+      `game/platform/${currentPage}`,
+      `?platform=${params.platform}&limit=12`
+    );
+    setData(res.data);
+  };
+
   useEffect(() => {
     getData();
   }, [page]);
+  const handlePageClick = async (data) => {
+    let currentPage = data.selected + 1;
+    await getCurrentData(currentPage);
+  };
   return (
     <>
       <div style={{ height: "10vh" }}></div>
@@ -54,12 +68,31 @@ const GameSearchGenre = () => {
             })}
         </Box>
       </Main>
-      <Footer>
-        <SearchPagination
+      <Footer className="mt-5">
+        {/* <SearchPagination
           page={page}
           lastPage={lastPage}
           setPage={setPage}
-        ></SearchPagination>
+        ></SearchPagination> */}
+        <ReactPaginate
+          previousLabel={"previous"}
+          nextLabel={"next"}
+          breakLabel={"..."}
+          pageCount={lastPage}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={3}
+          onPageChange={handlePageClick}
+          containerClassName={"pagination justify-content-center"}
+          pageClassName={"page-item"}
+          pageLinkClassName={"page-link"}
+          previousClassName={"page-item"}
+          previousLinkClassName={"page-link"}
+          nextClassName={"page-item"}
+          nextLinkClassName={"page-link"}
+          breakClassName={"page-item"}
+          breakLinkClassName={"page-link"}
+          activeClassName={"active"}
+        />
       </Footer>
     </>
   );
