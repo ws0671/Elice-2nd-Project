@@ -11,9 +11,7 @@ import Swal from "sweetalert2";
 
 function RecomGenre() {
   const navigate = useNavigate();
-  const params = useParams();
   const userContext = useContext(UserStateContext);
-  console.log(userContext.user.userId);
 
   const gameGenres = [
     "Adventure",
@@ -43,7 +41,15 @@ function RecomGenre() {
 
   const goSecondPage = () => {
     if (!isNumberValid) {
-      Swal.fire("3가지를 골라주세요!");
+      Swal.fire({
+        icon: "warning",
+        title: `3가지를 골라주세요!`,
+        showConfirmButton: false,
+        timer: 3000,
+        width: 600,
+        background: "rgba(0, 0, 0, 0.8)",
+        color: "white",
+      });
     } else {
       navigate("/recommend/qna/2", {
         state: {
@@ -94,7 +100,7 @@ function RecomGenre() {
 
 export default RecomGenre;
 
-const Title = styled.h1`
+const Title = styled.h2`
   margin-bottom: 15px;
   color: white;
 `;
@@ -115,7 +121,7 @@ const Wrapper = styled.section`
   .RightButton {
     position: absolute;
     right: -7rem;
-    top: 10rem;
+    top: 13rem;
     color: white;
     cursor: pointer;
   }

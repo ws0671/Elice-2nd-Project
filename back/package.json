@@ -20,6 +20,7 @@
   "homepage": "https://github.com/",
   "dependencies": {
     "@sindresorhus/is": "^4.2.0",
+    "JSON": "^1.0.0",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "cheerio": "^1.0.0-rc.10",
@@ -29,7 +30,6 @@
     "express-validator": "^6.14.0",
     "googleapis": "^100.0.0",
     "jest": "^27.3.1",
-    "JSON": "^1.0.0",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.3",
     "mongoose": "^6.2.1",

@@ -4,11 +4,10 @@ import { Button } from "react-bootstrap";
 import styled from "styled-components";
 import "bootstrap/dist/css/bootstrap.min.css";
 import resultImg from "../../images/RecomBg_result_2.svg";
-import { QnaBox, AnswerButton, Status, StatusBar } from "./RecomStyle";
 import { useNavigate } from "react-router-dom";
 import { UserStateContext } from "../../App";
 import * as Api from "../../api";
-import RecommendChart from "./RecommendChart";
+
 
 function RecomResult() {
   const location = useLocation();
@@ -16,7 +15,6 @@ function RecomResult() {
 
   const [loading, setLoading] = useState(true);
   const [recomItem, setRecomItem] = useState([]);
-  const [clicked, setClicked] = useState(false);
   const userContext = useContext(UserStateContext);
   const userId = userContext.user.userId;
 
@@ -25,35 +23,36 @@ function RecomResult() {
     console.log(location);
   }, [location]);
 
-  const handleSubmit = async () => {
-    setClicked(true);
-    Api.get("gameRecommend/results", userId).then((res) => {
-      console.log(res.data);
-      setRecomItem(res.data);
-    });
-  };
-  /*   console.log('recomItem', recomItem) */
 
-  const refresh = () => {
-    Api.delete("gameRecommend", userId);
-    navigate("/recommend");
-  };
+  const handleSubmit = () => {
+    setLoading(true)
+    navigate('/recommend/result/detail', {
+      state: {
+        recomItem: recomItem,
+      },
+    })
+
+  }
+
+  useEffect(() => {
+    Api.get("gameRecommend/results", userId)
+      .then((res) => {
+        /*  console.log(res.data) */
+        setRecomItem(res.data)
+      })
+  }, [])
+
+  console.log(recomItem)
 
   return (
     <>
       <img className="img-fluid" width="100%" src={resultImg} />
       <ResultBox>
-        <RecommendChart />
-        <h1>
-          {" "}
-          <Button recomItem={recomItem} onClick={handleSubmit}>
-            결과보기(지금 결과페이지임)
-          </Button>
-        </h1>
-        <Button onClick={refresh}>처음으로 돌아가기</Button>
+        < h1 > <Button onClick={handleSubmit}>결과보기(지금 결과페이지임)</Button></h1 >
       </ResultBox>
     </>
-  );
+  )
+
 }
 
 export default RecomResult;
