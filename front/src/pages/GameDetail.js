@@ -14,6 +14,7 @@ import {
   ScreenShot,
   Footer,
 } from "../components/styles/GameDetailStyle";
+import Swal from "sweetalert2";
 const GameDetail = () => {
   const [data, setData] = useState(null);
   const [genre, setGenre] = useState();
@@ -62,18 +63,36 @@ const GameDetail = () => {
       gameId: params.id,
       review: review,
     };
-    Api.post("review", newReview).then((res) => {
-      copied.push(res.data);
-      alert("리뷰 등록이 완료되었습니다!");
-      setExample(copied);
-    });
+    Api.post("review", newReview)
+      .then((res) => {
+        copied.push(res.data);
+        Swal.fire("리뷰 등록이 완료되었습니다!").then((res) =>
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `축하합니다! 250포인트를 얻으셨습니다!!`,
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        );
+        setExample(copied);
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.response.data,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   // 리뷰 수정용 함수
   const editHandler = (item, review) => {
     const edit = { ...item, review };
     Api.put(`review/${item.reviewId}`, edit).then((res) =>
-      alert("리뷰가 수정되었습니다.")
+      Swal.fire("리뷰가 수정되었습니다.")
     );
     const copied = example.map((v) => {
       if (
@@ -92,7 +111,7 @@ const GameDetail = () => {
   const removeHandler = (item) => {
     const deleted = { ...item, isDeleted: true };
     Api.delete(`review/${item.reviewId}`).then((res) =>
-      alert("리뷰가 삭제되었습니다.")
+      Swal.fire("리뷰가 삭제되었습니다.")
     );
     const copied = example.map((v) => {
       if (
