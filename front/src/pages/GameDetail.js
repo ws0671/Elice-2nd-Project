@@ -92,9 +92,17 @@ const GameDetail = () => {
   // 리뷰 수정용 함수
   const editHandler = (item, review) => {
     const edit = { ...item, review };
-    Api.put(`review/${item.reviewId}`, edit).then((res) =>
-      Swal.fire("리뷰가 수정되었습니다.")
-    );
+    Api.put(`review/${item.reviewId}`, edit)
+      .then((res) => Swal.fire("리뷰가 수정되었습니다."))
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.response.data,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
     const copied = example.map((v) => {
       if (
         v.writer.nickname === edit.writer.nickname &&
