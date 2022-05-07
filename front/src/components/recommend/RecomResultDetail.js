@@ -65,7 +65,9 @@ function RecomResultDetail() {
     <div>
       <BodyStyle>
         <RecomSlider gameItem={gameItem} getCurrentIdx={getCurrentIdx} />
-        <RecomChart category={category} />
+        <ChartWrapper>
+          <RecomChart category={category} />
+        </ChartWrapper>
         <ButtonWrapper>
           <Button onClick={refresh}>처음부터 다시!</Button>
         </ButtonWrapper>

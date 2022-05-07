@@ -28,7 +28,7 @@ export const ChartWrapper = styled.div`
 
 
 export const QnaBox = styled.section`
-position: relative;
+position: absolute;
 left: 50%;
 top: 50%;
 width: 1000px;

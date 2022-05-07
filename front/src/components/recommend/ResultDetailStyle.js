@@ -55,6 +55,6 @@ export const Button = styled.button`
   display: inline-block;
   position: absolute;
   top: 38rem;
-  left: 78rem;
+  right:10rem;
 
 `;

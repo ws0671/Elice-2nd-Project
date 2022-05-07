@@ -111,7 +111,7 @@ const Description = styled.p`
 `;
 
 const Wrapper = styled.section`
-  position: relative;
+  position: absolute;
   left: 50%;
   top: 50%;
   width: 700px;
