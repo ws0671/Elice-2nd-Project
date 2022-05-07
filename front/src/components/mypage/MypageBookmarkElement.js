@@ -3,23 +3,28 @@ import styled from "styled-components";
 const MypageBookmarkElement = ({ data, index }) => {
   const [on, setOn] = useState(false);
   return (
-    <Div on={on}>
+    // <Div on={on}>
+    <div className="imgWrap" style={{ width: "300px", height: "200px" }}>
       <img
+        style={{ width: "300px", height: "200px" }}
         key={index}
         src={data.headerImage}
         alt={data.name}
-        onMouseLeave={() => setOn((prev) => !prev)}
-        onMouseOver={() => setOn((prev) => !prev)}
+        // onMouseLeave={() => setOn((prev) => !prev)}
+        // onMouseOver={() => setOn((prev) => !prev)}
       />
-      <div className="textBox">
-        <div className="textSub">
-          <div className="text">게임명: {data.name}</div>
-          <div className="text">게임사: {data.developer[0]}</div>
-          <div className="text">가격: {data.price} 원</div>
-          <div className="text">이용등급: {data.requiredAge}</div>
-        </div>
+      <div
+        className="text"
+        style={{ width: "300px", height: "180px", marginTop: 9 }}
+      >
+        {/* <div className="textSub"> */}
+        <div>게임명: {data.name}</div>
+        <div>게임사: {data.developer[0]}</div>
+        <div>가격: {data.price} 원</div>
+        <div>이용등급: {data.requiredAge}</div>
+        {/* </div> */}
       </div>
-    </Div>
+    </div>
   );
 };
 
