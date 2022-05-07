@@ -15,6 +15,7 @@ export const Container = styled.div`
     text-decoration: none;
     font-weight: 600;
     transition: 0.25s;
+    font-size: 50px;
   }
 
   .w-btn-gra3 {
