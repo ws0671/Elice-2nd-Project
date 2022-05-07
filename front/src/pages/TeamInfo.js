@@ -13,7 +13,7 @@ const TeamInfo = () => {
       name: "이영민",
       position: ["프론트엔드", "팀장"],
       image: first,
-      body: "",
+      body: `안녕하세요 저는 프론트엔드 개발을 맡았습니다. 꾸준하게 개발하는 개발자가 되는게 목표입니다.`,
     },
     {
       name: "강주희",
@@ -26,27 +26,26 @@ const TeamInfo = () => {
       name: "이은여울",
       position: ["프론트엔드"],
       image: third,
-      body: ``,
+      body: `3주라는 기간에 많은 것을 배웠고, 다음번에는 구상한 대로 만들 수 있도록 열심히 공부해야겠다는 생각이 들었습니다.`,
     },
     {
       name: "김신웅",
       position: ["백엔드", "데이터분석"],
       image: fourth,
-      body: ``,
+      body: `동기부여도 되고 많이 배우면서 무사히
+      마칠 수 있었던 것 같습니다. 다음 시도에는 더 잘 할 수 있겠다는 생각이 들었습니다!`,
     },
     {
       name: "노송희",
       position: ["백엔드"],
       image: fifth,
-      body: "",
+      body: `기획, 디자인, 기능 추가까지 팀원들과 함께 새로운 걸 시도하고 그 과정 속에서 많은 걸 배울 수 있어 좋았습니다.`,
     },
     {
       name: "신도희",
       position: ["백엔드", "발표"],
       image: sixth,
-      body: `게시판과 미니게임 많이 이용해주세요!!
-      달빛이 아름다운 밤.
-      당신의 마음을 훔치러 가겠습니다 :)`,
+      body: `게시판과 미니게임 많이 이용해주세요!! 달빛이 아름다운 밤. 당신의 마음을 훔치러 가겠습니다 :)`,
     },
   ];
 
@@ -93,7 +92,7 @@ const TeamInfo = () => {
                 </div>
                 {/* </Card.Subtitle> */}
 
-                <Card.Text>{item.body}</Card.Text>
+                <Card.Text style={{ margin: "10px 0" }}>{item.body}</Card.Text>
               </Card.Body>
             </Card>
           ))}
