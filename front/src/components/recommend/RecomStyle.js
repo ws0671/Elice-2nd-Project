@@ -19,7 +19,7 @@ export const ChartWrapper = styled.div`
     width: 600px;
     height: 600px;
     position: absolute;
-    right: 10rem;
+    right: 12rem;
     display: flex;
     flex-direction: column;
     align-items: center;
