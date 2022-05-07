@@ -140,7 +140,9 @@ function Main() {
                     style={{ padding: "10px 0" }}
                   >
                     <YouTube videoId={item.videoId} opts={opts} />
-                    <div style={{ width: 280 }}>{item.title}</div>
+                    <div style={{ width: 280 }}>
+                      {item.title.replace(/&QUOT;/gi, '"')}
+                    </div>
                   </Row>
                 </Col>
               ))}
