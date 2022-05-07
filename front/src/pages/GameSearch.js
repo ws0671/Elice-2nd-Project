@@ -172,7 +172,7 @@ function GameSearch() {
           </Form>
         </div>
       </SearchBarContainer>
-      {mode === "전체 목록" && (
+      {/* {mode === "전체 목록" && (
         <Dropdown className="mt-3">
           <div>
             <DropDownBtn
@@ -290,7 +290,7 @@ function GameSearch() {
               </ul>
             </div>
           </div>
-        </Dropdown>
+        </Dropdown> */}
       )}
       <Main>
         <ImgDiv className="mt-4">
