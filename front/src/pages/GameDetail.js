@@ -69,7 +69,7 @@ const GameDetail = () => {
     );
     const copied = example.map((v) => {
       if (
-        v.writeNickname === edit.writeNickname &&
+        v.writer.nickname === edit.writer.nickname &&
         v.reviewId === item.reviewId
       ) {
         return { ...v, review };
@@ -88,7 +88,7 @@ const GameDetail = () => {
     );
     const copied = example.map((v) => {
       if (
-        v.writeNickname === deleted.writeNickname &&
+        v.writer.nickname === deleted.writer.nickname &&
         v.reviewId === item.reviewId
       ) {
         return { ...v, isDeleted: true };
