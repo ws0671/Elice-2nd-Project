@@ -12,7 +12,6 @@ const Article = {
   },
 
   findAllByCategory: async (filter, page, skip = 10, limit = 10) => {
-
     const articles = await ArticleModel.find(filter)
       .sort({ createdAt: -1 })
       .skip((page - 1) * skip)

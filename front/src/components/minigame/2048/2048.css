@@ -1,66 +1,10 @@
-/* @import url(fonts/clear-sans.css); */
-html,
-body {
-  margin: 0;
-  padding: 0;
-  background: #faf8ef;
-  color: #776e65;
-  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
-  font-size: 18px;
-}
-
-/* body {
-  margin: 80px 0;
-} */
-
-input {
-  display: inline-block;
-  background: #8f7a66;
-  border-radius: 3px;
-  padding: 0 20px;
-  text-decoration: none;
-  color: #f9f6f2;
-  height: 40px;
-  line-height: 42px;
-  cursor: pointer;
-  font: inherit;
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-  font-weight: bold;
-  margin: 0;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-input[type="text"],
-input[type="email"] {
-  cursor: auto;
-  background: #fcfbf9;
-  font-weight: normal;
-  color: #776e65;
-  padding: 0 15px;
-}
-input[type="text"]::-webkit-input-placeholder,
-input[type="email"]::-webkit-input-placeholder {
-  color: #9d948c;
-}
-input[type="text"]::-moz-placeholder,
-input[type="email"]::-moz-placeholder {
-  color: #9d948c;
-}
-input[type="text"]:-ms-input-placeholder,
-input[type="email"]:-ms-input-placeholder {
-  color: #9d948c;
-}
-
 .heading:after {
   content: "";
   display: block;
   clear: both;
 }
 
-h1.title {
+h1.title2048 {
   font-size: 80px;
   font-weight: bold;
   margin: 0;
@@ -103,6 +47,17 @@ h1.title {
     opacity: 0;
   }
 }
+
+.container2048 {
+  /* z-index: 1; */
+  width: 100vw;
+  height: 100vh;
+  background-color: #1b1523;
+  overflow: hidden;
+  /* position: absolute;
+  top: 0; */
+}
+
 .scores-container {
   float: right;
   text-align: right;
@@ -191,6 +146,12 @@ hr {
   border-bottom: 1px solid #d8d4d0;
   margin-top: 20px;
   margin-bottom: 30px;
+}
+
+.fixedBox.fixed {
+  width: 100%;
+  top: 0;
+  right: 0;
 }
 
 #game2048 {
@@ -765,7 +726,7 @@ hr {
   float: left;
   line-height: 42px;
   margin-bottom: 0;
-  color: #57407c;
+  color: white;
 }
 
 .restart-button {
