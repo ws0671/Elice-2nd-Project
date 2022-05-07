@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 const GenreGame = ({ data }) => {
   return (
     <>
       {data &&
         data.map((val, key) => {
           return (
-            <div key={key}>
+            <Link key={key} to={`/gamedetail/${data[key]["gameId"]}`}>
               <img alt="이미지" src={data[key]["headerImage"]} />
               <div className="flexDiv">
                 <div className="numberDiv">
@@ -16,7 +17,7 @@ const GenreGame = ({ data }) => {
                   <div>{data[key]["genres"]}</div>
                 </div>
               </div>
-            </div>
+            </Link>
           );
         })}
     </>

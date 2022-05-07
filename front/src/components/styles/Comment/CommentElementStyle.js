@@ -52,7 +52,8 @@ export const Div = styled.div`
       // color: white;
       cursor: pointer;
     }
-  `;
+  }
+`
 
 export const ButtonGroup = styled.div`
   left: 84%;

@@ -8,7 +8,7 @@ const SingleCard = ({ card, handleChoice, flipped, disabled }) => {
   };
 
   return (
-    <div className="card">
+    <div className="matchCard">
       <div className={flipped ? "flipped" : ""}>
         <img className="front" src={card.src} alt="card front" />
         <img

@@ -1,13 +1,10 @@
 import React from "react"
-import { useNavigate } from "react-router-dom"
-import styled from "styled-components"
 import PrologueMain from "../components/prologue/MainBanner/PrologueMain"
 import PrologueStyle from "../components/prologue/PrologueStyle"
 import { Content } from "../components/prologue/Contents/Contents"
 import { contentOne, contentTwo, contentThree } from "../components/prologue/Contents/ContentsData"
 import FirstContent from "../components/prologue/Contents/FirstContent.js"
 import LastContent from "../components/prologue/Contents/LastContent"
-
 
 function Prologue() {
 

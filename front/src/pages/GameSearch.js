@@ -35,16 +35,15 @@ const GENRE_DATA = [
   "Gore",
 ];
 const AGE_DATA = [
-  { headerImage: "images/전체이용가.png" },
-  { headerImage: "images/12세이용가.png" },
-  { headerImage: "images/15세이용가.png" },
-  { headerImage: "images/청소년이용불가.png" },
+  { headerImage: "images/전체이용가.png", age: 0 },
+  { headerImage: "images/12세이용가.png", age: 12 },
+  { headerImage: "images/15세이용가.png", age: 16 },
+  { headerImage: "images/청소년이용불가.png", age: 18 },
 ];
-const FLATFORM_DATA = [
-  { headerImage: "images/xbox.jpg" },
-  { headerImage: "images/ps4.jpg" },
-  { headerImage: "images/ps5.jpg" },
-  { headerImage: "images/pcGame.png" },
+const PLATFORM_DATA = [
+  { headerImage: "images/windows.png", platform: "windows" },
+  { headerImage: "images/mac.png", platform: "mac" },
+  { headerImage: "images/linux.webp", platform: "linux" },
 ];
 function GameSearch() {
   //없는 검색어 검색시 없는 검색이라고 나오도록 구현하기
@@ -57,7 +56,7 @@ function GameSearch() {
   const [btn2, setBtn2] = useState(vers[1]);
   const [mode, setMode] = useState(types[0]);
   const [age, setAge] = useState(null);
-  const [flatForm, setFlatForm] = useState(null);
+  const [platForm, setPlatForm] = useState(null);
   const [genre, setGenre] = useState(null);
 
   // 페이지네이션과 관련된 state
@@ -76,8 +75,7 @@ function GameSearch() {
     setData(res.data);
     const count = Math.ceil(res.data.gameCounts / 12);
     setLastPage(count);
-    // res.data.gameCounts
-    //res.lastPage
+    console.log(res.data);
   };
 
   useEffect(() => {
@@ -110,7 +108,7 @@ function GameSearch() {
     }
     setSearchWord(e.target.value);
   };
-  // //버튼을 클릭하면 실행되는 함수입니다.
+  // 검색 navbar버튼을 클릭하면 실행되는 함수입니다.
   const handleButton = (e, type) => {
     e.preventDefault();
     setSelect(type);
@@ -124,7 +122,7 @@ function GameSearch() {
     }
     if (e.target.textContent === "플랫폼") {
       setMode(e.target.textContent);
-      setFlatForm(FLATFORM_DATA);
+      setPlatForm(PLATFORM_DATA);
     }
     if (e.target.textContent === "이용등급") {
       setMode(e.target.textContent);
@@ -303,7 +301,7 @@ function GameSearch() {
             data={data}
             inputData={inputData}
             age={age}
-            flatForm={flatForm}
+            platForm={platForm}
             genre={genre}
           ></DataExpression>
         </ImgDiv>
