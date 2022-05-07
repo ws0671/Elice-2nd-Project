@@ -25,7 +25,7 @@ const Roulette = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     Swal.fire({
       position: "center",
       title: "Rules Of Roulette",

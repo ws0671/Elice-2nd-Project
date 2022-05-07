@@ -65,6 +65,9 @@ export const Body = styled.div`
     rgba(198, 35, 104, 0) 99.35%
   );
   background-blend-mode: multiply;
+  a {
+    text-decoration: none;
+  }
   .main {
     display: flex;
     flex-direction: column;

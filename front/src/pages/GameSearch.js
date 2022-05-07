@@ -6,7 +6,7 @@ import * as Api from "../api";
 import SearchPagination from "../components/Search/SearchPagination";
 import ReactPaginate from "react-paginate";
 import {
-  H1,
+  MainImage,
   SearchBarContainer,
   Button,
   Form,
@@ -160,13 +160,14 @@ function GameSearch() {
   };
   return (
     <>
-      <div className="video">
+      <MainImage className="video">
         <video width="100%" muted autoPlay loop>
           <source src="/videos/playStation.mp4" type="video/mp4" />
         </video>
-      </div>
-      <H1 className="mt-5">게임 검색</H1>
-      <SearchBarContainer>
+        <h1>게임 검색</h1>
+      </MainImage>
+
+      <SearchBarContainer className="mt-5">
         <div className="searchBar">
           {types.map((type, key) => (
             <Button
