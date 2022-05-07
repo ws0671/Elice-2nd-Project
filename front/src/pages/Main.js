@@ -18,6 +18,10 @@ import MainNews from "../components/main/MainNews";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { FaBorderNone } from "react-icons/fa";
+import grade from "../images/grade.png";
+import star from "../images/star.png";
+import bad from "../images/bad.png";
+import smile from "../images/smile.png";
 
 // 메인 bg-color:#673ab7
 
@@ -64,7 +68,7 @@ function Main() {
               <Link to="/topchart">
                 <div class="LinkWrapper">
                   <ImageWrapper>
-                    <Image alt="평점 TOP 10" src="images/score.svg" />
+                    <Image alt="평점 TOP 10" src={star} />
                   </ImageWrapper>
                   <Div className="mt-3">평점 TOP 10</Div>
                 </div>
@@ -73,7 +77,7 @@ function Main() {
             <Link to="/topchart">
               <div class="LinkWrapper">
                 <ImageWrapper>
-                  <Image alt="장르별 TOP 10" src="images/trophy_icon.svg" />
+                  <Image alt="장르별 TOP 10" src={smile} />
                 </ImageWrapper>
                 <Div className="mt-3">장르별 TOP 10</Div>
               </div>
@@ -82,7 +86,7 @@ function Main() {
               <Link to="/topchart">
                 <div class="LinkWrapper">
                   <ImageWrapper>
-                    <Image alt="이용등급별 TOP 10" src="images/layer.svg" />
+                    <Image alt="이용등급별 TOP 10" src={grade} />
                   </ImageWrapper>
                   <Div className="mt-3">이용등급별 TOP 10</Div>
                 </div>
@@ -92,7 +96,7 @@ function Main() {
               <Link to="/topchart">
                 <div class="LinkWrapper">
                   <ImageWrapper>
-                    <Image alt="똥겜 TOP 10" src="images/frown.svg" />
+                    <Image alt="똥겜 TOP 10" src={bad} />
                   </ImageWrapper>
                   <Div className="mt-3">똥겜 TOP 10</Div>
                 </div>
@@ -162,10 +166,13 @@ const Button = styled.button`
     contrast(2) brightness(2);
   transition: 0.5s;
   background: transparent;
+  font-size: 18px;
+  font-weight: bold;
 
   &:hover {
     color: #313b64;
     background-color: #00e0c7;
+    font-weight: bold;
     filter: drop-shadow(0 0 20px #00e0c7) contrast(2) brightness(2);
   }
 `;

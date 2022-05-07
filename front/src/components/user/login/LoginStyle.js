@@ -32,7 +32,7 @@ export const MainContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  height: 60vh;
+  height: 80vh;
   width: 22vw;
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 8px 32px #6869d0;

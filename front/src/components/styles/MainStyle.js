@@ -9,8 +9,9 @@ export const ImageWrapper = styled.div`
   align-items: center;
 `;
 export const Image = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
+  border-radius: 30px;
 `;
 export const NewsImg = styled.img`
   width: 250px;

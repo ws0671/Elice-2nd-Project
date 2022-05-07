@@ -2,11 +2,17 @@ import styled from "styled-components";
 
 export const MainImage = styled.div`
   position: relative;
+  background: linear-gradient(
+    180deg,
+    rgba(117, 130, 183, 0.59) 0%,
+    rgba(168, 202, 210, 0.59) 100%
+  );
+  // height: 610px;
   .title {
   }
   h1 {
     width: 100%;
-    height: 100%;
+    height: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,10 +25,12 @@ export const MainImage = styled.div`
   }
 `;
 export const Main = styled.main`
-  margin: 100px auto 0 auto;
+  margin: 0 auto 0 auto;
   width: 100%;
+
   .toptenContainer {
-    margin-top: 80px;
+    padding: 50px 0;
+    // margin-top: 80px;
   }
   h3 {
     font-weight: bold;
