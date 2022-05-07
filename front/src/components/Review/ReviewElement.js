@@ -2,7 +2,7 @@ import { useState, useRef, useEffect, useContext } from "react";
 import { Div, ButtonGroup } from "../styles/Comment/CommentElementStyle";
 import { UserStateContext } from "../../App";
 
-const CommentElement = ({ item, removeHandler, editHandler }) => {
+const ReviewElement = ({ item, removeHandler, editHandler }) => {
   // 댓글 수정폼 show/notshow 상태값
   const [edit, setEdit] = useState(false);
   // 댓글 데이터 상태값
@@ -13,7 +13,6 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
   const viewMore = useRef([]);
   // 현재 로그인 유저 데이터 값
   const userContext = useContext(UserStateContext);
-  console.log(item);
   useEffect(() => {
     document.addEventListener("mousedown", clickOutside);
 
@@ -28,6 +27,7 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
       setView((prev) => !prev);
     }
   };
+  console.log(item);
 
   return (
     <Div
@@ -66,13 +66,13 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
       ) : (
         <>
           <div>
-            <div className="nickname">{item.writerNickname}</div>
+            <div className="nickname">{item.nickname}</div>
             <div className="comment">
-              {item.isDeleted ? "삭제된 댓글입니다" : item.comment}
+              {item.isDeleted ? "삭제된 리뷰입니다" : item.review}
             </div>
           </div>
 
-          {item.writerNickname === userContext.user.nickname && (
+          {userContext.user.nickname && (
             <img
               ref={(el) => (viewMore.current[0] = el)}
               src="/images/viewmore.png"
@@ -103,4 +103,4 @@ const CommentElement = ({ item, removeHandler, editHandler }) => {
   );
 };
 
-export default CommentElement;
+export default ReviewElement;
