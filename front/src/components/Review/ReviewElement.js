@@ -27,6 +27,7 @@ const ReviewElement = ({ item, removeHandler, editHandler }) => {
       setView((prev) => !prev);
     }
   };
+  console.log(userContext.user);
 
   return (
     <Div
@@ -71,7 +72,7 @@ const ReviewElement = ({ item, removeHandler, editHandler }) => {
             </div>
           </div>
 
-          {item.writer.nickname === userContext.user.nickname && (
+          {item.writer.nickname === userContext?.user?.nickname && (
             <img
               ref={(el) => (viewMore.current[0] = el)}
               src="/images/viewmore.png"

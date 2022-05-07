@@ -9,7 +9,6 @@ const TOTAL_SLIDES = 1;
 export default function Slider4() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [data, setData] = useState();
-  const [mode, setMode] = useState(0);
   const slideRef = useRef(null);
 
   const nextSlide = () => {
@@ -26,28 +25,12 @@ export default function Slider4() {
       setCurrentSlide(currentSlide - 1);
     }
   };
-  const ageGame = async () => {
-    setMode(0);
-    const res = await Api.get(`gameGraph/bestAge/${mode}`);
-    setData(res.data);
-  };
-  const ageGame12 = async () => {
-    setMode(12);
-    const res = await Api.get(`gameGraph/bestAge/${mode}`);
-    setData(res.data);
-  };
-  const ageGame15 = async () => {
-    setMode(16);
-    const res = await Api.get(`gameGraph/bestAge/${mode}`);
-    setData(res.data);
-  };
-  const ageGame18 = async () => {
-    setMode(18);
-    const res = await Api.get(`gameGraph/bestAge/${mode}`);
+  const setGame = async (type) => {
+    const res = await Api.get(`gameGraph/bestAge/${type}`);
     setData(res.data);
   };
   useEffect(() => {
-    ageGame();
+    setGame(0);
   }, []);
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
@@ -55,10 +38,10 @@ export default function Slider4() {
   }, [currentSlide]);
   return (
     <Container>
-      <button onClick={ageGame}>전체 이용가</button>
-      <button onClick={ageGame12}>12세</button>
-      <button onClick={ageGame15}>15세</button>
-      <button onClick={ageGame18}>18세</button>
+      <button onClick={() => setGame(0)}>전체 이용가</button>
+      <button onClick={() => setGame(12)}>12세</button>
+      <button onClick={() => setGame(16)}>15세</button>
+      <button onClick={() => setGame(18)}>18세</button>
       <SliderContainer ref={slideRef}>
         {data && <AgeGame data={data}></AgeGame>}
       </SliderContainer>
