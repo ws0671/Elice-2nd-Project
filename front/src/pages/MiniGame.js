@@ -69,6 +69,7 @@ const MiniGame = () => {
 
   return (
     <>
+      <script src="../components/minigame/2048/scrollLock.js"></script>
       <div className="container" id="game2048">
         <div style={{ height: "80px" }} />
         <Header score={score} bestScore={bestScore} />
