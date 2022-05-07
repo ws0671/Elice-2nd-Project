@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 const MypageBookmarkElement = ({ data, index }) => {
-  const [on, setOn] = useState(false);
+  const navigate = useNavigate();
   return (
     // <Div on={on}>
-    <div className="imgWrap" style={{ width: "300px", height: "200px" }}>
+    <div
+      className="imgWrap"
+      style={{ width: "300px", height: "200px" }}
+      onClick={() => navigate(`/gamedetail/${data.gameId}`)}
+    >
       <img
         style={{ width: "300px", height: "200px" }}
         key={index}

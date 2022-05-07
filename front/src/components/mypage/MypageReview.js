@@ -1,11 +1,14 @@
 import { Card } from "react-bootstrap";
-
-const MypageReview = () => {
+import { useNavigate } from "react-router-dom";
+const MypageReview = ({ item }) => {
+  const navigate = useNavigate();
   return (
-    <Card>
+    <Card onClick={() => navigate(`/gamedetail/${item.gameId}`)}>
       <Card.Body>
-        <Card.Title>리뷰내용</Card.Title>
-        <Card.Text style={{ textAlign: "end" }}>작성일</Card.Text>
+        <Card.Title>{item?.review}</Card.Title>
+        <Card.Text style={{ textAlign: "end" }}>
+          {(item?.createdAt.split("T"))[0]}
+        </Card.Text>
       </Card.Body>
     </Card>
   );
