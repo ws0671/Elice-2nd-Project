@@ -16,6 +16,29 @@ const MiniGame = () => {
   const [hasPrinted, setHasPrinted] = useState(false);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useLocalStorageNumber("bestScore", 0);
+  const [scrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
+  const [scrollActive, setScrollActive] = useState(false);
+
+  function handleScroll() {
+    console.log(window.pageYOffset);
+    if (scrollY > 0) {
+      setScrollY(window.pageYOffset);
+      setScrollActive(true);
+    } else {
+      setScrollY(window.pageYOffset);
+      setScrollActive(false);
+    }
+  }
+
+  useEffect(() => {
+    function scrollListener() {
+      window.addEventListener("scroll", handleScroll);
+    } //  window 에서 스크롤을 감시 시작
+    scrollListener(); // window 에서 스크롤을 감시
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    }; //  window 에서 스크롤을 감시를 종료
+  });
 
   useLayoutEffect(() => {
     const checkToday = async () => {
@@ -69,16 +92,17 @@ const MiniGame = () => {
 
   return (
     <>
-      <script src="../components/minigame/2048/scrollLock.js"></script>
-      <div className="container" id="game2048">
-        <div style={{ height: "80px" }} />
-        <Header score={score} bestScore={bestScore} />
+      <div className="container2048" id="container2048">
+        <div id="game2048">
+          <div style={{ height: "80px" }} />
+          <Header score={score} bestScore={bestScore} />
+          <br />
+          <AboveGame />
+        </div>
         <br />
-        <AboveGame />
+        <br />
+        <Game setScore={setScore} />
       </div>
-      <br />
-      <br />
-      <Game setScore={setScore} />
     </>
   );
 };
