@@ -12,7 +12,7 @@ const Review = {
   },
 
   findAllByGame: async ({ gameId }) => {
-    const reviews = await ReviewModel.find({ gameId });
+    const reviews = await ReviewModel.find({ gameId }).populate("writer");
     return reviews;
   },
 
