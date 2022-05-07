@@ -41,13 +41,15 @@ function Main() {
   const navigate = useNavigate();
   useEffect(() => {
     axios
-      .get(`http://localhost:5001/gameNews?category=${query}`)
+      .get(
+        `http://${process.env.REACT_APP_MODE}:5001/gameNews?category=${query}`
+      )
       .then((res) => {
         setFirstGameNews(res.data.slice(0, 4));
         setLastGameNews(res.data.slice(4));
       });
     axios
-      .get(`http://localhost:5001/youtubeVideos`)
+      .get(`http://${process.env.REACT_APP_MODE}:5001/youtubeVideos`)
       .then((res) => setVideo(res.data));
   }, [query]);
 

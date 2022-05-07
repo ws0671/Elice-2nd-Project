@@ -578,7 +578,7 @@ hr {
     font-size: 15px;
   }
 }
-.tile.tile-9192 .tile-inner {
+.tile.tile-8192 .tile-inner {
   color: #f9f6f2;
   background: #dbff64;
   box-shadow: 0 0 30px 10px rgba(243, 215, 116, 0.55556),
@@ -586,7 +586,7 @@ hr {
   font-size: 35px;
 }
 @media screen and (max-width: 520px) {
-  .tile.tile-9192 .tile-inner {
+  .tile.tile-8192 .tile-inner {
     font-size: 15px;
   }
 }

@@ -9,7 +9,7 @@ OutsideApiRouter.get("/gameNews", async (req, res, next) => {
     const category = req.query.category;
 
     // redis 서버에서 캐시 확인
-    const cache = await redisClient.GET(`gameNews`);
+    const cache = await redisClient.GET(`gameNews?${category}`);
     if (cache) {
       // 캐시가 있으면
       res.status(200).json(JSON.parse(cache));
@@ -18,7 +18,7 @@ OutsideApiRouter.get("/gameNews", async (req, res, next) => {
       const gameNews = await OutsideApi.getNews(category);
 
       await redisClient.SETEX(
-        `gameNews`,
+        `gameNews?${category}`,
         DEFAULT_EXPIRATION,
         JSON.stringify(gameNews)
       );
