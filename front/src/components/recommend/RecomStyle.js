@@ -6,7 +6,6 @@ export const BodyStyle = styled.div`
 background-image: ${(props) => `url(${props.imgUrl})`}; 
 width: 100vw;
 height: 100vh;
-font-family: "Roboto", sans-serif;
 display: flex;
 justify-content: flex-end;
 align-items: center;
