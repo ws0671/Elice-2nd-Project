@@ -2,7 +2,8 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai"
 import { useEffect, useState } from 'react'
 import styled, { keyframes } from "styled-components"
 
-const RecomSlider = ({ gameItem }) => {
+
+const RecomSlider = ({ gameItem, getCurrentIdx }) => {
     const [currentSlide, setCurrentSlide] = useState(0)
     const [currentNum, setCurrentNum] = useState(1)
     const slideLength = 5;
@@ -10,7 +11,6 @@ const RecomSlider = ({ gameItem }) => {
     const autoScroll = false;
     let slideInterval
     let intervalTime = 5000;
-
 
     const prevSlide = () => {
         setCurrentSlide(currentSlide === 0 ? slideLength - 1 : currentSlide - 1)
@@ -69,9 +69,12 @@ const RecomSlider = ({ gameItem }) => {
                                             < RequiredAge>{items.requiredAge}</RequiredAge>
                                         </ContentDetail>
                                     </Content>
+
                                 </>
                             )}
+
                         </CurrentSlide>
+
                     )
                 })}
             </Slider>

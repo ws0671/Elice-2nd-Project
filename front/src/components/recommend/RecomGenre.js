@@ -7,12 +7,11 @@ import styled from "styled-components";
 import genreImg from "../../images/RecomBg_genre_3.svg";
 import * as Api from "../../api";
 import { UserStateContext } from "../../App";
+import Swal from "sweetalert2";
 
 function RecomGenre() {
   const navigate = useNavigate();
-  const params = useParams();
   const userContext = useContext(UserStateContext);
-  console.log(userContext.user.userId);
 
   const gameGenres = [
     "Adventure",
@@ -42,7 +41,15 @@ function RecomGenre() {
 
   const goSecondPage = () => {
     if (!isNumberValid) {
-      alert("3가지를 골라주세요!");
+      Swal.fire({
+        icon: "warning",
+        title: `3가지를 골라주세요!`,
+        showConfirmButton: false,
+        timer: 3000,
+        width: 600,
+        background: "rgba(0, 0, 0, 0.8)",
+        color: "white",
+      });
     } else {
       navigate("/recommend/qna/2", {
         state: {

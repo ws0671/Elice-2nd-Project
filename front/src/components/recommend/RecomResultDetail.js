@@ -6,8 +6,8 @@ import * as Api from "../../api";
 import { UserStateContext } from "../../App"
 import { Wrapper, MainImg, RemainderWrapper, Remainders, ButtonWrapper, Button } from "./ResultDetailStyle"
 import { BodyStyle, QnaBox, AnswerButton } from "./RecomStyle";
-import RecommendChart from "./RecommendChart";
 import RecomSlider from "./RecomSlider";
+import RecomChart from './RecomChart'
 
 function RecomResultDetail() {
     const location = useLocation()
@@ -15,7 +15,15 @@ function RecomResultDetail() {
     const userContext = useContext(UserStateContext)
     const userId = userContext.user.userId
 
+
+    const [currentIdx, setCurrentIdx] = useState(0)
     const [gameItem, setGameItem] = useState([])
+
+    const getCurrentIdx = (currentIdx) => {
+        setCurrentIdx(currentIdx)
+
+    }
+
 
     const refresh = () => {
         Api.delete("gameRecommend", userId)
@@ -27,25 +35,16 @@ function RecomResultDetail() {
 
     }, [])
 
-    console.log('GameItem', gameItem)
-
-
 
 
     return (
         <div>
             <BodyStyle>
-                {/*   < Wrapper> */}
-                <div className="gameMainImg">
-                    <RecomSlider gameItem={gameItem} />
-                </div>
-                <RemainderWrapper>
-
-                </RemainderWrapper>
+                <RecomSlider gameItem={gameItem} getCurrentIdx={getCurrentIdx} />
+                <RecomChart gameItem={gameItem} />
                 <ButtonWrapper>
                     <Button onClick={refresh}>처음부터 다시!</Button>
                 </ButtonWrapper>
-                {/*   </Wrapper> */}
             </BodyStyle>
         </div>
     )
