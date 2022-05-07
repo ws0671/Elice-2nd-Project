@@ -172,6 +172,11 @@ const CommunityDetail = () => {
               </div>
               <div className="detail body">{ReactHtmlParser(detail.body)}</div>
               <div className="detail etc">
+                {detail.tags.map((item) => (
+                  <span># {item}</span>
+                ))}
+              </div>
+              <div className="detail etc">
                 <img
                   src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
                   alt="좋아요"
