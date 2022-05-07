@@ -8,7 +8,12 @@ import { FaBookmark } from "react-icons/fa";
 import { UserStateContext } from "../App";
 import ReviewAddForm from "../components/Review/ReviewAddForm";
 import ReviewList from "../components/Review/ReviewList";
-
+import {
+  Main,
+  FlexBody,
+  ScreenShot,
+  Footer,
+} from "../components/styles/GameDetailStyle";
 const GameDetail = () => {
   const [data, setData] = useState(null);
   const [genre, setGenre] = useState();
@@ -167,47 +172,5 @@ const GameDetail = () => {
     </>
   );
 };
-const FlexBody = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50vh;
-  h1 {
-    font-weight: bold;
-  }
-  span {
-    margin-left: 5px;
-    font-size: 20px;
-  }
-  img {
-    margin-left: 40px;
-    width: 400px;
-    height: 300px;
-  }
-  .information {
-    position: relative;
-  }
-  .bookmark {
-    cursor: pointer;
-    left: -5vh;
-    position: absolute;
-  }
-`;
-const ScreenShot = styled.div`
-  display: flex;
-  justify-content: center;
-  img {
-    width: 400px;
-  }
-`;
-const Footer = styled.footer`
-  height: 20vh;
-`;
-const Main = styled.div`
-  padding: 0 200px;
-  .screenShot {
-    margin-left: 55px;
-    font-weight: bold;
-  }
-`;
+
 export default GameDetail;

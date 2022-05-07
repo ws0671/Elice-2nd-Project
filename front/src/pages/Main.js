@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Body,
   DivBold,
@@ -14,6 +15,7 @@ import { Container, Row, Col, ButtonGroup, Button } from "react-bootstrap";
 import * as Api from "../api";
 import axios from "axios";
 import MainNews from "../components/main/MainNews";
+import { Navigate } from "react-router-dom";
 
 // 메인 bg-color:#673ab7
 
@@ -30,7 +32,7 @@ function Main() {
   const [lastGameNews, setLastGameNews] = useState([]);
   const [query, setQuery] = useState("P");
   const [video, setVideo] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios
       .get(`http://localhost:5001/gameNews?category=${query}`)
@@ -130,7 +132,14 @@ function Main() {
           />
         </div>
         <div>
-          <button variant="primary">게임 찾으러 GO!</button>
+          <button
+            onClick={() => {
+              navigate("/recommend");
+            }}
+            variant="primary"
+          >
+            게임 찾으러 GO!
+          </button>
         </div>
         <div>
           <img
