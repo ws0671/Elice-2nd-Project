@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import "./MemorizeCards.css";
 import SingleCard from "./SingleCard";
 import * as Api from "../../../api";
@@ -22,6 +22,18 @@ const MemorizeCards = () => {
   const [choiceTwo, setChoiceTwo] = useState(null);
   const [disabled, setDisabled] = useState(false);
   const userContext = useContext(UserStateContext);
+
+  useLayoutEffect(() => {
+    Swal.fire({
+      position: "center",
+      title: "Rules Of Card Match",
+      icon: "info",
+      html: "<p>🐈💖🐈🧡🐈💛🐈💚🐈💙🐈💜🐈🤍🐈🖤🐈</br>카드를 뒤집어서 귀여운 고양이의 짝을 맞춰주세요</br>카드를 클릭하면 뒤집을 수 있답니다 ヾ(≧▽≦*)o<br>(っ °Д °;)っ 12번 안에 clear하지 못 하면 게임오버예요!!</br></br>※포인트를 받을 수 있는 건 하루에 한 번 뿐입니다.※</p>",
+      height: "100px",
+      showConfirmButton: true,
+      timer: 5000,
+    });
+  }, []);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
