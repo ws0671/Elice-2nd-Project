@@ -28,7 +28,7 @@ const ReviewService = {
 
     if (!review) {
       throw new Error("존재하지 않는 리뷰입니다.");
-    } else if (review.userId !== userId) {
+    } else if (review.writer.userId !== userId) {
       throw new Error("수정 권한이 없는 리뷰입니다.");
     }
 
