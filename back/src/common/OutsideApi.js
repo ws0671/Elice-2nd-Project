@@ -5,7 +5,6 @@ import axios from "axios";
 const OutsideApi = {
   // 온라인: "O" | PC: "P" | 비디오: "V" | 웹게임: "W" | 모바일: "M"
   getNews: async (category) => {
-    console.log("getNews function");
     return new Promise((res, rej) => {
       request(
         {
@@ -18,7 +17,6 @@ const OutsideApi = {
             rej(new Error("error"));
           }
           if (response.statusCode === 200) {
-            console.log("response ok");
             // cheerio를 활용하여 body에서 데이터 추출
             const $ = cheerio.load(body);
             const list_news = $(
@@ -46,13 +44,13 @@ const OutsideApi = {
     });
   },
 
-  getYoutubeDatas: async (keyword) => {
+  getYoutubeDatas: async () => {
     const params = {
       key: process.env.YOUTUBE_API_KEY,
-      q: keyword,
+      q: "게임 리뷰",
       part: "snippet",
       type: "video",
-      maxResults: 5,
+      maxResults: 8,
       fields: "items(id, snippet(title))",
       videoEmbeddable: true,
     };

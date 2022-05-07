@@ -2,10 +2,10 @@ import { User, Game, Review, Like, Article } from "../db"; // from을 폴더(db)
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
-import { sendMail } from "./mailService";
+import { SendMail } from "./mailService";
 import { SetUtil } from "../common/setUtil";
 
-const userAuthService = {
+const UserAuthService = {
   addUser: async ({ nickname, email, password }) => {
     // 이메일 중복 확인
     const userEmail = await User.findByEmail({ email });
@@ -115,6 +115,23 @@ const userAuthService = {
     return user;
   },
 
+  resetPassword: async ({ email, updateData }) => {
+    let user = await User.findByEmail({ email });
+    if (!user) {
+      throw new Error(
+        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
+      );
+    }
+
+    const hashedPassword = await bcrypt.hash(updateData.password, 10);
+    updateData.password = hashedPassword;
+
+    const toUpdate = SetUtil.compareValues(updateData, user);
+    user = await User.update({ userId: user.userId, toUpdate });
+
+    return user;
+  },
+
   getUserInfo: async ({ userId }) => {
     const user = await User.findById({ userId });
     if (!user) {
@@ -137,13 +154,13 @@ const userAuthService = {
       );
     }
 
-    const code = Math.floor(100000 + Math.random() * 900000);
+    const code = SetUtil.randomCode();
 
     const subject = "[GAME PEARL] 인증코드";
     const text = `귀하의 인증코드는 ${code} 입니다. 인증 후 비밀번호를 변경해주세요.`;
-    await sendMail(email, subject, text);
+    await SendMail(email, subject, text);
 
-    return { user, code };
+    return { email: user.email, code };
   },
 
   getAllBookmarks: async ({ userId, page }) => {
@@ -242,19 +259,6 @@ const userAuthService = {
 
     return user;
   },
-
-  getBookmarkList: async ({ userId }) => {
-    const user = await User.findById({ userId });
-    if (!user) {
-      throw new Error(
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요."
-      );
-    }
-    const bookmarks = user.bookmarks;
-    // TODO : 북마크에 해당하는 게임 정보들을 gameService 메소드로 가져와서 객체들의 배열로 넘겨줄 것인가
-
-    return bookmarks;
-  },
 };
 
-export { userAuthService };
+export { UserAuthService };

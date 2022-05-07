@@ -1,6 +1,6 @@
 import { Like, Article } from "../db";
 
-const likeService = {
+const LikeService = {
   addLike: async ({ userId, articleId }) => {
     const article = await Article.findById({ articleId });
     if (!article) {
@@ -40,4 +40,4 @@ const likeService = {
   },
 };
 
-export { likeService };
+export { LikeService };

@@ -4,7 +4,7 @@ import { gameByReleaseYear, gameByGenre, indieByYear } from "../json/chartData";
 import { GameGenreGraph } from "../db";
 import { GameAgeGraph } from "../db";
 
-const gameGraphService = {
+const GameGraphService = {
   getBestRank: async () => {
     const games = GameRatingGraph.findBestRating();
     if (!games) {
@@ -75,4 +75,4 @@ const gameGraphService = {
   },
 };
 
-export { gameGraphService };
+export { GameGraphService };

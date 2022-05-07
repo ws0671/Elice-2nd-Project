@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
+import * as Api from "../api";
+import BestGame from "./BestGame";
+import { SliderContainer, Container, Button } from "./styles/SliderStyle";
+
 const TOTAL_SLIDES = 1;
 export default function Slider() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [data, setData] = useState();
   const slideRef = useRef(null);
 
   const nextSlide = () => {
@@ -21,7 +25,13 @@ export default function Slider() {
       setCurrentSlide(currentSlide - 1);
     }
   };
-
+  const bestGame = async () => {
+    const res = await Api.get(`gameGraph/bestGame`);
+    setData(res.data);
+  };
+  useEffect(() => {
+    bestGame();
+  }, []);
   useEffect(() => {
     slideRef.current.style.transition = "all 0.5s ease-in-out";
     slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
@@ -29,126 +39,7 @@ export default function Slider() {
   return (
     <Container>
       <SliderContainer ref={slideRef}>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">1</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">2</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">3</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">4</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">5</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">6</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">7</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">8</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">9</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
-        <div>
-          <img alt="이미지" src="/images/lol.jpg" />
-          <div className="flexDiv">
-            <div className="numberDiv">
-              <span className="numberSpan">10</span>
-            </div>
-            <div className="detail">
-              <div>리그오브레전드</div>
-              <div>액션/RPG</div>
-            </div>
-          </div>
-        </div>
+        {data && <BestGame data={data}></BestGame>}
       </SliderContainer>
       <Button className="left" onClick={prevSlide}>
         <IoIosArrowBack size="40" />
@@ -159,52 +50,3 @@ export default function Slider() {
     </Container>
   );
 }
-const Container = styled.div`
-  width: 100%;
-  overflow: hidden;
-  position: relative;
-  .flexDiv {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-  }
-  .numberDiv {
-    font-size: 45px;
-    font-weight: bold;
-  }
-  .detail {
-    width: 100%;
-    font-size: 18px;
-    .span {
-      width: 100%;
-    }
-  }
-`;
-
-const Button = styled.button`
-  border: 1px solid black;
-  padding: 3em 0.2em;
-  color: white;
-  background-color: black;
-  opacity: 0;
-  &:hover {
-    transition: all 0.3s ease-in-out;
-    background-color: black;
-    color: #fff;
-    opacity: 0.5;
-  }
-  &.left {
-    position: absolute;
-    bottom: 35%;
-  }
-  &.right {
-    position: absolute;
-    right: 0;
-    bottom: 35%;
-  }
-`;
-
-const SliderContainer = styled.div`
-  width: 100%;
-  display: flex;
-`;

@@ -1,33 +1,46 @@
-import is from "@sindresorhus/is";
 import { Router } from "express";
 import { loginRequired } from "../middlewares/loginRequired";
-import { userAuthService } from "../services/userService";
+import { UserAuthService } from "../services/userService";
+import { body, validationResult } from "express-validator";
 
 const UserAuthRouter = Router();
 
-UserAuthRouter.post("/register", async (req, res, next) => {
-  try {
-    if (is.emptyObject(req.body)) {
-      throw new Error(
-        "headers의 Content-Type을 application/json으로 설정해주세요"
-      );
+UserAuthRouter.post(
+  "/register",
+  body("email").isEmail().withMessage("이메일 형식이 올바르지 않습니다."),
+  body("password")
+    .isLength({ min: 8, max: 16 })
+    .withMessage("8 ~ 16자리 비밀번호를 입력해주세요"),
+  async (req, res, next) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        const errorMsg = errors.errors[0].msg;
+        throw new Error(errorMsg);
+      }
+
+      const { nickname, email, password } = req.body;
+      // 특수문자 포함 검사
+      const REGEX = /^(?=.*[!@#\$%\^&\*]).{8,}$/;
+      if (REGEX.test(password)) {
+        // 위 데이터를 유저 db에 추가하기
+        const newUser = await UserAuthService.addUser({
+          nickname,
+          email,
+          password,
+        });
+
+        res.status(201).json(newUser);
+      } else {
+        throw new Error(
+          "비밀번호에는 최소 한 개의 특수문자가 포함돼야 합니다."
+        );
+      }
+    } catch (error) {
+      next(error);
     }
-
-    // req (request) 에서 데이터 가져오기
-    const { nickname, email, password } = req.body;
-
-    // 위 데이터를 유저 db에 추가하기
-    const newUser = await userAuthService.addUser({
-      nickname,
-      email,
-      password,
-    });
-
-    res.status(201).json(newUser);
-  } catch (error) {
-    next(error);
   }
-});
+);
 
 UserAuthRouter.post("/login", async (req, res, next) => {
   try {
@@ -35,7 +48,7 @@ UserAuthRouter.post("/login", async (req, res, next) => {
     const { email, password } = req.body;
 
     // 위 데이터를 이용하여 유저 db에서 유저 찾기
-    const user = await userAuthService.getUser({ email, password });
+    const user = await UserAuthService.getUser({ email, password });
 
     res.status(200).json(user);
   } catch (error) {
@@ -47,7 +60,7 @@ UserAuthRouter.post("/emailVerify", async (req, res, next) => {
   try {
     const email = req.body.email;
 
-    const user = await userAuthService.getUserAndCode({ email });
+    const user = await UserAuthService.getUserAndCode({ email });
 
     res.status(200).json(user);
   } catch (error) {
@@ -68,14 +81,14 @@ UserAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
         // 기준이 없고
         if (!page) {
           // page도 없으면 전체 myPage 정보 return
-          const currentUserInfo = await userAuthService.getUserInfo({
+          const currentUserInfo = await UserAuthService.getUserInfo({
             userId,
           });
 
           res.status(200).send(currentUserInfo);
         } else {
           // page만 있으면 pagenation 한 전체 북마크 게임 정보 return
-          const bookmarksInfo = await userAuthService.getAllBookmarks({
+          const bookmarksInfo = await UserAuthService.getAllBookmarks({
             userId,
             page,
           });
@@ -84,7 +97,7 @@ UserAuthRouter.get("/:userId/myPage", loginRequired, async (req, res, next) => {
         }
       } else {
         // 기준 있으면 정렬된 북마크 정보만 return
-        const sortedBookmarksInfo = await userAuthService.getSortedBookmarks({
+        const sortedBookmarksInfo = await UserAuthService.getSortedBookmarks({
           userId,
           criteria,
           page,
@@ -112,7 +125,7 @@ UserAuthRouter.put(
         const updateData = { nickname };
 
         // 해당 사용자 아이디로 사용자 정보를 db에서 찾아 업데이트함. 업데이트 요소가 없을 시 생략함
-        const updatedUser = await userAuthService.updateNickname({
+        const updatedUser = await UserAuthService.updateNickname({
           userId,
           updateData,
         });
@@ -136,7 +149,7 @@ UserAuthRouter.put(
         const password = req.body.password;
         const updateData = { password };
 
-        const updatedUser = await userAuthService.updatePassword({
+        const updatedUser = await UserAuthService.updatePassword({
           userId,
           updateData,
         });
@@ -149,12 +162,32 @@ UserAuthRouter.put(
   }
 );
 
+UserAuthRouter.put("/missingPassword", async (req, res, next) => {
+  try {
+    const { email, verified, password } = req.body;
+    const updateData = { password };
+
+    if (!verified) {
+      throw new Error("인증이 완료되지 않았습니다.");
+    }
+
+    const updatedUser = await UserAuthService.resetPassword({
+      email,
+      updateData,
+    });
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+});
+
 UserAuthRouter.delete("/:userId", loginRequired, async (req, res, next) => {
   try {
     const loginId = req.currentUserId;
     const userId = req.params.userId;
     if (loginId === userId) {
-      const result = await userAuthService.deleteUser({ userId });
+      const result = await UserAuthService.deleteUser({ userId });
 
       res.status(204).send(result);
     }
@@ -175,7 +208,7 @@ UserAuthRouter.put(
       if (loginId === userId) {
         const point = req.body.point;
 
-        const updatedUser = await userAuthService.addPoint({
+        const updatedUser = await UserAuthService.addPoint({
           userId,
           point,
         });
@@ -199,32 +232,13 @@ UserAuthRouter.put(
       if (loginId === userId) {
         const { bookmark, gameId } = req.body;
 
-        const updatedUser = await userAuthService.addBookmark({
+        const updatedUser = await UserAuthService.addBookmark({
           bookmark,
           userId,
           gameId,
         });
 
         res.status(200).send(updatedUser);
-      }
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-// 사용자별 북마크 리스트
-UserAuthRouter.get(
-  "/:userId/bookmarks",
-  loginRequired,
-  async (req, res, next) => {
-    try {
-      const loginId = req.currentUserId;
-      const userId = req.params.userId;
-      if (loginId === userId) {
-        const bookmarkList = await userAuthService.getBookmarkList({ userId });
-
-        res.status(200).send(bookmarkList);
       }
     } catch (error) {
       next(error);

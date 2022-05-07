@@ -8,13 +8,14 @@ const ArticleService = {
     }
 
     const user = await User.findById({ userId });
-    const author = userId;
-    const nickname = user.nickname;
-    const categoryName = SetUtil.convertCategory(category);
+    const permission = SetUtil.validatePermission(user.grade, category);
+    if (!permission) {
+      throw new Error("귀하는 해당 말머리를 선택할 수 없는 등급입니다.");
+    }
 
+    const categoryName = SetUtil.convertCategory(category);
     const newArticle = {
-      author,
-      nickname,
+      author: user,
       category,
       categoryName,
       title,
@@ -38,43 +39,51 @@ const ArticleService = {
       filter = { category };
     }
 
+    const articleCount = await Article.countArticles(filter);
     const articles = await Article.findAllByCategory(filter, page, limit, skip);
-    return articles;
+
+    return { articleCount, articles };
   },
 
   getArticleInfo: async ({ articleId, userId }) => {
-    let article = await Article.findById({ articleId })
-    const user = await User.findById({ userId })
-
+    let article = await Article.findById({ articleId });
+    const user = await User.findById({ userId });
 
     if (!article) {
       throw new Error("존재하지 않는 게시물입니다.");
     }
 
-    const permission = SetUtil.validatePermission(user.grade, article.category)
+    const permission = SetUtil.validatePermission(user.grade, article.category);
 
     if (permission) {
-      const likeOrNot = await Like.findByFilter({ articleId, userId })
-      const like = Boolean(likeOrNot)
-      const comments = await Comment.findAllByArticle({ articleId })
+      const likeOrNot = await Like.findByFilter({ articleId, userId });
+      const like = Boolean(likeOrNot);
+      const comments = await Comment.findAllByArticle({ articleId });
+      if (article.author.userId === userId) {
+        const articleInfo = { article, like, comments };
 
-      const toUpdate = { $inc: { hits: 1 } }
-      article = await Article.update({ articleId, toUpdate })
+        return articleInfo;
+      } else {
+        // 본인이 작성한 글이 아닐 때만 조회수 증가
+        const toUpdate = { $inc: { hits: 1 } };
+        article = await Article.update({ articleId, toUpdate });
 
-      const articleInfo = { article, like, comments }
+        const articleInfo = { article, like, comments };
 
-      return articleInfo
+        return articleInfo;
+      }
 
     } else {
       throw new Error(
         "게시글에 접근 권한이 없습니다. 포인트를 쌓아 등업해주세요."
-      )
+      );
     }
   },
 
   updateArticle: async ({ articleId, author, category, updateData }) => {
     if (!SetUtil.validateCategory(updateData.category)) {
-      throw new Error("잘못된 말머리를 선택하셨습니다.")
+      throw new Error("잘못된 말머리를 선택하셨습니다.");
+
     }
 
     let article = await Article.findById({ articleId });

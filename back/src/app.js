@@ -11,6 +11,7 @@ import { GameGraphRouter } from "./routers/gameGraphRouter";
 import { GameRecommendRouter } from "./routers/gameRecommendRouter";
 import { PointRouter } from "./routers/pointRouter";
 import { errorMiddleware } from "./middlewares/errorMiddleware";
+import { AuthRouter } from "./routers/authRouter";
 
 const app = express();
 
@@ -39,6 +40,7 @@ app.use("/like", LikeRouter);
 app.use("/gameGraph", GameGraphRouter);
 app.use("/gameRecommend", GameRecommendRouter);
 app.use("/point", PointRouter);
+app.use("/auth", AuthRouter);
 // 순서 중요 (router 에서 next() 시 아래의 에러 핸들링  middleware로 전달됨)
 app.use(errorMiddleware);
 
