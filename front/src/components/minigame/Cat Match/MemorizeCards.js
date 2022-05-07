@@ -38,7 +38,7 @@ const MemorizeCards = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     Swal.fire({
       position: "center",
       title: "Rules Of Card Match",

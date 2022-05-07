@@ -46,7 +46,7 @@ const SnakeBoard = () => {
     }
   };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     Swal.fire({
       position: "center",
       title: "Rules Of Snake Game",
