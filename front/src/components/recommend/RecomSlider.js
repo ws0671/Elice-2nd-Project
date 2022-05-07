@@ -34,6 +34,7 @@ const RecomSlider = ({ gameItem }) => {
         if (autoScroll) {
             auto()
         }
+        return () => clearInterval(slideInterval)
     }, [currentSlide])
 
 
