@@ -15,7 +15,7 @@ GameRouter.get("/list/:page", async (req, res, next) => {
 
     // redis 서버에서 캐시 확인
     const cache = await redisClient.GET(
-      `game/list/${page}&${numOfPageSkip}&${numOfPageLimit}`
+      `game/list/?${page}&${numOfPageSkip}&${numOfPageLimit}`
     );
     if (cache) {
       // 캐시가 있으면
@@ -29,7 +29,7 @@ GameRouter.get("/list/:page", async (req, res, next) => {
       });
 
       await redisClient.SETEX(
-        `game/list/${page}`,
+        `game/list/?${page}&${numOfPageSkip}&${numOfPageLimit}`,
         DEFAULT_EXPIRATION,
         JSON.stringify(gameList)
       );
@@ -127,7 +127,7 @@ GameRouter.get("/rankedList/:colName", async (req, res, next) => {
     const numOfLimit = req.query.limit ? Number(req.query.limit) : undefined;
 
     // redis 서버에서 캐시 확인
-    const cache = await redisClient.GET(`rankedList/${colName}`);
+    const cache = await redisClient.GET(`rankedList/?${colName}&${numOfLimit}`);
     if (cache) {
       // 캐시가 있으면
       res.status(200).json(JSON.parse(cache));
@@ -139,7 +139,7 @@ GameRouter.get("/rankedList/:colName", async (req, res, next) => {
       });
 
       await redisClient.SETEX(
-        `rankedList/${colName}&${numOfLimit}`,
+        `rankedList/?${colName}&${numOfLimit}`,
         DEFAULT_EXPIRATION,
         JSON.stringify(rankedList)
       );
@@ -178,7 +178,7 @@ GameRouter.get("/search/:key", async (req, res, next) => {
       });
 
       await redisClient.SETEX(
-        `search/${key}?${page}&${colName}&${sortOrder}`,
+        `search/${key}?${page}&${colName}&${numOfPageLimit}&${sortOrder}`,
         DEFAULT_EXPIRATION,
         JSON.stringify(gameSearchResult)
       );
