@@ -12,8 +12,6 @@ const MiniGame = () => {
   const userContext = useContext(UserStateContext);
 
   const [today, setToday] = useState();
-  const [checked, setChecked] = useState(false);
-  const [hasPrinted, setHasPrinted] = useState(false);
   const [score, setScore] = useState(0);
   const [bestScore, setBestScore] = useLocalStorageNumber("bestScore", 0);
 
@@ -21,33 +19,41 @@ const MiniGame = () => {
     document.body.style.overflow = "hidden";
   });
 
-  useLayoutEffect(() => {
-    const checkToday = async () => {
-      const today = await Api.get2("point?route=2048");
-      setToday(today.data.point);
-      setChecked(true);
-    };
-    checkToday();
+  const checkToday = async () => {
+    const today = await Api.get2("point?route=2048");
+
+    if (today.data.point) {
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Notice",
+        html: "오늘은 이미 100포인트를 얻으셨습니다.<br />게임은 무한으로 즐겨주세요😁",
+        showConfirmButton: true,
+        timer: 5000,
+      });
+    }
+  };
+
+  // 처음 화면 진입 시 무조건 보여주는 메세지
+  useEffect(() => {
+    Swal.fire({
+      position: "center",
+      icon: "info",
+      title: "Rules of 2048 Game",
+      html: "<p style = 'text-align:left;'>🔹 키보드 방향키를 이용해 조작해주세요.<br />🔹 타일이 움직일 때마다 2와 4중에 새로운 타일이 생겨납니다.<br />🔹 같은 숫자의 타일끼리 합쳐주면 합한 숫자로 뿅!<br />🔹 모든 칸이 다 차고 더이상 움직일 타일이 없으면 게임이 <br />&nbsp&nbsp&nbsp&nbsp종료됩니다.</p><br/><p>※포인트를 받을 수 있는 건 하루에 한 번 뿐입니다.※</p>",
+      showConfirmButton: true,
+      timer: 5000,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        checkToday();
+      }
+    });
   }, []);
 
   useEffect(() => {
-    if (checked && today) {
-      // 오늘 포인트 얻은 기록이 있으면
-      if (!hasPrinted) {
-        setHasPrinted(true);
-        Swal.fire({
-          position: "center",
-          icon: "warning",
-          title: "Notice",
-          html: "오늘은 이미 100포인트를 얻으셨습니다.<br />게임은 무한으로 즐겨주세요😁",
-          showConfirmButton: true,
-          timer: 5000,
-        });
-      }
-    } else if (!today && score >= 1000) {
+    if (!today && score >= 1000) {
       // 오늘 얻은 포인트가 없으면
       setToday(100);
-      setHasPrinted(true);
       const record = { route: 2048, point: 100 };
       const point = { point: 100 };
       // 2048 게임 기록 추가하기
@@ -63,7 +69,7 @@ const MiniGame = () => {
         timer: 5000,
       });
     }
-  });
+  }, [score]);
 
   useEffect(() => {
     if (score > bestScore) {
