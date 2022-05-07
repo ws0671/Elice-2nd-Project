@@ -46,8 +46,9 @@ export const Table = styled.table`
 
   .dropdown {
     position: relative;
-    display: inline-block;
+    display: flex;
     border: none;
+    justify-content: center;
   }
 
   .dropdown-content {
@@ -62,6 +63,7 @@ export const Table = styled.table`
   .dropdown:hover .dropdown-content {
     display: block;
     list-style-type: none;
+    top: 40px;
 
     li {
       font-weight: normal;
