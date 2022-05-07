@@ -218,6 +218,7 @@ function LoginForm() {
               LOG IN
             </LoginButton>
           </ButtonContainer>
+          <a onClick={findPassword}>비밀번호를 잊으셨나요?</a>
           <GoToRegister>or become a new member!</GoToRegister>
           <HorizeontalRule />
           <LoginButton content="register" onClick={() => navigate("/register")}>

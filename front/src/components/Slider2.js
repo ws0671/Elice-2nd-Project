@@ -40,25 +40,25 @@ export default function Slider4() {
   return (
     <Container>
       <button
-        class="w-btn-outline w-btn-blue-outline"
+        className="w-btn-outline w-btn-blue-outline"
         onClick={() => setGame("Indie")}
       >
         인디
       </button>
       <button
-        class="w-btn-outline w-btn-blue-outline"
+        className="w-btn-outline w-btn-blue-outline"
         onClick={() => setGame("Adventure")}
       >
         모험
       </button>
       <button
-        class="w-btn-outline w-btn-blue-outline"
+        className="w-btn-outline w-btn-blue-outline"
         onClick={() => setGame("Casual")}
       >
         캐주얼
       </button>
       <button
-        class="w-btn-outline w-btn-blue-outline"
+        className="w-btn-outline w-btn-blue-outline"
         onClick={() => setGame("Strategy")}
       >
         전략

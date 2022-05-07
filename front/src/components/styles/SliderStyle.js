@@ -4,22 +4,18 @@ export const Container = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
+  font-weight: bold;
   .w-btn {
     position: relative;
     border: none;
     display: inline-block;
     padding: 15px 30px;
-    border-radius: 10px;
+    border-radius: 25px;
     font-family: "paybooc-Light", sans-serif;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     text-decoration: none;
     font-weight: 600;
     transition: 0.25s;
-<<<<<<< HEAD
-    font-size: 50px;
-=======
-    
->>>>>>> ec35055809523e2c5fbee6657e0ed4c443c69d19
   }
 
   .w-btn-gra3 {
@@ -64,8 +60,7 @@ export const Container = styled.div`
       background-position: 0% 50%;
     }
   }
- 
-    .w-btn-outline {
+  .w-btn-outline {
     font-size: 15px;
     position: relative;
     padding: 10px 15px;
