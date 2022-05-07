@@ -65,7 +65,15 @@ const GameDetail = () => {
     };
     Api.post("review", newReview).then((res) => {
       copied.push(res.data);
-      Swal.fire("리뷰 등록이 완료되었습니다!");
+      Swal.fire("리뷰 등록이 완료되었습니다!").then((res) =>
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: `축하합니다! 250포인트를 얻으셨습니다!!`,
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      );
       setExample(copied);
     });
   };
