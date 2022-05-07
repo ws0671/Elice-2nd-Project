@@ -1,6 +1,18 @@
 import styled from "styled-components";
 
+export const Large = styled.div`
+  // background-image: linear-gradient(
+  //     to right,
+  //     rgba(20, 20, 20, 0.1) 10%,
+  //     rgba(20, 20, 20, 0.7) 70%,
+  //     rgba(20, 20, 20, 1)
+  //   ),
+  //   ${(props) => `url(${props.imgUrl})`};
+`;
+
 export const Container = styled.div`
+  
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,7 +71,7 @@ export const Container = styled.div`
   
 `;
 export const Header = styled.div`
-  height: 10vh;
+  height: 50px;
 `;
 
 export const ButtonGroup = styled.div`

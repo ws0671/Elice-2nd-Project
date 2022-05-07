@@ -4,12 +4,86 @@ export const Container = styled.div`
   width: 100%;
   overflow: hidden;
   position: relative;
-  button {
-    font-weight: bold;
-    width: 120px;
-    margin: 5px;
+  .w-btn {
+    position: relative;
+    border: none;
+    display: inline-block;
+    padding: 15px 30px;
     border-radius: 10px;
-    background: linear-gradient(lightCyan, skyBlue, deepSkyBlue);
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    
+  }
+
+  .w-btn-gra3 {
+    background: linear-gradient(
+      45deg,
+      #ffd1ff,
+      #fbd0c8,
+      #d2feff,
+      #f6bee5,
+      #98adda,
+      #c5eee2,
+      #bddff6,
+      #a8c0ed,
+      #facfd9
+    );
+    color: #374a54;
+  }
+
+  .w-btn:hover {
+    letter-spacing: 2px;
+    transform: scale(1.2);
+    cursor: pointer;
+  }
+
+  .w-btn:active {
+    transform: scale(1.5);
+  }
+
+  .w-btn-gra-anim {
+    background-size: 400% 400%;
+    animation: gradient1 5s ease infinite;
+  }
+
+  @keyframes gradient1 {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+ 
+    .w-btn-outline {
+    font-size: 15px;
+    position: relative;
+    padding: 10px 15px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+  }
+
+  .w-btn-blue-outline {
+    border: 3px solid #8bc1d1;
+    color: #6192a4;
+  }
+
+  .w-btn-outline:active {
+    transform: scale(1.1);
+  }
+
+  .w-btn-blue-outline:hover {
+    background-color: #cec7fd;
+    color: #7e83c2;
   }
   .flexDiv {
     display: flex;

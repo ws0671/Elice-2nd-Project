@@ -52,6 +52,7 @@ export const Table = styled.table`
   }
 
   .dropdown-content {
+    color: black;
     display: none;
     position: absolute;
     background-color: #f9f9f9;
