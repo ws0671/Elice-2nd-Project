@@ -65,6 +65,11 @@ const SnakeBoard = () => {
     }
   };
 
+  const handleArrow = (e) => {
+    e.preventDefault();
+    moveSnake(e);
+  };
+
   const moveSnake = ({ keyCode }) =>
     keyCode >= 37 && keyCode <= 40 && setDir(Directions[keyCode]);
 
@@ -132,7 +137,7 @@ const SnakeBoard = () => {
       <div
         role="button"
         tabIndex="0"
-        onKeyDown={(e) => moveSnake(e)}
+        onKeyDown={(e) => handleArrow(e)}
         className="SnakeContainer"
       >
         <div className="SnakeTitle">Snake loves Apples</div>
