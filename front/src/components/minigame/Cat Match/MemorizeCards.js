@@ -3,6 +3,7 @@ import "./MemorizeCards.css";
 import SingleCard from "./SingleCard";
 import * as Api from "../../../api";
 import { UserStateContext } from "../../../App";
+import Swal from "sweetalert2";
 
 const cardImages = [
   { src: "/img/고양이 1.jpg", matched: false },
@@ -75,7 +76,14 @@ const MemorizeCards = () => {
       if (turns !== 12 && success === 6) {
         const today = await Api.get2("point?route=CatMatch");
         if (!today.data.point) {
-          alert("축하합니다!! 100포인트를 얻으셨습니다.");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `축하합니다`,
+            text: `100 포인트를 획득하셨습니다 :)`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
           const point = 100;
           await Api.put(`user/${userContext.user.userId}/addPoint`, {
             point: point,
@@ -85,11 +93,24 @@ const MemorizeCards = () => {
             point: point,
           });
         } else {
-          alert("성공하셨습니다!!");
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            text: `성공하셨습니다 :)`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
         shuffleCards();
       } else if (turns === 0) {
-        alert("GAME OVER");
+        Swal.fire({
+          position: "center",
+          icon: "warning",
+          title: `GAME OVER`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
         shuffleCards();
       }
     };
