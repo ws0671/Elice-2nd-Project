@@ -38,10 +38,30 @@ export default function Slider4() {
   }, [currentSlide]);
   return (
     <Container>
-      <button onClick={() => setGame(0)}>전체 이용가</button>
-      <button onClick={() => setGame(12)}>12세</button>
-      <button onClick={() => setGame(16)}>15세</button>
-      <button onClick={() => setGame(18)}>18세</button>
+      <button
+        class="w-btn-outline w-btn-blue-outline"
+        onClick={() => setGame(0)}
+      >
+        전체 이용가
+      </button>
+      <button
+        class="w-btn-outline w-btn-blue-outline"
+        onClick={() => setGame(12)}
+      >
+        12세
+      </button>
+      <button
+        class="w-btn-outline w-btn-blue-outline"
+        onClick={() => setGame(16)}
+      >
+        15세
+      </button>
+      <button
+        class="w-btn-outline w-btn-blue-outline"
+        onClick={() => setGame(18)}
+      >
+        18세
+      </button>
       <SliderContainer ref={slideRef}>
         {data && <AgeGame data={data}></AgeGame>}
       </SliderContainer>

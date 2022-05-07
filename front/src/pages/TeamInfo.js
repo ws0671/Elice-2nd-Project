@@ -44,7 +44,9 @@ const TeamInfo = () => {
       name: "신도희",
       position: ["백엔드", "발표"],
       image: sixth,
-      body: "",
+      body: `게시판과 미니게임 많이 이용해주세요!!
+      달빛이 아름다운 밤.
+      당신의 마음을 훔치러 가겠습니다 :)`,
     },
   ];
 
@@ -64,33 +66,38 @@ const TeamInfo = () => {
   return (
     <Div imgUrl={team}>
       <div style={{ height: 50 }}></div>
-      <div className="teamTitle"> 저희 6팀을 소개합니다.</div>
-      <div className="teamCard">
-        {data.map((item) => (
-          <Card className="element">
-            <Card.Body>
-              <Card.Img
-                variant="top"
-                src={item.image}
-                alt="프로필"
-                className="cardImage"
-                style={{ width: 250 }}
-              />
-              <Card.Title>{item.name}</Card.Title>
-              {/* <Card.Subtitle> */}
-              <div className="badges">
-                {item.position.map((v) => (
-                  <Badge pill bg={color(v)} className="badgesItem">
-                    <div style={{ paddingLeft: 5 }}>{v}</div>
-                  </Badge>
-                ))}
-              </div>
-              {/* </Card.Subtitle> */}
+      <div style={{ height: "130vh", margin: "30px 0" }}>
+        <div className="teamTitle" style={{ textAlign: "center" }}>
+          {" "}
+          저희 6팀을 소개합니다.
+        </div>
+        <div className="teamCard">
+          {data.map((item) => (
+            <Card className="element">
+              <Card.Body>
+                <Card.Img
+                  variant="top"
+                  src={item.image}
+                  alt="프로필"
+                  className="cardImage"
+                  style={{ width: 250 }}
+                />
+                <Card.Title>{item.name}</Card.Title>
+                {/* <Card.Subtitle> */}
+                <div className="badges">
+                  {item.position.map((v) => (
+                    <Badge pill bg={color(v)} className="badgesItem">
+                      <div style={{ paddingLeft: 5 }}>{v}</div>
+                    </Badge>
+                  ))}
+                </div>
+                {/* </Card.Subtitle> */}
 
-              <Card.Text>{item.body}</Card.Text>
-            </Card.Body>
-          </Card>
-        ))}
+                <Card.Text>{item.body}</Card.Text>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
       </div>
     </Div>
   );
@@ -102,16 +109,17 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+
   align-items: center;
   .teamTitle {
-    margin: 30px 0;
+    margin: 0;
     font-size: 2.5em;
     font-weight: bold;
     color: white;
   }
   .teamCard {
     height: 100vh;
-    width: 90vw;
+    width: 85vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
