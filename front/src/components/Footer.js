@@ -11,6 +11,7 @@ const Footer = () => {
         justifyContent: "center",
         alignItems: "center",
         paddingTop: "50px",
+        backgroundColor: `rgba(0, 0, 0, 0.8)`,
         // background:
         //   "linear-gradient(180deg, rgba(198, 35, 104, 0.91) 25.92%, rgba(196, 196, 196, 0) 100%)",
       }}
@@ -24,10 +25,10 @@ const Footer = () => {
           padding: "20px 0",
         }}
       >
-        <div style={{ textAlign: "center", opacity: 0.8 }}>
+        <div style={{ textAlign: "center", opacity: 0.8, color: "white" }}>
           Copyright © 2022 Game Pearl. All rights reserved.
         </div>
-        <div style={{ textAlign: "center", opacity: 0.8 }}>
+        <div style={{ textAlign: "center", opacity: 0.8, color: "white" }}>
           엘리스 AI 4기 6팀 연결고리
         </div>
       </footer>

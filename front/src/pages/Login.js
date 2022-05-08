@@ -70,7 +70,7 @@ function LoginForm() {
       // 이후 처리되는 내용.
       if (email) {
         axios
-          .post(`http://localhost:5001/user/emailVerify`, {
+          .post(`http://${process.env.REACT_APP_MODE}:5001/user/emailVerify`, {
             email,
           })
 
@@ -108,7 +108,7 @@ function LoginForm() {
                 (async () => {
                   await axios
                     .put(
-                      `http://localhost:5001/user/missingPassword`,
+                      `http://${process.env.REACT_APP_MODE}:5001/user/missingPassword`,
                       formValues
                     )
                     .then((res) => Swal.fire("정상적으로 변경되었습니다."))
@@ -217,6 +217,7 @@ function LoginForm() {
               LOG IN
             </LoginButton>
           </ButtonContainer>
+          <a onClick={findPassword}>비밀번호를 잊으셨나요?</a>
           <GoToRegister>or become a new member!</GoToRegister>
           <HorizeontalRule />
           <LoginButton content="register" onClick={() => navigate("/register")}>

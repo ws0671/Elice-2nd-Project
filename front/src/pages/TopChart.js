@@ -6,7 +6,7 @@ import Slider4 from "../components/Slider4";
 import { MainImage, Main } from "../components/styles/TopChartStyle";
 function TopChart() {
   return (
-    <body style={{ height: "350vh" }}>
+    <body style={{ height: "280vh" }}>
       <MainImage className="video">
         <video width="100%" muted autoPlay loop>
           <source src="/videos/trophy2.mp4" type="video/mp4" />

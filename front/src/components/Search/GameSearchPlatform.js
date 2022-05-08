@@ -38,7 +38,7 @@ const GameSearchGenre = () => {
   };
   return (
     <>
-      <div style={{ height: "10vh" }}></div>
+      <div style={{ height: "50px" }}></div>
       <Title>{params.platform}</Title>
 
       <Main>
@@ -99,8 +99,22 @@ const GameSearchGenre = () => {
 };
 const Title = styled.h1`
   text-align: center;
-  background-color: #9014ce;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 3, 17, 0.5) 0%,
+    rgba(22, 4, 30, 0.484519) 0.01%,
+    rgba(8, 0, 33, 0.5) 21.23%,
+    rgba(55, 55, 165, 0.5) 39.46%,
+    rgba(114, 45, 155, 0.5) 54.04%,
+    rgba(198, 35, 104, 0.305) 66.54%,
+    rgba(179, 26, 123, 0.5) 79.56%,
+    rgba(7, 2, 24, 0.5) 94.15%,
+    rgba(7, 2, 24, 0.5) 99.99%,
+    rgba(15, 3, 27, 0.492025) 100%
+  );
+  background-blend-mode: multiply;
   font-weight: bold;
+  padding: 80px 0;
 `;
 const Main = styled.div`
   display: flex;
