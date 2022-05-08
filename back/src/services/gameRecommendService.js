@@ -2,7 +2,6 @@ import { GameRecommend } from "../db";
 
 const GameRecommendService = {
   getRecommendGames: async ({ data }) => {
-    console.log(data);
     console.log(data[0]);
     const genres = data[0].genre;
     const tags = data[0].answer;
