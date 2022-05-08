@@ -56,7 +56,7 @@ const CommunityDetail = () => {
           icon: "error",
           title: `해당 게시물 열람 권한이<br /> 없습니다.`,
           text: "포인트를 모아 등업해주세요!",
-          footer: `<a href="">포인트는 어디서 얻나요?</a> &nbsp&nbsp&nbsp <a href="">게시물 열람 권한 알아보기</a>`,
+          footer: `<a href=http://${process.env.REACT_APP_MODE}:3000/community/29>포인트는 어디서 얻나요?</a> &nbsp&nbsp&nbsp <a href=http://${process.env.REACT_APP_MODE}:3000/community/28>게시물 열람 권한 알아보기</a>`,
         });
       });
   }, [isEdit]);
