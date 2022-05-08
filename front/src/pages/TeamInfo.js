@@ -115,6 +115,7 @@ const Div = styled.div`
     font-size: 2.5em;
     font-weight: bold;
     color: white;
+    padding: 23px;
   }
   .teamCard {
     height: 100vh;
