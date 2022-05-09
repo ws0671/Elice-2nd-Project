@@ -12,10 +12,12 @@
 
 **어떠한 데이터셋와 도구 및 기술을 사용했는지에 대한 설명과 엔드유저에게 보이는 웹서비스에 대한 소개**
 
-  - 사용하려는 데이터(제안된 데이터 중 하나 또는 선택한 다른 데이터 세트)를 명시, 이에 대한 설명
-  - 기술 스택 (python, d3, pandas, jupyter, javascript, MySQL 등)
-  - 사용된 라이브러리 (numpy, matplotlib, wordcloud 등)
-  - 웹서비스에 대한 자세한 개요
+  - 사용 데이터(캐글 스팀 데이터 셋)
+  - 기술 스택
+  - 프론트엔드 (animate.css, styled-component, youtube, slick, bootstrap, axios, rechart, react-spinners, sweetalert2))
+  - 백엔드 (require, moment, express-validator, googleapis, nodemailer, redis) 
+  - 사용된 라이브러리 (numpy, matplotlib, pandas)
+ 
 
 ## 2. 프로젝트 구성도
   - 와이어프레임: https://www.figma.com/file/Xwd52SgVtdSorkP1VCjY2o/?node-id=37%3A2570
