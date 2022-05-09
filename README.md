@@ -18,8 +18,8 @@
   - 웹서비스에 대한 자세한 개요
 
 ## 2. 프로젝트 구성도
-  - 와이어프레임:
-  - 시나리오:
+  - 와이어프레임: https://www.figma.com/file/Xwd52SgVtdSorkP1VCjY2o/?node-id=37%3A2570
+  - 시나리오: https://www.figma.com/file/0MLFFDtVScdXxarxHuwLOL/%EC%8B%9C%EB%82%98%EB%A6%AC%EC%98%A4?node-id=0%3A1
 
 ## 3. 프로젝트 팀원 역할 분담
 | 이름 | 담당 업무 |
