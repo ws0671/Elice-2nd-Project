@@ -153,14 +153,14 @@ Game Pearl
     - 카카오맵을 사용하여 내 주변 피씨방 목록을 보여줌
     - 로컬에서는 잘 작동하나 배포 서버에서 작동하지 않아 원인을 찾아보니
         1. navigator.geolocation 기능이 HTTPS 환경에서만 동작  
-            <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/a2d7cbfe-03b9-4057-abfd-16a85e8eaaba/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220510%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220510T092303Z&X-Amz-Expires=86400&X-Amz-Signature=bcfdcb294b9e7d31db69b38ab68962005960d8d44929283f76cb5575391cc313&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" width="500" height="150"/>  
+            <img src="https://drive.google.com/uc?export=download&id=1zUyu_uQG7XmZTk7f_TWtROjZFvHcea-J" width="500" height="150"/>  
 
         2. letsencrypt로 도메인의 인증서를 발급받고 nginx 설정 파일로 SSL을 적용하려 노력
         3. 적용되지 않아 nmap으로 포트 스캔을 해보니 엘리스가 VM 설정 시 443 포트를 닫아놓은 것으로 확인되어 해결하지 못함
-            <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/b5917b6f-e144-4fbe-9f54-2f69cfe7012c/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220510%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220510T092358Z&X-Amz-Expires=86400&X-Amz-Signature=2772b35762b2a09b0a4170c19481990e65ce154bbbfb59207f3b1f35bfe08d89&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" width="600" height="300"/>  
+            <img src="https://drive.google.com/uc?export=download&id=1qUSZrXzSRKN4T6n83Zp7iWoNbnsnCzNX" width="550" height="300"/>  
         
     - 아래는 로컬 서버에서 작동하는 모습
-        ![img](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/8f5a595f-01b7-407f-b236-c689d2050e29/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20220510%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20220510T092428Z&X-Amz-Expires=86400&X-Amz-Signature=e0a4702c6fd2d884c857c8af9b4d0248249641d9208d6f33f138e3bb314ed1cd&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject)
+        ![img](https://drive.google.com/uc?export=download&id=1xb7AHri8geUZ9u-SH1WIXeyRaqw6GTd6)
         
 - 내가 쓴 리뷰
     - 내가 작성한 게임 리뷰들을 한 데 모아 볼 수 있음
