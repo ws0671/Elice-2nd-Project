@@ -17,6 +17,7 @@ import {
   ImgDiv,
   Footer,
 } from "../components/styles/GameSearchStyle";
+import { loginReducer } from "../reducer";
 
 const types = ["전체 목록", "장르", "플랫폼", "이용등급"];
 const vers = ["이름순", "내림차순"];
@@ -58,6 +59,7 @@ function GameSearch() {
   const [age, setAge] = useState(null);
   const [platForm, setPlatForm] = useState(null);
   const [genre, setGenre] = useState(null);
+  const [noSearchWord, setNoSearchWord] = useState(null);
 
   // 페이지네이션과 관련된 state
   const [page, setPage] = useState(1);
@@ -68,13 +70,28 @@ function GameSearch() {
 
   // 전체 데이터를 api 응답으로 받아오는 함수
   const getData = async () => {
-    const res = await Api.get(
-      `game/list/${page}`,
-      `?page=${limit}&limit=${limit}`
-    );
-    setData(res.data);
-    const count = Math.ceil(res.data.gameCounts / 12);
-    setLastPage(count);
+    if (searchWord.length > 0) {
+      const res = await Api.get(
+        `game/search/${searchWord}?page=${page}&colName=releaseDate&sortOrder=-1&limit=${limit}`
+      );
+      console.log(res.data);
+      if (data.gameCounts === 0) {
+        console.log("검색결과없음");
+        setNoSearchWord(`'${searchWord}'에 대한 검색 결과가 없습니다.`);
+      } else {
+        setData(res.data);
+        const count = Math.ceil(res.data.gameCounts / 12);
+        setLastPage(count);
+      }
+    } else {
+      const res = await Api.get(
+        `game/list/${page}`,
+        `?page=${limit}&limit=${limit}`
+      );
+      setData(res.data);
+      const count = Math.ceil(res.data.gameCounts / 12);
+      setLastPage(count);
+    }
   };
 
   const getCurrentData = async (currentPage) => {
@@ -86,15 +103,19 @@ function GameSearch() {
   };
 
   const getSearchData = async () => {
-    const res = await Api.get(
-      `game/search/${searchWord}?page=${page}&colName=releaseDate&sortOrder=-1&limit=12`
-    );
-    setData(res.data);
+    if (searchWord.length > 0) {
+      const res = await Api.get(
+        `game/search/${searchWord}?page=${page}&colName=releaseDate&sortOrder=-1&limit=${limit}`
+      );
+      setData(res.data);
+      const count = Math.ceil(res.data.gameCounts / 12);
+      setLastPage(count);
+    }
   };
 
   useEffect(() => {
     getData();
-  }, [page, limit, inputData]);
+  }, [page, limit]);
 
   useEffect(() => {
     document.addEventListener("mousedown", clickOutside);
@@ -118,9 +139,6 @@ function GameSearch() {
   };
   //input태그의 onChange이벤트의 처리를 하는 함수입니다.
   const handleInput = (e) => {
-    if (e.target.value === "") {
-      return false;
-    }
     setSearchWord(e.target.value);
   };
   // 검색 navbar버튼을 클릭하면 실행되는 함수입니다.
@@ -321,12 +339,15 @@ function GameSearch() {
           <DataExpression
             mode={mode}
             data={data}
-            inputData={inputData}
+            page={page}
+            setPage={setPage}
             age={age}
             platForm={platForm}
             genre={genre}
+            setLastPage={setLastPage}
           ></DataExpression>
         </ImgDiv>
+        {noSearchWord && <h3>{noSearchWord}</h3>}
       </Main>
       <Footer className="mt-5">
         {mode === "전체 목록" && (

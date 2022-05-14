@@ -1,21 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import * as Api from "../../api";
-function DataExpression({ data, inputData, genre, mode, age, platForm }) {
+function DataExpression({
+  data,
+  setLastPage,
+  genre,
+  mode,
+  age,
+  platForm,
+  page,
+  setPage,
+}) {
   return (
     <div className="box">
       {mode === "전체 목록" &&
         data &&
         data.games
-          .filter((val) => {
-            if (inputData === "") {
-              return val;
-            } else if (
-              val.name.toLowerCase().includes(inputData.toLowerCase())
-            ) {
-              return val;
-            }
-          })
+          // .filter((val) => {
+          //   if (inputData === "") {
+          //     return val;
+          //   } else if (
+          //     val.name.toLowerCase().includes(inputData.toLowerCase())
+          //   ) {
+          //     return val;
+          //   }
+          // })
           .map((val, key) => {
             return (
               <Link
@@ -48,7 +57,7 @@ function DataExpression({ data, inputData, genre, mode, age, platForm }) {
               width: "400px",
               height: "224px",
               opacity: 1,
-              background: "linear-gradient(lightCyan, skyBlue, deepSkyBlue)",
+              background: "linear-gradient(lightCyan, pink, purple)",
               color: "white",
               position: "relative",
             }}
