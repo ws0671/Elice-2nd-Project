@@ -69,16 +69,16 @@ function GameSearch() {
   const showMore = useRef([]);
 
   // 전체 데이터를 api 응답으로 받아오는 함수
-  const getData = async () => {
+  const getData = async (searchWord) => {
     if (searchWord.length > 0) {
       const res = await Api.get(
-        `game/search/${searchWord}?page=${page}&colName=releaseDate&sortOrder=-1&limit=${limit}`
+        `game/search/${searchWord}?page=${page}&colName=releaseDate&sortOrder=-1&limit=5`
       );
-      console.log(res.data);
-      if (data.gameCounts === 0) {
+      if (res.data.gameCounts === 0) {
         console.log("검색결과없음");
         setNoSearchWord(`'${searchWord}'에 대한 검색 결과가 없습니다.`);
       } else {
+        setNoSearchWord(null);
         setData(res.data);
         const count = Math.ceil(res.data.gameCounts / 12);
         setLastPage(count);
@@ -102,17 +102,6 @@ function GameSearch() {
     setData(res.data);
   };
 
-  const getSearchData = async () => {
-    if (searchWord.length > 0) {
-      const res = await Api.get(
-        `game/search/${searchWord}?page=${page}&colName=releaseDate&sortOrder=-1&limit=${limit}`
-      );
-      setData(res.data);
-      const count = Math.ceil(res.data.gameCounts / 12);
-      setLastPage(count);
-    }
-  };
-
   useEffect(() => {
     getData();
   }, [page, limit]);
@@ -134,8 +123,8 @@ function GameSearch() {
   // input태그를 제출하는 함수입니다.
   const handleSubmit = async (e) => {
     e.preventDefault();
-    getSearchData();
-    setInputData(searchWord);
+    // setInputData(searchWord);
+    getData(searchWord);
   };
   //input태그의 onChange이벤트의 처리를 하는 함수입니다.
   const handleInput = (e) => {
@@ -334,20 +323,23 @@ function GameSearch() {
         </Dropdown> */}
       {/* )} */}
       <Main>
-        <ImgDiv className="mt-4">
-          {/* 검색 결과 없는 것 처리 구현해야함. */}
-          <DataExpression
-            mode={mode}
-            data={data}
-            page={page}
-            setPage={setPage}
-            age={age}
-            platForm={platForm}
-            genre={genre}
-            setLastPage={setLastPage}
-          ></DataExpression>
-        </ImgDiv>
-        {noSearchWord && <h3>{noSearchWord}</h3>}
+        {noSearchWord ? (
+          <h3 className="mt-5">{noSearchWord}</h3>
+        ) : (
+          <ImgDiv className="mt-4">
+            {/* 검색 결과 없는 것 처리 구현해야함. */}
+            <DataExpression
+              mode={mode}
+              data={data}
+              page={page}
+              setPage={setPage}
+              age={age}
+              platForm={platForm}
+              genre={genre}
+              setLastPage={setLastPage}
+            ></DataExpression>
+          </ImgDiv>
+        )}
       </Main>
       <Footer className="mt-5">
         {mode === "전체 목록" && (
