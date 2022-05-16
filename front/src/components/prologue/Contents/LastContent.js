@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   Container,
@@ -14,12 +14,29 @@ import LastCarousel from "../Carousel/LastCarousel";
 import { useInView } from "react-intersection-observer";
 import { useAnimation } from "framer-motion";
 import styled from "styled-components";
+import { UserStateContext } from "../../../App";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const LastContent = ({ inverse }) => {
   const initial = { opacity: 0, y: 30 };
   const animation = useAnimation();
+  const userContext = useContext(UserStateContext);
+  const navigate = useNavigate();
 
   const { ref, inView } = useInView({ threshold: 0.2 });
+
+  const handleClick = () => {
+    if (!userContext.user) {
+      Swal.fire({
+        position: "center",
+        title: "로그인해주세요 :)",
+        showConfirmButton: true,
+      }).then((res) => {
+        navigate("/login", { replace: true });
+      });
+    }
+  };
 
   useEffect(() => {
     if (inView) {
@@ -78,6 +95,7 @@ const LastContent = ({ inverse }) => {
                       height: "60px",
                       fontSize: "1.7rem",
                     }}
+                    onClick={handleClick}
                   >
                     게임 추천
                   </RecommendButton>

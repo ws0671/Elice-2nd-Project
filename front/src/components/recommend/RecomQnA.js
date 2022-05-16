@@ -67,13 +67,13 @@ function RecomQuestion() {
 
   const isResultButtonValid = answer.length === 13;
 
-  const goResult = async (e) => {
+  const goResult = async () => {
 
     answer.splice(4, 1);
     const userId = userContext.user.userId;
     navigate("/recommend/result");
 
-    e.preventDefault();
+    /*  e.preventDefault(); */
 
     try {
       await Api.post("gameRecommend", {

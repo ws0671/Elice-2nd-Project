@@ -39,10 +39,30 @@ export default function Slider4() {
   }, [currentSlide]);
   return (
     <Container>
-      <button onClick={() => setGame("Indie")}>인디</button>
-      <button onClick={() => setGame("Adventure")}>모험</button>
-      <button onClick={() => setGame("Casual")}>캐주얼</button>
-      <button onClick={() => setGame("Strategy")}>전략</button>
+      <button
+        className="w-btn-outline w-btn-blue-outline"
+        onClick={() => setGame("Indie")}
+      >
+        인디
+      </button>
+      <button
+        className="w-btn-outline w-btn-blue-outline"
+        onClick={() => setGame("Adventure")}
+      >
+        모험
+      </button>
+      <button
+        className="w-btn-outline w-btn-blue-outline"
+        onClick={() => setGame("Casual")}
+      >
+        캐주얼
+      </button>
+      <button
+        className="w-btn-outline w-btn-blue-outline"
+        onClick={() => setGame("Strategy")}
+      >
+        전략
+      </button>
       <SliderContainer ref={slideRef}>
         {data && <GenreGame data={data}></GenreGame>}
       </SliderContainer>

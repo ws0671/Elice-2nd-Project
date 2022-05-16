@@ -9,10 +9,12 @@ import ReactHtmlParser from "react-html-parser";
 import {
   Header,
   Container,
+  Large,
   ButtonGroup,
 } from "../styles/Community/CommunityDetailStyle";
 import { Div } from "../styles/Community/CommunityBoardStyle";
 import Swal from "sweetalert2";
+import background from "../../images/background.png";
 
 // 커뮤니 상세페이지 컴포넌트
 const CommunityDetail = () => {
@@ -54,7 +56,7 @@ const CommunityDetail = () => {
           icon: "error",
           title: `해당 게시물 열람 권한이<br /> 없습니다.`,
           text: "포인트를 모아 등업해주세요!",
-          footer: `<a href="">포인트는 어디서 얻나요?</a> &nbsp&nbsp&nbsp <a href="">게시물 열람 권한 알아보기</a>`,
+          footer: `<a href=http://${process.env.REACT_APP_MODE}:3000/community/29>포인트는 어디서 얻나요?</a> &nbsp&nbsp&nbsp <a href=http://${process.env.REACT_APP_MODE}:3000/community/28>게시물 열람 권한 알아보기</a>`,
         });
       });
   }, [isEdit]);
@@ -133,76 +135,80 @@ const CommunityDetail = () => {
     return (
       <>
         <Header />
-        <Container isUser={isUser}>
-          {isEdit ? (
-            <CommunityEditForm isEditing={isEditing} />
-          ) : (
-            <>
-              <ButtonGroup>
-                <a href="javascript:window.history.back();">
-                  <button>뒤로가기</button>
-                </a>
+        <Large imgUrl={background}>
+          <Container isUser={isUser}>
+            {isEdit ? (
+              <CommunityEditForm isEditing={isEditing} />
+            ) : (
+              <>
+                <ButtonGroup>
+                  <a href="javascript:window.history.back();">
+                    <button>뒤로가기</button>
+                  </a>
 
-                {isUser && (
+                  {isUser && (
+                    <div>
+                      <button onClick={() => setIsEdit((prev) => !prev)}>
+                        수정
+                      </button>
+                      <button
+                        onClick={() => {
+                          Swal.fire("해당 내용을 삭제합니다.");
+                          Api.delete("article", params.id).then((res) => {
+                            navigate("/community");
+                          });
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  )}
+                </ButtonGroup>
+
+                <div className="detail title">{detail.title}</div>
+                <div className="detail writer">
+                  <div>{detail.nickname}</div>
                   <div>
-                    <button onClick={() => setIsEdit((prev) => !prev)}>
-                      수정
-                    </button>
-                    <button
-                      onClick={() => {
-                        Swal.fire("해당 내용을 삭제합니다.");
-                        Api.delete("article", params.id).then((res) => {
-                          navigate("/community");
-                        });
-                      }}
-                    >
-                      삭제
-                    </button>
+                    {createDate && createDate.split("T")[0]} / 조회수 :{" "}
+                    {detail.hits}
                   </div>
-                )}
-              </ButtonGroup>
-
-              <div className="detail title">{detail.title}</div>
-              <div className="detail writer">
-                <div>{detail.nickname}</div>
-                <div>
-                  {createDate && createDate.split("T")[0]} / 조회수 :{" "}
-                  {detail.hits}
                 </div>
-              </div>
-              <div className="detail body">{ReactHtmlParser(detail.body)}</div>
-              <div className="detail etc">
-                {detail.tags.map((item) => (
-                  <span># {item}</span>
-                ))}
-              </div>
-              <div className="detail etc">
-                <img
-                  src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
-                  alt="좋아요"
-                ></img>
-                <span className="liking" onClick={pushLike}>
-                  좋아요
-                </span>
-                <span>{detail.like}</span>
-                <img src="/images/comment.png" alt="댓글"></img>
-                <span>댓글</span>
-                <span>{realComments.length}</span>
-              </div>
-              <div className="detail comment">
-                <div className="head">댓글</div>
-                <div className="area">
-                  <CommentList
-                    example={example}
-                    removeHandler={removeHandler}
-                    editHandler={editHandler}
-                  />
-                  <CommentAddForm clickHandler={clickHandler} />
+                <div className="detail body">
+                  {ReactHtmlParser(detail.body)}
                 </div>
-              </div>
-            </>
-          )}
-        </Container>
+                <div className="detail etc">
+                  {detail.tags.map((item) => (
+                    <span># {item}</span>
+                  ))}
+                </div>
+                <div className="detail etc">
+                  <img
+                    src={!isLiked ? "/images/unlike.png" : "/images/like.png"}
+                    alt="좋아요"
+                  ></img>
+                  <span className="liking" onClick={pushLike}>
+                    좋아요
+                  </span>
+                  <span>{detail.like}</span>
+                  <img src="/images/comment.png" alt="댓글"></img>
+                  <span>댓글</span>
+                  <span>{realComments.length}</span>
+                </div>
+                <div className="detail comment">
+                  <div className="head">댓글</div>
+                  <div className="area">
+                    <CommentList
+                      example={example}
+                      removeHandler={removeHandler}
+                      editHandler={editHandler}
+                    />
+                    <CommentAddForm clickHandler={clickHandler} />
+                  </div>
+                </div>
+              </>
+            )}
+          </Container>
+        </Large>
       </>
     );
   } else if (show === "error") {

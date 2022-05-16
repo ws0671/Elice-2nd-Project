@@ -14,6 +14,7 @@ import {
   ScreenShot,
   Footer,
 } from "../components/styles/GameDetailStyle";
+import Swal from "sweetalert2";
 const GameDetail = () => {
   const [data, setData] = useState(null);
   const [genre, setGenre] = useState();
@@ -62,18 +63,36 @@ const GameDetail = () => {
       gameId: params.id,
       review: review,
     };
-    Api.post("review", newReview).then((res) => {
-      copied.push(res.data);
-      alert("리뷰 등록이 완료되었습니다!");
-      setExample(copied);
-    });
+    Api.post("review", newReview)
+      .then((res) => {
+        copied.push(res.data);
+        Swal.fire("리뷰 등록이 완료되었습니다!").then((res) =>
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: `축하합니다! 250포인트를 얻으셨습니다!!`,
+            showConfirmButton: false,
+            timer: 1500,
+          })
+        );
+        setExample(copied);
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: err.response.data,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   // 리뷰 수정용 함수
   const editHandler = (item, review) => {
     const edit = { ...item, review };
     Api.put(`review/${item.reviewId}`, edit).then((res) =>
-      alert("리뷰가 수정되었습니다.")
+      Swal.fire("리뷰가 수정되었습니다.")
     );
     const copied = example.map((v) => {
       if (
@@ -92,7 +111,7 @@ const GameDetail = () => {
   const removeHandler = (item) => {
     const deleted = { ...item, isDeleted: true };
     Api.delete(`review/${item.reviewId}`).then((res) =>
-      alert("리뷰가 삭제되었습니다.")
+      Swal.fire("리뷰가 삭제되었습니다.")
     );
     const copied = example.map((v) => {
       if (
@@ -114,62 +133,79 @@ const GameDetail = () => {
   return (
     <>
       <Main className="main">
-        <FlexBody>
-          {data && genre && os && (
-            <div className="information">
-              {userContext.user && (
-                <div className="bookmark">
-                  {bookmark ? (
-                    <FaBookmark size="30" onClick={handleBookmark} />
-                  ) : (
-                    <FaRegBookmark size="30" onClick={handleBookmark} />
-                  )}
+        <div>
+          <FlexBody>
+            {data && genre && os && (
+              <div className="information">
+                {userContext.user && (
+                  <div className="bookmark" style={{ left: "90%", top: "-4%" }}>
+                    {bookmark ? (
+                      <FaBookmark size="50" onClick={handleBookmark} />
+                    ) : (
+                      <FaRegBookmark size="50" onClick={handleBookmark} />
+                    )}
+                  </div>
+                )}
+                <h1>{data.game.name}</h1>
+                <div>
+                  <AiOutlineRightCircle />
+                  <span>출시연도: {data.game.releaseDate.split("T")[0]}</span>
                 </div>
-              )}
-              <h1>{data.game.name}</h1>
-              <div>
-                <AiOutlineRightCircle />
-                <span>출시연도: {data.game.releaseDate.split("T")[0]}</span>
+                <div>
+                  <AiOutlineRightCircle />
+                  <span>장르: {genre.join(", ")}</span>
+                </div>
+                <div>
+                  <AiOutlineRightCircle />
+                  <span>운영체제: {os.join(", ")}</span>
+                </div>
+                <div>
+                  <AiOutlineRightCircle />
+                  <span>인기도: {data.game.overallReview}</span>
+                </div>
+                <div>
+                  <AiOutlineRightCircle />
+                  <span>평점: {data.game.positiveRate}</span>
+                </div>
               </div>
-              <div>
-                <AiOutlineRightCircle />
-                <span>장르: {genre.join(", ")}</span>
-              </div>
-              <div>
-                <AiOutlineRightCircle />
-                <span>운영체제: {os.join(", ")}</span>
-              </div>
-              <div>
-                <AiOutlineRightCircle />
-                <span>인기도: {data.game.overallReview}</span>
-              </div>
-              <div>
-                <AiOutlineRightCircle />
-                <span>평점: {data.game.positiveRate}</span>
-              </div>
-            </div>
+            )}
+            {data && (
+              <img
+                style={{ borderRadius: 20 }}
+                alt="게임 이미지"
+                src={data.game.headerImage}
+              />
+            )}
+          </FlexBody>
+          <h3
+            style={{ textAlign: "center", paddingRight: 10 }}
+            className="screenShot"
+          >
+            스크린샷
+          </h3>
+          {data && (
+            <ScreenShot>
+              <img alt="스크린샷" src={data.game.screenshots[0]} />
+              <img alt="스크린샷" src={data.game.screenshots[1]} />
+              <img alt="스크린샷" src={data.game.screenshots[2]} />
+            </ScreenShot>
           )}
-          {data && <img alt="게임 이미지" src={data.game.headerImage} />}
-        </FlexBody>
-        <h3 className="screenShot">스크린샷</h3>
-        {data && (
-          <ScreenShot>
-            <img alt="스크린샷" src={data.game.screenshots[0]} />
-            <img alt="스크린샷" src={data.game.screenshots[1]} />
-            <img alt="스크린샷" src={data.game.screenshots[2]} />
-          </ScreenShot>
-        )}
-        <Footer></Footer>
+          <Footer></Footer>
 
-        <div className="detail review">
-          <div className="head">리뷰</div>
-          <div className="area">
-            <ReviewList
-              example={example}
-              removeHandler={removeHandler}
-              editHandler={editHandler}
-            />
-            {userContext.user && <ReviewAddForm clickHandler={clickHandler} />}
+          <div className="detail review">
+            <div className="head" style={{ fontSize: 40, margin: "10px 0" }}>
+              리뷰
+            </div>
+            <div className="area">
+              <ReviewList
+                example={example}
+                removeHandler={removeHandler}
+                editHandler={editHandler}
+              />
+              {userContext.user && (
+                <ReviewAddForm clickHandler={clickHandler} />
+              )}
+            </div>
           </div>
         </div>
       </Main>

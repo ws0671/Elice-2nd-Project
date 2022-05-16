@@ -9,8 +9,9 @@ export const ImageWrapper = styled.div`
   align-items: center;
 `;
 export const Image = styled.img`
-  width: 120px;
-  height: 120px;
+  width: 200px;
+  height: 200px;
+  border-radius: 30px;
 `;
 export const NewsImg = styled.img`
   width: 250px;
@@ -56,12 +57,16 @@ export const FlexDiv2 = styled.div`
 export const Body = styled.div`
   background: linear-gradient(
     180deg,
-    #060311 10.29%,
-    #080021 24.48%,
-    #3737a5 44.27%,
-    #722d9b 61.46%,
-    #b31a7b 78.13%,
-    #c62368 95.84%
+    #060311 0%,
+    rgba(22, 4, 30, 0.969038) 0.01%,
+    #080021 21.23%,
+    #3737a5 39.46%,
+    #722d9b 54.04%,
+    rgba(198, 35, 104, 0.61) 66.54%,
+    #b31a7b 79.56%,
+    #070218 94.15%,
+    #070218 99.99%,
+    rgba(15, 3, 27, 0.984049) 100%
   );
   background-blend-mode: multiply;
   a {

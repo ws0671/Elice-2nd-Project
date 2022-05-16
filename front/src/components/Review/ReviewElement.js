@@ -68,7 +68,16 @@ const ReviewElement = ({ item, removeHandler, editHandler }) => {
           <div>
             <div className="nickname">{item.writer.nickname}</div>
             <div className="review">
-              {item.isDeleted ? "삭제된 댓글입니다" : item.review}
+              {item.isDeleted
+                ? "삭제된 댓글입니다"
+                : item.review.split("\n").map((line) => {
+                    return (
+                      <span>
+                        {line}
+                        <br />
+                      </span>
+                    );
+                  })}
             </div>
           </div>
 

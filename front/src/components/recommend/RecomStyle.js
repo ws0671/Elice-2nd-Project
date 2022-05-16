@@ -6,7 +6,6 @@ export const BodyStyle = styled.div`
 background-image: ${(props) => `url(${props.imgUrl})`}; 
 width: 100vw;
 height: 100vh;
-font-family: "Roboto", sans-serif;
 display: flex;
 justify-content: flex-end;
 align-items: center;
@@ -19,7 +18,7 @@ export const ChartWrapper = styled.div`
     width: 600px;
     height: 600px;
     position: absolute;
-    right: 10rem;
+    right: 12rem;
     display: flex;
     flex-direction: column;
     align-items: center;

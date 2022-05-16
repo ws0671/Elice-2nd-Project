@@ -51,11 +51,37 @@ export const ButtonWrapper = styled.div`
 
 export const Button = styled.button`
   margin-top: 20px;
-  background: aliceblue;
   display: inline-block;
   position: absolute;
   top: 38rem;
   right:8rem;
+  border: none;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-family: 'paybooc-Light', sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+  background: linear-gradient(
+    45deg,
+    #ffd1ff,
+    #fbd0c8,
+    #d2feff,
+    #f6bee5,
+    #98adda,
+    #c5eee2,
+    #bddff6,
+    #a8c0ed,
+    #facfd9
+  );
+  color: #374a54;
+
+  &:hover{
+  letter-spacing: 2px;
+  transform: scale(1.2);
+  cursor: pointer;
+  }
 
 `;
 

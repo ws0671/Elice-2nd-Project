@@ -99,10 +99,10 @@ const MypageMap = () => {
           // 페이지 번호를 표출합니다
           displayPagination(pagination);
         } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-          alert("검색 결과가 존재하지 않습니다.");
+          Swal.fire("검색 결과가 존재하지 않습니다.");
           return;
         } else if (status === kakao.maps.services.Status.ERROR) {
-          alert("검색 결과 중 오류가 발생했습니다.");
+          Swal.fire("검색 결과 중 오류가 발생했습니다.");
           return;
         }
       }

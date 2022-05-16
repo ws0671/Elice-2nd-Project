@@ -11,7 +11,7 @@ const PrologueMain = () => {
             <Container>
                 <MainHeading>Do you Love to Play Games?</MainHeading>
                 <MainText>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    게임을 단 한번이라도 즐긴 적이 있다면...
                 </MainText>
                 <ButtonWrapper>
                     <Link to="/register">
