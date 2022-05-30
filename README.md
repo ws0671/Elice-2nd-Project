@@ -1,6 +1,6 @@
 # 프로젝트 구성 안내
 
-프로젝트 배포 주소: http://elice-kdt-ai-4th-team06.elicecoding.com/
+프로젝트 배포 주소: http://gamepearl.kro.kr/
 
 ## 1. 프로젝트 소개
   - 사용 데이터(캐글 스팀 데이터 셋)
